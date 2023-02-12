@@ -6,7 +6,7 @@ weight = 1
 
 ### Course Schedule
 
-{{< table style="table-striped" >}}
+{{< table style="table-bordered" >}}
 | Topic        | Assignments           | Reading  |
 | ------------- |:-------------:| -----:|
 | [GitHub Flow.](https://docs.google.com/presentation/d/e/2PACX-1vT4wGBWh3_C1nqYqDPZcLjoSD1jASBz7t7qARL37BhIdJkf4ItoujLXrKRgm8to6w/pub?start=false&loop=false&delayms=3000)      | [Community Guidelines Activity](https://github.com/RoboticAgents/course-information/blob/main/community_guidelines.md) | Review GitHub Flow Links in the [Slides](https://docs.google.com/presentation/d/e/2PACX-1vT4wGBWh3_C1nqYqDPZcLjoSD1jASBz7t7qARL37BhIdJkf4ItoujLXrKRgm8to6w/pub?start=false&loop=false&delayms=3000) |
