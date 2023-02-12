@@ -1,5 +1,5 @@
 +++
-title = "Learning Objectives and Outcomes"
+title = "Goals"
 description = ""
 weight = 3
 +++

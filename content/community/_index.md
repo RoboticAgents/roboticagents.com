@@ -1,6 +1,6 @@
 +++ 
-title = "Community Engagement"
-description = "Events engaging local community" 
+title = "Community"
+description = "Engaging local community" 
 weight = 3
 +++
 
@@ -15,8 +15,7 @@ for the maintenance of future economies and social-economic advancements. Studen
 on developing educational, engaging materials using robots for community engagement events. They find much reward in the civic engagement experience, which allows them to impact the
 young Meadville citizens and to learn about their place and responsibilities in the local community.
 It also gives them an opportunity to learn how to communicate technical details to a non-technical
-audience as they interact with the Meadville community through teachers, elementary school stu-
-dents and parents. {{< /panel >}}
+audience as they interact with the Meadville community through teachers, elementary school students and parents. {{< /panel >}}
 
 ## Festival of Robots Event at Allegheny College, 2022
 
