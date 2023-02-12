@@ -19,6 +19,8 @@
     <!-- Load stylesheet -->
     <link href="{{ .Site.BaseURL }}css/fontawesome.min.css" rel="stylesheet">
 
+    <link rel="shortcut icon" href="{{ "img/favicon.ico" | relURL }}">
+
     {{ $style := resources.Get "css/ace.scss" | toCSS | minify }}
     <link rel="stylesheet" href="{{ $style.Permalink }}">
 

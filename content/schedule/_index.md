@@ -4,7 +4,7 @@ description = ""
 weight = 3
 +++
 
-### Course Schedule
+### Schedule
 
 {{< table style="table-bordered" >}}
 | Topic        | Assignments           | Reading  |
