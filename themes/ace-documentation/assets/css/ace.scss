@@ -57,7 +57,7 @@ $docs_toc_position_top: 4rem;
 }
 
 /* Side navigation menus */
-.docs-sidenav span.badge.badge-primary, .docs-toc span.badge.badge-primary{
+.docs-sidenav span.badge.badge-secondary, .docs-toc span.badge.badge-secondary{
     font-size: 10px;
 }
 
@@ -79,7 +79,7 @@ $docs_toc_position_top: 4rem;
         align-items: start;
         justify-content: space-between;
     }
-    .docs-sidenav .nav-link > span.badge.badge-primary, .docs-toc li a > span.badge.badge-primary{
+    .docs-sidenav .nav-link > span.badge.badge-secondary, .docs-toc li a > span.badge.badge-secondary{
         margin-top: 5px;
     }
 }

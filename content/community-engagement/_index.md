@@ -19,4 +19,4 @@ audience as they interact with the Meadville community through teachers, element
 dents and parents. {{< /panel >}}
 
 
-![Images](https://github.com/CraftingSoftware/learncraftingsoftware.com/images/code-of-conduct.png)
+![Outreach](https://github.com/RoboticAgents/roboticagents.com/blob/main/images/outreach.JPG)
