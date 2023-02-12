@@ -1,7 +1,7 @@
 +++
 title = "Course Flow"
 description = ""
-weight = 1
+weight = 3
 +++
 
 ### Course Schedule
