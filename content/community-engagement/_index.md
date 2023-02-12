@@ -19,4 +19,6 @@ audience as they interact with the Meadville community through teachers, element
 dents and parents. {{< /panel >}}
 
 
-![Outreach](https://github.com/RoboticAgents/roboticagents.com/blob/main/images/outreach.JPG)
+![Outreach](../images/outreach.JPG)
+
+{{< button style="primary" link="https://github.com/RoboticAgents/roboticagents.com/blob/main/images/outreach.JPG" >}} Festival of Robots Event at Allegheny College {{< /button >}}
