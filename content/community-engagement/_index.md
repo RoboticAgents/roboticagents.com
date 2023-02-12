@@ -18,7 +18,13 @@ It also gives them an opportunity to learn how to communicate technical details 
 audience as they interact with the Meadville community through teachers, elementary school stu-
 dents and parents. {{< /panel >}}
 
+## Festival of Robots Event at Allegheny College, 2022
 
-![Outreach](../images/outreach.JPG)
-
-{{< button style="primary" link="https://github.com/RoboticAgents/roboticagents.com/blob/main/images/outreach.JPG" >}} Festival of Robots Event at Allegheny College {{< /button >}}
+<div style="position: relative; width: 100%; height: 0; padding-top: 129.4118%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+    src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFTn8Lj760&#x2F;view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+  </iframe>
+</div>
+<a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAFTn8Lj760&#x2F;view?utm_content=DAFTn8Lj760&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Layout - Festival of Robots</a> by Janyl Jumadinova
