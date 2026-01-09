@@ -31,5 +31,5 @@ home = [ "HTML", "JSON"]
 
 [[menu.shortcuts]]
 name = "<i class='fab fa-github'></i>"
-url = "https://github.com/RoboticAgents"
+url = "https://github.com/CMPSC304-RoboticAgents-Spring2026"
 weight = 10

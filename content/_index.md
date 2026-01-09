@@ -7,9 +7,9 @@ description = "A website containing content for a hands-on robotics course."
 
 {{< alert style="info" >}} This course explores topics of robot mechanisms, sensing and actuating, and robot computation. It also invites participates to use the topics of robotics to engage the community, offering demonstrations and presentations on various topics and projects.  {{< /alert >}}
 
-{{< button style="success" link="https://github.com/RoboticAgents" >}} GitHub Repository {{< /button >}}
+{{< button style="success" link="https://github.com/CMPSC304-RoboticAgents-Spring2026" >}} Spring 2026 GitHub Repository {{< /button >}}
 
-{{< button style="warning" link="https://github.com/Introduction-to-Autonomous-Robots/Introduction-to-Autonomous-Robots/blob/master/book-12-01-21-full.pdf" >}} Main textbook: "Introduction to Autonomous Robots" {{< /button >}}
+{{< button style="warning" link="https://github.com/Introduction-to-Autonomous-Robots/Introduction-to-Autonomous-Robots" >}} Main textbook: "Introduction to Autonomous Robots" {{< /button >}}
 
 {{< button style="info" link="https://www.ros.org/" >}} Robot Operating System {{< /button >}}
 

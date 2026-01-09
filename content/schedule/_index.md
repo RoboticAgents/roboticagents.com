@@ -1,23 +1,37 @@
 +++
-title = "Course Flow"
+title = "Course Schedule"
 description = ""
 weight = 3
 +++
 
-### Schedule
+### Schedule — Spring 2026
+
+#### Project Legend
+- **P1** = Wheeled Robot
+- **P2** = PLC + FANUC
+- **P3** = ROS Simulation
+- **P4** = TurtleBots
+- **FP** = Final Project
 
 {{< table style="table-bordered" >}}
-| Topic        | Assignments           | Reading  |
-| ------------- |:-------------| :-----|
-| [GitHub Flow.](https://docs.google.com/presentation/d/e/2PACX-1vT4wGBWh3_C1nqYqDPZcLjoSD1jASBz7t7qARL37BhIdJkf4ItoujLXrKRgm8to6w/pub?start=false&loop=false&delayms=3000)      | [Community Guidelines Activity](https://github.com/RoboticAgents/course-information/blob/main/community_guidelines.md) | Review GitHub Flow Links in the [Slides](https://docs.google.com/presentation/d/e/2PACX-1vT4wGBWh3_C1nqYqDPZcLjoSD1jASBz7t7qARL37BhIdJkf4ItoujLXrKRgm8to6w/pub?start=false&loop=false&delayms=3000) |
-| [Introduction to Robotics.](https://docs.google.com/presentation/d/e/2PACX-1vRFi6cfutkuaUs_dyR6XBAe9uZRN9G52Ijhm-RRP8Vmh6Bdrzw45VaRtHIq4emt3sU7euDF1343syAQ/pub?start=false&loop=false&delayms=3000)      | <ul><li>[Project: Ethical and Aggressive Robots](https://classroom.github.com/a/q3fHb-19)</li>  <li>[Activity: Ethical Robots.](https://forms.gle/CXrkyqo8XqtHNHmU8)</li> <li>[Activity: Engineering Ethics into Robots](https://forms.gle/u2jPCwjMZj9G8aam9)   |  <ul><li> Read [Chapter 1 in "Introduction to Autonomous Robots"](https://github.com/Introduction-to-Autonomous-Robots/Introduction-to-Autonomous-Robots/blob/master/book-12-01-21-full.pdf)</li> <li>Read [Dark Side of Ethical Robots](https://www.aies-conference.com/2018/contents/papers/main/AIES_2018_paper_98.pdf)</li></ul>|
-| [Actuating and Sensing](https://docs.google.com/presentation/d/e/2PACX-1vQK8x68VYXZ-UHVlMHCdNBeNrA13sMD94nUKp_4TLF-RakfrBUXHoT5ew64JDS3pVENxF2rifXZ2d5G/pub?start=false&loop=false&delayms=3000) | [Activity: gopigo sensors](https://forms.gle/bcnhiQwcCTwAQdxx9).      |  <ul><li>Read [Robot Ethics: Where Values and Engineering Meet](https://www.automate.org/blogs/robot-ethics-where-values-and-engineering-meet)</li>  <li>Read [Chapters 6 and 7 in "Introduction to Autonomous Robots"](https://github.com/Introduction-to-Autonomous-Robots/Introduction-to-Autonomous-Robots/blob/master/book-12-01-21-full.pdf)</li></ul> |
-| [Locomotion](https://docs.google.com/presentation/d/e/2PACX-1vTnupjXdfsjX9-SFnNoj-BTV3RCbkhiVzgHO30mfUoqvBTyFq3gV4Tfny56z5MpuIZAG-jBaBlhee5s/pub?start=false&loop=false&delayms=3000) | Project Walkthrough  | Read [Chapter 2.1-2.3 in "Introduction to Autonomous Robots"](https://github.com/Introduction-to-Autonomous-Robots/Introduction-to-Autonomous-Robots/blob/master/book-12-01-21-full.pdf) |
-| [Introduction to Navigation](https://docs.google.com/presentation/d/e/2PACX-1vQAsDXGSXPUEMPvI0mn63hLuLOpP1vuz-M8R3FWsB8yKpgyXslA5hgpQLPeb4SfCINz8-KnHRI_ggtf/pub?start=false&loop=false&delayms=3000) | [Project: navigating in air](https://classroom.github.com/a/Ums8zWMD)      |  <ul><li>[`bebop` documentation](https://www.parrot.com/us/support/documentation/bebop-range).</li> <li>[`pyparrot` documentation and examples](https://github.com/amymcgovern/pyparrot)</li></ul>  |
-| [Introduction to Robot Operating System](https://docs.google.com/presentation/d/e/2PACX-1vRfj8bEkA40DPt8MHogOkTxoiAJtPYvnubIR6RbmCqrMSIK0OxxViJrMKaUoR71rcv31-4aRTZ1RHkL/pub?start=false&loop=false&delayms=3000) | [Activity: get to know ROS robots](https://forms.gle/prpjRBA8vhDKz4qM7)  |    [Introduction to ROS](http://wiki.ros.org/ROS/Introduction) |
-| [Getting to Know ROS](https://docs.google.com/presentation/d/e/2PACX-1vTDe9Vqv_jAqgPWoUsSUu1k7HIVrjcCuxezc_rqakDxA5qTmKv3siXrwI9fcE32_yQ0WYPsdRgT7nrw/pub?start=false&loop=false&delayms=3000) | [Project: Robot Arm and Mapping](https://classroom.github.com/a/NOnOvzAa)   |  <ul><li>[ROS CLI Tutorials](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html)</li> <li>Read [Chapters 12 and 14 in "Introduction to Autonomous Robots"](https://github.com/Introduction-to-Autonomous-Robots/Introduction-to-Autonomous-Robots/blob/master/book-12-01-21-full.pdf)</li></ul> |
-| Understanding ROS | [Activity: Continue Learning ROS](https://classroom.github.com/a/i4MQCX_m)  | <ul><li>[ROS CLI Tutorials](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html)</li> <li>Read [Chapters 12 and 14 in "Introduction to Autonomous Robots"](https://github.com/Introduction-to-Autonomous-Robots/Introduction-to-Autonomous-Robots/blob/master/book-12-01-21-full.pdf)</li></ul>  |
-| Robot Manipulation and Navigation | [Project: Robot Manipulation and Navigation](https://classroom.github.com/a/EJpFjOIn)    |  Read [Chapters 12 and 14 in "Introduction to Autonomous Robots"](https://github.com/Introduction-to-Autonomous-Robots/Introduction-to-Autonomous-Robots/blob/master/book-12-01-21-full.pdf) |
-| [Community Engagement](https://docs.google.com/presentation/d/e/2PACX-1vS0mnZolYaBf2X5phvqBMY6UHj4Y4YsJQ9M-7itFBzwJw-uPHT309sWusStoZHnHF36ehPlbotdgCPy/pub?start=false&loop=false&delayms=3000) | Community Engagement Events Preparation  | Pages 11-23 in the ["Growing CS ..." Paper](https://jmwais.org/wp-content/uploads/sites/8/2022/07/clicable-july2022.pdf#page=11) |
-| Learning in robotics | [Final Project](https://classroom.github.com/a/6rXqJdbi)  |  Read [Chapters 8 and 10 in "Introduction to Autonomous Robots"](https://github.com/Introduction-to-Autonomous-Robots/Introduction-to-Autonomous-Robots/blob/master/book-12-01-21-full.pdf) |
+| Week | Topic (Lecture Focus) | Lab / Project Focus | Readings / Resources |
+| :--- | :--- | :--- | :--- |
+| 1 (Jan 12–17) | Course intro; What is a robot? Systems view; Safety | Team formation; Wheeled robot overview | Intro to Autonomous Robots (IAR) Ch. 1 |
+| 2 (Jan 20–24)<br>*(MLK Mon off)* | Actuators, sensors, power, control loops | P1: Mechanical build, wiring, power | IAR Ch. 6 |
+| 3 (Jan 27–31) | Reactive control; failure modes; ethics of embodied systems | P1: Basic control + sensing; demo | IAR Ch. 7 |
+| 4 (Feb 3–7) | Deterministic control; state machines; why PLCs exist | PLC ladder logic basics; discrete I/O | PLC Presentation: Intro, PLC basics, ladder logic fundamentals<br>IAR: Ch. 2 (sections on control architectures) |
+| 5 (Feb 10–14) | Safety, interlocks, fault handling | PLC timers, counters, safety logic | PLC Presentation: Timers, counters, interlocks, fault states<br>FANUC Manual: Safety overview + operational modes |
+| — | **Exam 1** (February 13th) | — | Covers P1 + basic PLC concepts |
+| 6 (Feb 17–21) | Human–robot collaboration; industrial workflows | FANUC CRX task programming; PLC ↔ robot coordination | FANUC Manual: Teach pendant operation, task execution<br>IAR: Ch. 1 (human–robot interaction sections) |
+| 7 (Feb 24–27) | System integration; comparison to autonomy | Full PLC–FANUC cell demo | IAR: Ch. 3 (reactive systems)<br>Short instructor note: PLC vs ROS comparison |
+| 8 (Feb 28–Mar 8) | **Spring Break – No Classes** | — | — |
+| 9 (Mar 10–14) | Why ROS? Robot software architectures | P3: ROS setup; simulation intro | IAR Ch. 2–3; ROS 2 Beginner Tutorials |
+| — | **Exam 2** (March 13th) | — | Covers PLC/FANUC + ROS fundamentals |
+| 10 (Mar 17–21) | Motion models; navigation concepts | P3: Autonomous behaviors in simulation | IAR Ch. 12 |
+| 11 (Mar 24–28) | Simulation vs reality; sensing uncertainty | P4: TurtleBot bring-up & navigation | IAR Ch. 14 |
+| 12 (Mar 31–Apr 4) | Robustness, recovery, evaluation | P4: TurtleBot demos & comparison | ROS navigation docs |
+| — | **Exam 3** (April 3rd) | — | ROS + autonomy concepts |
+| 13 (Apr 7–11)<br>*(Decl Day Apr 6; Recharge Apr 9–10)* | Project integration; system design | FP: Proposal + architecture review | No new reading |
+| 14 (Apr 14–18) | Ethics, communication, deployment | FP: Build & test | Selected civic/ethics readings |
+| 15 (Apr 21–27) | Reflection; future of robotics | FP demos & presentations | None |
 {{< /table >}}

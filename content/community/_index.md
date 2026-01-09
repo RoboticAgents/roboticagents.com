@@ -1,7 +1,7 @@
 +++ 
 title = "Community"
 description = "Engaging local community" 
-weight = 3
+draft = true
 +++
 
 {{< panel title="Engaging Community" style="info" >}} 

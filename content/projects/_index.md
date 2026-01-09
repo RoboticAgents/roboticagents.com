@@ -1,7 +1,7 @@
 +++
 title = "Projects"
 description = ""
-weight = 3
+draft = true
 +++
 
 
