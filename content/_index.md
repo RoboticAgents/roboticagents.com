@@ -13,3 +13,4 @@ description = "A website containing content a robotic agents course."
 
 {{< button style="info" link="https://www.ros.org/" >}} Robot Operating System {{< /button >}}
 
+{{< button style="danger" link="https://forms.gle/ZZtrtXH6S21JwNcf8" >}} Information Intake Form {{< /button >}}
