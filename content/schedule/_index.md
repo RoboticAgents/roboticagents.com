@@ -61,7 +61,7 @@ Week 13–15: [Physical] + [Control] + [Abstraction] + [Uncertainty] + [Integrat
 {{< table style="table-bordered" >}}
 | Week | Topic (Lecture Focus) | Lab / Project Focus | Readings / Resources |
 | :--- | :--- | :--- | :--- |
-| 1 (Jan 12–17) | Course intro; What is a robot? Systems view; Safety | Team formation; Wheeled robot overview | Intro to Autonomous Robots (IAR) Ch. 1 |
+| 1 (Jan 12–17) | Course intro; What is a robot? Systems view; Safety | Team formation; Wheeled robot overview | [Modern Robots Activity](https://docs.google.com/presentation/d/1d-GVw5LlcAGIGwjs_ngNqJljR3Ofu9X34a9EcibV2SU/edit?usp=sharing)<br>Intro to Autonomous Robots (IAR) Ch. 1 |
 | 2 (Jan 20–24)<br>*(MLK Mon off)* | Actuators, sensors, power, control loops | P1: Mechanical build, wiring, power | IAR Ch. 6 |
 | 3 (Jan 27–31) | Reactive control; failure modes; ethics of embodied systems | P1: Basic control + sensing; demo | IAR Ch. 7 |
 | 4 (Feb 3–7) | Deterministic control; state machines; why PLCs exist | PLC ladder logic basics; discrete I/O | PLC Presentation: Intro, PLC basics, ladder logic fundamentals<br>IAR: Ch. 2 (sections on control architectures) |
