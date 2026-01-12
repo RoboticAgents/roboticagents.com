@@ -36,19 +36,34 @@
             </a>
         </div>
         
-            <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarMainCollapse">
-              <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://github.com/CMPSC304-RoboticAgents-Spring2026" target="_blank">
-                                  <i class='fab fa-github'></i>
-                                </a>
-                            </li>
-              </ul>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarMainCollapse">
+          <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" href="/schedule/">
+                            Course Schedule
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/goals/">
+                            Goals
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/syllabus/">
+                            Syllabus
+                          </a>
+                      </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/CMPSC304-RoboticAgents-Spring2026" target="_blank">
+                              <i class='fab fa-github'></i>
+                            </a>
+                        </li>
+          </ul>
+        </div>
     </div>
 </nav>
 <div class="container-fluid">
@@ -99,7 +114,8 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#schedule--spring-2026">Schedule — Spring 2026</a></li>
+        <li><a href="#course-flow-the-big-picture">Course Flow: The Big Picture</a></li>
+        <li><a href="#detailed-weekly-schedule">Detailed Weekly Schedule</a></li>
       </ul>
     </li>
   </ul>
@@ -119,7 +135,90 @@
 <hr>
 
 
-<h3 id="schedule--spring-2026">Schedule — Spring 2026</h3>
+<h3 id="course-flow-the-big-picture">Course Flow: The Big Picture</h3>
+<p>The course follows a progressive shift in <strong>abstraction</strong> and <strong>uncertainty</strong>:</p>
+<p><strong>Physical Embodiment</strong> → <strong>Deterministic Control</strong> → <strong>Probabilistic Autonomy</strong> → <strong>System Integration</strong></p>
+<p>This sequence mirrors how robotic systems are encountered in professional practice and supports cognitive development from concrete reasoning to abstract systems thinking.</p>
+<h4 id="five-phases-of-learning">Five Phases of Learning</h4>
+
+<div class="table table-bordered" role="alert">
+    <table>
+  <thead>
+      <tr>
+          <th style="text-align: center">Phase</th>
+          <th style="text-align: center">Weeks</th>
+          <th style="text-align: left">Focus</th>
+          <th style="text-align: left">What You&rsquo;ll Build</th>
+          <th style="text-align: left">Key Concept</th>
+          <th style="text-align: center">Assessment</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><strong>Phase 1</strong><br>Physical Robot</td>
+          <td style="text-align: center">1–3</td>
+          <td style="text-align: left">Hardware embodiment</td>
+          <td style="text-align: left">Wheeled robot from components</td>
+          <td style="text-align: left">Robots are <strong>physical systems</strong> with mechanical, electrical, and sensing constraints</td>
+          <td style="text-align: center">—</td>
+      </tr>
+      <tr>
+          <td style="text-align: center"><strong>Phase 2</strong><br>Industrial Control</td>
+          <td style="text-align: center">4–7</td>
+          <td style="text-align: left">Deterministic logic</td>
+          <td style="text-align: left">PLC + FANUC robotic cell</td>
+          <td style="text-align: left">Safety through <strong>predictability</strong> and human-centered design</td>
+          <td style="text-align: center"><strong>Exam 1</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: center"><strong>Phase 3</strong><br>Software Autonomy</td>
+          <td style="text-align: center">9–10</td>
+          <td style="text-align: left">Software architecture</td>
+          <td style="text-align: left">ROS simulation behaviors</td>
+          <td style="text-align: left">Autonomous systems require <strong>abstraction</strong> and planning</td>
+          <td style="text-align: center"><strong>Exam 2</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: center"><strong>Phase 4</strong><br>Real Autonomy</td>
+          <td style="text-align: center">11–12</td>
+          <td style="text-align: left">Uncertainty &amp; robustness</td>
+          <td style="text-align: left">TurtleBot navigation</td>
+          <td style="text-align: left">Simulation ≠ reality; <strong>robustness</strong> requires testing</td>
+          <td style="text-align: center"><strong>Exam 3</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: center"><strong>Phase 5</strong><br>Integration</td>
+          <td style="text-align: center">13–15</td>
+          <td style="text-align: left">Synthesis &amp; judgment</td>
+          <td style="text-align: left">Final project of your design</td>
+          <td style="text-align: left">Engineering is about <strong>choices</strong>, not just tools</td>
+          <td style="text-align: center">Presentation</td>
+      </tr>
+  </tbody>
+</table>
+
+</div>
+
+<h4 id="cumulative-learning">Cumulative Learning</h4>
+<p>Each phase builds on all prior work. Concepts are revisited with increasing depth:</p>
+<pre tabindex="0"><code>Week 1–3:   [Physical Systems]
+              ↓
+Week 4–7:   [Physical Systems] + [Deterministic Control] + [Safety]
+              ↓
+Week 9–10:  [Physical Systems] + [Control Architectures] + [Software Abstraction]
+              ↓
+Week 11–12: [Physical Systems] + [Control] + [Abstraction] + [Uncertainty] + [Robustness]
+              ↓
+Week 13–15: [Physical] + [Control] + [Abstraction] + [Uncertainty] + [Integration] + [Ethics]
+</code></pre><h4 id="order">Order</h4>
+<ul>
+<li><strong>Physical first:</strong> You can&rsquo;t understand software abstractions without hardware constraints</li>
+<li><strong>Industrial before autonomous:</strong> Most robots prioritize safety over intelligence</li>
+<li><strong>Simulation before hardware:</strong> Learn ROS architecture without hardware debugging</li>
+<li><strong>Integration last:</strong> Make informed design choices only after experiencing tradeoffs</li>
+</ul>
+<hr>
+<h3 id="detailed-weekly-schedule">Detailed Weekly Schedule</h3>
 <h4 id="project-legend">Project Legend</h4>
 <ul>
 <li><strong>P1</strong> = Wheeled Robot</li>
@@ -265,7 +364,28 @@
             </div> 
 
         </div> 
+<script src="http://localhost:1313/lib/jquery.min.js"></script> 
+<script src="http://localhost:1313/lib/popper.min.js"></script> 
+
+<script src="http://localhost:1313/js/bootstrap.min.js"></script> 
 
 
-    </body>
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "http:\/\/localhost:1313\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+</body>
 </html>
