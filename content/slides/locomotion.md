@@ -1,6 +1,6 @@
 +++
-title = "Actuators and Locomotion"
-description = "Week 2 lecture on robot movement mechanisms"
+title = "Locomotion"
+description = "Week 1 lecture on robot movement mechanisms"
 weight = 1
 +++
 
