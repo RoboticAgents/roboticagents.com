@@ -25,21 +25,21 @@
         
         .reveal h1 {
             color: var(--primary);
-            font-size: 2.5em;
+            font-size: 2em;
             font-weight: 700;
-            margin-bottom: 0.5em;
+            margin-bottom: 0.3em;
         }
         
         .reveal h2 {
             color: var(--primary);
-            font-size: 1.8em;
+            font-size: 1.4em;
             font-weight: 600;
-            margin-bottom: 0.8em;
+            margin-bottom: 0.5em;
         }
         
         .reveal h3 {
             color: var(--secondary);
-            font-size: 1.3em;
+            font-size: 1.1em;
             font-weight: 600;
         }
         
@@ -239,8 +239,8 @@
 
             <!-- Energy Efficiency -->
             <section>
-                <h2>Energy Efficiency: The Wheel Wins</h2>
-                <img src="power-consumption.png" alt="Power consumption vs speed" style="max-width: 70%; margin: 20px auto;">
+                <h2>Energy Efficiency</h2>
+                <img src="power-consumption.png" alt="Power consumption vs speed" style="max-width: 65%; margin: 15px auto;">
                 <div class="box box-info">
                     <strong>Rolling</strong> provides the best energy-to-speed ratio<br>
                     <span class="small-text">Railway wheels are ~10× more efficient than walking!</span>
@@ -276,22 +276,22 @@
 
             <!-- Stability Types -->
             <section>
-                <h2>Static vs. Dynamic Stability</h2>
-                <div class="two-col" style="margin-top: 40px;">
+                <h2>Stability Types</h2>
+                <div class="two-col" style="margin-top: 25px; font-size: 0.9em;">
                     <div class="col-item">
-                        <h3>Static Stability</h3>
-                        <p>Won't fall when <strong>not</strong> moving</p>
-                        <ul>
+                        <h3>Static</h3>
+                        <p style="font-size: 0.95em;">Won't fall when <strong>not</strong> moving</p>
+                        <ul style="font-size: 0.9em;">
                             <li><span class="checkmark">✓</span> Stable at rest</li>
                             <li><span class="checkmark">✓</span> Slower movements</li>
                             <li><span class="checkmark">✓</span> Simpler control</li>
                         </ul>
                     </div>
                     <div class="col-item">
-                        <h3>Dynamic Stability</h3>
-                        <p>Requires <strong>constant</strong> motion</p>
-                        <ul>
-                            <li><span class="checkmark">✓</span> Faster, more agile</li>
+                        <h3>Dynamic</h3>
+                        <p style="font-size: 0.95em;">Requires <strong>constant</strong> motion</p>
+                        <ul style="font-size: 0.9em;">
+                            <li><span class="checkmark">✓</span> Faster, agile</li>
                             <li><span class="crossmark">✗</span> Complex control</li>
                             <li><span class="crossmark">✗</span> Always actuating</li>
                         </ul>
@@ -301,14 +301,14 @@
 
             <!-- Stability Principle -->
             <section>
-                <h2>Stability: The Key Principle</h2>
-                <img src="stability.pdf" alt="Stability examples" style="max-width: 80%; margin: 25px auto;">
-                <div class="box">
-                    <strong>Center of mass</strong> must stay within the polygon formed by ground-contact points
+                <h2>Stability Principle</h2>
+                <img src="stability.png" alt="Stability examples" style="max-width: 75%; margin: 15px auto;">
+                <div class="box" style="font-size: 0.9em;">
+                    <strong>Center of mass</strong> must stay within ground-contact polygon
                 </div>
-                <ul class="small-text" style="margin-top: 20px;">
-                    <li><strong>Left:</strong> Statically stable (stays upright at rest)</li>
-                    <li><strong>Middle:</strong> Dynamically stable (must keep moving)</li>
+                <ul style="font-size: 0.75em; margin-top: 15px;">
+                    <li><strong>Left:</strong> Static (stable at rest)</li>
+                    <li><strong>Middle:</strong> Dynamic (must keep moving)</li>
                     <li><strong>Right:</strong> Both modes possible</li>
                 </ul>
             </section>
@@ -353,12 +353,12 @@
 
             <!-- Cartesian DoF -->
             <section>
-                <h2>Cartesian DoF in 3D Space</h2>
-                <img src="pitchyawroll.pdf" alt="Pitch, yaw, and roll" style="max-width: 60%; margin: 20px auto;">
-                <div class="two-col" style="margin-top: 30px; font-size: 0.85em;">
+                <h2>Cartesian DoF (3D Space)</h2>
+                <img src="pitchyawroll.png" alt="Pitch, yaw, and roll" style="max-width: 55%; margin: 15px auto;">
+                <div class="two-col" style="margin-top: 20px; font-size: 0.8em;">
                     <div>
                         <strong>Translation (3 DoF):</strong>
-                        <ul>
+                        <ul style="font-size: 0.95em;">
                             <li>Forward/backward</li>
                             <li>Left/right</li>
                             <li>Up/down</li>
@@ -366,7 +366,7 @@
                     </div>
                     <div>
                         <strong>Rotation (3 DoF):</strong>
-                        <ul>
+                        <ul style="font-size: 0.95em;">
                             <li><span class="highlight">Pitch</span> (nose up/down)</li>
                             <li><span class="highlight">Yaw</span> (turn left/right)</li>
                             <li><span class="highlight">Roll</span> (tilt side-to-side)</li>
@@ -377,9 +377,9 @@
 
             <!-- Wheel Types Table -->
             <section>
-                <h2>Wheel Types and Their DoF</h2>
-                <img src="wheels-table.png" alt="Wheel types" style="max-width: 75%; margin: 20px auto;">
-                <p class="small-text">Different wheel types enable different types of mobility</p>
+                <h2>Wheel Types & DoF</h2>
+                <img src="wheels-table.png" alt="Wheel types" style="max-width: 70%; margin: 15px auto;">
+                <p class="small-text">Different wheel types enable different mobility</p>
             </section>
 
             <!-- Standard Wheel -->

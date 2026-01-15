@@ -23,7 +23,7 @@ weight = 1
 
 # Actuators and Locomotion
 
-**Week 2 • CS304 Robotic Agents**
+**Week 1 • CS304 Robotic Agents**
 
 ---
 
