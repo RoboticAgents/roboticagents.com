@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actuators and Locomotion | CS304</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <style>
+        :root {
+            --primary: #5a4ba4;
+            --secondary: #6610f2;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .reveal h1 {
+            color: var(--primary);
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 0.5em;
+        }
+        
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 0.8em;
+        }
+        
+        .reveal h3 {
+            color: var(--secondary);
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .reveal .subtitle {
+            color: var(--dark);
+            font-size: 1.2em;
+            margin-top: -20px;
+        }
+        
+        .reveal ul {
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .reveal li {
+            margin: 0.5em 0;
+        }
+        
+        .reveal .highlight {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .reveal .box {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary);
+            margin: 20px auto;
+            max-width: 90%;
+        }
+        
+        .reveal .box-success {
+            border-left-color: var(--success);
+        }
+        
+        .reveal .box-info {
+            border-left-color: var(--info);
+        }
+        
+        .reveal .box-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .reveal .col-item {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .reveal .small-text {
+            font-size: 0.75em;
+            color: #666;
+        }
+        
+        .reveal table {
+            font-size: 0.8em;
+            margin: 20px auto;
+        }
+        
+        .reveal th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+        }
+        
+        .reveal td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .reveal img {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .reveal .progress {
+            background: rgba(90, 75, 164, 0.2);
+        }
+        
+        .reveal .progress span {
+            background: var(--primary);
+        }
+        
+        .reveal .checkmark {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .reveal .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .reveal .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+        
+        .reveal .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .reveal .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .reveal .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section>
+                <h1>Actuators and Locomotion</h1>
+                <p class="subtitle">Week 2 • CS304 Robotic Agents</p>
+                <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>→</strong> to advance</p>
+            </section>
+
+            <!-- Overview -->
+            <section>
+                <h2>Today's Overview</h2>
+                <ul>
+                    <li>What is actuation?</li>
+                    <li>Locomotion vs. manipulation</li>
+                    <li>Static vs. dynamic stability</li>
+                    <li>Degrees of Freedom (DoF)</li>
+                    <li>Wheel types and kinematics</li>
+                </ul>
+            </section>
+
+            <!-- Actuation Definition -->
+            <section>
+                <h2>Actuation: Making Robots Move</h2>
+                <div class="box">
+                    <strong>Actuation</strong> = The robot's ability to move and interact with the world
+                </div>
+                <p style="margin-top: 40px;">Two key types:</p>
+                <ul>
+                    <li><span class="highlight">Locomotion</span>: Moving the robot itself</li>
+                    <li><span class="highlight">Manipulation</span>: Moving objects in the environment</li>
+                </ul>
+            </section>
+
+            <!-- Duality -->
+            <section>
+                <h2>The Duality of Movement</h2>
+                <p>Both use the same principle:</p>
+                <ul style="margin-top: 30px;">
+                    <li>Motors exert forces on the environment</li>
+                    <li><strong>Locomotion</strong>: Forces on ground/water/air → robot moves</li>
+                    <li><strong>Manipulation</strong>: Forces on objects → objects move</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 40px;">
+                    <strong>Example:</strong> Insect legs do both!
+                </div>
+            </section>
+
+            <!-- Locomotion Methods -->
+            <section>
+                <h2>Locomotion Methods</h2>
+                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 30px 0;">
+                    <span class="badge badge-primary">Rolling</span>
+                    <span class="badge badge-primary">Walking</span>
+                    <span class="badge badge-primary">Running</span>
+                    <span class="badge badge-primary">Jumping</span>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 40px;">
+                    <span class="badge badge-primary">Swimming</span>
+                    <span class="badge badge-primary">Flying</span>
+                    <span class="badge badge-primary">Crawling</span>
+                    <span class="badge badge-primary">Sliding</span>
+                </div>
+                <div class="box box-warning">
+                    <strong>Key Question:</strong> Which mechanism is best for your application?
+                </div>
+                <p class="small-text" style="margin-top: 20px;">Trade-offs: energy efficiency, terrain, speed, stability, cost</p>
+            </section>
+
+            <!-- Energy Efficiency -->
+            <section>
+                <h2>Energy Efficiency: The Wheel Wins</h2>
+                <img src="power-consumption.png" alt="Power consumption vs speed" style="max-width: 70%; margin: 20px auto;">
+                <div class="box box-info">
+                    <strong>Rolling</strong> provides the best energy-to-speed ratio<br>
+                    <span class="small-text">Railway wheels are ~10× more efficient than walking!</span>
+                </div>
+            </section>
+
+            <!-- Wheel Limitations -->
+            <section>
+                <h2>But Wheels Have Limits</h2>
+                <div class="two-col" style="margin-top: 40px;">
+                    <div class="col-item">
+                        <h3>Great For:</h3>
+                        <ul>
+                            <li><span class="checkmark">✓</span> Roads</li>
+                            <li><span class="checkmark">✓</span> Warehouses</li>
+                            <li><span class="checkmark">✓</span> Flat floors</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Poor For:</h3>
+                        <ul>
+                            <li><span class="crossmark">✗</span> Forests</li>
+                            <li><span class="crossmark">✗</span> Mountains</li>
+                            <li><span class="crossmark">✗</span> Rough terrain</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box" style="margin-top: 40px;">
+                    <strong>Legs</strong> excel where wheels fail!
+                </div>
+                <p class="small-text">This is why evolution never created wheeled animals</p>
+            </section>
+
+            <!-- Stability Types -->
+            <section>
+                <h2>Static vs. Dynamic Stability</h2>
+                <div class="two-col" style="margin-top: 40px;">
+                    <div class="col-item">
+                        <h3>Static Stability</h3>
+                        <p>Won't fall when <strong>not</strong> moving</p>
+                        <ul>
+                            <li><span class="checkmark">✓</span> Stable at rest</li>
+                            <li><span class="checkmark">✓</span> Slower movements</li>
+                            <li><span class="checkmark">✓</span> Simpler control</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Dynamic Stability</h3>
+                        <p>Requires <strong>constant</strong> motion</p>
+                        <ul>
+                            <li><span class="checkmark">✓</span> Faster, more agile</li>
+                            <li><span class="crossmark">✗</span> Complex control</li>
+                            <li><span class="crossmark">✗</span> Always actuating</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stability Principle -->
+            <section>
+                <h2>Stability: The Key Principle</h2>
+                <img src="stability.pdf" alt="Stability examples" style="max-width: 80%; margin: 25px auto;">
+                <div class="box">
+                    <strong>Center of mass</strong> must stay within the polygon formed by ground-contact points
+                </div>
+                <ul class="small-text" style="margin-top: 20px;">
+                    <li><strong>Left:</strong> Statically stable (stays upright at rest)</li>
+                    <li><strong>Middle:</strong> Dynamically stable (must keep moving)</li>
+                    <li><strong>Right:</strong> Both modes possible</li>
+                </ul>
+            </section>
+
+            <!-- Real Examples -->
+            <section>
+                <h2>Real-World Examples</h2>
+                <div class="two-col" style="margin-top: 40px;">
+                    <div class="col-item">
+                        <h3>Six Legs</h3>
+                        <p><em>(Insects, hexapods)</em></p>
+                        <ul>
+                            <li>Statically stable walking</li>
+                            <li>Move 3 legs at a time</li>
+                            <li>Triangle always supports</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Four Legs</h3>
+                        <p><em>(Dogs, quadruped robots)</em></p>
+                        <ul>
+                            <li>Walking = static</li>
+                            <li>Running = dynamic</li>
+                            <li>Switch between modes</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DoF Introduction -->
+            <section>
+                <h2>Degrees of Freedom (DoF)</h2>
+                <div class="box">
+                    <strong>DoF</strong> = Independent ways a system can move
+                </div>
+                <p style="margin-top: 40px;">Two types to distinguish:</p>
+                <ol style="margin-top: 20px; font-size: 0.9em;">
+                    <li><strong>Cartesian DoF:</strong> Positions/orientations in space<br><span class="small-text">(Maximum 6 in 3D space)</span></li>
+                    <li style="margin-top: 20px;"><strong>Mechanical DoF:</strong> Number of actuated joints<br><span class="small-text">(Depends on robot design)</span></li>
+                </ol>
+            </section>
+
+            <!-- Cartesian DoF -->
+            <section>
+                <h2>Cartesian DoF in 3D Space</h2>
+                <img src="pitchyawroll.pdf" alt="Pitch, yaw, and roll" style="max-width: 60%; margin: 20px auto;">
+                <div class="two-col" style="margin-top: 30px; font-size: 0.85em;">
+                    <div>
+                        <strong>Translation (3 DoF):</strong>
+                        <ul>
+                            <li>Forward/backward</li>
+                            <li>Left/right</li>
+                            <li>Up/down</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>Rotation (3 DoF):</strong>
+                        <ul>
+                            <li><span class="highlight">Pitch</span> (nose up/down)</li>
+                            <li><span class="highlight">Yaw</span> (turn left/right)</li>
+                            <li><span class="highlight">Roll</span> (tilt side-to-side)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Wheel Types Table -->
+            <section>
+                <h2>Wheel Types and Their DoF</h2>
+                <img src="wheels-table.png" alt="Wheel types" style="max-width: 75%; margin: 20px auto;">
+                <p class="small-text">Different wheel types enable different types of mobility</p>
+            </section>
+
+            <!-- Standard Wheel -->
+            <section>
+                <h2>Standard Wheel (2 DoF)</h2>
+                <p><strong>Two degrees of freedom:</strong></p>
+                <ol style="margin-top: 30px;">
+                    <li>Rotation around the wheel axle</li>
+                    <li>Rotation around ground contact point</li>
+                </ol>
+                <div class="box box-warning" style="margin-top: 40px;">
+                    <strong>Constraint:</strong> Can only roll in one direction<br>
+                    <span class="small-text">Cannot move sideways (would require skidding)</span>
+                </div>
+                <p style="margin-top: 30px;"><strong>Example:</strong> Bicycle wheel, car wheel</p>
+            </section>
+
+            <!-- Caster Wheel -->
+            <section>
+                <h2>Caster Wheel (3 DoF)</h2>
+                <p><strong>Three degrees of freedom:</strong></p>
+                <ol style="margin-top: 30px;">
+                    <li>Rotation around the wheel axle</li>
+                    <li>Rotation around ground contact</li>
+                    <li>Rotation around the caster axis</li>
+                </ol>
+                <div class="box box-success" style="margin-top: 40px;">
+                    Can reorient to roll in any direction!
+                </div>
+                <p style="margin-top: 30px;"><strong>Example:</strong> Shopping cart, office chair</p>
+            </section>
+
+            <!-- Swedish Wheel -->
+            <section>
+                <h2>Swedish/Mecanum Wheel (3 DoF)</h2>
+                <p><strong>Three degrees of freedom:</strong></p>
+                <ol style="margin-top: 30px;">
+                    <li>Rotation around main wheel axle</li>
+                    <li>Rotation around ground contact</li>
+                    <li>Rotation around roller axles</li>
+                </ol>
+                <div class="box box-success" style="margin-top: 40px;">
+                    Rollers on circumference allow sideways motion<br>
+                    <span class="small-text">Result: True omnidirectional movement!</span>
+                </div>
+            </section>
+
+            <!-- Kinematic Constraints -->
+            <section>
+                <h2>Kinematic Constraints</h2>
+                <div class="box">
+                    <strong>3-DoF wheels</strong> = Free movement on a plane<br>
+                    <strong>2-DoF wheels</strong> = Constrained movement
+                </div>
+                <div class="box box-info" style="margin-top: 40px;">
+                    <strong>But</strong> constrained ≠ unreachable!
+                </div>
+                <ul style="margin-top: 30px;">
+                    <li>A car can parallel park</li>
+                    <li>Requires multiple maneuvers</li>
+                    <li>Like a knight on a chessboard</li>
+                </ul>
+            </section>
+
+            <!-- Mobile Robot DoF -->
+            <section>
+                <h2>Mobile Robot DoF on a Plane</h2>
+                <p><strong>A plane has 3 Cartesian DoF:</strong></p>
+                <ul style="margin-top: 30px; font-size: 0.9em;">
+                    <li>X position (horizontal)</li>
+                    <li>Y position (vertical)</li>
+                    <li>Orientation (angle θ)</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 40px;">
+                    Robots without 3-DoF wheels have <strong>kinematic constraints</strong>
+                </div>
+                <p class="small-text" style="margin-top: 20px;">They may need multiple moves to reach certain poses</p>
+            </section>
+
+            <!-- Manipulator Arms -->
+            <section>
+                <h2>Manipulator Arms: Mechanical DoF</h2>
+                <div class="box">
+                    Each actuated joint typically adds <strong>1 mechanical DoF</strong>
+                </div>
+                <p style="margin-top: 40px;"><strong>On a plane</strong> (2D workspace):</p>
+                <ul style="margin-top: 20px;">
+                    <li>Up/down position</li>
+                    <li>Left/right position</li>
+                    <li>End-effector orientation</li>
+                </ul>
+                <p style="margin-top: 40px;" class="small-text"><strong>3 Cartesian DoF needed</strong> → Need ≥3 joints</p>
+            </section>
+
+            <!-- Joint Types -->
+            <section>
+                <h2>Joint Types</h2>
+                <div class="two-col" style="margin-top: 40px;">
+                    <div class="col-item">
+                        <h3>Revolute (Rotary)</h3>
+                        <ul>
+                            <li>Most common</li>
+                            <li>Rotates around an axis</li>
+                            <li><strong>Example:</strong> Elbow, shoulder</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Prismatic (Linear)</h3>
+                        <ul>
+                            <li>Extends and contracts</li>
+                            <li>Slides along an axis</li>
+                            <li><strong>Example:</strong> Telescope, piston</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design Trade-offs -->
+            <section>
+                <h2>Design Trade-offs</h2>
+                <p>Choosing kinematics involves balancing:</p>
+                <ul style="margin-top: 30px;">
+                    <li>Mechanical complexity</li>
+                    <li>Maneuverability</li>
+                    <li>Precision</li>
+                    <li>Cost</li>
+                    <li>Ease of control</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 40px; font-size: 0.85em;">
+                    <strong>Example:</strong> Differential drive (2 wheels) vs. car steering<br>
+                    • Differential: cheap, maneuverable, hard to drive straight<br>
+                    • Car: expensive, precise, hard to parallel park
+                </div>
+            </section>
+
+            <!-- Differential Drive -->
+            <section>
+                <h2>Real Robot: Differential Drive</h2>
+                <p><strong>Configuration:</strong></p>
+                <ul style="margin-top: 20px;">
+                    <li>Two powered wheels on shared axis</li>
+                    <li>One (or two) caster wheels for support</li>
+                </ul>
+                <div class="two-col" style="margin-top: 40px; font-size: 0.85em;">
+                    <div class="col-item">
+                        <h3>Advantages</h3>
+                        <ul>
+                            <li>Very maneuverable</li>
+                            <li>Simple control</li>
+                            <li>Low cost</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Challenge</h3>
+                        <ul>
+                            <li>Hard to drive straight</li>
+                            <li>Needs matched motors</li>
+                            <li>Wheel wear issues</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Takeaways -->
+            <section>
+                <h2>Key Takeaways</h2>
+                <ol style="margin-top: 30px; line-height: 1.8;">
+                    <li><strong>Actuation</strong> enables locomotion and manipulation</li>
+                    <li><strong>Stability</strong> can be static (at rest) or dynamic (requires motion)</li>
+                    <li><strong>DoF</strong> describes what movements are possible</li>
+                    <li><strong>Wheel type</strong> determines mobility constraints</li>
+                    <li><strong>Design choices</strong> involve complex trade-offs</li>
+                </ol>
+            </section>
+
+            <!-- Before Next Class -->
+            <section>
+                <h2>Before Next Class</h2>
+                <div class="box box-success">
+                    <strong>Hands-on activity:</strong> Building your wheeled robot!
+                </div>
+                <p style="margin-top: 40px;"><strong>Think about:</strong></p>
+                <ul style="margin-top: 20px;">
+                    <li>What DoF does your robot need?</li>
+                    <li>Static or dynamic stability?</li>
+                    <li>Which wheel configuration?</li>
+                    <li>What trade-offs will you make?</li>
+                </ul>
+            </section>
+
+            <!-- Questions -->
+            <section>
+                <h2>Questions?</h2>
+                <div class="box" style="margin-top: 60px;">
+                    <strong>Next:</strong> Continue Project 1 (Wheeled Robot)<br>
+                    <ul style="margin-top: 15px;">
+                        <li>Mechanical build</li>
+                        <li>Wiring and power</li>
+                        <li>Basic control</li>
+                    </ul>
+                </div>
+                <p class="small-text" style="margin-top: 60px;"><em>Readings: IAR Chapters 2 & 6</em></p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'all'
+        });
+    </script>
+</body>
+</html>
