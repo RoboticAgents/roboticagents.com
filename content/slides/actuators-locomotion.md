@@ -348,7 +348,7 @@ Choosing kinematics involves balancing:
 
 ## Before Next Class
 
-**Hands-on activity**: Building your wheeled robot!
+Building your wheeled robot!
 
 **Think about**:
 - What DoF does your robot need?
@@ -361,6 +361,9 @@ Choosing kinematics involves balancing:
 ## Questions?
 
 **Next**: Continue Project 1 (Wheeled Robot)
+- Submit components list and team contract
+- Finish Design
+**Next Week**:
 - Mechanical build
 - Wiring and power
 - Basic control
