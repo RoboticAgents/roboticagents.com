@@ -23,11 +23,11 @@ weight = 1
 
 # Actuators and Locomotion
 
-**Week 1 • CS304 Robotic Agents**
+**Week 1 • CMPSC 304 Robotic Agents**
 
 ---
 
-## Today's Overview
+## Today's Agenda
 
 - What is actuation?
 - Locomotion vs. manipulation
