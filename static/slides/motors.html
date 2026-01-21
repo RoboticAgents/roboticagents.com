@@ -214,53 +214,61 @@
             <section>
                 <h2>Arduino Uno Overview</h2>
                 <h3>USB Connection</h3>
-                <img src="../slides/arduino1.png" alt="Arduino USB Port" style="max-width: 35%;">
-                <ul style="margin-top: 15px;">
-                    <li><strong>USB-B port</strong> connects Arduino to your computer</li>
-                    <li>Used to upload code to the Arduino microcontroller</li>
-                    <li>Powers the Arduino during programming</li>
-                    <li>Enables serial communication for debugging</li>
-                </ul>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center;">
+                    <img src="../slides/arduino1.png" alt="Arduino USB Port" style="max-width: 100%;">
+                    <ul style="margin: 0; font-size: 0.85em;">
+                        <li><strong>USB-B port</strong> connects Arduino to your computer</li>
+                        <li>Used to upload code to the Arduino microcontroller</li>
+                        <li>Powers the Arduino during programming</li>
+                        <li>Enables serial communication for debugging</li>
+                    </ul>
+                </div>
             </section>
 
             <!-- Digital Pins -->
             <section>
                 <h2>Digital Pins</h2>
-                <img src="../slides/arduino2.png" alt="Arduino Digital Pins" style="max-width: 35%;">
-                <ul style="margin-top: 15px;">
-                    <li><strong>Left side:</strong> Digital input/output pins (0-13)</li>
-                    <li>Pins can be <strong>HIGH</strong> (5V) or <strong>LOW</strong> (0V)</li>
-                    <li><strong>Outputs:</strong> Turn on an LED every 10 seconds to make it blink</li>
-                    <li><strong>Inputs:</strong> Read sensor data (e.g., is surface wet or dry?)</li>
-                    <li><strong>Pins with ~ symbol:</strong> Support PWM (Pulse Width Modulation)</li>
-                    <li>PWM pins: 3, 5, 6, 9, 10, 11</li>
-                </ul>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center;">
+                    <img src="../slides/arduino2.png" alt="Arduino Digital Pins" style="max-width: 100%;">
+                    <ul style="margin: 0; font-size: 0.85em;">
+                        <li><strong>Digital input/output pins</strong> (0-13)</li>
+                        <li>Pins can be <strong>HIGH</strong> (5V) or <strong>LOW</strong> (0V)</li>
+                        <li><strong>Outputs:</strong> Turn on an LED every 10 seconds to make it blink</li>
+                        <li><strong>Inputs:</strong> Read sensor data (e.g., is surface wet or dry?)</li>
+                        <li><strong>Pins with ~ symbol:</strong> Support PWM (Pulse Width Modulation)</li>
+                        <li>PWM pins: 3, 5, 6, 9, 10, 11</li>
+                    </ul>
+                </div>
             </section>
 
             <!-- Analog Pins -->
             <section>
                 <h2>Analog Pins</h2>
-                <img src="../slides/arduino3.png" alt="Arduino Analog Pins" style="max-width: 35%;">
-                <ul style="margin-top: 15px;">
-                    <li><strong>Bottom right:</strong> Analog input pins (A0-A5)</li>
-                    <li>Can read a <strong>range of values</strong> (0-1023)</li>
-                    <li>Perfect for sensors with continuous output</li>
-                    <li><strong>Examples:</strong> Distance sensors, light sensors, temperature sensors, potentiometers</li>
-                </ul>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center;">
+                    <img src="../slides/arduino3.png" alt="Arduino Analog Pins" style="max-width: 100%;">
+                    <ul style="margin: 0; font-size: 0.85em;">
+                        <li><strong>Analog input pins</strong> (A0-A5)</li>
+                        <li>Can read a <strong>range of values</strong> (0-1023)</li>
+                        <li>Perfect for sensors with continuous output</li>
+                        <li><strong>Examples:</strong> Distance sensors, light sensors, temperature sensors, potentiometers</li>
+                    </ul>
+                </div>
             </section>
 
             <!-- Power Pins -->
             <section>
                 <h2>Power Pins</h2>
-                <img src="../slides/arduino4.png" alt="Arduino Power Pins" style="max-width: 35%;">
-                <ul style="margin-top: 15px;">
-                    <li><strong>Top left:</strong> Power and ground connections</li>
-                    <li><strong>5V pin:</strong> Provides 5 volts (HIGH)</li>
-                    <li><strong>3.3V pin:</strong> Provides 3.3 volts (for sensitive components)</li>
-                    <li><strong>GND pins:</strong> Ground/reference voltage (LOW, 0V)</li>
-                    <li><strong>Vin:</strong> Input voltage (7-12V recommended)</li>
-                    <li><strong>Circuits flow from GND to HIGH to complete the circuit</strong></li>
-                </ul>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center;">
+                    <img src="../slides/arduino4.png" alt="Arduino Power Pins" style="max-width: 100%;">
+                    <ul style="margin: 0; font-size: 0.85em;">
+                        <li><strong>Power and ground connections</strong></li>
+                        <li><strong>5V pin:</strong> Provides 5 volts (HIGH)</li>
+                        <li><strong>3.3V pin:</strong> Provides 3.3 volts (for sensitive components)</li>
+                        <li><strong>GND pins:</strong> Ground/reference voltage (LOW, 0V)</li>
+                        <li><strong>Vin:</strong> Input voltage (7-12V recommended)</li>
+                        <li><strong>Circuits flow from GND to HIGH to complete the circuit</strong></li>
+                    </ul>
+                </div>
             </section>
 
             <!-- Digital vs Analog -->
@@ -533,15 +541,17 @@ analogWrite(9, 255);  // 100% duty cycle = 5V (full speed)</code></pre>
             <!-- Breadboard -->
             <section>
                 <h2>Breadboard Basics</h2>
-                <img src="../slides/breadboard.png" alt="Breadboard" style="max-width: 35%;">
-                <ul style="margin-top: 15px;">
-                    <li><strong>Solderless prototyping</strong> platform</li>
-                    <li><strong>Horizontal rows:</strong> Connected internally (for components)</li>
-                    <li><strong>Vertical rails:</strong> Connected vertically (for power/ground)</li>
-                    <li><strong>Red rail:</strong> Typically connected to positive voltage (5V)</li>
-                    <li><strong>Blue/Black rail:</strong> Typically connected to ground (GND)</li>
-                    <li><strong>Center gap:</strong> Separates two sides, perfect for ICs</li>
-                </ul>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center;">
+                    <img src="../slides/breadboard.png" alt="Breadboard" style="max-width: 100%;">
+                    <ul style="margin: 0; font-size: 0.85em;">
+                        <li><strong>Solderless prototyping</strong> platform</li>
+                        <li><strong>Horizontal rows:</strong> Connected internally (for components)</li>
+                        <li><strong>Vertical rails:</strong> Connected vertically (for power/ground distribution)</li>
+                        <li><strong>Red rail:</strong> Typically connected to positive voltage (5V)</li>
+                        <li><strong>Blue/Black rail:</strong> Typically connected to ground (GND)</li>
+                        <li><strong>Center gap:</strong> Separates two sides, perfect for ICs</li>
+                    </ul>
+                </div>
             </section>
 
             <!-- DC Motors for Project 1 -->

@@ -54,7 +54,7 @@ weight = 2
 ### Digital Pins
 ![Arduino Digital Pins](/img/arduino2.png)
 
-- **Left side:** Digital input/output pins (0-13)
+- **Digital input/output pins** (0-13)
 - Pins can be **HIGH** (5V) or **LOW** (0V)
 - **Outputs:** Turn on an LED every 10 seconds to make it blink
 - **Inputs:** Read sensor data (e.g., is surface wet or dry?)
@@ -67,7 +67,7 @@ weight = 2
 ### Analog Pins
 ![Arduino Analog Pins](/img/arduino3.png)
 
-- **Bottom right:** Analog input pins (A0-A5)
+- **Analog input pins** (A0-A5)
 - Can read a **range of values** (0-1023)
 - Perfect for sensors with continuous output
 - **Examples:**
@@ -81,7 +81,7 @@ weight = 2
 ### Power Pins
 ![Arduino Power Pins](/img/arduino4.png)
 
-- **Top left:** Power and ground connections
+- **Power and ground connections**
 - **5V pin:** Provides 5 volts (HIGH)
 - **3.3V pin:** Provides 3.3 volts (for sensitive components)
 - **GND pins:** Ground/reference voltage (LOW, 0V)
