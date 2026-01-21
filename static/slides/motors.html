@@ -316,10 +316,10 @@
                 <div class="box" style="margin-top: 20px;">
                     <p><strong>Duty Cycle Examples:</strong></p>
                     <ul style="margin-top: 8px; font-size: 0.85em;">
-                        <li>25% duty cycle ≈ 1.25V</li>
-                        <li>50% duty cycle ≈ 2.5V</li>
-                        <li>75% duty cycle ≈ 3.75V</li>
-                        <li>100% duty cycle = 5V</li>
+                        <li>25% duty cycle: 0.25 × 5V = 1.25V</li>
+                        <li>50% duty cycle: 0.50 × 5V = 2.5V</li>
+                        <li>75% duty cycle: 0.75 × 5V = 3.75V</li>
+                        <li>100% duty cycle: 1.00 × 5V = 5V</li>
                     </ul>
                 </div>
             </section>
@@ -533,7 +533,8 @@ analogWrite(9, 255);  // 100% duty cycle = 5V (full speed)</code></pre>
                 <h3>Yellow Geared DC Motors</h3>
                 <ul style="font-size: 0.8em;">
                     <li><strong>Type:</strong> Brushed DC with gears</li>
-                    <li><strong>Voltage:</strong> 3-6V (4× AA = 6V)</li>
+                    <li><strong>Voltage range:</strong> 3-6V (motor's operating range)</li>
+                    <li><strong>Your power:</strong> 4× AA = 6V (at upper limit)</li>
                     <li><strong>Application:</strong> Wheeled robot</li>
                     <li><strong>Features:</strong>
                         <ul style="font-size: 0.9em;">
@@ -602,9 +603,6 @@ analogWrite(9, 255);  // 100% duty cycle = 5V (full speed)</code></pre>
                     <li>Start with low PWM (50-100)</li>
                     <li>Document your wiring</li>
                 </ol>
-                <div class="box box-info" style="margin-top: 20px;">
-                    Come to lab hours if stuck!
-                </div>
             </section>
 
             <!-- Motor Types Overview -->
