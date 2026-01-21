@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motors and Arduino | CS304</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <style>
+        :root {
+            --primary: #5a4ba4;
+            --secondary: #6610f2;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .reveal h1 {
+            color: var(--primary);
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+        }
+        
+        .reveal h3 {
+            color: var(--secondary);
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .reveal .subtitle {
+            color: var(--dark);
+            font-size: 1.2em;
+            margin-top: -20px;
+        }
+        
+        .reveal ul {
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .reveal li {
+            margin: 0.5em 0;
+        }
+        
+        .reveal .highlight {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .reveal .box {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary);
+            margin: 20px auto;
+            max-width: 90%;
+        }
+        
+        .reveal .box-success {
+            border-left-color: var(--success);
+        }
+        
+        .reveal .box-info {
+            border-left-color: var(--info);
+        }
+        
+        .reveal .box-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .reveal .col-item {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .reveal .small-text {
+            font-size: 0.75em;
+            color: #666;
+        }
+        
+        .reveal table {
+            font-size: 0.8em;
+            margin: 20px auto;
+        }
+        
+        .reveal th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+        }
+        
+        .reveal td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .reveal img {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-height: 400px;
+        }
+        
+        .reveal .progress {
+            background: rgba(90, 75, 164, 0.2);
+        }
+        
+        .reveal .progress span {
+            background: var(--primary);
+        }
+        
+        .reveal .checkmark {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .reveal .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .reveal .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+        
+        .reveal .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .reveal .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .reveal .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .reveal code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+        
+        .reveal pre {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .reveal pre code {
+            padding: 20px;
+            font-size: 0.7em;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section>
+                <h1>Motors and Arduino for Robotics</h1>
+                <p class="subtitle">Week 2 • CMPSC 304 Robotic Agents</p>
+                <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>→</strong> to advance</p>
+            </section>
+
+            <!-- Overview -->
+            <section>
+                <h2>Today's Agenda</h2>
+                <ul>
+                    <li>Arduino Uno basics and power flow</li>
+                    <li>Digital vs. Analog signals</li>
+                    <li>Pulse Width Modulation (PWM)</li>
+                    <li>Battery voltage calculations</li>
+                    <li>Why we need motor drivers</li>
+                    <li>DC motors for Project 1</li>
+                    <li>Motor types overview</li>
+                </ul>
+            </section>
+
+            <!-- Arduino USB -->
+            <section>
+                <h2>Arduino Uno Overview</h2>
+                <h3>USB Connection</h3>
+                <img src="../slides/arduino1.png" alt="Arduino USB Port" style="max-width: 60%;">
+                <ul style="margin-top: 30px;">
+                    <li><strong>USB-B port</strong> connects Arduino to your computer</li>
+                    <li>Used to upload code to the Arduino microcontroller</li>
+                    <li>Powers the Arduino during programming</li>
+                    <li>Enables serial communication for debugging</li>
+                </ul>
+            </section>
+
+            <!-- Digital Pins -->
+            <section>
+                <h2>Digital Pins</h2>
+                <img src="../slides/arduino2.png" alt="Arduino Digital Pins" style="max-width: 60%;">
+                <ul style="margin-top: 30px;">
+                    <li><strong>Left side:</strong> Digital input/output pins (0-13)</li>
+                    <li>Pins can be <strong>HIGH</strong> (5V) or <strong>LOW</strong> (0V)</li>
+                    <li><strong>Outputs:</strong> Turn on an LED every 10 seconds to make it blink</li>
+                    <li><strong>Inputs:</strong> Read sensor data (e.g., is surface wet or dry?)</li>
+                    <li><strong>Pins with ~ symbol:</strong> Support PWM (Pulse Width Modulation)</li>
+                    <li>PWM pins: 3, 5, 6, 9, 10, 11</li>
+                </ul>
+            </section>
+
+            <!-- Analog Pins -->
+            <section>
+                <h2>Analog Pins</h2>
+                <img src="../slides/arduino3.png" alt="Arduino Analog Pins" style="max-width: 60%;">
+                <ul style="margin-top: 30px;">
+                    <li><strong>Bottom right:</strong> Analog input pins (A0-A5)</li>
+                    <li>Can read a <strong>range of values</strong> (0-1023)</li>
+                    <li>Perfect for sensors with continuous output</li>
+                    <li><strong>Examples:</strong> Distance sensors, light sensors, temperature sensors, potentiometers</li>
+                </ul>
+            </section>
+
+            <!-- Power Pins -->
+            <section>
+                <h2>Power Pins</h2>
+                <img src="../slides/arduino4.png" alt="Arduino Power Pins" style="max-width: 60%;">
+                <ul style="margin-top: 30px;">
+                    <li><strong>Top left:</strong> Power and ground connections</li>
+                    <li><strong>5V pin:</strong> Provides 5 volts (HIGH)</li>
+                    <li><strong>3.3V pin:</strong> Provides 3.3 volts (for sensitive components)</li>
+                    <li><strong>GND pins:</strong> Ground/reference voltage (LOW, 0V)</li>
+                    <li><strong>Vin:</strong> Input voltage (7-12V recommended)</li>
+                    <li><strong>Circuits flow from GND to HIGH to complete the circuit</strong></li>
+                </ul>
+            </section>
+
+            <!-- Digital vs Analog -->
+            <section>
+                <h2>Digital vs. Analog Signals</h2>
+                <div class="two-col">
+                    <div class="col-item">
+                        <h3>Digital Signals</h3>
+                        <div class="box box-info">
+                            <strong>Two states only:</strong> HIGH (5V) or LOW (0V)
+                        </div>
+                        <ul style="font-size: 0.85em;">
+                            <li>Like a light switch: ON or OFF</li>
+                            <li>Arduino digital pins (0-13)</li>
+                            <li>Perfect for: LEDs, buttons, relays</li>
+                            <li><code>digitalWrite(13, HIGH)</code></li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Analog Signals</h3>
+                        <div class="box box-success">
+                            <strong>Range of values:</strong> 0V to 5V (continuous)
+                        </div>
+                        <ul style="font-size: 0.85em;">
+                            <li>Like a dimmer switch: infinite positions</li>
+                            <li>Arduino reads 0-1023 values</li>
+                            <li>0 = 0V, 1023 = 5V, 512 ≈ 2.5V</li>
+                            <li><code>analogRead(A0)</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PWM Introduction -->
+            <section>
+                <h2>Pulse Width Modulation (PWM)</h2>
+                <div class="box">
+                    <p><strong>Problem:</strong> Arduino digital pins are only HIGH or LOW</p>
+                    <p><strong>Question:</strong> How do we get "in-between" voltages?</p>
+                </div>
+                <div class="box box-success" style="margin-top: 30px;">
+                    <p><strong>Answer:</strong> PWM = rapidly switching between HIGH and LOW!</p>
+                </div>
+            </section>
+
+            <!-- How PWM Works -->
+            <section>
+                <h2>How PWM Works</h2>
+                <p><strong>Pulse Width Modulation</strong> = varying the <span class="highlight">duty cycle</span></p>
+                <ul style="margin-top: 30px;">
+                    <li>Switch HIGH/LOW very fast (490-980 Hz)</li>
+                    <li><strong>Duty Cycle</strong> = % of time signal is HIGH</li>
+                    <li>Motor "sees" the average voltage</li>
+                </ul>
+                <div class="box" style="margin-top: 30px;">
+                    <p><strong>Examples:</strong></p>
+                    <ul style="margin-top: 10px;">
+                        <li>25% duty cycle ≈ 1.25V average</li>
+                        <li>50% duty cycle ≈ 2.5V average</li>
+                        <li>75% duty cycle ≈ 3.75V average</li>
+                        <li>100% duty cycle = 5V (always HIGH)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- PWM on Arduino -->
+            <section>
+                <h2>PWM on Arduino</h2>
+                <p><strong>PWM pins</strong> (marked with ~): 3, 5, 6, 9, 10, 11</p>
+                <pre><code class="language-cpp">analogWrite(9, 0);    // 0% duty cycle = 0V (motor stopped)
+analogWrite(9, 64);   // 25% duty cycle = 1.25V (slow)
+analogWrite(9, 128);  // 50% duty cycle = 2.5V (medium)
+analogWrite(9, 191);  // 75% duty cycle = 3.75V (fast)
+analogWrite(9, 255);  // 100% duty cycle = 5V (full speed)</code></pre>
+                <div class="box box-warning" style="margin-top: 30px;">
+                    <strong>PWM values: 0-255</strong> (not 0-1023 like analogRead!)
+                </div>
+            </section>
+
+            <!-- Why PWM -->
+            <section>
+                <h2>Why PWM for Motors?</h2>
+                <ul>
+                    <li><span class="checkmark">✓</span> <strong>Efficient:</strong> Transistors fully ON or OFF (minimal heat)</li>
+                    <li><span class="checkmark">✓</span> <strong>Simple:</strong> No complex voltage regulation needed</li>
+                    <li><span class="checkmark">✓</span> <strong>Precise:</strong> 256 speed levels (0-255)</li>
+                    <li><span class="checkmark">✓</span> <strong>Works with digital pins:</strong> No true analog output needed</li>
+                </ul>
+                <div class="box box-info" style="margin-top: 40px;">
+                    <strong>Key Insight:</strong> Motor inertia smooths out the rapid pulses, so it "feels" like a steady lower voltage!
+                </div>
+            </section>
+
+            <!-- Battery Voltage Question -->
+            <section>
+                <h2>Battery Voltage: 4 AA Batteries</h2>
+                <div class="box">
+                    <p><strong>Question:</strong> Yellow DC motor kit comes with 4 AA battery holder. What voltage is this?</p>
+                </div>
+                <div class="box box-success" style="margin-top: 40px; font-size: 1.3em; text-align: center;">
+                    <strong>Answer: <span class="highlight">6 volts</span></strong>
+                </div>
+            </section>
+
+            <!-- How Do We Know -->
+            <section>
+                <h2>How Do We Know?</h2>
+                <div class="box">
+                    <p><strong>Step 1:</strong> Check battery specifications</p>
+                    <ul style="margin-top: 10px;">
+                        <li>Standard AA alkaline battery = <strong>1.5V</strong> nominal</li>
+                        <li>Rechargeable NiMH AA = <strong>1.2V</strong> nominal</li>
+                    </ul>
+                </div>
+                <div class="box box-success" style="margin-top: 30px;">
+                    <p><strong>Step 2:</strong> Batteries in series <strong>ADD</strong> voltages</p>
+                    <ul style="margin-top: 10px;">
+                        <li>4 batteries × 1.5V each = <strong>6V total</strong></li>
+                        <li>(Or 4 × 1.2V = 4.8V for rechargeable)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Series vs Parallel -->
+            <section>
+                <h2>Series vs. Parallel Batteries</h2>
+                <div class="col-item">
+                    <h3>Series (end-to-end): <span class="highlight">Voltages ADD</span></h3>
+                    <ul style="font-size: 0.9em; margin-top: 15px;">
+                        <li>(+) → Battery 1 → Battery 2 → Battery 3 → Battery 4 → (−)</li>
+                        <li>Total: 1.5V + 1.5V + 1.5V + 1.5V = 6V</li>
+                        <li>Capacity stays same (e.g., 2000 mAh)</li>
+                    </ul>
+                </div>
+                <div class="col-item" style="margin-top: 30px;">
+                    <h3>Parallel (side-by-side): <span class="highlight">Capacity ADDS</span></h3>
+                    <ul style="font-size: 0.9em; margin-top: 15px;">
+                        <li>All (+) terminals connected, all (−) connected</li>
+                        <li>Voltage stays 1.5V</li>
+                        <li>Capacity: 2000 + 2000 + 2000 + 2000 = 8000 mAh</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Battery Voltage Over Time -->
+            <section>
+                <h2>Battery Voltage Over Time</h2>
+                <table style="width: 80%;">
+                    <thead>
+                        <tr>
+                            <th>Battery State</th>
+                            <th>Alkaline AA</th>
+                            <th>Your 4× AA Pack</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Fresh</strong></td>
+                            <td>1.5V - 1.6V</td>
+                            <td>6.0V - 6.4V</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nominal</strong></td>
+                            <td>1.5V</td>
+                            <td>6.0V</td>
+                        </tr>
+                        <tr>
+                            <td><strong>50% used</strong></td>
+                            <td>1.3V</td>
+                            <td>5.2V</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Depleted</strong></td>
+                            <td>1.0V</td>
+                            <td>4.0V</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="box box-warning" style="margin-top: 30px;">
+                    ⚠️ <strong>Motors slow down as batteries drain!</strong>
+                </div>
+            </section>
+
+            <!-- Why Motor Drivers -->
+            <section>
+                <h2>Why We Need Motor Drivers</h2>
+                <div class="box box-warning">
+                    <p style="font-size: 1.2em;"><strong>Critical Problem:</strong> Arduino pins cannot directly power motors!</p>
+                </div>
+            </section>
+
+            <!-- Arduino Pin Limitations -->
+            <section>
+                <h2>Arduino Pin Limitations</h2>
+                <div class="two-col">
+                    <div class="col-item">
+                        <h3>Arduino Digital Pin</h3>
+                        <ul style="font-size: 0.9em;">
+                            <li>Max current per pin: <span class="highlight">40 mA</span></li>
+                            <li>Recommended: <span class="highlight">20 mA</span></li>
+                            <li>Max voltage: 5V</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Your Yellow DC Motor</h3>
+                        <ul style="font-size: 0.9em;">
+                            <li>Operating current: <span class="highlight">150-300 mA</span></li>
+                            <li>Stall current: <span class="highlight">1-2 A</span></li>
+                            <li>Voltage: 3-6V</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-danger" style="margin-top: 30px;">
+                    <strong>Motor draws 10× more current than Arduino can provide!</strong>
+                </div>
+            </section>
+
+            <!-- What Happens Without Driver -->
+            <section>
+                <h2>What Happens Without a Driver?</h2>
+                <div class="box box-danger">
+                    <p><span class="crossmark">✗</span> <strong>Scenario 1:</strong> Connect motor directly to Arduino pin</p>
+                    <ul style="margin-top: 10px;">
+                        <li>Arduino pin tries to supply 150+ mA</li>
+                        <li>Pin is rated for only 20-40 mA</li>
+                        <li><strong>Result:</strong> <span class="highlight">Damaged Arduino!</span> (burned pin or entire chip)</li>
+                    </ul>
+                </div>
+                <div class="box box-danger" style="margin-top: 30px;">
+                    <p><span class="crossmark">✗</span> <strong>Scenario 2:</strong> Motor stalls (gets stuck)</p>
+                    <ul style="margin-top: 10px;">
+                        <li>Current spikes to 1-2 A</li>
+                        <li><strong>Result:</strong> <span class="highlight">Permanent damage to Arduino!</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Motor Driver Solution -->
+            <section>
+                <h2>Motor Driver to the Rescue!</h2>
+                <div class="box box-success">
+                    <p><strong>Motor Driver</strong> = Power transistor bridge controlled by low-current signals</p>
+                </div>
+                <div style="margin-top: 40px;">
+                    <p><strong>How it works:</strong></p>
+                    <ol style="font-size: 0.95em; margin-top: 15px;">
+                        <li>Arduino sends LOW-CURRENT control signals (&lt; 20 mA)</li>
+                        <li>Motor driver switches HIGH-CURRENT from battery (1-2 A)</li>
+                        <li>Motor gets power from battery, NOT Arduino</li>
+                        <li>Arduino stays safe!</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Motor Driver Functions -->
+            <section>
+                <h2>Motor Driver Functions</h2>
+                <ul>
+                    <li><span class="checkmark">✓</span> <strong>Current amplification:</strong> Arduino controls, battery powers</li>
+                    <li><span class="checkmark">✓</span> <strong>Direction control:</strong> H-bridge reverses current flow</li>
+                    <li><span class="checkmark">✓</span> <strong>Speed control:</strong> PWM from Arduino → PWM to motor</li>
+                    <li><span class="checkmark">✓</span> <strong>Protection:</strong> Some drivers have overcurrent protection</li>
+                    <li><span class="checkmark">✓</span> <strong>Isolation:</strong> Keeps motor noise away from Arduino</li>
+                </ul>
+                <div class="box box-info" style="margin-top: 40px;">
+                    <strong>Analogy:</strong> Motor driver is like a remote-controlled power switch that can handle heavy loads
+                </div>
+            </section>
+
+            <!-- Breadboard -->
+            <section>
+                <h2>Breadboard Basics</h2>
+                <img src="../slides/breadboard.png" alt="Breadboard" style="max-width: 50%;">
+                <ul style="margin-top: 30px;">
+                    <li><strong>Solderless prototyping</strong> platform</li>
+                    <li><strong>Horizontal rows:</strong> Connected internally (for components)</li>
+                    <li><strong>Vertical rails:</strong> Connected vertically (for power/ground)</li>
+                    <li><strong>Red rail:</strong> Typically connected to positive voltage (5V)</li>
+                    <li><strong>Blue/Black rail:</strong> Typically connected to ground (GND)</li>
+                    <li><strong>Center gap:</strong> Separates two sides, perfect for ICs</li>
+                </ul>
+            </section>
+
+            <!-- DC Motors for Project 1 -->
+            <section>
+                <h2>DC Motors for Project 1</h2>
+                <h3>Yellow Geared DC Motors</h3>
+                <ul>
+                    <li><strong>Type:</strong> Brushed DC motor with gear reduction</li>
+                    <li><strong>Voltage:</strong> Typically 3-6V (perfect for 4× AA = 6V!)</li>
+                    <li><strong>Application:</strong> Wheeled robot car (differential drive)</li>
+                    <li><strong>Power:</strong> Comes with 4× AA battery holder (6V, ~2000 mAh)</li>
+                    <li><strong>Characteristics:</strong>
+                        <ul>
+                            <li>High speed reduced by internal gears</li>
+                            <li>Increased torque for moving robot weight</li>
+                            <li>Simple two-wire control (polarity determines direction)</li>
+                            <li>Current draw: 150-300 mA running, 1-2A stall</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Motor Driver L298N -->
+            <section>
+                <h2>Motor Driver: L298N</h2>
+                <ul>
+                    <li><strong>Purpose:</strong> Controls motor speed and direction</li>
+                    <li><strong>H-Bridge configuration:</strong> Allows bidirectional control</li>
+                    <li><strong>Specifications:</strong>
+                        <ul>
+                            <li>Drives 2 DC motors independently</li>
+                            <li>Up to 2A per channel</li>
+                            <li>Logic voltage: 5V (from Arduino)</li>
+                            <li>Motor voltage: 5-35V (from battery)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Control:</strong>
+                        <ul>
+                            <li>IN1/IN2 pins control Motor A direction</li>
+                            <li>IN3/IN4 pins control Motor B direction</li>
+                            <li>ENA/ENB pins control speed (PWM)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Alternative Drivers -->
+            <section>
+                <h2>Alternative Motor Drivers</h2>
+                <div class="two-col">
+                    <div class="col-item">
+                        <h3>TB6612FNG</h3>
+                        <ul style="font-size: 0.85em;">
+                            <li>More efficient than L298N</li>
+                            <li>Lower voltage drop</li>
+                            <li>Up to 1.2A per channel</li>
+                            <li>Better for smaller motors</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>WWZMDiB Motor Driver</h3>
+                        <ul style="font-size: 0.85em;">
+                            <li>Compact design</li>
+                            <li>Integrated motor control</li>
+                            <li>Good for space-constrained projects</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-info" style="margin-top: 30px;">
+                    <em>You may use any of these drivers for Project 1!</em>
+                </div>
+            </section>
+
+            <!-- Motor Types Overview -->
+            <section>
+                <h2>Types of Electric Motors</h2>
+                <ul>
+                    <li><strong>Brushed DC Motors</strong> (what you're using)</li>
+                    <li><strong>Brushless DC Motors</strong></li>
+                    <li><strong>Stepper Motors</strong></li>
+                    <li><strong>Servo Motors</strong></li>
+                </ul>
+            </section>
+
+            <!-- Brushed DC -->
+            <section>
+                <h2>Brushed DC Motors</h2>
+                <div class="col-item">
+                    <h3>Mechanism</h3>
+                    <p>Commutator switches current direction via brushes</p>
+                </div>
+                <div class="two-col" style="margin-top: 30px;">
+                    <div class="col-item">
+                        <h3>Advantages</h3>
+                        <ul style="font-size: 0.85em;">
+                            <li>Simple control (voltage → speed)</li>
+                            <li>Inexpensive</li>
+                            <li>Wide availability</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Disadvantages</h3>
+                        <ul style="font-size: 0.85em;">
+                            <li>Brush wear over time</li>
+                            <li>Lower efficiency due to friction</li>
+                            <li>Maintenance required</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Brushless DC -->
+            <section>
+                <h2>Brushless DC Motors</h2>
+                <div class="col-item">
+                    <h3>Mechanism</h3>
+                    <p>Electronic commutation (no brushes)</p>
+                </div>
+                <div class="two-col" style="margin-top: 30px;">
+                    <div class="col-item">
+                        <h3>Advantages</h3>
+                        <ul style="font-size: 0.85em;">
+                            <li>Higher efficiency</li>
+                            <li>Longer lifespan</li>
+                            <li>More torque per weight</li>
+                            <li>Less maintenance</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Disadvantages</h3>
+                        <ul style="font-size: 0.85em;">
+                            <li>Requires ESC</li>
+                            <li>More expensive</li>
+                            <li>Complex control</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 30px;"><strong>Applications:</strong> Drones, RC cars, industrial robots</p>
+            </section>
+
+            <!-- Stepper Motors -->
+            <section>
+                <h2>Stepper Motors</h2>
+                <div class="col-item">
+                    <h3>Mechanism</h3>
+                    <p>Precise rotation in fixed steps (e.g., 1.8° per step)</p>
+                </div>
+                <div class="two-col" style="margin-top: 30px;">
+                    <div class="col-item">
+                        <h3>Advantages</h3>
+                        <ul style="font-size: 0.85em;">
+                            <li>Precise position control without encoder</li>
+                            <li>Hold position when powered</li>
+                            <li>Predictable movement</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Disadvantages</h3>
+                        <ul style="font-size: 0.85em;">
+                            <li>Lower top speed</li>
+                            <li>Can lose steps under high load</li>
+                            <li>Requires specific driver</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 30px;"><strong>Applications:</strong> 3D printers, CNC machines, robotic arms</p>
+            </section>
+
+            <!-- Servo Motors -->
+            <section>
+                <h2>Servo Motors</h2>
+                <div class="col-item">
+                    <h3>Components</h3>
+                    <p>DC motor + gears + encoder + controller</p>
+                </div>
+                <div style="margin-top: 30px;">
+                    <h3>Types</h3>
+                    <ul style="font-size: 0.9em;">
+                        <li><strong>Standard:</strong> 0-180° rotation</li>
+                        <li><strong>Continuous:</strong> 360° rotation with speed control</li>
+                        <li><strong>Digital:</strong> Faster response, more torque</li>
+                    </ul>
+                </div>
+                <div class="box box-success" style="margin-top: 30px;">
+                    <p><strong>Advantages:</strong> Built-in position control, easy to use (single signal wire), compact package</p>
+                </div>
+                <p style="margin-top: 20px;"><strong>Applications:</strong> RC vehicles, robotic arms, grippers</p>
+            </section>
+
+            <!-- Other Actuators -->
+            <section>
+                <h2>Other Actuation Technologies</h2>
+                <div class="two-col">
+                    <div class="col-item">
+                        <h3>Hydraulic Actuators</h3>
+                        <ul style="font-size: 0.85em;">
+                            <li><strong>Mechanism:</strong> Pressurized liquid in pistons</li>
+                            <li><strong>Advantages:</strong> Very high force</li>
+                            <li><strong>Disadvantages:</strong> Large, expensive, maintenance-intensive</li>
+                            <li><strong>Applications:</strong> Construction equipment, large legged robots</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Pneumatic Actuators</h3>
+                        <ul style="font-size: 0.85em;">
+                            <li><strong>Mechanism:</strong> Compressed air</li>
+                            <li><strong>Advantages:</strong> Lightweight, safe, compliant</li>
+                            <li><strong>Disadvantages:</strong> Lower force than hydraulics</li>
+                            <li><strong>Applications:</strong> Soft robotics, grippers, robotic fish</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Safety -->
+            <section>
+                <h2>Safety Considerations</h2>
+                <div class="col-item">
+                    <h3>Active Safety</h3>
+                    <ul style="font-size: 0.9em;">
+                        <li><strong>Torque limiting:</strong> Monitor motor current</li>
+                        <li><strong>Collision detection:</strong> Compare expected vs actual torque</li>
+                        <li><strong>Emergency stop:</strong> Cut power immediately</li>
+                    </ul>
+                </div>
+                <div class="col-item" style="margin-top: 30px;">
+                    <h3>Passive Safety</h3>
+                    <ul style="font-size: 0.9em;">
+                        <li><strong>Mechanical limits:</strong> Physical stops on motion</li>
+                        <li><strong>Compliant mechanisms:</strong> Springs, flexible materials</li>
+                        <li><strong>Fail-safe brakes:</strong> Engage when power lost</li>
+                        <li><strong>Current limiting:</strong> Fuses and circuit breakers</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Motor Selection -->
+            <section>
+                <h2>Motor Selection Criteria</h2>
+                <p><strong>For your wheeled robot, consider:</strong></p>
+                <ol style="margin-top: 30px;">
+                    <li><strong>Torque:</strong> Can it move your robot's weight?</li>
+                    <li><strong>Speed:</strong> How fast should it go?</li>
+                    <li><strong>Voltage:</strong> Match your power supply (typically 5-6V)</li>
+                    <li><strong>Current:</strong> Does your driver/battery support it?</li>
+                    <li><strong>Size/Weight:</strong> Fits your chassis design</li>
+                    <li><strong>Cost:</strong> Within project budget</li>
+                </ol>
+            </section>
+
+            <!-- Next Steps -->
+            <section>
+                <h2>Next Steps for Project 1</h2>
+                <ol>
+                    <li><strong>This week:</strong> Mechanical build, wiring, power setup</li>
+                    <li><strong>Install fresh batteries</strong> (4× AA = 6V)</li>
+                    <li><strong>Test motors individually</strong> before mounting</li>
+                    <li><strong>Verify motor driver connections</strong> (common mistake: reversed polarity)</li>
+                    <li><strong>Start with low PWM values</strong> (50-100) to test safely</li>
+                    <li><strong>Check battery voltage</strong> regularly (should read ~6V when fresh)</li>
+                    <li><strong>Document your wiring</strong> (take photos!)</li>
+                </ol>
+                <div class="box box-info" style="margin-top: 30px;">
+                    <strong>Check-in:</strong> Come to lab hours if motors aren't spinning!
+                </div>
+            </section>
+
+            <!-- Key Takeaways -->
+            <section>
+                <h2>Key Takeaways</h2>
+                <ul>
+                    <li><strong>Digital</strong> = ON/OFF; <strong>Analog</strong> = range of values; <strong>PWM</strong> = fake analog using fast switching</li>
+                    <li><strong>4× AA batteries in series</strong> = 6V (1.5V each)</li>
+                    <li>Arduino pins (20-40 mA) <strong>cannot</strong> power motors (150-300 mA) directly</li>
+                    <li><strong>Motor drivers</strong> amplify control signals and protect Arduino</li>
+                    <li><strong>DC motors</strong> offer simple speed control via PWM (0-255)</li>
+                    <li>Different motor types trade off <strong>precision</strong>, <strong>force</strong>, <strong>speed</strong>, and <strong>cost</strong></li>
+                </ul>
+                <p style="margin-top: 60px; font-size: 1.3em;"><strong>Questions?</strong></p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'all'
+        });
+    </script>
+</body>
+</html>
