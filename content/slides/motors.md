@@ -44,17 +44,15 @@ weight = 2
 ### USB Connection
 ![Arduino USB Port](/img/arduino1.png)
 
-- **USB-B port** connects Arduino to your computer
 - Used to upload code to the Arduino microcontroller
 - Powers the Arduino during programming
 - Enables serial communication for debugging
 
 ---
 
-### Digital Pins
+### Digital Input/Output Pins (0-13)
 ![Arduino Digital Pins](/img/arduino2.png)
 
-- **Digital input/output pins** (0-13)
 - Pins can be **HIGH** (5V) or **LOW** (0V)
 - **Outputs:** Turn on an LED every 10 seconds to make it blink
 - **Inputs:** Read sensor data (e.g., is surface wet or dry?)
@@ -64,10 +62,9 @@ weight = 2
 
 ---
 
-### Analog Pins
+### Analog Input Pins (A0-A5)
 ![Arduino Analog Pins](/img/arduino3.png)
 
-- **Analog input pins** (A0-A5)
 - Can read a **range of values** (0-1023)
 - Perfect for sensors with continuous output
 - **Examples:**
@@ -78,10 +75,9 @@ weight = 2
 
 ---
 
-### Power Pins
+### Power and Ground Connections
 ![Arduino Power Pins](/img/arduino4.png)
 
-- **Power and ground connections**
 - **5V pin:** Provides 5 volts (HIGH)
 - **3.3V pin:** Provides 3.3 volts (for sensitive components)
 - **GND pins:** Ground/reference voltage (LOW, 0V)
