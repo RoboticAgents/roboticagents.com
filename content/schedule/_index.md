@@ -17,7 +17,7 @@ weight = 3
 | Week | Topic  | Class Activities | Project Assignment | Readings / Resources |
 | :--- | :--- | :--- | :--- | :--- |
 | 1 (Jan 12–17) | Course intro; What is a robot? Wiring, power, Arduino | [Modern Robots Presentations](https://docs.google.com/presentation/d/1d-GVw5LlcAGIGwjs_ngNqJljR3Ofu9X34a9EcibV2SU/edit?usp=sharing) | [Project 1: Wheeled Robot](https://classroom.github.com/a/kEovlL1p) (Due Feb 3) | Intro to Autonomous Robots (IAR) Ch. 1 |
-| 2 (Jan 20–24)<br>*(MLK Mon off)* | Actuators, locomotion | — | P1: Mechanical build, wiring, power | IAR Ch. 2, 6 |
+| 2 (Jan 20–24)<br>*(MLK Mon off)* | Actuators, locomotion | [Motors & Arduino Slides](../slides/motors) | P1: Mechanical build, wiring, power | IAR Ch. 2, 6 |
 | 3 (Jan 27–31) | Locomotion, kinematics, sensors; reactive control | — | P1: Basic control + sensing; demo | IAR Ch. 3, 7 |
 | 4 (Feb 3–7) | Deterministic control; state machines; why PLCs exist | — | P2: PLC ladder logic basics; discrete I/O | PLC Presentation: Intro, PLC basics, ladder logic fundamentals<br>IAR: Ch. 2 (sections on control architectures) |
 | 5 (Feb 10–14) | Safety, interlocks, fault handling | — | P2: PLC timers, counters, safety logic | PLC Presentation: Timers, counters, interlocks, fault states<br>FANUC Manual: Safety overview + operational modes |
