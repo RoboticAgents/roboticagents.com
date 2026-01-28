@@ -8,7 +8,7 @@ weight = 1
 
 In this activity, you will demonstrate your ability to wire and control a **servo motor** using an Arduino Uno. You'll start by using Arduino's built-in Sweep example, then modify the code to create your own custom movement pattern. This is an individual demonstration activity where you'll show your understanding of motor control, circuit wiring, and Arduino programming.
 
-**Due Date: January 27th by 4:00 PM**
+**Due Date: January 28th by 11:50 AM**
 
 ---
 

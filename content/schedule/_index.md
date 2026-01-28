@@ -6,6 +6,8 @@ weight = 3
 
 ### Detailed Weekly Schedule
 
+**Note**: Some sessions will be held at **ALIC @ Bessemer** (764 Bessemer St # 105, Meadville, PA 16335) for hands-on work with industrial equipment. Please fill out the [transportation intake form](https://forms.gle/stFfgBWzxv9n988r9) if you need transportation.
+
 #### Project Legend
 - **P1** = Wheeled Robot
 - **P2** = PLC + FANUC
@@ -18,14 +20,14 @@ weight = 3
 | :--- | :--- | :--- | :--- | :--- |
 | 1 (Jan 12–17) | Course intro; What is a robot? Arduino, locomotion | [Modern Robots Presentations](https://docs.google.com/presentation/d/1d-GVw5LlcAGIGwjs_ngNqJljR3Ofu9X34a9EcibV2SU/edit?usp=sharing) | [Project 1: Wheeled Robot](https://classroom.github.com/a/kEovlL1p) (Due Feb 3) | [Locomotion Slides](/slides/locomotion.html)<br>IAR Ch. 1 |
 | 2 (Jan 20–24)<br>*(MLK Mon off)* | Actuators; wiring, power | Project 1 work time | P1: Mechanical build, wiring, power | [Motors & Arduino Slides](/slides/motors.html)<br>IAR Ch. 2.1-2.3, 6 |
-| 3 (Jan 27–31) | Actuators (cont.); sensors; kinematics; reactive control | [Activity 1: Servo and Stepper Motor Experiments](/activities/activity1) (Due Jan 27, 4pm) | P1: Basic control + sensing; demo | IAR Ch. 7 |
-| 4 (Feb 3–7) | Deterministic control; state machines; why PLCs exist | — | P2: PLC ladder logic basics; discrete I/O | PLC Presentation: Intro, PLC basics, ladder logic fundamentals<br>IAR: Ch. 2 (sections on control architectures) |
-| 5 (Feb 10–14) | Safety, interlocks, fault handling | — | P2: PLC timers, counters, safety logic | PLC Presentation: Timers, counters, interlocks, fault states<br>FANUC Manual: Safety overview + operational modes |
+| 3 (Jan 27–31) | Actuators (cont.); sensors; kinematics; reactive control | [Activity 1: Servo and Stepper Motor Experiments](/activities/activity1) (Due Jan 28, 11:50am) | P1: Basic control + sensing; demo | IAR Ch. 7 |
+| 4 (Feb 3–7) | Deterministic control; state machines; why PLCs exist | **Feb 4 (11am-11:50am @ ALIC)**: Tour, safety instructions | P2: PLC ladder logic basics; discrete I/O | PLC Presentation: Intro, PLC basics, ladder logic fundamentals<br>IAR: Ch. 2 (sections on control architectures) |
+| 5 (Feb 10–14) | Safety, interlocks, fault handling | **Feb 9 (11am-11:50am @ ALIC)**: PLC demo<br>**Feb 10 (2:30-4pm @ ALIC)**: PLC work | P2: PLC timers, counters, safety logic | PLC Presentation: Timers, counters, interlocks, fault states<br>FANUC Manual: Safety overview + operational modes |
 | — | **Exam 1** (February 13th) | — | — | Covers P1 + basic PLC concepts |
-| 6 (Feb 17–21) | Human–robot collaboration; industrial workflows | — | P2: FANUC CRX task programming; PLC ↔ robot coordination | FANUC Manual: Teach pendant operation, task execution<br>IAR: Ch. 1 (human–robot interaction sections) |
-| 7 (Feb 24–27) | System integration; comparison to autonomy | — | P2: Full PLC–FANUC cell demo | IAR: Ch. 3 (reactive systems)<br>Short instructor note: PLC vs ROS comparison |
+| 6 (Feb 17–21) | Human–robot collaboration; industrial workflows | **Feb 17 (2:30-4pm @ ALIC)**: PLC work | P2: FANUC CRX task programming; PLC ↔ robot coordination | FANUC Manual: Teach pendant operation, task execution<br>IAR: Ch. 1 (human–robot interaction sections) |
+| 7 (Feb 24–27) | System integration; comparison to autonomy | **Feb 23 (11am-11:50am @ ALIC)**: FANUC demo<br>**Feb 24 (2:30-4pm @ ALIC)**: FANUC work (tentative)<br>**Feb 27 (11am-11:50am @ ALIC)**: FANUC work | P2: Full PLC–FANUC cell demo | IAR: Ch. 3 (reactive systems)<br>Short instructor note: PLC vs ROS comparison |
 | 8 (Feb 28–Mar 8) | **Spring Break – No Classes** | — | — | — |
-| 9 (Mar 10–14) | Why ROS? Robot software architectures | — | P3: ROS setup; simulation intro | IAR Ch. 2–3; ROS 2 Beginner Tutorials |
+| 9 (Mar 10–14) | Why ROS? Robot software architectures | **Mar 9 (11am-11:50am @ ALIC)**: FANUC work (tentative)<br>**Mar 10 (2:30-4pm @ ALIC)**: FANUC work | P3: ROS setup; simulation intro | IAR Ch. 2–3; ROS 2 Beginner Tutorials |
 | — | **Exam 2** (March 13th) | — | — | Covers PLC/FANUC + ROS fundamentals |
 | 10 (Mar 17–21) | Motion models; navigation concepts | — | P3: Autonomous behaviors in simulation | IAR Ch. 12 |
 | 11 (Mar 24–28) | Simulation vs reality; sensing uncertainty | — | P4: TurtleBot bring-up & navigation | IAR Ch. 14 |
