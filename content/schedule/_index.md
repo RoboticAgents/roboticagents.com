@@ -6,7 +6,7 @@ weight = 3
 
 ### Detailed Weekly Schedule
 
-**Note**: Some sessions will be held at **ALIC @ Bessemer** (764 Bessemer St # 105, Meadville, PA 16335) for hands-on work with industrial equipment. Please fill out the [transportation intake form](https://forms.gle/stFfgBWzxv9n988r9) if you need transportation.
+**Note**: Some sessions will be held at **ALIC @ Bessemer** (764 Bessemer St # 105, Meadville, PA 16335) for hands-on work with industrial equipment. Please fill out the [transportation intake form](https://forms.gle/stFfgBWzxv9n988r9) to indicate your transportation preference.
 
 #### Project Legend
 - **P1** = Wheeled Robot
