@@ -10,7 +10,7 @@ In this activity, you will wire and experiment with **two types of distance sens
 
 **Teams:** Work in groups of 2-3 students
 
-**Due Date: Monday, February 3rd by 11:50 AM**
+**Due Date: Sunday, February 2nd by 11:50 AM**
 
 ---
 
