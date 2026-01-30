@@ -10,7 +10,7 @@
 
     <title>
         
-        Activity 2: Distance and IR Sensors | ROBOTIC AGENTS
+        Activity 2: Distance Sensors | ROBOTIC AGENTS
         
     </title>
 
@@ -142,7 +142,7 @@
                 
                 
                   <a href="/activities/activity2/" class="nav-link p-0">
-                    Activity 2: Distance and IR Sensors
+                    Activity 2: Distance Sensors
                   </a>
                 
         </li>
@@ -193,7 +193,7 @@
     <li><a href="#learning-objectives">Learning Objectives</a></li>
     <li><a href="#requirements">Requirements</a>
       <ul>
-        <li><a href="#what-you-must-demonstrate--submit">What You Must Demonstrate &amp; Submit</a></li>
+        <li><a href="#what-you-must-demonstrate">What You Must Demonstrate</a></li>
       </ul>
     </li>
     <li><a href="#grading-criteria">Grading Criteria</a></li>
@@ -202,7 +202,6 @@
         <li><a href="#understanding-ultrasonic-sensors">Understanding Ultrasonic Sensors</a></li>
         <li><a href="#wiring-the-hc-sr04">Wiring the HC-SR04</a></li>
         <li><a href="#arduino-code-for-hc-sr04">Arduino Code for HC-SR04</a></li>
-        <li><a href="#testing-the-ultrasonic-sensor">Testing the Ultrasonic Sensor</a></li>
       </ul>
     </li>
     <li><a href="#part-2-infrared-ir-obstacle-sensor">Part 2: Infrared (IR) Obstacle Sensor</a>
@@ -210,17 +209,15 @@
         <li><a href="#understanding-ir-sensors">Understanding IR Sensors</a></li>
         <li><a href="#wiring-the-ir-sensor">Wiring the IR Sensor</a></li>
         <li><a href="#arduino-code-for-ir-sensor">Arduino Code for IR Sensor</a></li>
-        <li><a href="#adjusting-the-ir-sensor-threshold">Adjusting the IR Sensor Threshold</a></li>
-        <li><a href="#testing-the-ir-sensor">Testing the IR Sensor</a></li>
       </ul>
     </li>
-    <li><a href="#part-3-sensor-comparison">Part 3: Sensor Comparison</a>
+    <li><a href="#part-3-suggested-experiments">Part 3: Suggested Experiments</a>
       <ul>
-        <li><a href="#comparison-table-template">Comparison Table Template</a></li>
+        <li><a href="#for-ultrasonic-sensor">For Ultrasonic Sensor:</a></li>
+        <li><a href="#for-ir-sensor">For IR Sensor:</a></li>
       </ul>
     </li>
-    <li><a href="#part-4-submission-requirements">Part 4: Submission Requirements</a></li>
-    <li><a href="#tips-for-success">Tips for Success</a></li>
+    <li><a href="#part-4-demonstration-checklist">Part 4: Demonstration Checklist</a></li>
     <li><a href="#troubleshooting">Troubleshooting</a>
       <ul>
         <li><a href="#ultrasonic-sensor-issues">Ultrasonic Sensor Issues</a></li>
@@ -228,7 +225,6 @@
       </ul>
     </li>
     <li><a href="#resources">Resources</a></li>
-    <li><a href="#extra-credit-optional-10">Extra Credit (Optional, +10%)</a></li>
   </ul>
 </nav>
 </div>
@@ -237,7 +233,7 @@
                 
 
 <div class="d-flex flex-column">
-    <h1 class="js-title">Activity 2: Distance and IR Sensors</h1>
+    <h1 class="js-title">Activity 2: Distance Sensors</h1>
     <div class="d-flex align-items-center">
         
     </div>
@@ -247,32 +243,31 @@
 
 
 <h2 id="overview">Overview</h2>
-<p>In this activity, you will wire and experiment with <strong>two types of distance sensors</strong>: an ultrasonic sensor (HC-SR04) and an infrared (IR) obstacle detection sensor. You&rsquo;ll compare their performance with different objects, surfaces, and distances. This activity helps you understand how robots perceive their environment and the trade-offs between different sensor types.</p>
-<p><strong>Teams:</strong> Work in pairs (2 students per team), but each team must test both sensors.</p>
-<p><strong>Due Date: February 4th by 11:50 AM</strong></p>
+<p>In this activity, you will wire and experiment with <strong>two types of distance sensors</strong>: an ultrasonic sensor (HC-SR04) and an infrared (IR) obstacle detection sensor. You&rsquo;ll test how each sensor responds to different objects, surfaces, and distances. This is a team demonstration activity where you&rsquo;ll show your understanding of sensor operation and explore their strengths and limitations.</p>
+<p><strong>Teams:</strong> Work in groups of 2-3 students</p>
+<p><strong>Due Date: Monday, February 3rd by 11:50 AM</strong></p>
 <hr>
 <h2 id="learning-objectives">Learning Objectives</h2>
 <p>By completing this activity, you will:</p>
 <ul>
 <li>Wire and operate ultrasonic and IR distance sensors</li>
 <li>Understand how different sensors detect obstacles</li>
-<li>Compare sensor performance across various conditions</li>
-<li>Document sensor capabilities and limitations</li>
+<li>Explore sensor performance across various conditions</li>
 <li>Learn when to use each sensor type in robotics applications</li>
 </ul>
 <hr>
 <h2 id="requirements">Requirements</h2>
-<h3 id="what-you-must-demonstrate--submit">What You Must Demonstrate &amp; Submit</h3>
+<h3 id="what-you-must-demonstrate">What You Must Demonstrate</h3>
 <ol>
 <li><strong>Wire both sensors</strong> correctly to Arduino Uno</li>
-<li><strong>Test ultrasonic sensor</strong> with different objects and distances</li>
-<li><strong>Test IR sensor</strong> with different surfaces and obstacles</li>
-<li><strong>Complete and submit the comparison table</strong> with your observations</li>
+<li><strong>Show both sensors working</strong> with Serial Monitor output</li>
+<li><strong>Conduct at least 2 experiments per sensor</strong> from the suggested list below</li>
+<li><strong>Explain your findings</strong> to the instructor</li>
 </ol>
 <hr>
 <h2 id="grading-criteria">Grading Criteria</h2>
 <p>This is a <strong>Class Activity</strong> worth points toward your participation grade.</p>
-<p><strong>Grading Rubric</strong>:</p>
+<p><strong>Grading Rubric</strong> (Pass/Fail with feedback):</p>
 <table>
   <thead>
       <tr>
@@ -293,28 +288,28 @@
           <td style="text-align: left">IR sensor correctly wired; obstacle detection working</td>
       </tr>
       <tr>
-          <td style="text-align: left"><strong>Testing &amp; Experimentation</strong></td>
+          <td style="text-align: left"><strong>Experiments</strong></td>
           <td style="text-align: center">30%</td>
-          <td style="text-align: left">Tested both sensors with multiple objects/surfaces/distances</td>
+          <td style="text-align: left">Completed at least 2 experiments per sensor; systematic testing</td>
       </tr>
       <tr>
-          <td style="text-align: left"><strong>Comparison Table</strong></td>
+          <td style="text-align: left"><strong>Explanation</strong></td>
           <td style="text-align: center">20%</td>
-          <td style="text-align: left">Complete and accurate observations documented</td>
+          <td style="text-align: left">Can explain sensor behavior; answers instructor questions</td>
       </tr>
   </tbody>
 </table>
-<p><strong>To Pass</strong>: Achieve at least 70% overall. Both sensors must be functional.</p>
+<p><strong>To Pass</strong>: You must achieve at least 70% overall. Both sensors must be functional.</p>
 <hr>
 <h2 id="part-1-ultrasonic-sensor-hc-sr04">Part 1: Ultrasonic Sensor (HC-SR04)</h2>
 <h3 id="understanding-ultrasonic-sensors">Understanding Ultrasonic Sensors</h3>
 <p>The <strong>HC-SR04</strong> uses <strong>sound waves</strong> (40 kHz ultrasonic) to measure distance:</p>
-<ol>
+<ul>
 <li>Sends out a sound pulse</li>
 <li>Measures time for echo to return</li>
 <li>Calculates distance: <code>distance = (time × speed_of_sound) / 2</code></li>
-</ol>
-<p><strong>Specifications</strong>:</p>
+</ul>
+<p><strong>Specifications:</strong></p>
 <ul>
 <li>Range: 2 cm to 400 cm</li>
 <li>Accuracy: ±3 mm</li>
@@ -329,7 +324,6 @@
 <li>4 jumper wires</li>
 <li>Breadboard (optional)</li>
 </ul>
-<p><strong>Wiring Table:</strong></p>
 <table>
   <thead>
       <tr>
@@ -363,7 +357,7 @@
 </table>
 <hr>
 <h3 id="arduino-code-for-hc-sr04">Arduino Code for HC-SR04</h3>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// HC-SR04 Ultrasonic Sensor Code
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// HC-SR04 Ultrasonic Sensor
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#define TRIG_PIN 9
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define ECHO_PIN 10
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
@@ -371,63 +365,37 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">begin</span><span style="color:#111">(</span><span style="color:#ae81ff">9600</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">pinMode</span><span style="color:#111">(</span><span style="color:#111">TRIG_PIN</span><span style="color:#111">,</span> <span style="color:#111">OUTPUT</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">pinMode</span><span style="color:#111">(</span><span style="color:#111">ECHO_PIN</span><span style="color:#111">,</span> <span style="color:#111">INPUT</span><span style="color:#111">);</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;HC-SR04 Ultrasonic Sensor Test&#34;</span><span style="color:#111">);</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Distance in cm:&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;HC-SR04 Test - Distance in cm:&#34;</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#111">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#00a8c8">void</span> <span style="color:#75af00">loop</span><span style="color:#111">()</span> <span style="color:#111">{</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Send 10µs pulse to trigger
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Send trigger pulse
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#111">digitalWrite</span><span style="color:#111">(</span><span style="color:#111">TRIG_PIN</span><span style="color:#111">,</span> <span style="color:#111">LOW</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">delayMicroseconds</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">digitalWrite</span><span style="color:#111">(</span><span style="color:#111">TRIG_PIN</span><span style="color:#111">,</span> <span style="color:#111">HIGH</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">delayMicroseconds</span><span style="color:#111">(</span><span style="color:#ae81ff">10</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">digitalWrite</span><span style="color:#111">(</span><span style="color:#111">TRIG_PIN</span><span style="color:#111">,</span> <span style="color:#111">LOW</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Measure echo duration (in microseconds)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Measure echo duration
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#00a8c8">long</span> <span style="color:#111">duration</span> <span style="color:#f92672">=</span> <span style="color:#111">pulseIn</span><span style="color:#111">(</span><span style="color:#111">ECHO_PIN</span><span style="color:#111">,</span> <span style="color:#111">HIGH</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Calculate distance in cm
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// Speed of sound: 343 m/s = 0.0343 cm/µs
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#00a8c8">float</span> <span style="color:#111">distance</span> <span style="color:#f92672">=</span> <span style="color:#111">duration</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.034</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span><span style="color:#111">;</span>
 </span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Display result
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">print</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Distance: &#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">print</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Distance: &#34;</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">print</span><span style="color:#111">(</span><span style="color:#111">distance</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34; cm&#34;</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#111">delay</span><span style="color:#111">(</span><span style="color:#ae81ff">500</span><span style="color:#111">);</span>  <span style="color:#75715e">// Wait 500ms between readings
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
-</span></span></code></pre></div><p><strong>Upload this code</strong> and open the Serial Monitor (9600 baud) to see distance readings.</p>
-<hr>
-<h3 id="testing-the-ultrasonic-sensor">Testing the Ultrasonic Sensor</h3>
-<p><strong>Experiment with:</strong></p>
-<ol>
-<li><strong>Different distances</strong>: 5 cm, 20 cm, 50 cm, 100 cm, 200 cm</li>
-<li><strong>Different surfaces</strong>:
-<ul>
-<li>Flat wall</li>
-<li>Angled surface (45°)</li>
-<li>Soft material (cloth, foam)</li>
-<li>Shiny/reflective surface</li>
-</ul>
-</li>
-<li><strong>Different object sizes</strong>:
-<ul>
-<li>Large box</li>
-<li>Thin rod or pencil</li>
-<li>Your hand</li>
-</ul>
-</li>
-</ol>
-<p><strong>Record your observations</strong> in the comparison table (see Part 3).</p>
-<hr>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">delay</span><span style="color:#111">(</span><span style="color:#ae81ff">500</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><hr>
 <h2 id="part-2-infrared-ir-obstacle-sensor">Part 2: Infrared (IR) Obstacle Sensor</h2>
 <h3 id="understanding-ir-sensors">Understanding IR Sensors</h3>
 <p><strong>Digital IR sensors</strong> emit infrared light and detect reflections:</p>
 <ul>
 <li>Output: <strong>HIGH</strong> (no obstacle) or <strong>LOW</strong> (obstacle detected)</li>
 <li>Has a <strong>potentiometer</strong> to adjust detection threshold</li>
-<li>Fast response time (~20 ms)</li>
+<li>Fast response time</li>
 <li>Typical range: 2-30 cm (adjustable)</li>
 </ul>
 <hr>
@@ -438,7 +406,6 @@
 <li>IR obstacle detection sensor</li>
 <li>3 jumper wires</li>
 </ul>
-<p><strong>Wiring Table:</strong></p>
 <table>
   <thead>
       <tr>
@@ -465,17 +432,15 @@
       </tr>
   </tbody>
 </table>
-<p><strong>⚠️ Note</strong>: Some IR modules also have an analog output (AO) pin for distance measurement. For this activity, use the digital output (DO).</p>
 <hr>
 <h3 id="arduino-code-for-ir-sensor">Arduino Code for IR Sensor</h3>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Digital IR Obstacle Sensor Code
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Digital IR Obstacle Sensor
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#define IR_PIN 2
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span><span style="color:#00a8c8">void</span> <span style="color:#75af00">setup</span><span style="color:#111">()</span> <span style="color:#111">{</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">begin</span><span style="color:#111">(</span><span style="color:#ae81ff">9600</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">pinMode</span><span style="color:#111">(</span><span style="color:#111">IR_PIN</span><span style="color:#111">,</span> <span style="color:#111">INPUT</span><span style="color:#111">);</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;IR Obstacle Sensor Test&#34;</span><span style="color:#111">);</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Checking for obstacles...&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;IR Sensor Test:&#34;</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#111">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#00a8c8">void</span> <span style="color:#75af00">loop</span><span style="color:#111">()</span> <span style="color:#111">{</span>
@@ -484,153 +449,38 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">sensorState</span> <span style="color:#f92672">==</span> <span style="color:#111">LOW</span><span style="color:#111">)</span> <span style="color:#111">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;🚨 OBSTACLE DETECTED!&#34;</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;✓ Clear (no obstacle)&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;✓ Clear&#34;</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">}</span>
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#111">delay</span><span style="color:#111">(</span><span style="color:#ae81ff">300</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#111">}</span>
-</span></span></code></pre></div><p><strong>Upload this code</strong> and open the Serial Monitor (9600 baud).</p>
+</span></span></code></pre></div><p><strong>Tip:</strong> Adjust the potentiometer on your IR sensor to change the detection distance threshold.</p>
 <hr>
-<h3 id="adjusting-the-ir-sensor-threshold">Adjusting the IR Sensor Threshold</h3>
-<p>Most IR sensors have a <strong>small potentiometer</strong> (screw or knob):</p>
-<ul>
-<li><strong>Clockwise</strong>: Increases detection distance</li>
-<li><strong>Counter-clockwise</strong>: Decreases detection distance</li>
-</ul>
-<p><strong>To calibrate:</strong></p>
+<h2 id="part-3-suggested-experiments">Part 3: Suggested Experiments</h2>
+<h3 id="for-ultrasonic-sensor">For Ultrasonic Sensor:</h3>
 <ol>
-<li>Place an object at your desired detection distance</li>
-<li>Adjust the potentiometer until the sensor just detects it</li>
-<li>Test with other objects to verify consistency</li>
+<li><strong>Distance Test</strong>: Measure objects at 10cm, 30cm, 50cm, 100cm - how accurate is it?</li>
+<li><strong>Surface Test</strong>: Try flat wall, angled surface (45°), soft material (cloth/foam)</li>
+<li><strong>Object Size</strong>: Test with large box, thin object (pencil), your hand</li>
+<li><strong>Material Test</strong>: Compare wood, metal, cardboard, plastic</li>
 </ol>
-<hr>
-<h3 id="testing-the-ir-sensor">Testing the IR Sensor</h3>
-<p><strong>Experiment with:</strong></p>
+<h3 id="for-ir-sensor">For IR Sensor:</h3>
 <ol>
-<li><strong>Different distances</strong>: Start close, move object away slowly</li>
-<li><strong>Different colors</strong>:
-<ul>
-<li>White paper</li>
-<li>Black paper</li>
-<li>Colored objects</li>
-</ul>
-</li>
-<li><strong>Different materials</strong>:
-<ul>
-<li>Matte surfaces</li>
-<li>Glossy/reflective surfaces</li>
-<li>Transparent objects (water bottle)</li>
-</ul>
-</li>
-<li><strong>Detection angle</strong>: Move object side-to-side</li>
+<li><strong>Distance Range</strong>: Find minimum and maximum detection distances</li>
+<li><strong>Color Test</strong>: Try white paper, black paper, colored objects</li>
+<li><strong>Surface Test</strong>: Compare matte vs. glossy/reflective surfaces</li>
+<li><strong>Angle Test</strong>: Move object side-to-side to find detection angle</li>
 </ol>
-<p><strong>Record your observations</strong> in the comparison table.</p>
+<p><strong>Choose at least 2 experiments per sensor to demonstrate.</strong></p>
 <hr>
-<h2 id="part-3-sensor-comparison">Part 3: Sensor Comparison</h2>
-<h3 id="comparison-table-template">Comparison Table Template</h3>
-<p>Copy this table into your report and fill in your observations:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Test Condition</th>
-          <th style="text-align: left">Ultrasonic (HC-SR04)</th>
-          <th style="text-align: left">IR Sensor</th>
-          <th style="text-align: left">Winner</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left"><strong>Max reliable range</strong></td>
-          <td style="text-align: left">___ cm</td>
-          <td style="text-align: left">___ cm</td>
-          <td style="text-align: left"></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Min reliable range</strong></td>
-          <td style="text-align: left">___ cm</td>
-          <td style="text-align: left">___ cm</td>
-          <td style="text-align: left"></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Flat wall detection</strong></td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left"></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Angled surface (45°)</strong></td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left"></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Soft material (cloth)</strong></td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left"></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Shiny/reflective surface</strong></td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left"></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Small object (pencil)</strong></td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left"></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Black surface</strong></td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left"></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>White surface</strong></td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left"></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Transparent object</strong></td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left">Good/Fair/Poor</td>
-          <td style="text-align: left"></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Response speed</strong></td>
-          <td style="text-align: left">Fast/Medium/Slow</td>
-          <td style="text-align: left">Fast/Medium/Slow</td>
-          <td style="text-align: left"></td>
-      </tr>
-      <tr>
-          <td style="text-align: left"><strong>Easy to use</strong></td>
-          <td style="text-align: left">Easy/Medium/Hard</td>
-          <td style="text-align: left">Easy/Medium/Hard</td>
-          <td style="text-align: left"></td>
-      </tr>
-  </tbody>
-</table>
-<hr>
-<h2 id="part-4-submission-requirements">Part 4: Submission Requirements</h2>
-<p>Submit <strong>one comparison table per team</strong> via Canvas containing:</p>
-<ol>
-<li><strong>Team members&rsquo; names</strong> at the top</li>
-<li><strong>Completed comparison table</strong> with all observations filled in</li>
-</ol>
-<p><strong>Format</strong>: PDF, Excel, or Google Sheets<br>
-<strong>File naming</strong>: <code>Activity2_LastName1_LastName2.pdf</code></p>
-<hr>
-<h2 id="tips-for-success">Tips for Success</h2>
+<h2 id="part-4-demonstration-checklist">Part 4: Demonstration Checklist</h2>
+<p>When demonstrating to the instructor, be ready to:</p>
 <ul>
-<li><strong>Test in a quiet area</strong>: Background noise can affect ultrasonic sensors</li>
-<li><strong>Use Serial Monitor</strong>: Always check that your sensors are giving readings</li>
-<li><strong>Be systematic</strong>: Test one variable at a time</li>
-<li><strong>Document as you go</strong>: Don&rsquo;t wait until the end to fill in your table</li>
-<li><strong>Calibrate the IR sensor</strong>: Adjust the potentiometer for best performance</li>
-<li><strong>Watch for interference</strong>: Keep sensors apart if testing both simultaneously</li>
+<li>✓ Show both sensors wired correctly</li>
+<li>✓ Display Serial Monitor output for both sensors</li>
+<li>✓ Demonstrate at least 2 experiments per sensor</li>
+<li>✓ Explain what you observed and why</li>
+<li>✓ Answer questions about sensor behavior</li>
 </ul>
 <hr>
 <h2 id="troubleshooting">Troubleshooting</h2>
@@ -639,7 +489,7 @@
   <thead>
       <tr>
           <th style="text-align: left">Problem</th>
-          <th style="text-align: left">Possible Solution</th>
+          <th style="text-align: left">Solution</th>
       </tr>
   </thead>
   <tbody>
@@ -649,11 +499,7 @@
       </tr>
       <tr>
           <td style="text-align: left">Inconsistent readings</td>
-          <td style="text-align: left">Ensure stable power; test in quiet environment</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Doesn&rsquo;t detect certain objects</td>
-          <td style="text-align: left">Object may be too small or angled; try different angle</td>
+          <td style="text-align: left">Test in quiet environment; ensure stable power</td>
       </tr>
   </tbody>
 </table>
@@ -662,21 +508,17 @@
   <thead>
       <tr>
           <th style="text-align: left">Problem</th>
-          <th style="text-align: left">Possible Solution</th>
+          <th style="text-align: left">Solution</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">Always detects obstacle</td>
-          <td style="text-align: left">Adjust potentiometer counter-clockwise</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Never detects obstacle</td>
-          <td style="text-align: left">Adjust potentiometer clockwise; check wiring</td>
+          <td style="text-align: left">Always/never detects</td>
+          <td style="text-align: left">Adjust potentiometer; check wiring</td>
       </tr>
       <tr>
           <td style="text-align: left">Inconsistent detection</td>
-          <td style="text-align: left">Calibrate for specific distance; check ambient light</td>
+          <td style="text-align: left">Calibrate for specific distance</td>
       </tr>
   </tbody>
 </table>
@@ -685,20 +527,9 @@
 <ul>
 <li><a href="https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf">HC-SR04 Datasheet</a></li>
 <li><a href="https://www.arduino.cc/reference/en/language/functions/advanced-io/pulsein/">Arduino pulseIn() Documentation</a></li>
-<li><a href="https://www.electronicshub.org/ir-sensor/">IR Sensor Basics</a></li>
 </ul>
 <hr>
-<h2 id="extra-credit-optional-10">Extra Credit (Optional, +10%)</h2>
-<p><strong>Challenge</strong>: Wire <strong>both sensors at the same time</strong> and create code that:</p>
-<ol>
-<li>Reads both sensors simultaneously</li>
-<li>Displays both readings in Serial Monitor</li>
-<li>Indicates which sensor detected an obstacle first</li>
-<li>Shows the distance from the ultrasonic sensor</li>
-</ol>
-<p>Submit your code and a short explanation of how it works.</p>
-<hr>
-<p><strong>Have fun exploring robot perception! 🤖📏</strong></p>
+<p><strong>Good luck exploring robot perception! 🤖📏</strong></p>
 
 
     

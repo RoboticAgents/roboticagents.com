@@ -14,5 +14,12 @@
       <guid>https://learnroboticagents.com/activities/activity1/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;In this activity, you will demonstrate your ability to wire and control a &lt;strong&gt;servo motor&lt;/strong&gt; using an Arduino Uno. You&amp;rsquo;ll start by using Arduino&amp;rsquo;s built-in Sweep example, then modify the code to create your own custom movement pattern. This is an individual demonstration activity where you&amp;rsquo;ll show your understanding of motor control, circuit wiring, and Arduino programming.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Due Date: January 28th by 11:50 AM&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;learning-objectives&#34;&gt;Learning Objectives&lt;/h2&gt;&#xA;&lt;p&gt;By completing this activity, you will:&lt;/p&gt;</description>
     </item>
+    <item>
+      <title>Activity 2: Distance Sensors</title>
+      <link>https://learnroboticagents.com/activities/activity2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://learnroboticagents.com/activities/activity2/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;In this activity, you will wire and experiment with &lt;strong&gt;two types of distance sensors&lt;/strong&gt;: an ultrasonic sensor (HC-SR04) and an infrared (IR) obstacle detection sensor. You&amp;rsquo;ll test how each sensor responds to different objects, surfaces, and distances. This is a team demonstration activity where you&amp;rsquo;ll show your understanding of sensor operation and explore their strengths and limitations.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Teams:&lt;/strong&gt; Work in groups of 2-3 students&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Due Date: Monday, February 3rd by 11:50 AM&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>
