@@ -1,7 +1,7 @@
 +++
 title = "Goals"
 description = ""
-weight = 3
+weight = 2
 +++
 
 Complex modern digital problems often require sophisticated computer programs, or agents, that act autonomously on behalf of their users and interact with hardware. This course will introduce students to the foundational principles behind robotic agents and to the civic issues, public challenges, and opportunities in this field. Areas of discussion include, but are not limited to sensors, perception, robot navigation and localization, motion planning, machine learning in robots, state of the art robotic applications, robotics in K-12 education, renewable energy, misuse of intelligent software and hardware, and various public issues utilizing agent/robotic systems as a solution.

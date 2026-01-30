@@ -1,7 +1,7 @@
 +++
 title = "Activities"
 description = "Hands-on activities and demonstrations"
-weight = 5
+weight = 4
 +++
 
 ## Course Activities

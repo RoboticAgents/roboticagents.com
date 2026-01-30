@@ -1,7 +1,7 @@
 +++
 title = "Course Schedule"
 description = ""
-weight = 3
+weight = 1
 +++
 
 ### Detailed Weekly Schedule

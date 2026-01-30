@@ -1,7 +1,7 @@
 +++
 title = "Lecture Slides"
 description = "Slide decks for course lectures"
-weight = 6
+weight = 5
 +++
 
 ## Available Slide Decks

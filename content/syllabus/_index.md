@@ -1,7 +1,7 @@
 +++
 title = "Syllabus"
 description = ""
-weight = 5
+weight = 3
 +++
 
 ## Instructor
