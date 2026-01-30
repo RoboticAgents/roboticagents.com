@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <meta name="description" content="Hands-on Arduino distance sensing with ultrasonic and IR sensors">
+    
+    <link rel="canonical" href="https://learnroboticagents.com/activities/activity2/">
+
+    <title>
+        
+        Activity 2: Distance and IR Sensors | ROBOTIC AGENTS
+        
+    </title>
+
+    
+    <link href="/css/fontawesome.min.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    
+    <link rel="stylesheet" href="https://learnroboticagents.com/css/ace.min.css">
+
+    
+
+    
+    
+        
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3Y3KK3SLQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-X3Y3KK3SLQ');
+        }
+      </script>
+    
+
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top" id="navbarMain">
+    <div class="container">
+        <div>
+            <a class="navbar-brand" href="/">
+                
+                ROBOTIC AGENTS
+            </a>
+        </div>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMainCollapse">
+          <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" href="/schedule/">
+                            Course Schedule
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/goals/">
+                            Goals
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/activities/">
+                            Activities
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/syllabus/">
+                            Syllabus
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/slides/">
+                            Lecture Slides
+                          </a>
+                      </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/CMPSC304-RoboticAgents-Spring2026" target="_blank">
+                              <i class='fab fa-github'></i>
+                            </a>
+                        </li>
+          </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+            <div class="row">
+
+                <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse align-items-start flex-column" id="sidenav-left-collapse">
+            <form class="form-inline my-2 my-lg-0 searchbox">
+                <input class="form-control mr-sm-2 w-100" data-search-input id="search-by" type="text" placeholder="Search">
+            </form>
+
+        
+
+         <ul class="navbar-nav flex-column pt-3">
+    <li data-nav-id="/schedule/" class="nav-item my-1
+        ">
+        
+        
+          <a class="nav-link p-0" href="/schedule/"><h6>Course Schedule</h6></a>
+        
+    </li>
+    <li data-nav-id="/goals/" class="nav-item my-1
+        ">
+        
+        
+          <a class="nav-link p-0" href="/goals/"><h6>Goals</h6></a>
+        
+    </li>
+    <li data-nav-id="/activities/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/activities/"><h6>Activities</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/activities/activity1/" class="nav-item my-1">
+                
+                
+                  <a href="/activities/activity1/" class="nav-link p-0">
+                    Activity 1: Servo Motor Control
+                  </a>
+                
+        </li>
+        <li data-nav-id="/activities/activity2/" class="nav-item my-1 active">
+                
+                
+                  <a href="/activities/activity2/" class="nav-link p-0">
+                    Activity 2: Distance and IR Sensors
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+    <li data-nav-id="/syllabus/" class="nav-item my-1
+        ">
+        
+        
+          <a class="nav-link p-0" href="/syllabus/"><h6>Syllabus</h6></a>
+        
+    </li>
+    <li data-nav-id="/slides/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/slides/"><h6>Lecture Slides</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/slides/locomotion/" class="nav-item my-1">
+                
+                
+                  <a href="/slides/locomotion/" class="nav-link p-0">
+                    Locomotion
+                  </a>
+                
+        </li>
+        <li data-nav-id="/slides/motors/" class="nav-item my-1">
+                
+                
+                  <a href="/slides/motors/" class="nav-link p-0">
+                    Motors and Arduino for Robotics
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </div>
+</nav>
+
+
+</div>
+                <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#learning-objectives">Learning Objectives</a></li>
+    <li><a href="#requirements">Requirements</a>
+      <ul>
+        <li><a href="#what-you-must-demonstrate--submit">What You Must Demonstrate &amp; Submit</a></li>
+      </ul>
+    </li>
+    <li><a href="#grading-criteria">Grading Criteria</a></li>
+    <li><a href="#part-1-ultrasonic-sensor-hc-sr04">Part 1: Ultrasonic Sensor (HC-SR04)</a>
+      <ul>
+        <li><a href="#understanding-ultrasonic-sensors">Understanding Ultrasonic Sensors</a></li>
+        <li><a href="#wiring-the-hc-sr04">Wiring the HC-SR04</a></li>
+        <li><a href="#arduino-code-for-hc-sr04">Arduino Code for HC-SR04</a></li>
+        <li><a href="#testing-the-ultrasonic-sensor">Testing the Ultrasonic Sensor</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-2-infrared-ir-obstacle-sensor">Part 2: Infrared (IR) Obstacle Sensor</a>
+      <ul>
+        <li><a href="#understanding-ir-sensors">Understanding IR Sensors</a></li>
+        <li><a href="#wiring-the-ir-sensor">Wiring the IR Sensor</a></li>
+        <li><a href="#arduino-code-for-ir-sensor">Arduino Code for IR Sensor</a></li>
+        <li><a href="#adjusting-the-ir-sensor-threshold">Adjusting the IR Sensor Threshold</a></li>
+        <li><a href="#testing-the-ir-sensor">Testing the IR Sensor</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-3-sensor-comparison">Part 3: Sensor Comparison</a>
+      <ul>
+        <li><a href="#comparison-table-template">Comparison Table Template</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-4-submission-requirements">Part 4: Submission Requirements</a></li>
+    <li><a href="#tips-for-success">Tips for Success</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li><a href="#ultrasonic-sensor-issues">Ultrasonic Sensor Issues</a></li>
+        <li><a href="#ir-sensor-issues">IR Sensor Issues</a></li>
+      </ul>
+    </li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#extra-credit-optional-10">Extra Credit (Optional, +10%)</a></li>
+  </ul>
+</nav>
+</div>
+</div>
+                <div class="main col-12 order-1 col-md-9 col-lg-10 col-xl-8 py-3">
+                
+
+<div class="d-flex flex-column">
+    <h1 class="js-title">Activity 2: Distance and IR Sensors</h1>
+    <div class="d-flex align-items-center">
+        
+    </div>
+</div>
+
+<hr>
+
+
+<h2 id="overview">Overview</h2>
+<p>In this activity, you will wire and experiment with <strong>two types of distance sensors</strong>: an ultrasonic sensor (HC-SR04) and an infrared (IR) obstacle detection sensor. You&rsquo;ll compare their performance with different objects, surfaces, and distances. This activity helps you understand how robots perceive their environment and the trade-offs between different sensor types.</p>
+<p><strong>Teams:</strong> Work in pairs (2 students per team), but each team must test both sensors.</p>
+<p><strong>Due Date: February 4th by 11:50 AM</strong></p>
+<hr>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By completing this activity, you will:</p>
+<ul>
+<li>Wire and operate ultrasonic and IR distance sensors</li>
+<li>Understand how different sensors detect obstacles</li>
+<li>Compare sensor performance across various conditions</li>
+<li>Document sensor capabilities and limitations</li>
+<li>Learn when to use each sensor type in robotics applications</li>
+</ul>
+<hr>
+<h2 id="requirements">Requirements</h2>
+<h3 id="what-you-must-demonstrate--submit">What You Must Demonstrate &amp; Submit</h3>
+<ol>
+<li><strong>Wire both sensors</strong> correctly to Arduino Uno</li>
+<li><strong>Test ultrasonic sensor</strong> with different objects and distances</li>
+<li><strong>Test IR sensor</strong> with different surfaces and obstacles</li>
+<li><strong>Complete and submit the comparison table</strong> with your observations</li>
+</ol>
+<hr>
+<h2 id="grading-criteria">Grading Criteria</h2>
+<p>This is a <strong>Class Activity</strong> worth points toward your participation grade.</p>
+<p><strong>Grading Rubric</strong>:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Criterion</th>
+          <th style="text-align: center">Points</th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>Ultrasonic Wiring &amp; Demo</strong></td>
+          <td style="text-align: center">25%</td>
+          <td style="text-align: left">HC-SR04 correctly wired; distance readings displayed</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>IR Wiring &amp; Demo</strong></td>
+          <td style="text-align: center">25%</td>
+          <td style="text-align: left">IR sensor correctly wired; obstacle detection working</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Testing &amp; Experimentation</strong></td>
+          <td style="text-align: center">30%</td>
+          <td style="text-align: left">Tested both sensors with multiple objects/surfaces/distances</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Comparison Table</strong></td>
+          <td style="text-align: center">20%</td>
+          <td style="text-align: left">Complete and accurate observations documented</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>To Pass</strong>: Achieve at least 70% overall. Both sensors must be functional.</p>
+<hr>
+<h2 id="part-1-ultrasonic-sensor-hc-sr04">Part 1: Ultrasonic Sensor (HC-SR04)</h2>
+<h3 id="understanding-ultrasonic-sensors">Understanding Ultrasonic Sensors</h3>
+<p>The <strong>HC-SR04</strong> uses <strong>sound waves</strong> (40 kHz ultrasonic) to measure distance:</p>
+<ol>
+<li>Sends out a sound pulse</li>
+<li>Measures time for echo to return</li>
+<li>Calculates distance: <code>distance = (time × speed_of_sound) / 2</code></li>
+</ol>
+<p><strong>Specifications</strong>:</p>
+<ul>
+<li>Range: 2 cm to 400 cm</li>
+<li>Accuracy: ±3 mm</li>
+<li>Beam angle: ~15°</li>
+</ul>
+<hr>
+<h3 id="wiring-the-hc-sr04">Wiring the HC-SR04</h3>
+<p><strong>Components:</strong></p>
+<ul>
+<li>Arduino Uno</li>
+<li>HC-SR04 ultrasonic sensor</li>
+<li>4 jumper wires</li>
+<li>Breadboard (optional)</li>
+</ul>
+<p><strong>Wiring Table:</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">HC-SR04 Pin</th>
+          <th style="text-align: left">Arduino Pin</th>
+          <th style="text-align: left">Purpose</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">VCC</td>
+          <td style="text-align: left">5V</td>
+          <td style="text-align: left">Power</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">TRIG</td>
+          <td style="text-align: left">Any digital pin (e.g., Pin 9)</td>
+          <td style="text-align: left">Trigger pulse</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ECHO</td>
+          <td style="text-align: left">Any digital pin (e.g., Pin 10)</td>
+          <td style="text-align: left">Echo response</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">GND</td>
+          <td style="text-align: left">GND</td>
+          <td style="text-align: left">Ground</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="arduino-code-for-hc-sr04">Arduino Code for HC-SR04</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// HC-SR04 Ultrasonic Sensor Code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#define TRIG_PIN 9
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define ECHO_PIN 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">void</span> <span style="color:#75af00">setup</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">begin</span><span style="color:#111">(</span><span style="color:#ae81ff">9600</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">pinMode</span><span style="color:#111">(</span><span style="color:#111">TRIG_PIN</span><span style="color:#111">,</span> <span style="color:#111">OUTPUT</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">pinMode</span><span style="color:#111">(</span><span style="color:#111">ECHO_PIN</span><span style="color:#111">,</span> <span style="color:#111">INPUT</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;HC-SR04 Ultrasonic Sensor Test&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Distance in cm:&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">void</span> <span style="color:#75af00">loop</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Send 10µs pulse to trigger
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#111">digitalWrite</span><span style="color:#111">(</span><span style="color:#111">TRIG_PIN</span><span style="color:#111">,</span> <span style="color:#111">LOW</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">delayMicroseconds</span><span style="color:#111">(</span><span style="color:#ae81ff">2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">digitalWrite</span><span style="color:#111">(</span><span style="color:#111">TRIG_PIN</span><span style="color:#111">,</span> <span style="color:#111">HIGH</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">delayMicroseconds</span><span style="color:#111">(</span><span style="color:#ae81ff">10</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">digitalWrite</span><span style="color:#111">(</span><span style="color:#111">TRIG_PIN</span><span style="color:#111">,</span> <span style="color:#111">LOW</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Measure echo duration (in microseconds)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#00a8c8">long</span> <span style="color:#111">duration</span> <span style="color:#f92672">=</span> <span style="color:#111">pulseIn</span><span style="color:#111">(</span><span style="color:#111">ECHO_PIN</span><span style="color:#111">,</span> <span style="color:#111">HIGH</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Calculate distance in cm
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// Speed of sound: 343 m/s = 0.0343 cm/µs
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#00a8c8">float</span> <span style="color:#111">distance</span> <span style="color:#f92672">=</span> <span style="color:#111">duration</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">0.034</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Display result
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">print</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Distance: &#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">print</span><span style="color:#111">(</span><span style="color:#111">distance</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34; cm&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#111">delay</span><span style="color:#111">(</span><span style="color:#ae81ff">500</span><span style="color:#111">);</span>  <span style="color:#75715e">// Wait 500ms between readings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span>
+</span></span></code></pre></div><p><strong>Upload this code</strong> and open the Serial Monitor (9600 baud) to see distance readings.</p>
+<hr>
+<h3 id="testing-the-ultrasonic-sensor">Testing the Ultrasonic Sensor</h3>
+<p><strong>Experiment with:</strong></p>
+<ol>
+<li><strong>Different distances</strong>: 5 cm, 20 cm, 50 cm, 100 cm, 200 cm</li>
+<li><strong>Different surfaces</strong>:
+<ul>
+<li>Flat wall</li>
+<li>Angled surface (45°)</li>
+<li>Soft material (cloth, foam)</li>
+<li>Shiny/reflective surface</li>
+</ul>
+</li>
+<li><strong>Different object sizes</strong>:
+<ul>
+<li>Large box</li>
+<li>Thin rod or pencil</li>
+<li>Your hand</li>
+</ul>
+</li>
+</ol>
+<p><strong>Record your observations</strong> in the comparison table (see Part 3).</p>
+<hr>
+<h2 id="part-2-infrared-ir-obstacle-sensor">Part 2: Infrared (IR) Obstacle Sensor</h2>
+<h3 id="understanding-ir-sensors">Understanding IR Sensors</h3>
+<p><strong>Digital IR sensors</strong> emit infrared light and detect reflections:</p>
+<ul>
+<li>Output: <strong>HIGH</strong> (no obstacle) or <strong>LOW</strong> (obstacle detected)</li>
+<li>Has a <strong>potentiometer</strong> to adjust detection threshold</li>
+<li>Fast response time (~20 ms)</li>
+<li>Typical range: 2-30 cm (adjustable)</li>
+</ul>
+<hr>
+<h3 id="wiring-the-ir-sensor">Wiring the IR Sensor</h3>
+<p><strong>Components:</strong></p>
+<ul>
+<li>Arduino Uno</li>
+<li>IR obstacle detection sensor</li>
+<li>3 jumper wires</li>
+</ul>
+<p><strong>Wiring Table:</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">IR Sensor Pin</th>
+          <th style="text-align: left">Arduino Pin</th>
+          <th style="text-align: left">Purpose</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">VCC</td>
+          <td style="text-align: left">5V</td>
+          <td style="text-align: left">Power</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">OUT</td>
+          <td style="text-align: left">Any digital pin (e.g., Pin 2)</td>
+          <td style="text-align: left">Detection signal</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">GND</td>
+          <td style="text-align: left">GND</td>
+          <td style="text-align: left">Ground</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>⚠️ Note</strong>: Some IR modules also have an analog output (AO) pin for distance measurement. For this activity, use the digital output (DO).</p>
+<hr>
+<h3 id="arduino-code-for-ir-sensor">Arduino Code for IR Sensor</h3>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Digital IR Obstacle Sensor Code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#define IR_PIN 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">void</span> <span style="color:#75af00">setup</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">begin</span><span style="color:#111">(</span><span style="color:#ae81ff">9600</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">pinMode</span><span style="color:#111">(</span><span style="color:#111">IR_PIN</span><span style="color:#111">,</span> <span style="color:#111">INPUT</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;IR Obstacle Sensor Test&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Checking for obstacles...&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">void</span> <span style="color:#75af00">loop</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">int</span> <span style="color:#111">sensorState</span> <span style="color:#f92672">=</span> <span style="color:#111">digitalRead</span><span style="color:#111">(</span><span style="color:#111">IR_PIN</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">sensorState</span> <span style="color:#f92672">==</span> <span style="color:#111">LOW</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;🚨 OBSTACLE DETECTED!&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;✓ Clear (no obstacle)&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#111">delay</span><span style="color:#111">(</span><span style="color:#ae81ff">300</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span></code></pre></div><p><strong>Upload this code</strong> and open the Serial Monitor (9600 baud).</p>
+<hr>
+<h3 id="adjusting-the-ir-sensor-threshold">Adjusting the IR Sensor Threshold</h3>
+<p>Most IR sensors have a <strong>small potentiometer</strong> (screw or knob):</p>
+<ul>
+<li><strong>Clockwise</strong>: Increases detection distance</li>
+<li><strong>Counter-clockwise</strong>: Decreases detection distance</li>
+</ul>
+<p><strong>To calibrate:</strong></p>
+<ol>
+<li>Place an object at your desired detection distance</li>
+<li>Adjust the potentiometer until the sensor just detects it</li>
+<li>Test with other objects to verify consistency</li>
+</ol>
+<hr>
+<h3 id="testing-the-ir-sensor">Testing the IR Sensor</h3>
+<p><strong>Experiment with:</strong></p>
+<ol>
+<li><strong>Different distances</strong>: Start close, move object away slowly</li>
+<li><strong>Different colors</strong>:
+<ul>
+<li>White paper</li>
+<li>Black paper</li>
+<li>Colored objects</li>
+</ul>
+</li>
+<li><strong>Different materials</strong>:
+<ul>
+<li>Matte surfaces</li>
+<li>Glossy/reflective surfaces</li>
+<li>Transparent objects (water bottle)</li>
+</ul>
+</li>
+<li><strong>Detection angle</strong>: Move object side-to-side</li>
+</ol>
+<p><strong>Record your observations</strong> in the comparison table.</p>
+<hr>
+<h2 id="part-3-sensor-comparison">Part 3: Sensor Comparison</h2>
+<h3 id="comparison-table-template">Comparison Table Template</h3>
+<p>Copy this table into your report and fill in your observations:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Test Condition</th>
+          <th style="text-align: left">Ultrasonic (HC-SR04)</th>
+          <th style="text-align: left">IR Sensor</th>
+          <th style="text-align: left">Winner</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>Max reliable range</strong></td>
+          <td style="text-align: left">___ cm</td>
+          <td style="text-align: left">___ cm</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Min reliable range</strong></td>
+          <td style="text-align: left">___ cm</td>
+          <td style="text-align: left">___ cm</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Flat wall detection</strong></td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Angled surface (45°)</strong></td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Soft material (cloth)</strong></td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Shiny/reflective surface</strong></td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Small object (pencil)</strong></td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Black surface</strong></td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>White surface</strong></td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Transparent object</strong></td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left">Good/Fair/Poor</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Response speed</strong></td>
+          <td style="text-align: left">Fast/Medium/Slow</td>
+          <td style="text-align: left">Fast/Medium/Slow</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Easy to use</strong></td>
+          <td style="text-align: left">Easy/Medium/Hard</td>
+          <td style="text-align: left">Easy/Medium/Hard</td>
+          <td style="text-align: left"></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="part-4-submission-requirements">Part 4: Submission Requirements</h2>
+<p>Submit <strong>one comparison table per team</strong> via Canvas containing:</p>
+<ol>
+<li><strong>Team members&rsquo; names</strong> at the top</li>
+<li><strong>Completed comparison table</strong> with all observations filled in</li>
+</ol>
+<p><strong>Format</strong>: PDF, Excel, or Google Sheets<br>
+<strong>File naming</strong>: <code>Activity2_LastName1_LastName2.pdf</code></p>
+<hr>
+<h2 id="tips-for-success">Tips for Success</h2>
+<ul>
+<li><strong>Test in a quiet area</strong>: Background noise can affect ultrasonic sensors</li>
+<li><strong>Use Serial Monitor</strong>: Always check that your sensors are giving readings</li>
+<li><strong>Be systematic</strong>: Test one variable at a time</li>
+<li><strong>Document as you go</strong>: Don&rsquo;t wait until the end to fill in your table</li>
+<li><strong>Calibrate the IR sensor</strong>: Adjust the potentiometer for best performance</li>
+<li><strong>Watch for interference</strong>: Keep sensors apart if testing both simultaneously</li>
+</ul>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="ultrasonic-sensor-issues">Ultrasonic Sensor Issues</h3>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Problem</th>
+          <th style="text-align: left">Possible Solution</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Always reads 0 or 400+ cm</td>
+          <td style="text-align: left">Check wiring; verify TRIG and ECHO pins</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Inconsistent readings</td>
+          <td style="text-align: left">Ensure stable power; test in quiet environment</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Doesn&rsquo;t detect certain objects</td>
+          <td style="text-align: left">Object may be too small or angled; try different angle</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="ir-sensor-issues">IR Sensor Issues</h3>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Problem</th>
+          <th style="text-align: left">Possible Solution</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Always detects obstacle</td>
+          <td style="text-align: left">Adjust potentiometer counter-clockwise</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Never detects obstacle</td>
+          <td style="text-align: left">Adjust potentiometer clockwise; check wiring</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Inconsistent detection</td>
+          <td style="text-align: left">Calibrate for specific distance; check ambient light</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf">HC-SR04 Datasheet</a></li>
+<li><a href="https://www.arduino.cc/reference/en/language/functions/advanced-io/pulsein/">Arduino pulseIn() Documentation</a></li>
+<li><a href="https://www.electronicshub.org/ir-sensor/">IR Sensor Basics</a></li>
+</ul>
+<hr>
+<h2 id="extra-credit-optional-10">Extra Credit (Optional, +10%)</h2>
+<p><strong>Challenge</strong>: Wire <strong>both sensors at the same time</strong> and create code that:</p>
+<ol>
+<li>Reads both sensors simultaneously</li>
+<li>Displays both readings in Serial Monitor</li>
+<li>Indicates which sensor detected an obstacle first</li>
+<li>Shows the distance from the ultrasonic sensor</li>
+</ol>
+<p>Submit your code and a short explanation of how it works.</p>
+<hr>
+<p><strong>Have fun exploring robot perception! 🤖📏</strong></p>
+
+
+    
+
+
+
+
+                </div>
+
+            </div> 
+
+        </div> 
+<script src="/lib/jquery.min.js"></script> 
+<script src="/lib/popper.min.js"></script> 
+
+<script src="/js/bootstrap.min.js"></script> 
+
+
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "https:\/\/learnroboticagents.com\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+</body>
+</html>

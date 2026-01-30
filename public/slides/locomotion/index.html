@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <meta name="description" content="Week 1 lecture on robot movement mechanisms">
+    
+    <link rel="canonical" href="https://learnroboticagents.com/slides/locomotion/">
+
+    <title>
+        
+        Locomotion | ROBOTIC AGENTS
+        
+    </title>
+
+    
+    <link href="/css/fontawesome.min.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    
+    <link rel="stylesheet" href="https://learnroboticagents.com/css/ace.min.css">
+
+    
+
+    
+    
+        
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3Y3KK3SLQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-X3Y3KK3SLQ');
+        }
+      </script>
+    
+
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top" id="navbarMain">
+    <div class="container">
+        <div>
+            <a class="navbar-brand" href="/">
+                
+                ROBOTIC AGENTS
+            </a>
+        </div>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMainCollapse">
+          <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" href="/schedule/">
+                            Course Schedule
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/goals/">
+                            Goals
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/activities/">
+                            Activities
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/syllabus/">
+                            Syllabus
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/slides/">
+                            Lecture Slides
+                          </a>
+                      </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/CMPSC304-RoboticAgents-Spring2026" target="_blank">
+                              <i class='fab fa-github'></i>
+                            </a>
+                        </li>
+          </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+            <div class="row">
+
+                <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse align-items-start flex-column" id="sidenav-left-collapse">
+            <form class="form-inline my-2 my-lg-0 searchbox">
+                <input class="form-control mr-sm-2 w-100" data-search-input id="search-by" type="text" placeholder="Search">
+            </form>
+
+        
+
+         <ul class="navbar-nav flex-column pt-3">
+    <li data-nav-id="/schedule/" class="nav-item my-1
+        ">
+        
+        
+          <a class="nav-link p-0" href="/schedule/"><h6>Course Schedule</h6></a>
+        
+    </li>
+    <li data-nav-id="/goals/" class="nav-item my-1
+        ">
+        
+        
+          <a class="nav-link p-0" href="/goals/"><h6>Goals</h6></a>
+        
+    </li>
+    <li data-nav-id="/activities/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/activities/"><h6>Activities</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/activities/activity1/" class="nav-item my-1">
+                
+                
+                  <a href="/activities/activity1/" class="nav-link p-0">
+                    Activity 1: Servo Motor Control
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+    <li data-nav-id="/syllabus/" class="nav-item my-1
+        ">
+        
+        
+          <a class="nav-link p-0" href="/syllabus/"><h6>Syllabus</h6></a>
+        
+    </li>
+    <li data-nav-id="/slides/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/slides/"><h6>Lecture Slides</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/slides/locomotion/" class="nav-item my-1 active">
+                
+                
+                  <a href="/slides/locomotion/" class="nav-link p-0">
+                    Locomotion
+                  </a>
+                
+        </li>
+        <li data-nav-id="/slides/motors/" class="nav-item my-1">
+                
+                
+                  <a href="/slides/motors/" class="nav-link p-0">
+                    Motors and Arduino for Robotics
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </div>
+</nav>
+
+
+</div>
+                <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#todays-agenda">Today&rsquo;s Agenda</a></li>
+    <li><a href="#actuation-making-robots-move">Actuation: Making Robots Move</a></li>
+    <li><a href="#the-duality-of-movement">The Duality of Movement</a></li>
+    <li><a href="#locomotion-methods">Locomotion Methods</a></li>
+    <li><a href="#energy-efficiency-the-wheel-wins">Energy Efficiency: The Wheel Wins</a></li>
+    <li><a href="#static-vs-dynamic-stability">Static vs. Dynamic Stability</a>
+      <ul>
+        <li><a href="#static-stability">Static Stability</a></li>
+        <li><a href="#dynamic-stability">Dynamic Stability</a></li>
+      </ul>
+    </li>
+    <li><a href="#stability-the-key-principle">Stability: The Key Principle</a></li>
+    <li><a href="#real-world-examples">Real-World Examples</a></li>
+    <li><a href="#degrees-of-freedom-dof">Degrees of Freedom (DoF)</a></li>
+    <li><a href="#cartesian-dof-in-3d-space">Cartesian DoF in 3D Space</a></li>
+    <li><a href="#wheel-types-and-their-dof">Wheel Types and Their DoF</a></li>
+    <li><a href="#wheel-types-and-their-dof-1">Wheel Types and Their DoF</a></li>
+    <li><a href="#caster-wheel-3-dof">Caster Wheel (3 DoF)</a></li>
+    <li><a href="#swedishmecanum-wheel-3-dof">Swedish/Mecanum Wheel (3 DoF)</a></li>
+    <li><a href="#kinematic-constraints">Kinematic Constraints</a></li>
+    <li><a href="#mobile-robot-dof-on-a-plane">Mobile Robot DoF on a Plane</a></li>
+    <li><a href="#manipulator-arms-mechanical-dof">Manipulator Arms: Mechanical DoF</a></li>
+    <li><a href="#joint-types">Joint Types</a></li>
+    <li><a href="#design-trade-offs">Design Trade-offs</a></li>
+    <li><a href="#real-robot-differential-drive">Real Robot: Differential Drive</a></li>
+    <li><a href="#key-takeaways">Key Takeaways</a></li>
+    <li><a href="#before-next-class">Before Next Class</a></li>
+    <li><a href="#questions">Questions?</a></li>
+  </ul>
+</nav>
+</div>
+</div>
+                <div class="main col-12 order-1 col-md-9 col-lg-10 col-xl-8 py-3">
+                
+
+<div class="d-flex flex-column">
+    <h1 class="js-title">Locomotion</h1>
+    <div class="d-flex align-items-center">
+        
+    </div>
+</div>
+
+<hr>
+
+
+<style>
+.reveal h1 { font-size: 2.5em; }
+.reveal h2 { font-size: 2em; color: #2a5599; }
+.reveal h3 { font-size: 1.5em; color: #4a7fbb; }
+.reveal ul { font-size: 0.9em; }
+.reveal .small { font-size: 0.7em; }
+.reveal .highlight { color: #d9534f; font-weight: bold; }
+.reveal .box { 
+    background: #f5f5f5; 
+    padding: 20px; 
+    border-radius: 10px; 
+    margin: 20px 0;
+}
+</style>
+<hr>
+<h1 id="actuators-and-locomotion">Actuators and Locomotion</h1>
+<p><strong>Week 1 • CMPSC 304 Robotic Agents</strong></p>
+<hr>
+<h2 id="todays-agenda">Today&rsquo;s Agenda</h2>
+<ul>
+<li>What is actuation?</li>
+<li>Locomotion vs. manipulation</li>
+<li>Static vs. dynamic stability</li>
+<li>Degrees of Freedom (DoF)</li>
+<li>Wheel types and kinematics</li>
+</ul>
+<hr>
+<h2 id="actuation-making-robots-move">Actuation: Making Robots Move</h2>
+<div class="box">
+<p><strong>Actuation</strong> = The robot&rsquo;s ability to move and interact with the world</p>
+</div>
+<p>Two key types:</p>
+<ul>
+<li><strong>Locomotion</strong>: Moving the robot itself</li>
+<li><strong>Manipulation</strong>: Moving objects in the environment</li>
+</ul>
+<hr>
+<h2 id="the-duality-of-movement">The Duality of Movement</h2>
+<p>Both use the same principle:</p>
+<ul>
+<li>Motors exert forces on the environment</li>
+<li><strong>Locomotion</strong>: Forces on ground/water/air → robot moves</li>
+<li><strong>Manipulation</strong>: Forces on objects → objects move</li>
+</ul>
+<p><strong>Example</strong>: Insect legs do both!</p>
+<hr>
+<h2 id="locomotion-methods">Locomotion Methods</h2>
+<p>Rolling • Walking • Running • Jumping<br>
+Swimming • Flying • Crawling • Sliding</p>
+<div class="box">
+<p><strong>Key Question</strong>: Which mechanism is best for your application?</p>
+</div>
+<p>Trade-offs: energy efficiency, terrain, speed, stability, cost</p>
+<hr>
+<h2 id="energy-efficiency-the-wheel-wins">Energy Efficiency: The Wheel Wins</h2>
+<img src="/slides/power-consumption.png" alt="Power consumption vs speed" style="max-width: 70%; margin: 20px auto; display: block;">
+<div class="box small">
+<p><strong>Rolling</strong> provides the best energy-to-speed ratio of any locomotion method.</p>
+<p>Railway wheels are ~10× more efficient than walking at the same speed!</p>
+</div>
+<hr>
+<h2 id="static-vs-dynamic-stability">Static vs. Dynamic Stability</h2>
+<div style="display: flex; justify-content: space-around; margin-top: 30px;">
+<div style="flex: 1; text-align: center;">
+<h3 id="static-stability">Static Stability</h3>
+<p>Won&rsquo;t fall when <strong>not</strong> moving</p>
+<p>✓ Stable at rest<br>
+✓ Slower movements<br>
+✓ Simpler control</p>
+</div>
+<div style="flex: 1; text-align: center;">
+<h3 id="dynamic-stability">Dynamic Stability</h3>
+<p>Requires <strong>constant</strong> motion</p>
+<p>✓ Faster, more agile<br>
+✗ Complex control<br>
+✗ Always actuating</p>
+</div>
+</div>
+<hr>
+<h2 id="stability-the-key-principle">Stability: The Key Principle</h2>
+<img src="/slides/stability.pdf" alt="Stability examples" style="max-width: 90%; margin: 20px auto; display: block;">
+<div class="box">
+<p><strong>Center of mass</strong> must stay within the polygon formed by ground-contact points</p>
+</div>
+<ul>
+<li><strong>Left</strong>: Statically stable (stays upright at rest)</li>
+<li><strong>Middle</strong>: Dynamically stable (must keep moving)</li>
+<li><strong>Right</strong>: Both modes possible (configuration-dependent)</li>
+</ul>
+<hr>
+<h2 id="real-world-examples">Real-World Examples</h2>
+<p><strong>Six legs</strong> (insects, hexapods):</p>
+<ul>
+<li>Statically stable walking</li>
+<li>Move 3 legs at a time</li>
+</ul>
+<p><strong>Four legs</strong> (dogs, quadruped robots):</p>
+<ul>
+<li>Walking = static stability</li>
+<li>Running/galloping = dynamic stability</li>
+</ul>
+<hr>
+<h2 id="degrees-of-freedom-dof">Degrees of Freedom (DoF)</h2>
+<div class="box">
+<p><strong>DoF</strong> = Independent ways a system can move</p>
+</div>
+<p>Two types to distinguish:</p>
+<ol>
+<li><strong>Cartesian DoF</strong>: Positions/orientations in space (max 6 in 3D)</li>
+<li><strong>Mechanical DoF</strong>: Number of actuated joints</li>
+</ol>
+<hr>
+<h2 id="cartesian-dof-in-3d-space">Cartesian DoF in 3D Space</h2>
+<img src="/slides/pitchyawroll.pdf" alt="Pitch, yaw, and roll" style="max-width: 65%; margin: 10px auto; display: block;">
+<p><strong>Translation</strong> (3 DoF): Forward/back • Left/right • Up/down</p>
+<p><strong>Rotation</strong> (3 DoF): <strong>Pitch</strong> • <strong>Yaw</strong> • <strong>Roll</strong></p>
+<hr>
+<h2 id="wheel-types-and-their-dof">Wheel Types and Their DoF</h2>
+<p>Different wheels = different mobility</p>
+<div class="box small">
+<h2 id="wheel-types-and-their-dof-1">Wheel Types and Their DoF</h2>
+<img src="/slides/wheels-table.png" alt="Wheel types" style="max-width: 85%; margin: 20px auto; display: block;">
+<div class="small">
+<p>Different wheel types enable different types of mobility</p>
+</div>degrees of freedom**:
+1. Rotation around wheel axle
+2. Rotation around ground contact point
+<div class="box">
+<p><strong>Constraint</strong>: Can only roll in one direction<br>
+Cannot move sideways (would require skidding)</p>
+</div>
+<p><strong>Example</strong>: Bicycle wheel, car wheel</p>
+<hr>
+<h2 id="caster-wheel-3-dof">Caster Wheel (3 DoF)</h2>
+<p><strong>Three degrees of freedom</strong>:</p>
+<ol>
+<li>Rotation around wheel axle</li>
+<li>Rotation around ground contact</li>
+<li>Rotation around caster axis</li>
+</ol>
+<div class="box">
+<p>Can reorient to roll in any direction!</p>
+</div>
+<p><strong>Example</strong>: Shopping cart, office chair</p>
+<hr>
+<h2 id="swedishmecanum-wheel-3-dof">Swedish/Mecanum Wheel (3 DoF)</h2>
+<p><strong>Three degrees of freedom</strong>:</p>
+<ol>
+<li>Rotation around main wheel axle</li>
+<li>Rotation around ground contact</li>
+<li>Rotation around roller axles</li>
+</ol>
+<div class="box">
+<p>Rollers on circumference allow sideways motion while wheel spins forward</p>
+</div>
+<p><strong>Result</strong>: True omnidirectional movement!</p>
+<hr>
+<h2 id="kinematic-constraints">Kinematic Constraints</h2>
+<div class="box">
+<p><strong>3-DoF wheels</strong> = Free movement on a plane<br>
+<strong>2-DoF wheels</strong> = Constrained movement</p>
+</div>
+<p><strong>But</strong> constrained ≠ unreachable!</p>
+<ul>
+<li>A car can parallel park</li>
+<li>Requires multiple maneuvers</li>
+<li>Like a knight on a chessboard</li>
+</ul>
+<hr>
+<h2 id="mobile-robot-dof-on-a-plane">Mobile Robot DoF on a Plane</h2>
+<p><strong>Plane has 3 Cartesian DoF</strong>:</p>
+<ul>
+<li>X position</li>
+<li>Y position</li>
+<li>Orientation (angle θ)</li>
+</ul>
+<div class="box">
+<p>Robots without 3-DoF wheels have <strong>kinematic constraints</strong></p>
+</div>
+<p>They may need multiple moves to reach certain poses</p>
+<hr>
+<h2 id="manipulator-arms-mechanical-dof">Manipulator Arms: Mechanical DoF</h2>
+<div class="box">
+<p>Each actuated joint typically adds 1 mechanical DoF</p>
+</div>
+<p><strong>On a plane</strong> (2D workspace):</p>
+<ul>
+<li>Up/down position</li>
+<li>Left/right position</li>
+<li>End-effector orientation</li>
+</ul>
+<p><strong>3 Cartesian DoF needed</strong> → Need ≥3 joints</p>
+<hr>
+<h2 id="joint-types">Joint Types</h2>
+<p><strong>Revolute (Rotary) Joint</strong>:</p>
+<ul>
+<li>Most common</li>
+<li>Rotates around an axis</li>
+<li>Example: Elbow, shoulder</li>
+</ul>
+<p><strong>Prismatic (Linear) Joint</strong>:</p>
+<ul>
+<li>Extends and contracts</li>
+<li>Slides along an axis</li>
+<li>Example: Telescope, piston</li>
+</ul>
+<hr>
+<h2 id="design-trade-offs">Design Trade-offs</h2>
+<p>Choosing kinematics involves balancing:</p>
+<ul>
+<li>✓ Mechanical complexity</li>
+<li>✓ Maneuverability</li>
+<li>✓ Precision</li>
+<li>✓ Cost</li>
+<li>✓ Ease of control</li>
+</ul>
+<div class="box small">
+<p><strong>Example</strong>: Differential drive (2 wheels) vs. car steering<br>
+• Differential: cheap, maneuverable, hard to drive straight<br>
+• Car steering: expensive, precise, hard to parallel park</p>
+</div>
+<hr>
+<h2 id="real-robot-differential-drive">Real Robot: Differential Drive</h2>
+<p><strong>Configuration</strong>:</p>
+<ul>
+<li>Two powered wheels on shared axis</li>
+<li>One (or two) caster wheels for support</li>
+</ul>
+<p><strong>Advantages</strong>:</p>
+<ul>
+<li>Very maneuverable (can spin in place)</li>
+<li>Simple control</li>
+<li>Low cost</li>
+</ul>
+<p><strong>Challenge</strong>:</p>
+<ul>
+<li>Hard to drive perfectly straight</li>
+<li>Requires matched motors and wheels</li>
+</ul>
+<hr>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ol>
+<li><strong>Actuation</strong> enables locomotion and manipulation</li>
+<li><strong>Stability</strong> can be static (at rest) or dynamic (requires motion)</li>
+<li><strong>DoF</strong> describes what movements are possible</li>
+<li><strong>Wheel type</strong> determines mobility constraints</li>
+<li><strong>Design choices</strong> involve complex trade-offs</li>
+</ol>
+<hr>
+<h2 id="before-next-class">Before Next Class</h2>
+<p>Building your wheeled robot!</p>
+<p><strong>Think about</strong>:</p>
+<ul>
+<li>What DoF does your robot need?</li>
+<li>Static or dynamic stability?</li>
+<li>Which wheel configuration?</li>
+<li>What trade-offs will you make?</li>
+</ul>
+<hr>
+<h2 id="questions">Questions?</h2>
+<p><strong>Next</strong>: Continue Project 1 (Wheeled Robot)</p>
+<ul>
+<li>Submit components list and team contract</li>
+<li>Finish Design
+<strong>Next Week</strong>:</li>
+<li>Mechanical build</li>
+<li>Wiring and power</li>
+<li>Basic control</li>
+</ul>
+<div class="small">
+<p><em>Readings: IAR Chapters 2 &amp; 6</em></p>
+</div>
+
+
+    
+
+
+
+
+                </div>
+
+            </div> 
+
+        </div> 
+<script src="/lib/jquery.min.js"></script> 
+<script src="/lib/popper.min.js"></script> 
+
+<script src="/js/bootstrap.min.js"></script> 
+
+
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "https:\/\/learnroboticagents.com\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+</body>
+</html>

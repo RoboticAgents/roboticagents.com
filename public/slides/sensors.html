@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensors for Robotics | CS304</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <style>
+        :root {
+            --primary: #5a4ba4;
+            --secondary: #6610f2;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .reveal h1 {
+            color: var(--primary);
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 0.4em;
+        }
+        
+        .reveal h3 {
+            color: var(--secondary);
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        
+        .reveal .subtitle {
+            color: var(--dark);
+            font-size: 1.2em;
+            margin-top: -20px;
+        }
+        
+        .reveal ul {
+            font-size: 0.8em;
+            line-height: 1.5;
+        }
+        
+        .reveal li {
+            margin: 0.25em 0;
+        }
+        
+        .reveal .highlight {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .reveal .box {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 15px auto;
+            max-width: 90%;
+            font-size: 0.9em;
+        }
+        
+        .reveal .box-success {
+            border-left-color: var(--success);
+        }
+        
+        .reveal .box-info {
+            border-left-color: var(--info);
+        }
+        
+        .reveal .box-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        
+        .reveal .col-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .reveal .small-text {
+            font-size: 0.7em;
+            color: #666;
+        }
+        
+        .reveal table {
+            font-size: 0.7em;
+            margin: 15px auto;
+        }
+        
+        .reveal th {
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+        }
+        
+        .reveal td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .reveal img {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .reveal .progress {
+            background: rgba(90, 75, 164, 0.2);
+        }
+        
+        .reveal .progress span {
+            background: var(--primary);
+        }
+        
+        .reveal .checkmark {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .reveal .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .reveal .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+        
+        .reveal .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .reveal .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .reveal .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .reveal code {
+            background: #f4f4f4;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .reveal pre {
+            margin: 15px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .reveal pre code {
+            padding: 20px;
+            font-size: 0.65em;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section>
+                <h1>Sensors for Robotics</h1>
+                <p class="subtitle">Week 3 • CMPSC 304 Robotic Agents</p>
+                <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>→</strong> to advance</p>
+            </section>
+
+            <!-- Perception-Actuation-Decision -->
+            <section>
+                <h2>The Robot Control Loop</h2>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin: 40px 0; font-size: 1.1em;">
+                    <div style="background: var(--info); color: white; padding: 25px 35px; border-radius: 10px; font-weight: 600;">
+                        PERCEPTION
+                    </div>
+                    <div style="font-size: 2em; color: var(--primary);">→</div>
+                    <div style="background: var(--warning); color: white; padding: 25px 35px; border-radius: 10px; font-weight: 600;">
+                        DECISION
+                    </div>
+                    <div style="font-size: 2em; color: var(--primary);">→</div>
+                    <div style="background: var(--success); color: white; padding: 25px 35px; border-radius: 10px; font-weight: 600;">
+                        ACTUATION
+                    </div>
+                </div>
+                <div class="box box-info" style="margin-top: 40px;">
+                    <ul style="list-style: none; padding: 0; font-size: 0.95em;">
+                        <li><strong>Perception:</strong> Sense the environment (sensors) 👈 <em>This week!</em></li>
+                        <li><strong>Decision:</strong> Process information and plan actions</li>
+                        <li><strong>Actuation:</strong> Execute actions (motors)</li>
+                    </ul>
+                </div>
+                <p class="small-text" style="margin-top: 30px;">This cycle repeats continuously while the robot operates</p>
+            </section>
+
+            <!-- CLASS 1: DISTANCE SENSORS -->
+
+            <!-- What are Sensors? -->
+            <section>
+                <h2>What Are Sensors?</h2>
+                <div class="box">
+                    <strong>Sensor:</strong> A device that converts physical phenomena into measurable signals
+                </div>
+                <p style="margin-top: 30px;">Why robots need sensors:</p>
+                <ul style="margin-top: 20px;">
+                    <li><span class="highlight">Perception:</span> Understand the environment</li>
+                    <li><span class="highlight">Navigation:</span> Know where you are and where to go</li>
+                    <li><span class="highlight">Interaction:</span> Respond to changes</li>
+                    <li><span class="highlight">Safety:</span> Detect obstacles and hazards</li>
+                </ul>
+            </section>
+
+            <!-- Sensor Categories -->
+            <section>
+                <h2>Sensor Categories</h2>
+                <div class="two-col" style="margin-top: 25px;">
+                    <div class="col-item">
+                        <h3>Proprioceptive</h3>
+                        <p style="font-size: 0.9em;">Sense <strong>internal</strong> state</p>
+                        <ul style="font-size: 0.85em;">
+                            <li>Wheel encoders</li>
+                            <li>Motor current</li>
+                            <li>Battery voltage</li>
+                            <li>IMU (orientation)</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Exteroceptive</h3>
+                        <p style="font-size: 0.9em;">Sense <strong>external</strong> environment</p>
+                        <ul style="font-size: 0.85em;">
+                            <li>Distance sensors</li>
+                            <li>Cameras</li>
+                            <li>Temperature</li>
+                            <li>Light sensors</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-info" style="margin-top: 20px;">
+                    Both types are essential for autonomous behavior!
+                </div>
+            </section>
+
+            <!-- Sensor Characteristics -->
+            <section>
+                <h2>Key Sensor Characteristics</h2>
+                <table style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Definition</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Range</strong></td>
+                            <td>Min/max measurable values</td>
+                            <td>2-400 cm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Resolution</strong></td>
+                            <td>Smallest detectable change</td>
+                            <td>1 mm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Accuracy</strong></td>
+                            <td>How close to true value</td>
+                            <td>±3 mm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Precision</strong></td>
+                            <td>Repeatability</td>
+                            <td>±1 mm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Response Time</strong></td>
+                            <td>How fast it updates</td>
+                            <td>50 ms</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Accuracy vs Precision -->
+            <section>
+                <h2>Accuracy vs. Precision</h2>
+                <div class="two-col" style="margin-top: 25px;">
+                    <div class="col-item">
+                        <h3>Accurate</h3>
+                        <p style="font-size: 0.9em;">Close to <strong>true value</strong></p>
+                        <p class="small-text">Measuring 10cm as 10.1cm</p>
+                    </div>
+                    <div class="col-item">
+                        <h3>Precise</h3>
+                        <p style="font-size: 0.9em;">Measurements are <strong>consistent</strong></p>
+                        <p class="small-text">Always getting 9.5cm (even if wrong)</p>
+                    </div>
+                </div>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Ideal:</strong> Both accurate AND precise!<br>
+                    <span class="small-text">But precision is easier to achieve than accuracy</span>
+                </div>
+            </section>
+
+            <!-- Ultrasonic Sensors -->
+            <section>
+                <h2>Ultrasonic Distance Sensors</h2>
+                <div class="box">
+                    <strong>Principle:</strong> Measure time for sound waves to bounce back
+                </div>
+                <p style="margin-top: 25px;"><strong>HC-SR04 Specifications:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Range:</strong> 2 cm to 400 cm</li>
+                    <li><strong>Resolution:</strong> 0.3 cm</li>
+                    <li><strong>Angle:</strong> 15° cone</li>
+                    <li><strong>Frequency:</strong> 40 kHz (ultrasonic)</li>
+                </ul>
+                <div class="box box-info" style="margin-top: 20px;">
+                    <strong>Formula:</strong> distance = (time × speed_of_sound) / 2<br>
+                    <span class="small-text">Speed of sound ≈ 343 m/s at 20°C</span>
+                </div>
+            </section>
+
+            <!-- HC-SR04 Wiring -->
+            <section>
+                <h2>HC-SR04 Wiring</h2>
+                <table style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>HC-SR04 Pin</th>
+                            <th>Arduino Pin</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>VCC</td>
+                            <td>5V</td>
+                            <td>Power</td>
+                        </tr>
+                        <tr>
+                            <td>TRIG</td>
+                            <td>Any digital pin (e.g., 9)</td>
+                            <td>Trigger pulse</td>
+                        </tr>
+                        <tr>
+                            <td>ECHO</td>
+                            <td>Any digital pin (e.g., 10)</td>
+                            <td>Echo response</td>
+                        </tr>
+                        <tr>
+                            <td>GND</td>
+                            <td>GND</td>
+                            <td>Ground</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Note:</strong> Send 10µs HIGH pulse to TRIG, then read ECHO duration
+                </div>
+            </section>
+
+            <!-- HC-SR04 Code -->
+            <section>
+                <h2>Arduino Code: HC-SR04</h2>
+                <pre><code class="language-cpp">#define TRIG_PIN 9
+#define ECHO_PIN 10
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+}
+
+void loop() {
+  // Send trigger pulse
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+  
+  // Measure echo duration
+  long duration = pulseIn(ECHO_PIN, HIGH);
+  
+  // Calculate distance in cm
+  float distance = duration * 0.034 / 2;
+  
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  
+  delay(100);
+}</code></pre>
+            </section>
+
+            <!-- Ultrasonic Limitations -->
+            <section>
+                <h2>Ultrasonic Sensor Limitations</h2>
+                <ul>
+                    <li><span class="crossmark">✗</span> <strong>Soft/angled surfaces:</strong> Absorb or deflect sound</li>
+                    <li><span class="crossmark">✗</span> <strong>Small objects:</strong> May not reflect enough sound</li>
+                    <li><span class="crossmark">✗</span> <strong>Narrow beam:</strong> 15° cone misses objects outside</li>
+                    <li><span class="crossmark">✗</span> <strong>Speed:</strong> ~50ms per measurement</li>
+                    <li><span class="crossmark">✗</span> <strong>Temperature:</strong> Speed of sound varies</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 25px;">
+                    <span class="checkmark">✓</span> <strong>Best for:</strong> Detecting walls, large obstacles, measuring room dimensions
+                </div>
+            </section>
+
+            <!-- Infrared Sensors -->
+            <section>
+                <h2>Infrared (IR) Sensors</h2>
+                <div class="box">
+                    <strong>Principle:</strong> Emit IR light and measure reflection
+                </div>
+                <p style="margin-top: 25px;"><strong>Two main types:</strong></p>
+                <div class="two-col" style="margin-top: 20px; font-size: 0.85em;">
+                    <div class="col-item">
+                        <h3>Digital (Binary)</h3>
+                        <ul>
+                            <li>Obstacle: YES/NO</li>
+                            <li>Adjustable threshold</li>
+                            <li>Simple, fast</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Analog (Distance)</h3>
+                        <ul>
+                            <li>Continuous distance</li>
+                            <li>Voltage varies with distance</li>
+                            <li>Typical range: 10-80 cm</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IR Digital Wiring -->
+            <section>
+                <h2>IR Digital Sensor Wiring</h2>
+                <table style="margin-top: 20px;">
+                    <thead>
+                        <tr>
+                            <th>IR Sensor Pin</th>
+                            <th>Arduino Pin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>VCC</td>
+                            <td>5V</td>
+                        </tr>
+                        <tr>
+                            <td>OUT</td>
+                            <td>Any digital pin (e.g., 2)</td>
+                        </tr>
+                        <tr>
+                            <td>GND</td>
+                            <td>GND</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pre style="margin-top: 20px;"><code class="language-cpp">void setup() {
+  Serial.begin(9600);
+  pinMode(2, INPUT);
+}
+
+void loop() {
+  int obstacle = digitalRead(2);
+  if (obstacle == LOW) {
+    Serial.println("Obstacle detected!");
+  }
+  delay(100);
+}</code></pre>
+            </section>
+
+            <!-- IR vs Ultrasonic -->
+            <section>
+                <h2>IR vs. Ultrasonic Comparison</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Ultrasonic</th>
+                            <th>IR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Range</strong></td>
+                            <td>2-400 cm</td>
+                            <td>10-80 cm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Speed</strong></td>
+                            <td>~50 ms</td>
+                            <td>~20 ms</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cost</strong></td>
+                            <td>$2-5</td>
+                            <td>$1-3</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ambient Light</strong></td>
+                            <td><span class="checkmark">✓</span> No effect</td>
+                            <td><span class="crossmark">✗</span> Can interfere</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Best Use</strong></td>
+                            <td>Walls, distance</td>
+                            <td>Obstacle detect</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 
+            <!-- Activity 2 Preview -->
+            <section>
+                <h2>Activity 2: Distance Sensing</h2>
+                <div class="box box-success">
+                    <strong>Goal:</strong> Compare ultrasonic and IR sensor performance
+                </div>
+                <p style="margin-top: 25px;"><strong>Tasks:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li>Wire HC-SR04 ultrasonic sensor</li>
+                    <li>Wire IR obstacle sensor</li>
+                    <li>Test different surfaces (flat, angled, soft)</li>
+                    <li>Test different object sizes</li>
+                    <li>Measure accuracy at various distances</li>
+                    <li>Document which sensor works best for what</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Deliverable:</strong> Sensor comparison table + observations
+                </div>
+            </section>
+
+            <!-- Break Slide -->
+            <section>
+                <h2>End of Class 1</h2>
+                <div class="box">
+                    <strong>Complete Activity 2</strong> before next class
+                </div>
+                <p style="margin-top: 30px;"><strong>Next class:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li>Temperature sensors</li>
+                    <li>Light sensors</li>
+                    <li>Soil moisture sensors</li>
+                    <li>Activity 3: Environmental sensing</li>
+                </ul>
+            </section>
+
+            <!-- CLASS 2: ENVIRONMENTAL SENSORS -->
+
+            <!-- Class 2 Title -->
+            <section>
+                <h2>Class 2 Agenda: Environmental Sensors</h2>
+                <ul>
+                    <li>Review: Distance sensor activity results</li>
+                    <li>Temperature sensors (TMP36)</li>
+                    <li>Light sensors (photoresistors)</li>
+                    <li>Soil moisture sensors</li>
+                    <li><strong>Hands-on:</strong> Activity 3 - Environmental monitoring</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 20px;">
+                    Today: Sensing temperature, light, and moisture
+                </div>
+            </section>
+
+            <!-- Temperature Sensors -->
+            <section>
+                <h2>Temperature Sensors: TMP36</h2>
+                <div class="box">
+                    <strong>Principle:</strong> Voltage output proportional to temperature
+                </div>
+                <p style="margin-top: 25px;"><strong>TMP36 Specifications:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Range:</strong> -40°C to +125°C</li>
+                    <li><strong>Output:</strong> 10 mV per °C</li>
+                    <li><strong>Offset:</strong> 500 mV at 0°C</li>
+                    <li><strong>Accuracy:</strong> ±2°C</li>
+                </ul>
+                <div class="box box-info" style="margin-top: 20px;">
+                    <strong>Formula:</strong> temp_C = (voltage - 0.5) × 100
+                </div>
+            </section>
+
+            <!-- TMP36 Wiring -->
+            <section>
+                <h2>TMP36 Wiring and Code</h2>
+                <table style="margin-top: 15px;">
+                    <thead>
+                        <tr>
+                            <th>TMP36 Pin</th>
+                            <th>Arduino Pin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Left (Vs)</td>
+                            <td>5V</td>
+                        </tr>
+                        <tr>
+                            <td>Middle (Vout)</td>
+                            <td>A0</td>
+                        </tr>
+                        <tr>
+                            <td>Right (GND)</td>
+                            <td>GND</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pre style="margin-top: 15px;"><code class="language-cpp">void loop() {
+  int reading = analogRead(A0);
+  float voltage = reading * 5.0 / 1024.0;
+  float tempC = (voltage - 0.5) * 100.0;
+  float tempF = (tempC * 9.0 / 5.0) + 32.0;
+  
+  Serial.print("Temp: ");
+  Serial.print(tempC);
+  Serial.print("°C (");
+  Serial.print(tempF);
+  Serial.println("°F)");
+  delay(1000);
+}</code></pre>
+            </section>
+
+            <!-- Light Sensors -->
+            <section>
+                <h2>Light Sensors: Photoresistors</h2>
+                <div class="box">
+                    <strong>Photoresistor (LDR):</strong> Resistance changes with light intensity
+                </div>
+                <p style="margin-top: 25px;"><strong>Characteristics:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li>Bright light: Low resistance (~1 kΩ)</li>
+                    <li>Darkness: High resistance (~10 MΩ)</li>
+                    <li>Slow response: ~10-100 ms</li>
+                    <li>Non-linear response curve</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Circuit:</strong> Use voltage divider with fixed resistor (10kΩ)
+                </div>
+            </section>
+
+            <!-- Photoresistor Wiring -->
+            <section>
+                <h2>Photoresistor Circuit</h2>
+                <div class="box box-info" style="font-size: 0.8em;">
+                    <strong>Voltage Divider:</strong><br>
+                    5V → Photoresistor → A0 → 10kΩ resistor → GND
+                </div>
+                <pre style="margin-top: 20px;"><code class="language-cpp">void loop() {
+  int lightLevel = analogRead(A0);
+  
+  Serial.print("Light level: ");
+  Serial.print(lightLevel);
+  
+  if (lightLevel < 300) {
+    Serial.println(" - Dark");
+  } else if (lightLevel < 600) {
+    Serial.println(" - Dim");
+  } else {
+    Serial.println(" - Bright");
+  }
+  
+  delay(500);
+}</code></pre>
+                <p class="small-text" style="margin-top: 15px;">Values 0-1023: Higher = more light</p>
+            </section>
+
+            <!-- Soil Moisture -->
+            <section>
+                <h2>Soil Moisture Sensors</h2>
+                <div class="box">
+                    <strong>Principle:</strong> Measure soil conductivity (wetness)
+                </div>
+                <p style="margin-top: 25px;"><strong>Two types:</strong></p>
+                <div class="two-col" style="margin-top: 20px; font-size: 0.85em;">
+                    <div class="col-item">
+                        <h3>Resistive</h3>
+                        <ul>
+                            <li>Two metal probes</li>
+                            <li>Cheap ($1-2)</li>
+                            <li>Corrodes over time</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>Capacitive</h3>
+                        <ul>
+                            <li>No exposed metal</li>
+                            <li>More durable</li>
+                            <li>Slightly expensive</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Output:</strong> Analog voltage (higher = drier soil)
+                </div>
+            </section>
+
+            <!-- Moisture Sensor Code -->
+            <section>
+                <h2>Soil Moisture Sensor Code</h2>
+                <pre><code class="language-cpp">void loop() {
+  int moisture = analogRead(A0);
+  
+  Serial.print("Moisture: ");
+  Serial.print(moisture);
+  
+  // Calibrate these thresholds for your sensor!
+  if (moisture < 300) {
+    Serial.println(" - Very Wet");
+  } else if (moisture < 500) {
+    Serial.println(" - Wet");
+  } else if (moisture < 700) {
+    Serial.println(" - Moist");
+  } else if (moisture < 900) {
+    Serial.println(" - Dry");
+  } else {
+    Serial.println(" - Very Dry");
+  }
+  
+  delay(1000);
+}</code></pre>
+                <div class="box box-info" style="margin-top: 15px;">
+                    <strong>Tip:</strong> Calibrate by testing in water vs air
+                </div>
+            </section>
+
+            <!-- Sensor Fusion Preview -->
+            <section>
+                <h2>Multi-Sensor Systems</h2>
+                <p>Real robots use <strong>multiple sensors</strong> together:</p>
+                <ul style="margin-top: 20px;">
+                    <li><span class="highlight">Redundancy:</span> Backup if one fails</li>
+                    <li><span class="highlight">Complementary:</span> Different strengths</li>
+                    <li><span class="highlight">Sensor Fusion:</span> Combine for better accuracy</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 25px;">
+                    <strong>Example:</strong> Self-driving cars use cameras, lidar, radar, GPS, and IMU together
+                </div>
+            </section>
+
+            <!-- Activity 3 -->
+            <section>
+                <h2>Activity 3: Environmental Sensing</h2>
+                <div class="box box-success">
+                    <strong>Goal:</strong> Build multi-sensor environmental monitor
+                </div>
+                <p style="margin-top: 25px;"><strong>Tasks:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li>Wire TMP36 temperature sensor</li>
+                    <li>Wire photoresistor with voltage divider</li>
+                    <li>Wire soil moisture sensor</li>
+                    <li>Read all three simultaneously</li>
+                    <li>Create "plant health monitor"</li>
+                    <li>Test in different conditions</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Challenge:</strong> Make LED blink when "unhealthy" conditions detected
+                </div>
+            </section>
+
+            <!-- Analog Input Recap -->
+            <section>
+                <h2>Arduino Analog Inputs Recap</h2>
+                <ul>
+                    <li><strong>Pins A0-A5:</strong> 6 analog input pins</li>
+                    <li><strong>10-bit ADC:</strong> Values 0-1023</li>
+                    <li><strong>Reference:</strong> 5V → 1023, 0V → 0</li>
+                    <li><strong>Formula:</strong> voltage = (reading / 1023.0) × 5.0</li>
+                </ul>
+                <pre style="margin-top: 20px;"><code class="language-cpp">int sensorValue = analogRead(A0);
+float voltage = sensorValue * (5.0 / 1023.0);</code></pre>
+                <div class="box box-info" style="margin-top: 20px;">
+                    <strong>Resolution:</strong> ~4.9 mV per step (5V / 1024)
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section>
+                <h2>Coming Up: Advanced Sensors</h2>
+                <p>In future weeks, we'll explore:</p>
+                <ul style="margin-top: 20px;">
+                    <li><strong>Encoders:</strong> Precise wheel rotation (proprioceptive)</li>
+                    <li><strong>IMU:</strong> Accelerometer + gyroscope for orientation</li>
+                    <li><strong>GPS:</strong> Global positioning</li>
+                    <li><strong>Lidar:</strong> Laser distance scanning</li>
+                    <li><strong>Computer Vision:</strong> Cameras + image processing</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 25px;">
+                    More sensors = smarter robots!
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section>
+                <h2>Key Takeaways</h2>
+                <ol style="margin-top: 20px; font-size: 0.85em;">
+                    <li><strong>Sensors</strong> are essential for robot perception</li>
+                    <li><strong>Distance sensors:</strong> Ultrasonic (long range) vs IR (fast, short)</li>
+                    <li><strong>Environmental sensors:</strong> Temperature, light, moisture</li>
+                    <li><strong>Analog sensors</strong> output voltage proportional to measurement</li>
+                    <li><strong>Digital sensors</strong> output binary (on/off) signals</li>
+                    <li><strong>Calibration</strong> is crucial for accurate readings</li>
+                    <li><strong>Multiple sensors</strong> provide redundancy and better perception</li>
+                </ol>
+            </section>
+
+            <!-- Questions -->
+            <section>
+                <h2>Questions?</h2>
+                <div class="box" style="margin-top: 40px;">
+                    <strong>Next Class:</strong> Motors revisited + PWM control<br>
+                    <strong>Project 1:</strong> Continue building your wheeled robot
+                </div>
+                <p style="margin-top: 30px;"><strong>Complete Activity 3</strong> and document your findings!</p>
+                <p class="small-text" style="margin-top: 40px;"><em>Readings: IAR Chapter 4 (Sensors)</em></p>
+            </section>
+            -->
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'all'
+        });
+    </script>
+</body>
+</html>

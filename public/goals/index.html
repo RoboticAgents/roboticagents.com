@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<html><head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link rel="alternate" type="application/rss+xml" href="http://localhost:1313/goals/index.xml" title="ROBOTIC AGENTS" />
-    <link rel="canonical" href="http://localhost:1313/goals/">
+    <link rel="alternate" type="application/rss+xml" href="https://learnroboticagents.com/goals/index.xml" title="ROBOTIC AGENTS" />
+    <link rel="canonical" href="https://learnroboticagents.com/goals/">
 
     <title>
         
@@ -14,16 +14,32 @@
     </title>
 
     
-    <link href="http://localhost:1313/css/fontawesome.min.css" rel="stylesheet">
+    <link href="/css/fontawesome.min.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     
-    <link rel="stylesheet" href="http://localhost:1313/css/ace.min.css">
+    <link rel="stylesheet" href="https://learnroboticagents.com/css/ace.min.css">
 
     
 
     
+    
+        
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3Y3KK3SLQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-X3Y3KK3SLQ');
+        }
+      </script>
     
 
 </head>
@@ -36,7 +52,7 @@
             </a>
         </div>
         
-        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -53,8 +69,18 @@
                           </a>
                       </li>
                       <li class="nav-item">
+                          <a class="nav-link" href="/activities/">
+                            Activities
+                          </a>
+                      </li>
+                      <li class="nav-item">
                           <a class="nav-link" href="/syllabus/">
                             Syllabus
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/slides/">
+                            Lecture Slides
                           </a>
                       </li>
                         <li class="nav-item">
@@ -70,7 +96,7 @@
             <div class="row">
 
                 <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
-    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -96,12 +122,54 @@
           <a class="nav-link p-0" href="/goals/"><h6>Goals</h6></a>
         
     </li>
+    <li data-nav-id="/activities/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/activities/"><h6>Activities</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/activities/activity1/" class="nav-item my-1">
+                
+                
+                  <a href="/activities/activity1/" class="nav-link p-0">
+                    Activity 1: Servo Motor Control
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
     <li data-nav-id="/syllabus/" class="nav-item my-1
         ">
         
         
           <a class="nav-link p-0" href="/syllabus/"><h6>Syllabus</h6></a>
         
+    </li>
+    <li data-nav-id="/slides/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/slides/"><h6>Lecture Slides</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/slides/locomotion/" class="nav-item my-1">
+                
+                
+                  <a href="/slides/locomotion/" class="nav-link p-0">
+                    Locomotion
+                  </a>
+                
+        </li>
+        <li data-nav-id="/slides/motors/" class="nav-item my-1">
+                
+                
+                  <a href="/slides/motors/" class="nav-link p-0">
+                    Motors and Arduino for Robotics
+                  </a>
+                
+        </li>
+        </ul>
     </li>
         </ul>
     </div>
@@ -195,10 +263,10 @@
             </div> 
 
         </div> 
-<script src="http://localhost:1313/lib/jquery.min.js"></script> 
-<script src="http://localhost:1313/lib/popper.min.js"></script> 
+<script src="/lib/jquery.min.js"></script> 
+<script src="/lib/popper.min.js"></script> 
 
-<script src="http://localhost:1313/js/bootstrap.min.js"></script> 
+<script src="/js/bootstrap.min.js"></script> 
 
 
 <script type="text/javascript" src="/plugins/lunr.min.js"></script>
@@ -206,7 +274,7 @@
 <link href="/plugins/auto-complete.css" rel="stylesheet">
 <script type="text/javascript">
   
-      var baseurl = "http:\/\/localhost:1313\/";
+      var baseurl = "https:\/\/learnroboticagents.com\/";
   
 </script>
 <script type="text/javascript" src="/plugins/search.js"></script>

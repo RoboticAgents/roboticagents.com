@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Course Schedule on ROBOTIC AGENTS</title>
-    <link>http://localhost:1313/schedule/</link>
+    <link>https://learnroboticagents.com/schedule/</link>
     <description>Recent content in Course Schedule on ROBOTIC AGENTS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <atom:link href="http://localhost:1313/schedule/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://learnroboticagents.com/schedule/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

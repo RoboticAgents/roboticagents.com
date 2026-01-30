@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <meta name="description" content="Hands-on Arduino servo motor control demonstration">
+    
+    <link rel="canonical" href="https://learnroboticagents.com/activities/activity1/">
+
+    <title>
+        
+        Activity 1: Servo Motor Control | ROBOTIC AGENTS
+        
+    </title>
+
+    
+    <link href="/css/fontawesome.min.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    
+    <link rel="stylesheet" href="https://learnroboticagents.com/css/ace.min.css">
+
+    
+
+    
+    
+        
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3Y3KK3SLQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-X3Y3KK3SLQ');
+        }
+      </script>
+    
+
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top" id="navbarMain">
+    <div class="container">
+        <div>
+            <a class="navbar-brand" href="/">
+                
+                ROBOTIC AGENTS
+            </a>
+        </div>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMainCollapse">
+          <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" href="/schedule/">
+                            Course Schedule
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/goals/">
+                            Goals
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/activities/">
+                            Activities
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/syllabus/">
+                            Syllabus
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/slides/">
+                            Lecture Slides
+                          </a>
+                      </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/CMPSC304-RoboticAgents-Spring2026" target="_blank">
+                              <i class='fab fa-github'></i>
+                            </a>
+                        </li>
+          </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+            <div class="row">
+
+                <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+     <div class="collapse navbar-collapse align-items-start flex-column" id="sidenav-left-collapse">
+            <form class="form-inline my-2 my-lg-0 searchbox">
+                <input class="form-control mr-sm-2 w-100" data-search-input id="search-by" type="text" placeholder="Search">
+            </form>
+
+        
+
+         <ul class="navbar-nav flex-column pt-3">
+    <li data-nav-id="/schedule/" class="nav-item my-1
+        ">
+        
+        
+          <a class="nav-link p-0" href="/schedule/"><h6>Course Schedule</h6></a>
+        
+    </li>
+    <li data-nav-id="/goals/" class="nav-item my-1
+        ">
+        
+        
+          <a class="nav-link p-0" href="/goals/"><h6>Goals</h6></a>
+        
+    </li>
+    <li data-nav-id="/activities/" class="nav-item my-1 parent haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/activities/"><h6>Activities</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/activities/activity1/" class="nav-item my-1 active">
+                
+                
+                  <a href="/activities/activity1/" class="nav-link p-0">
+                    Activity 1: Servo Motor Control
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+    <li data-nav-id="/syllabus/" class="nav-item my-1
+        ">
+        
+        
+          <a class="nav-link p-0" href="/syllabus/"><h6>Syllabus</h6></a>
+        
+    </li>
+    <li data-nav-id="/slides/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/slides/"><h6>Lecture Slides</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/slides/locomotion/" class="nav-item my-1">
+                
+                
+                  <a href="/slides/locomotion/" class="nav-link p-0">
+                    Locomotion
+                  </a>
+                
+        </li>
+        <li data-nav-id="/slides/motors/" class="nav-item my-1">
+                
+                
+                  <a href="/slides/motors/" class="nav-link p-0">
+                    Motors and Arduino for Robotics
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
+        </ul>
+    </div>
+</nav>
+
+
+</div>
+                <div class="docs-toc large order-lg-2 order-md-0 order-xs-1 col-12 col-lg-2 col-xl-2 position-sticky border-left"><div class="docs-toc">
+	<nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#learning-objectives">Learning Objectives</a></li>
+    <li><a href="#requirements">Requirements</a>
+      <ul>
+        <li><a href="#what-you-must-demonstrate">What You Must Demonstrate</a></li>
+      </ul>
+    </li>
+    <li><a href="#grading-criteria">Grading Criteria</a></li>
+    <li><a href="#part-1-understanding-servo-motors">Part 1: Understanding Servo Motors</a>
+      <ul>
+        <li><a href="#what-is-a-servo-motor">What is a Servo Motor?</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-2-wiring-your-servo">Part 2: Wiring Your Servo</a>
+      <ul>
+        <li><a href="#components-needed">Components Needed:</a></li>
+        <li><a href="#wiring-instructions">Wiring Instructions:</a></li>
+        <li><a href="#wiring-diagram">Wiring Diagram:</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-3-running-the-sweep-example">Part 3: Running the Sweep Example</a>
+      <ul>
+        <li><a href="#step-1-open-the-built-in-example">Step 1: Open the Built-in Example</a></li>
+        <li><a href="#step-2-upload-and-test">Step 2: Upload and Test</a></li>
+        <li><a href="#step-3-verify-it-works">Step 3: Verify It Works</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-4-modify-the-code">Part 4: Modify the Code</a>
+      <ul>
+        <li><a href="#modification-ideas">Modification Ideas:</a></li>
+        <li><a href="#requirements-for-your-modification">Requirements for Your Modification:</a></li>
+        <li><a href="#example-modification-ideas-in-words">Example Modification Ideas in Words:</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-5-demonstration">Part 5: Demonstration</a>
+      <ul>
+        <li><a href="#when--where">When &amp; Where</a></li>
+      </ul>
+    </li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li><a href="#servo-issues">Servo Issues</a></li>
+        <li><a href="#common-code-issues">Common Code Issues</a></li>
+      </ul>
+    </li>
+    <li><a href="#additional-resources">Additional Resources</a>
+      <ul>
+        <li><a href="#arduino-documentation">Arduino Documentation</a></li>
+        <li><a href="#safety-reminders">Safety Reminders</a></li>
+      </ul>
+    </li>
+    <li><a href="#learning-outcomes-alignment">Learning Outcomes Alignment</a></li>
+  </ul>
+</nav>
+</div>
+</div>
+                <div class="main col-12 order-1 col-md-9 col-lg-10 col-xl-8 py-3">
+                
+
+<div class="d-flex flex-column">
+    <h1 class="js-title">Activity 1: Servo Motor Control</h1>
+    <div class="d-flex align-items-center">
+        
+    </div>
+</div>
+
+<hr>
+
+
+<h2 id="overview">Overview</h2>
+<p>In this activity, you will demonstrate your ability to wire and control a <strong>servo motor</strong> using an Arduino Uno. You&rsquo;ll start by using Arduino&rsquo;s built-in Sweep example, then modify the code to create your own custom movement pattern. This is an individual demonstration activity where you&rsquo;ll show your understanding of motor control, circuit wiring, and Arduino programming.</p>
+<p><strong>Due Date: January 28th by 11:50 AM</strong></p>
+<hr>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By completing this activity, you will:</p>
+<ul>
+<li>Learn proper wiring techniques for servo motor control</li>
+<li>Use Arduino&rsquo;s built-in Servo library and examples</li>
+<li>Modify existing code to create custom servo movements</li>
+<li>Demonstrate safe handling of electronic components</li>
+</ul>
+<hr>
+<h2 id="requirements">Requirements</h2>
+<h3 id="what-you-must-demonstrate">What You Must Demonstrate</h3>
+<ol>
+<li><strong>Correct wiring</strong> of servo motor to the Arduino Uno</li>
+<li><strong>Run the built-in Sweep example</strong> successfully</li>
+<li><strong>Modify the Sweep code</strong> to create a different movement pattern</li>
+<li><strong>Explain</strong> what your modified code does</li>
+<li><strong>Safe operation</strong> (no loose wires, proper power connections)</li>
+</ol>
+<hr>
+<h2 id="grading-criteria">Grading Criteria</h2>
+<p>This is a <strong>Class Activity</strong> worth points toward your participation grade.</p>
+<p><strong>Grading Rubric</strong> (Pass/Fail with feedback):</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Criterion</th>
+          <th style="text-align: center">Points</th>
+          <th style="text-align: left">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>Sweep Example Working</strong></td>
+          <td style="text-align: center">30%</td>
+          <td style="text-align: left">Built-in Sweep example runs successfully; servo moves smoothly</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Code Modification</strong></td>
+          <td style="text-align: center">30%</td>
+          <td style="text-align: left">Created a different movement pattern; code is functional</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Wiring</strong></td>
+          <td style="text-align: center">20%</td>
+          <td style="text-align: left">Servo correctly connected; proper power and ground connections; neat wiring</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>Explanation</strong></td>
+          <td style="text-align: center">20%</td>
+          <td style="text-align: left">Can explain what your modified code does; answers instructor questions</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>To Pass</strong>: You must achieve at least 70% overall. Incomplete wiring or non-functional code will require you to debug and re-demonstrate.</p>
+<hr>
+<h2 id="part-1-understanding-servo-motors">Part 1: Understanding Servo Motors</h2>
+<h3 id="what-is-a-servo-motor">What is a Servo Motor?</h3>
+<p>A <strong>servo motor</strong> is a motor with built-in position control. It can rotate to a specific angle (typically 0-180°) and hold that position. Servos are perfect for:</p>
+<ul>
+<li>Robot arms and grippers</li>
+<li>Camera pan/tilt mechanisms</li>
+<li>RC vehicles (steering)</li>
+</ul>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Built-in controller and gears</li>
+<li>3-wire connection (Power, Ground, Signal)</li>
+<li>Precise angular positioning</li>
+<li>Easy to control with Arduino</li>
+</ul>
+<hr>
+<h2 id="part-2-wiring-your-servo">Part 2: Wiring Your Servo</h2>
+<h3 id="components-needed">Components Needed:</h3>
+<ul>
+<li>Arduino Uno</li>
+<li>Standard servo motor (e.g., SG90, TowerPro MG996R)</li>
+<li>3 jumper wires</li>
+<li>USB cable</li>
+</ul>
+<h3 id="wiring-instructions">Wiring Instructions:</h3>
+<p><strong>Servo Motor Wire Colors (standard)</strong>:</p>
+<ul>
+<li><strong>BROWN/BLACK</strong> wire  →  GND (Arduino)</li>
+<li><strong>RED</strong> wire  →  5V (Arduino)</li>
+<li><strong>ORANGE/YELLOW/WHITE</strong> wire  →  Pin 9 (Arduino)</li>
+</ul>
+<p><strong>⚠️ Important</strong>: Wire colors may vary by manufacturer, but the pattern is typically: signal-power-ground or ground-power-signal.</p>
+<hr>
+<h3 id="wiring-diagram">Wiring Diagram:</h3>
+<pre tabindex="0"><code>Arduino Uno          Servo Motor
+┌─────────────┐          ┌──────────┐
+│             │          │  Servo   │
+│         5V  ●──RED─────┤  +5V     │
+│        GND  ●──BROWN───┤  GND     │
+│             │          │          │
+│   Pin 9 (PWM)├─ORANGE──┤  Signal  │
+│             │          │          │
+└─────────────┘          └──────────┘
+</code></pre><p><strong>Visual Connection</strong>:</p>
+<pre tabindex="0"><code>        Arduino Uno
+    ┌─────────────────┐
+    │ [ ]          5V  ●───────┐
+    │ [ ]         GND  ●───┐   │
+    │ [ ]          13  [ ]  │   │
+    │ [ ]          12  [ ]  │   │
+    │ [ ]          11~ [ ]  │   │
+    │ [ ]          10~ [ ]  │   │
+    │ [ ]           9~ ●─┐  │   │
+    │ [ ]           8  [ ] │  │   │
+    └─────────────────┘    │  │   │
+                          │  │   │
+                    ORANGE  │  │   │
+                       ┌────┘  │   │
+                       │  BROWN │   │
+                       │  ┌─────┘   │
+                       │  │    RED  │
+                       │  │  ┌──────┘
+                    ┌──┴──┴──┴───┐
+                    │  SERVO     │
+                    │  MOTOR     │
+                    └────────────┘
+</code></pre><p><strong>Connection Checklist</strong>:</p>
+<ul>
+<li><input disabled="" type="checkbox"> Brown/Black wire connected to GND</li>
+<li><input disabled="" type="checkbox"> Red wire connected to 5V</li>
+<li><input disabled="" type="checkbox"> Orange/Yellow/White wire connected to Pin 9</li>
+<li><input disabled="" type="checkbox"> All connections are secure</li>
+<li><input disabled="" type="checkbox"> No wires are touching each other</li>
+</ul>
+<hr>
+<h2 id="part-3-running-the-sweep-example">Part 3: Running the Sweep Example</h2>
+<h3 id="step-1-open-the-built-in-example">Step 1: Open the Built-in Example</h3>
+<ol>
+<li>Connect your Arduino to your computer via USB</li>
+<li>Open Arduino IDE</li>
+<li>Go to: <strong>File → Examples → Servo → Sweep</strong></li>
+<li>A new window will open with the Sweep example code</li>
+</ol>
+<h3 id="step-2-upload-and-test">Step 2: Upload and Test</h3>
+<ol>
+<li>Select your Arduino board: <strong>Tools → Board → Arduino Uno</strong></li>
+<li>Select your port: <strong>Tools → Port → [your Arduino port]</strong></li>
+<li>Click the <strong>Upload</strong> button (→)</li>
+<li>Watch your servo sweep back and forth!</li>
+</ol>
+<p><strong>What the Sweep Example Does</strong>:</p>
+<ul>
+<li>Moves the servo from 0° to 180° gradually</li>
+<li>Pauses briefly at 180°</li>
+<li>Moves back from 180° to 0°</li>
+<li>Repeats continuously</li>
+</ul>
+<h3 id="step-3-verify-it-works">Step 3: Verify It Works</h3>
+<p>✅ Your servo should smoothly sweep back and forth<br>
+✅ The movement should be continuous<br>
+✅ No error messages in the Arduino IDE</p>
+<p>If it doesn&rsquo;t work, see the <strong>Troubleshooting</strong> section at the end of this document.</p>
+<hr>
+<h2 id="part-4-modify-the-code">Part 4: Modify the Code</h2>
+<p>Now that you have the Sweep example working, <strong>modify it</strong> to create a different movement pattern. Here are some ideas:</p>
+<h3 id="modification-ideas">Modification Ideas:</h3>
+<ol>
+<li><strong>Different Angles</strong>: Make it sweep between different angles (e.g., 45° to 135° instead of 0° to 180°)</li>
+<li><strong>Different Speed</strong>: Change the delay to make it move faster or slower</li>
+<li><strong>Multiple Positions</strong>: Make it move to 3-4 specific positions instead of sweeping continuously</li>
+<li><strong>Back-and-forth</strong>: Make it go to 90°, back to 0°, to 180°, back to 0°, repeat</li>
+<li><strong>Your Own Pattern</strong>: Create any unique movement pattern you want!</li>
+</ol>
+<h3 id="requirements-for-your-modification">Requirements for Your Modification:</h3>
+<ul>
+<li>Must be <strong>different</strong> from the original Sweep example</li>
+<li>Must be <strong>functional</strong> (code compiles and runs without errors)</li>
+<li>Must create <strong>visible movement</strong> in the servo</li>
+<li>Should demonstrate your understanding of servo control</li>
+</ul>
+<h3 id="example-modification-ideas-in-words">Example Modification Ideas in Words:</h3>
+<p><strong>Example 1</strong>: &ldquo;Move to 0°, wait 1 second, move to 90°, wait 1 second, move to 180°, wait 1 second, repeat&rdquo;</p>
+<p><strong>Example 2</strong>: &ldquo;Sweep from 30° to 150° faster than the original, then pause for 2 seconds&rdquo;</p>
+<p><strong>Example 3</strong>: &ldquo;Move to center (90°), sweep left to 0°, back to center, sweep right to 180°, back to center, repeat&rdquo;</p>
+<hr>
+<h2 id="part-5-demonstration">Part 5: Demonstration</h2>
+<h3 id="when--where">When &amp; Where</h3>
+<ul>
+<li>In class, on Monday, January 26th or during lab, on Tuesday, January 27th, demonstrate your servo functionality to the instructor.</li>
+</ul>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="servo-issues">Servo Issues</h3>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Problem</th>
+          <th style="text-align: left">Possible Cause</th>
+          <th style="text-align: left">Solution</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Servo doesn&rsquo;t move at all</td>
+          <td style="text-align: left">Wrong pin or loose wire</td>
+          <td style="text-align: left">Verify Pin 9 is used; check all connections</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Servo jitters/vibrates</td>
+          <td style="text-align: left">Insufficient power</td>
+          <td style="text-align: left">Try external 5V supply for high-torque servos</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Servo moves erratically</td>
+          <td style="text-align: left">Loose connections</td>
+          <td style="text-align: left">Secure all jumper wires firmly</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Code won&rsquo;t compile</td>
+          <td style="text-align: left">Library issue</td>
+          <td style="text-align: left">Servo library is built-in; restart Arduino IDE</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Servo moves but not correctly</td>
+          <td style="text-align: left">Code issue</td>
+          <td style="text-align: left">Check your angle values (must be 0-180)</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="common-code-issues">Common Code Issues</h3>
+<ul>
+<li><strong><code>myservo.write(angle)</code></strong>: Make sure <code>angle</code> is between 0 and 180</li>
+<li><strong><code>delay(ms)</code></strong>: Time is in milliseconds (1000 ms = 1 second)</li>
+<li><strong>Forgetting to call <code>myservo.attach(9)</code></strong>: Must be in <code>setup()</code> function</li>
+</ul>
+<hr>
+<h2 id="additional-resources">Additional Resources</h2>
+<h3 id="arduino-documentation">Arduino Documentation</h3>
+<ul>
+<li><a href="https://www.arduino.cc/reference/en/libraries/servo/">Servo Library Reference</a></li>
+<li><a href="https://docs.arduino.cc/tutorials/generic/basic-servo-control/">Basic Servo Control Tutorial</a></li>
+</ul>
+<h3 id="safety-reminders">Safety Reminders</h3>
+<ul>
+<li>Never connect motors directly to Arduino pins without understanding power requirements</li>
+<li>Always double-check power and ground connections before plugging in USB</li>
+<li>If a servo gets hot, disconnect immediately and check your wiring</li>
+<li>Don&rsquo;t force servos by hand when powered - you can damage internal gears</li>
+</ul>
+<hr>
+<h2 id="learning-outcomes-alignment">Learning Outcomes Alignment</h2>
+<p>This activity supports the following course learning outcomes:</p>
+<ul>
+<li><strong>LO2</strong>: Demonstrate proficiency in programming robotic systems</li>
+<li><strong>LO3</strong>: Apply fundamental concepts of sensors and actuators</li>
+<li><strong>LO4</strong>: Design, build, and test robotic systems</li>
+</ul>
+
+
+    
+
+
+
+
+                </div>
+
+            </div> 
+
+        </div> 
+<script src="/lib/jquery.min.js"></script> 
+<script src="/lib/popper.min.js"></script> 
+
+<script src="/js/bootstrap.min.js"></script> 
+
+
+<script type="text/javascript" src="/plugins/lunr.min.js"></script>
+<script type="text/javascript" src="/plugins/auto-complete.js"></script>
+<link href="/plugins/auto-complete.css" rel="stylesheet">
+<script type="text/javascript">
+  
+      var baseurl = "https:\/\/learnroboticagents.com\/";
+  
+</script>
+<script type="text/javascript" src="/plugins/search.js"></script>
+
+<script type="text/javascript" src="/plugins/favorites.js"></script>
+
+
+<script type="text/javascript" src="/plugins/clipboard.js"></script>
+<script>
+  new ClipboardJS('.btn');
+</script>
+</body>
+</html>

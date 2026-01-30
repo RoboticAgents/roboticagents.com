@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<html><head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link rel="alternate" type="application/rss+xml" href="http://localhost:1313/syllabus/index.xml" title="ROBOTIC AGENTS" />
-    <link rel="canonical" href="http://localhost:1313/syllabus/">
+    <link rel="alternate" type="application/rss+xml" href="https://learnroboticagents.com/syllabus/index.xml" title="ROBOTIC AGENTS" />
+    <link rel="canonical" href="https://learnroboticagents.com/syllabus/">
 
     <title>
         
@@ -14,16 +14,32 @@
     </title>
 
     
-    <link href="http://localhost:1313/css/fontawesome.min.css" rel="stylesheet">
+    <link href="/css/fontawesome.min.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     
-    <link rel="stylesheet" href="http://localhost:1313/css/ace.min.css">
+    <link rel="stylesheet" href="https://learnroboticagents.com/css/ace.min.css">
 
     
 
     
+    
+        
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3Y3KK3SLQ"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-X3Y3KK3SLQ');
+        }
+      </script>
     
 
 </head>
@@ -36,7 +52,7 @@
             </a>
         </div>
         
-        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -53,8 +69,18 @@
                           </a>
                       </li>
                       <li class="nav-item">
+                          <a class="nav-link" href="/activities/">
+                            Activities
+                          </a>
+                      </li>
+                      <li class="nav-item">
                           <a class="nav-link" href="/syllabus/">
                             Syllabus
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/slides/">
+                            Lecture Slides
                           </a>
                       </li>
                         <li class="nav-item">
@@ -70,7 +96,7 @@
             <div class="row">
 
                 <div class="docs-sidenav order-0 col-12 col-md-3 col-lg-2 col-xl-2 position-sticky border-right"><nav class="navbar navbar-expand-md navbar-light pl-0">
-    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-left-collapse" aria-controls="sidenav-left-collapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -96,12 +122,54 @@
           <a class="nav-link p-0" href="/goals/"><h6>Goals</h6></a>
         
     </li>
+    <li data-nav-id="/activities/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/activities/"><h6>Activities</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/activities/activity1/" class="nav-item my-1">
+                
+                
+                  <a href="/activities/activity1/" class="nav-link p-0">
+                    Activity 1: Servo Motor Control
+                  </a>
+                
+        </li>
+        </ul>
+    </li>
     <li data-nav-id="/syllabus/" class="nav-item my-1 active
         ">
         
         
           <a class="nav-link p-0" href="/syllabus/"><h6>Syllabus</h6></a>
         
+    </li>
+    <li data-nav-id="/slides/" class="nav-item my-1 haschildren
+        ">
+        
+        
+          <a class="nav-link p-0" href="/slides/"><h6>Lecture Slides</h6></a>
+        
+        <ul class="list-unstyled ml-2">
+        <li data-nav-id="/slides/locomotion/" class="nav-item my-1">
+                
+                
+                  <a href="/slides/locomotion/" class="nav-link p-0">
+                    Locomotion
+                  </a>
+                
+        </li>
+        <li data-nav-id="/slides/motors/" class="nav-item my-1">
+                
+                
+                  <a href="/slides/motors/" class="nav-link p-0">
+                    Motors and Arduino for Robotics
+                  </a>
+                
+        </li>
+        </ul>
     </li>
         </ul>
     </div>
@@ -327,8 +395,7 @@ started the assignment and tried at least half the objectives).</li>
 <h2 id="allegheny-college-policy-and-awareness-statements">Allegheny College Policy and Awareness Statements</h2>
 <h3 id="statement-of-community">Statement of Community</h3>
 <blockquote>
-<p>Allegheny students and employees are committed to creating an inclusive, respectful and safe residential learning community that will actively confront and challenge racism, sexism, heterosexism, religious bigotry, and other forms of harassment and discrimination. We encourage individual growth by promoting a free exchange of ideas in a setting that values diversity, trust and equality. So that the right of all to participate in a shared learning experience is upheld, Allegheny affirms its commitment to the principles of freedom of speech and inquiry, while at the same time fostering responsibility and accountability in the exercise of these freedoms.</p>
-</blockquote>
+<p>Allegheny students and employees are committed to creating an inclusive, respectful and safe residential learning community that will actively confront and challenge racism, sexism, heterosexism, religious bigotry, and other forms of harassment and discrimination. We encourage individual growth by promoting a free exchange of ideas in a setting that values diversity, trust and equality. So that the right of all to participate in a shared learning experience is upheld, Allegheny affirms its commitment to the principles of freedom of speech and inquiry, while at the same time fostering responsibility and accountability in the exercise of these freedoms.</p></blockquote>
 <h3 id="academic-integrity">Academic Integrity</h3>
 <p>Allegheny College has a student-run Honor Code designed to promote individual responsibility and integrity in academic affairs. Each student pledges the following: “I hereby recognize and pledge to fulfill my responsibilities, as defined in the Honor Code, and to maintain the integrity of both myself and the College community as a whole.” Your professor will educate you about the meaning of academic integrity in this course, which may be different in some respects from other courses in which you are enrolled. Please ask the professor if you have questions. Please see <a href="https://sites.allegheny.edu/studentsuccess/academic-honor-program/">academic honor program&rsquo;s website</a> for more details.</p>
 <h3 id="midterm-grades">Midterm Grades</h3>
@@ -399,10 +466,10 @@ If you are in need of support or advocacy and wish to discuss such matters confi
             </div> 
 
         </div> 
-<script src="http://localhost:1313/lib/jquery.min.js"></script> 
-<script src="http://localhost:1313/lib/popper.min.js"></script> 
+<script src="/lib/jquery.min.js"></script> 
+<script src="/lib/popper.min.js"></script> 
 
-<script src="http://localhost:1313/js/bootstrap.min.js"></script> 
+<script src="/js/bootstrap.min.js"></script> 
 
 
 <script type="text/javascript" src="/plugins/lunr.min.js"></script>
@@ -410,7 +477,7 @@ If you are in need of support or advocacy and wish to discuss such matters confi
 <link href="/plugins/auto-complete.css" rel="stylesheet">
 <script type="text/javascript">
   
-      var baseurl = "http:\/\/localhost:1313\/";
+      var baseurl = "https:\/\/learnroboticagents.com\/";
   
 </script>
 <script type="text/javascript" src="/plugins/search.js"></script>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lecture Slides on ROBOTIC AGENTS</title>
+    <link>https://learnroboticagents.com/slides/</link>
+    <description>Recent content in Lecture Slides on ROBOTIC AGENTS</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <atom:link href="https://learnroboticagents.com/slides/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Locomotion</title>
+      <link>https://learnroboticagents.com/slides/locomotion/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://learnroboticagents.com/slides/locomotion/</guid>
+      <description>&lt;style&gt;&#xA;.reveal h1 { font-size: 2.5em; }&#xA;.reveal h2 { font-size: 2em; color: #2a5599; }&#xA;.reveal h3 { font-size: 1.5em; color: #4a7fbb; }&#xA;.reveal ul { font-size: 0.9em; }&#xA;.reveal .small { font-size: 0.7em; }&#xA;.reveal .highlight { color: #d9534f; font-weight: bold; }&#xA;.reveal .box { &#xA;    background: #f5f5f5; &#xA;    padding: 20px; &#xA;    border-radius: 10px; &#xA;    margin: 20px 0;&#xA;}&#xA;&lt;/style&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;actuators-and-locomotion&#34;&gt;Actuators and Locomotion&lt;/h1&gt;&#xA;&lt;p&gt;&lt;strong&gt;Week 1 • CMPSC 304 Robotic Agents&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;todays-agenda&#34;&gt;Today&amp;rsquo;s Agenda&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;What is actuation?&lt;/li&gt;&#xA;&lt;li&gt;Locomotion vs. manipulation&lt;/li&gt;&#xA;&lt;li&gt;Static vs. dynamic stability&lt;/li&gt;&#xA;&lt;li&gt;Degrees of Freedom (DoF)&lt;/li&gt;&#xA;&lt;li&gt;Wheel types and kinematics&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;actuation-making-robots-move&#34;&gt;Actuation: Making Robots Move&lt;/h2&gt;&#xA;&lt;div class=&#34;box&#34;&gt;&#xA;&lt;p&gt;&lt;strong&gt;Actuation&lt;/strong&gt; = The robot&amp;rsquo;s ability to move and interact with the world&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Motors and Arduino for Robotics</title>
+      <link>https://learnroboticagents.com/slides/motors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://learnroboticagents.com/slides/motors/</guid>
+      <description>&lt;style&gt;&#xA;.reveal h1 { font-size: 2.5em; }&#xA;.reveal h2 { font-size: 2em; color: #2a5599; }&#xA;.reveal h3 { font-size: 1.5em; color: #4a7fbb; }&#xA;.reveal ul { font-size: 0.9em; }&#xA;.reveal .small { font-size: 0.7em; }&#xA;.reveal .highlight { color: #d9534f; font-weight: bold; }&#xA;.reveal .box { &#xA;    background: #f5f5f5; &#xA;    padding: 20px; &#xA;    border-radius: 10px; &#xA;    margin: 20px 0;&#xA;}&#xA;&lt;/style&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;motors-and-arduino-for-robotics&#34;&gt;Motors and Arduino for Robotics&lt;/h1&gt;&#xA;&lt;p&gt;&lt;strong&gt;Week 2 • CMPSC 304 Robotic Agents&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;todays-agenda&#34;&gt;Today&amp;rsquo;s Agenda&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Arduino Uno basics and power flow&lt;/li&gt;&#xA;&lt;li&gt;Digital vs. Analog signals&lt;/li&gt;&#xA;&lt;li&gt;Pulse Width Modulation (PWM)&lt;/li&gt;&#xA;&lt;li&gt;Battery voltage calculations&lt;/li&gt;&#xA;&lt;li&gt;Why we need motor drivers&lt;/li&gt;&#xA;&lt;li&gt;DC motors for Project 1&lt;/li&gt;&#xA;&lt;li&gt;Motor types overview&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;arduino-uno-overview&#34;&gt;Arduino Uno Overview&lt;/h2&gt;&#xA;&lt;h3 id=&#34;usb-connection&#34;&gt;USB Connection&lt;/h3&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://learnroboticagents.com/img/arduino1.png&#34; alt=&#34;Arduino USB Port&#34;&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
