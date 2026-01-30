@@ -174,6 +174,10 @@ void setup() {
 void loop() {
   int sensorState = digitalRead(IR_PIN);
   
+  Serial.print("Sensor value: ");
+  Serial.print(sensorState);
+  Serial.print(" - ");
+  
   if (sensorState == LOW) {
     Serial.println("OBSTACLE DETECTED!");
   } else {
