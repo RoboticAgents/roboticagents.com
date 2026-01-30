@@ -393,11 +393,20 @@
 <h3 id="understanding-ir-sensors">Understanding IR Sensors</h3>
 <p><strong>Digital IR sensors</strong> emit infrared light and detect reflections:</p>
 <ul>
-<li>Output: <strong>HIGH</strong> (no obstacle) or <strong>LOW</strong> (obstacle detected)</li>
-<li>Has a <strong>potentiometer</strong> to adjust detection threshold</li>
-<li>Fast response time</li>
-<li>Typical range: 2-30 cm (adjustable)</li>
+<li>Output: <strong>HIGH (1)</strong> when no obstacle detected, <strong>LOW (0)</strong> when obstacle is present</li>
+<li>The sensor compares reflected IR light intensity to an internal threshold</li>
+<li>If reflection is strong enough (object is close/reflective), output goes LOW</li>
+<li>If reflection is weak (object far/absent), output stays HIGH</li>
 </ul>
+<p><strong>Key Component - Potentiometer:</strong></p>
+<ul>
+<li>Small adjustable screw or dial on the sensor</li>
+<li>Controls the <strong>sensitivity threshold</strong> - how much reflected light triggers detection</li>
+<li><strong>Turn clockwise</strong> → sensor becomes more sensitive (detects from farther away)</li>
+<li><strong>Turn counter-clockwise</strong> → sensor becomes less sensitive (only detects very close objects)</li>
+<li>This lets you tune the sensor for your specific use case</li>
+</ul>
+<p><strong>Typical range:</strong> 2-30 cm (adjustable via potentiometer)</p>
 <hr>
 <h3 id="wiring-the-ir-sensor">Wiring the IR Sensor</h3>
 <p><strong>Components:</strong></p>
@@ -447,14 +456,19 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">int</span> <span style="color:#111">sensorState</span> <span style="color:#f92672">=</span> <span style="color:#111">digitalRead</span><span style="color:#111">(</span><span style="color:#111">IR_PIN</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#111">sensorState</span> <span style="color:#f92672">==</span> <span style="color:#111">LOW</span><span style="color:#111">)</span> <span style="color:#111">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;🚨 OBSTACLE DETECTED!&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;OBSTACLE DETECTED!&#34;</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;✓ Clear&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">Serial</span><span style="color:#111">.</span><span style="color:#111">println</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Clear&#34;</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#111">}</span>
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#111">delay</span><span style="color:#111">(</span><span style="color:#ae81ff">300</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#111">}</span>
-</span></span></code></pre></div><p><strong>Tip:</strong> Adjust the potentiometer on your IR sensor to change the detection distance threshold.</p>
+</span></span></code></pre></div><p><strong>Tip:</strong> The IR sensor outputs binary (0 or 1) values. Adjust the potentiometer to set when it switches from 0→1:</p>
+<ul>
+<li><strong>Clockwise rotation</strong> = more sensitive = detects farther away</li>
+<li><strong>Counter-clockwise</strong> = less sensitive = only detects very close objects</li>
+<li>Find the &ldquo;sweet spot&rdquo; for your detection distance by testing with an object and slowly turning the potentiometer</li>
+</ul>
 <hr>
 <h2 id="part-3-suggested-experiments">Part 3: Suggested Experiments</h2>
 <h3 id="for-ultrasonic-sensor">For Ultrasonic Sensor:</h3>

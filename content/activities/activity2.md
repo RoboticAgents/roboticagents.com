@@ -128,10 +128,19 @@ void loop() {
 ### Understanding IR Sensors
 
 **Digital IR sensors** emit infrared light and detect reflections:
-- Output: **HIGH** (no obstacle) or **LOW** (obstacle detected)
-- Has a **potentiometer** to adjust detection threshold
-- Fast response time
-- Typical range: 2-30 cm (adjustable)
+- Output: **HIGH (1)** when no obstacle detected, **LOW (0)** when obstacle is present
+- The sensor compares reflected IR light intensity to an internal threshold
+- If reflection is strong enough (object is close/reflective), output goes LOW
+- If reflection is weak (object far/absent), output stays HIGH
+
+**Key Component - Potentiometer:**
+- Small adjustable screw or dial on the sensor
+- Controls the **sensitivity threshold** - how much reflected light triggers detection
+- **Turn clockwise** → sensor becomes more sensitive (detects from farther away)
+- **Turn counter-clockwise** → sensor becomes less sensitive (only detects very close objects)
+- This lets you tune the sensor for your specific use case
+
+**Typical range:** 2-30 cm (adjustable via potentiometer)
 
 ---
 
@@ -166,16 +175,19 @@ void loop() {
   int sensorState = digitalRead(IR_PIN);
   
   if (sensorState == LOW) {
-    Serial.println("🚨 OBSTACLE DETECTED!");
+    Serial.println("OBSTACLE DETECTED!");
   } else {
-    Serial.println("✓ Clear");
+    Serial.println("Clear");
   }
   
   delay(300);
 }
 ```
 
-**Tip:** Adjust the potentiometer on your IR sensor to change the detection distance threshold.
+**Tip:** The IR sensor outputs binary (0 or 1) values. Adjust the potentiometer to set when it switches from 0→1:
+- **Clockwise rotation** = more sensitive = detects farther away
+- **Counter-clockwise** = less sensitive = only detects very close objects
+- Find the "sweet spot" for your detection distance by testing with an object and slowly turning the potentiometer
 
 ---
 
