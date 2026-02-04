@@ -10,9 +10,10 @@ weight = 1
 
 #### Project Legend
 - **P1** = Wheeled Robot
-- **P2** = PLC + FANUC
-- **P3** = ROS Simulation
-- **P4** = TurtleBots
+- **P2** = PLC
+- **P3** = FANUC
+- **P4** = ROS Simulation
+- **P5** = TurtleBots
 - **FP** = Final Project
 
 {{< table style="table-bordered" >}}
@@ -21,17 +22,17 @@ weight = 1
 | 1 (Jan 12–17) | Course intro; What is a robot? Arduino, locomotion | [Modern Robots Presentations](https://docs.google.com/presentation/d/1d-GVw5LlcAGIGwjs_ngNqJljR3Ofu9X34a9EcibV2SU/edit?usp=sharing) | [Project 1: Wheeled Robot](https://classroom.github.com/a/kEovlL1p) (Due Feb 3) | [Locomotion Slides](/slides/locomotion.html)<br>IAR Ch. 1 |
 | 2 (Jan 20–24)<br>*(MLK Mon off)* | Actuators; wiring, power | Project 1 work time | P1: Mechanical build, wiring, power | [Motors & Arduino Slides](/slides/motors.html)<br>IAR Ch. 2.1-2.3, 6 |
 | 3 (Jan 27–31) | Actuators (cont.); sensors; kinematics; reactive control | [Activity 1: Servo and Stepper Motor Experiments](/activities/activity1) (Due Jan 28, 11:50am)<br>[Activity 2: Distance Sensors](/activities/activity2) (Due Feb 2, 11:50am) | P1: Basic control + sensing; demo | [Sensors Slides](/slides/sensors.html)<br>IAR Ch. 7 |
-| 4 (Feb 3–7) | Deterministic control; state machines; why PLCs exist | [Activity 3: Environmental Sensors](https://classroom.github.com/a/hZZHXESz) (Due Feb 6, 11:50am)<br>**Feb 6: No class - read [PLC Guidebook Part II](https://drive.google.com/file/d/1VWessh1HcvmdRI2tuENBTpigBIIETl7k/view?usp=sharing)** | P2: PLC ladder logic basics; discrete I/O | PLC Presentation: Intro, PLC basics, ladder logic fundamentals<br>IAR: Ch. 2 (sections on control architectures) |
-| 5 (Feb 10–14) | Safety, interlocks, fault handling | **Feb 9 (11am-11:50am @ ALIC)**: Tour, safety instructions, PLC demo<br>**Feb 10 (2:30-4pm @ ALIC)**: PLC work | P2: PLC timers, counters, safety logic | PLC Presentation: Timers, counters, interlocks, fault states<br>FANUC Manual: Safety overview + operational modes |
+| 4 (Feb 3–7) | Deterministic control; state machines; why PLCs exist | [Activity 3: Environmental Sensors](https://classroom.github.com/a/hZZHXESz) (Due Feb 6, 11:50am)<br>**Feb 6: No class - read [PLC Guidebook Part II](https://drive.google.com/file/d/1VWessh1HcvmdRI2tuENBTpigBIIETl7k/view?usp=sharing)** | P2: PLC ladder logic basics; discrete I/O | [PLC Guidebook Part II](https://drive.google.com/file/d/1VWessh1HcvmdRI2tuENBTpigBIIETl7k/view?usp=sharing) |
+| 5 (Feb 10–14) | Safety, interlocks, fault handling | **Feb 9 (11am-11:50am @ Bessemer)**: Tour, safety instructions, PLC demo<br>**Feb 10 (2:30-4pm @ Bessemer)**: PLC work | P2: PLC timers, counters, safety logic | PLC Guidebook Part III |
 | — | **Exam 1** (February 13th) | — | — | Covers P1 + basic PLC concepts |
-| 6 (Feb 17–21) | Human–robot collaboration; industrial workflows | **Feb 17 (2:30-4pm @ ALIC)**: PLC work | P2: FANUC CRX task programming; PLC ↔ robot coordination | FANUC Manual: Teach pendant operation, task execution<br>IAR: Ch. 1 (human–robot interaction sections) |
-| 7 (Feb 24–27) | System integration; comparison to autonomy | **Feb 23 (11am-11:50am @ ALIC)**: FANUC demo<br>**Feb 24 (2:30-4pm @ ALIC)**: FANUC work (tentative)<br>**Feb 27 (11am-11:50am @ ALIC)**: FANUC work | P2: Full PLC–FANUC cell demo | IAR: Ch. 3 (reactive systems)<br>Short instructor note: PLC vs ROS comparison |
+| 6 (Feb 17–21) | Human–robot collaboration; industrial workflows | **Feb 17 (2:30-4pm @ Bessemer)**: PLC work | P3: FANUC CRX task programming; PLC ↔ robot coordination | FANUC Manual: Teach pendant operation, task execution<br>IAR: Ch. 1 (human–robot interaction sections) |
+| 7 (Feb 24–27) | System integration; comparison to autonomy | **Feb 23 (11am-11:50am @ Bessemer)**: FANUC demo<br>**Feb 24 (2:30-4pm @ Bessemer)**: FANUC work (tentative)<br>**Feb 27 (11am-11:50am @ Bessemer)**: FANUC work | P3: Full PLC–FANUC cell demo | IAR: Ch. 3 (reactive systems)<br>Short instructor note: PLC vs ROS comparison |
 | 8 (Feb 28–Mar 8) | **Spring Break – No Classes** | — | — | — |
-| 9 (Mar 10–14) | Why ROS? Robot software architectures | **Mar 9 (11am-11:50am @ ALIC)**: FANUC work (tentative)<br>**Mar 10 (2:30-4pm @ ALIC)**: FANUC work | P3: ROS setup; simulation intro | IAR Ch. 2–3; ROS 2 Beginner Tutorials |
+| 9 (Mar 10–14) | Why ROS? Robot software architectures | **Mar 9 (11am-11:50am @ Bessemer)**: FANUC work (tentative)<br>**Mar 10 (2:30-4pm @ Bessemer)**: FANUC work | P4: ROS setup; simulation intro | IAR Ch. 2–3; ROS 2 Beginner Tutorials |
 | — | **Exam 2** (March 13th) | — | — | Covers PLC/FANUC + ROS fundamentals |
-| 10 (Mar 17–21) | Motion models; navigation concepts | — | P3: Autonomous behaviors in simulation | IAR Ch. 12 |
-| 11 (Mar 24–28) | Simulation vs reality; sensing uncertainty | — | P4: TurtleBot bring-up & navigation | IAR Ch. 14 |
-| 12 (Mar 31–Apr 4) | Robustness, recovery, evaluation | — | P4: TurtleBot demos & comparison | ROS navigation docs |
+| 10 (Mar 17–21) | Motion models; navigation concepts | — | P4: Autonomous behaviors in simulation | IAR Ch. 12 |
+| 11 (Mar 24–28) | Simulation vs reality; sensing uncertainty | — | P5: TurtleBot bring-up & navigation | IAR Ch. 14 |
+| 12 (Mar 31–Apr 4) | Robustness, recovery, evaluation | — | P5: TurtleBot demos & comparison | ROS navigation docs |
 | — | **Exam 3** (April 3rd) | — | — | ROS + autonomy concepts |
 | 13 (Apr 7–11)<br>*(Decl Day Apr 6; Recharge Apr 9–10)* | Project integration; system design | — | FP: Proposal + architecture review | No new reading |
 | 14 (Apr 14–18) | Ethics, communication, deployment | — | FP: Build & test | Selected civic/ethics readings |
