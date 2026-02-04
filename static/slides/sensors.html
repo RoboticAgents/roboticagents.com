@@ -546,6 +546,90 @@ void loop() {
                 </table>
             </section>
 
+            <!-- Environmental Sensors Overview -->
+            <section>
+                <h2>Environmental Sensors</h2>
+                <p>Beyond distance sensing, robots need to sense their <strong>environment</strong>:</p>
+                <ul style="margin-top: 20px;">
+                    <li><span class="highlight">Temperature:</span> TMP36 sensor</li>
+                    <li><span class="highlight">Light:</span> Photoresistor modules</li>
+                    <li><span class="highlight">Moisture:</span> Soil moisture sensors</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 25px;">
+                    <strong>Today:</strong> Quick overview, then Activity 3 hands-on
+                </div>
+            </section>
+
+            <!-- Temperature Sensors -->
+            <section>
+                <h2>Temperature: TMP36</h2>
+                <div class="box">
+                    <strong>Principle:</strong> Voltage output proportional to temperature
+                </div>
+                <p style="margin-top: 25px;"><strong>Key Points:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Range:</strong> -40°C to +125°C</li>
+                    <li><strong>Output:</strong> 10 mV per °C, 500 mV offset at 0°C</li>
+                    <li><strong>Formula:</strong> temp_C = (voltage - 0.5) × 100</li>
+                    <li><strong>Wiring:</strong> 3 pins - VCC (red), Vout (yellow), GND (black)</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Tip:</strong> Check for loose connections if readings jump wildly!
+                </div>
+            </section>
+
+            <!-- Light Sensors -->
+            <section>
+                <h2>Light: Photoresistor Module</h2>
+                <div class="box">
+                    <strong>Principle:</strong> Resistance changes with light intensity
+                </div>
+                <p style="margin-top: 25px;"><strong>Key Points:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>4-pin module:</strong> VCC, GND, AO (analog), DO (digital)</li>
+                    <li><strong>Use AO pin</strong> for analog readings (0-1023)</li>
+                    <li><strong>Higher values = more light</strong></li>
+                    <li>You'll need to determine threshold ranges (dark/bright)</li>
+                </ul>
+            </section>
+
+            <!-- Moisture Sensors -->
+            <section>
+                <h2>Moisture: Soil Sensors</h2>
+                <div class="box">
+                    <strong>Principle:</strong> Measure soil conductivity (wetness)
+                </div>
+                <p style="margin-top: 25px;"><strong>Key Points:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>3 pins:</strong> VCC, AOUT (analog), GND</li>
+                    <li><strong>Output:</strong> Analog voltage (0-1023)</li>
+                    <li><strong>Higher value = drier</strong> (less conductivity)</li>
+                    <li>You'll need to calibrate ranges (wet/dry)</li>
+                </ul>
+                <div class="box box-info" style="margin-top: 20px;">
+                    <strong>Calibration tip:</strong> Test in air (dry) vs water (wet)
+                </div>
+            </section>
+
+            <!-- Activity 3 -->
+            <section>
+                <h2>Activity 3: Environmental Sensing</h2>
+                <div class="box box-success">
+                    <strong>Due:</strong> Thursday, Feb 6 at 11:00 AM
+                </div>
+                <p style="margin-top: 25px;"><strong>Your Tasks:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li>Wire all 3 sensors (temperature, light, moisture)</li>
+                    <li>Get Serial Monitor output working</li>
+                    <li>Run 2+ experiments per sensor</li>
+                    <li>Document findings in experiments.md</li>
+                    <li>Push to GitHub + demonstrate to instructor</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Note:</strong> Sensor issues? Document troubleshooting efforts!
+                </div>
+            </section>
+
             <!--
             All slides below are commented out
 
