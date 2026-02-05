@@ -33,3 +33,8 @@ home = [ "HTML", "JSON"]
 name = "<i class='fab fa-github'></i>"
 url = "https://github.com/CMPSC304-RoboticAgents-Spring2026"
 weight = 10
+
+[[menu.shortcuts]]
+name = "Sensors Slides"
+url = "/slides/sensors.html"
+weight = 20
