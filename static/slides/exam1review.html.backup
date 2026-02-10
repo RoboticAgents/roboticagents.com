@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam 1 Review | CS304</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <style>
+        :root {
+            --primary: #5a4ba4;
+            --secondary: #6610f2;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .reveal h1 {
+            color: var(--primary);
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+        }
+        
+        .reveal h3 {
+            color: var(--secondary);
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .reveal .subtitle {
+            color: var(--dark);
+            font-size: 1.2em;
+            margin-top: -20px;
+        }
+        
+        .reveal ul {
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .reveal li {
+            margin: 0.5em 0;
+        }
+        
+        .reveal .highlight {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .reveal .box {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary);
+            margin: 20px auto;
+            max-width: 90%;
+        }
+        
+        .reveal .box-success {
+            border-left-color: var(--success);
+        }
+        
+        .reveal .box-info {
+            border-left-color: var(--info);
+        }
+        
+        .reveal .box-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .reveal .col-item {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .reveal .small-text {
+            font-size: 0.75em;
+            color: #666;
+        }
+        
+        .reveal table {
+            font-size: 0.8em;
+            margin: 20px auto;
+        }
+        
+        .reveal th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+        }
+        
+        .reveal td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .reveal img {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .reveal .progress {
+            background: rgba(90, 75, 164, 0.2);
+        }
+        
+        .reveal .progress span {
+            background: var(--primary);
+        }
+        
+        .reveal .checkmark {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .reveal .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .reveal .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+        
+        .reveal .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .reveal .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .reveal .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .reveal .answer-box {
+            background: #e8f5e9;
+            border-left: 5px solid var(--success);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section>
+                <h1>Exam 1 Review</h1>
+                <p class="subtitle">CMPSC 304 Robotic Agents</p>
+                <div class="box" style="margin-top: 40px;">
+                    <strong>Exam Date: February 13, 2026</strong><br><br>
+                    <strong>Format:</strong> 10 questions, 50 minutes<br>
+                    <ul style="margin-top: 10px;">
+                        <li>5 multiple-choice</li>
+                        <li>3 short answer</li>
+                        <li>2 scenario-based</li>
+                    </ul>
+                </div>
+                <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>→</strong> to advance</p>
+            </section>
+
+            <!-- Coverage -->
+            <section>
+                <h2>What's Covered on Exam 1?</h2>
+                <div class="box">
+                    <strong>Topics:</strong> Everything from week 1 through week 4
+                    <ul style="margin-top: 15px;">
+                        <li>Locomotion and stability</li>
+                        <li>Actuators and motors</li>
+                        <li>Arduino and electronics</li>
+                        <li>Sensors and perception</li>
+                        <li>Kinematics and DoF</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 30px;"><span class="highlight">Not covered:</span> PLCs and beyond</p>
+            </section>
+
+            <!-- Study Materials -->
+            <section>
+                <h2>Study Materials</h2>
+                <div style="font-size: 0.85em;">
+                    <strong>Project 1:</strong> Wheeled Robot documentation and code<br><br>
+                    <strong>Slides:</strong>
+                    <ul>
+                        <li>Locomotion</li>
+                        <li>Motors and Arduino</li>
+                        <li>Sensors</li>
+                    </ul>
+                    <br>
+                    <strong>Activities:</strong>
+                    <ul>
+                        <li>Activity 1: Servo Motor Control</li>
+                        <li>Activity 2: Distance Sensors</li>
+                        <li>Activity 3: Environmental Sensors</li>
+                    </ul>
+                    <br>
+                    <strong>Readings:</strong>
+                    <ul>
+                        <li>IAR Chapter 1: Introduction</li>
+                        <li>IAR Chapter 2.1-2.3: Locomotion & DoF</li>
+                        <li>IAR Chapter 6: Actuators</li>
+                        <li>IAR Chapter 7: Sensors</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION: Multiple Choice -->
+            <section>
+                <h1 style="font-size: 2.5em;">MULTIPLE CHOICE<br>QUESTIONS</h1>
+                <p style="margin-top: 30px; font-size: 0.9em;">Answer using colored cards: 🔴 Red • 🟢 Green • 🔵 Blue • � Orange</p>
+            </section>
+
+            <!-- MC 1 -->
+            <section>
+                <h2>Multiple Choice Practice 1</h2>
+                <div class="box">
+                    <strong>What type of stability requires constant motion to avoid falling?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>🔴 <strong>Red:</strong> Static stability</p>
+                        <p>🟢 <strong>Green:</strong> Dynamic stability</p>
+                        <p>🔵 <strong>Blue:</strong> Kinematic stability</p>
+                        <p>� <strong>Orange:</strong> Passive stability</p>
+                    </div>
+                </div>
+                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
+            </section>
+
+            <!-- MC 1 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - Dynamic stability</h3>
+                <div class="box answer-box">
+                    <strong>Dynamic stability</strong> requires the robot to be constantly in motion to remain upright.
+                    <br><br>
+                    <strong>Examples:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Bicycle (must keep moving to stay balanced)</li>
+                        <li>Two-wheeled segway</li>
+                        <li>Running quadruped (two legs always in air)</li>
+                    </ul>
+                    <br>
+                    <strong>Static stability</strong> means stable when NOT moving (e.g., four-legged table, six-legged insect walking).
+                </div>
+            </section>
+
+            <!-- MC 2 -->
+            <section>
+                <h2>Multiple Choice Practice 2</h2>
+                <div class="box">
+                    <strong>What term describes a robot's ability to sense its OWN internal state (joint angles, speeds, torques)?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>🔴 <strong>Red:</strong> Exteroception</p>
+                        <p>🟢 <strong>Green:</strong> Proprioception</p>
+                        <p>🔵 <strong>Blue:</strong> Perception</p>
+                        <p>� <strong>Orange:</strong> Interoception</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 2 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - Proprioception</h3>
+                <div class="box answer-box" style="font-size: 0.72em;">
+                    <strong>Proprioception</strong> = sensing the robot's internal state
+                    <ul style="margin-top: 8px; margin-bottom: 8px;">
+                        <li>Joint angles (encoders)</li>
+                        <li>Joint speeds (encoders/tachometers)</li>
+                        <li>Joint torques (current sensors, F/T sensors)</li>
+                        <li>Robot orientation (IMU: accelerometer, gyroscope)</li>
+                    </ul>
+                    <strong>Exteroception</strong> = sensing the external environment
+                    <ul style="margin-top: 8px; margin-bottom: 8px;">
+                        <li>Distance to obstacles (ultrasonic, laser)</li>
+                        <li>Vision (cameras)</li>
+                        <li>Temperature, light, sound</li>
+                    </ul>
+                    Both are essential for autonomous robots!
+                </div>
+            </section>
+
+            <!-- MC 3 -->
+            <section>
+                <h2>Multiple Choice Practice 3</h2>
+                <div class="box">
+                    <strong>Which component in a brushed DC motor switches the direction of current to maintain rotation?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>🔴 <strong>Red:</strong> Rotor</p>
+                        <p>🟢 <strong>Green:</strong> Stator</p>
+                        <p>🔵 <strong>Blue:</strong> Commutator</p>
+                        <p>� <strong>Orange:</strong> Armature</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 3 Answer -->
+            <section>
+                <h3>Answer: 🔵 Blue - Commutator</h3>
+                <div class="box answer-box" style="font-size: 0.85em;">
+                    <strong>Commutator</strong> = mechanical switch that reverses current direction
+                    <ul style="margin-top: 10px;">
+                        <li>Provides positive/negative voltage at interleaving pads</li>
+                        <li>Uses metal brushes attached to shaft</li>
+                        <li>Allows DC motor to rotate continuously</li>
+                        <li>Source of friction and wear in brushed motors</li>
+                    </ul>
+                    <br>
+                    <strong>Other components:</strong>
+                    <ul>
+                        <li><strong>Rotor:</strong> rotating part with shaft</li>
+                        <li><strong>Stator:</strong> stationary part with permanent magnets</li>
+                    </ul>
+                    <br>
+                    <strong>Brushless DC motors</strong> eliminate the commutator and use electronics instead → more efficient!
+                </div>
+            </section>
+
+            <!-- MC 4 -->
+            <section>
+                <h2>Multiple Choice Practice 4</h2>
+                <div class="box" style="font-size: 0.9em;">
+                    <strong>A sensor that measures how CONSISTENT repeated measurements are (not necessarily correct) has high:</strong>
+                    <div style="margin-top: 20px;">
+                        <p>🔴 <strong>Red:</strong> Accuracy</p>
+                        <p>🟢 <strong>Green:</strong> Precision</p>
+                        <p>🔵 <strong>Blue:</strong> Resolution</p>
+                        <p>� <strong>Orange:</strong> Bandwidth</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 4 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - Precision</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <strong>Precision</strong> = repeatability/consistency of measurements
+                    <ul style="margin-top: 10px;">
+                        <li>High precision: measurements cluster tightly together</li>
+                        <li>Low precision: measurements spread out (high variance)</li>
+                    </ul>
+                    <br>
+                    <strong>Accuracy</strong> = closeness to TRUE value
+                    <ul>
+                        <li>High accuracy: measurements close to actual value</li>
+                        <li>Low accuracy: systematic error (bias)</li>
+                    </ul>
+                    <br>
+                    <strong>Other terms:</strong>
+                    <ul>
+                        <li><strong>Resolution:</strong> smallest measurable difference</li>
+                        <li><strong>Bandwidth:</strong> measurement rate (Hz)</li>
+                        <li><strong>Range:</strong> difference between max and min measurable values</li>
+                    </ul>
+                    <br>
+                    <strong>Best case:</strong> High accuracy AND high precision!
+                </div>
+            </section>
+
+            <!-- MC 5 -->
+            <section>
+                <h2>Multiple Choice Practice 5</h2>
+                <div class="box" style="font-size: 0.9em;">
+                    <strong>Which type of encoder can determine absolute position without counting steps from a reference point?</strong>
+                    <div style="margin-top: 20px;">
+                        <p>🔴 <strong>Red:</strong> Incremental encoder</p>
+                        <p>🟢 <strong>Green:</strong> Absolute encoder</p>
+                        <p>🔵 <strong>Blue:</strong> Quadrature encoder</p>
+                        <p>� <strong>Orange:</strong> Relative encoder</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 5 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - Absolute encoder</h3>
+                <div class="box answer-box" style="font-size: 0.85em;">
+                    <strong>Absolute encoder</strong> = knows position immediately upon power-up
+                    <ul style="margin-top: 10px;">
+                        <li>Uses unique pattern for each position (e.g., Gray code)</li>
+                        <li>No need to count from reference point</li>
+                        <li>More expensive, mainly used in robot manipulators</li>
+                    </ul>
+                    <br>
+                    <strong>Incremental encoder</strong> = counts changes from starting position
+                    <ul>
+                        <li>Quadrature encoder is a common type</li>
+                        <li>Needs two sensors (A and B) to detect direction</li>
+                        <li>Loses position information when powered off</li>
+                        <li>Cheaper, common in mobile robotics</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- MC 6 -->
+            <section>
+                <h2>Multiple Choice Practice 6</h2>
+                <div class="box" style="font-size: 0.9em;">
+                    <strong>What sensor measures rotational velocity and uses Coriolis forces acting on a vibrating mass?</strong>
+                    <div style="margin-top: 20px;">
+                        <p>🔴 <strong>Red:</strong> Accelerometer</p>
+                        <p>🟢 <strong>Green:</strong> Gyroscope (rate gyro)</p>
+                        <p>🔵 <strong>Blue:</strong> Magnetometer</p>
+                        <p>� <strong>Orange:</strong> Encoder</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 6 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - Gyroscope (rate gyro)</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <strong>Rate gyroscope</strong> = measures rotational/angular velocity (rad/s or deg/s)
+                    <ul style="margin-top: 10px;">
+                        <li>MEMS version uses vibrating suspended mass</li>
+                        <li>Coriolis force acts on moving mass during rotation</li>
+                        <li>Can be integrated to obtain absolute orientation</li>
+                        <li>Measures around 3 axes (pitch, yaw, roll rates)</li>
+                    </ul>
+                    <br>
+                    <strong>IMU (Inertial Measurement Unit):</strong>
+                    <ul>
+                        <li><strong>Accelerometer:</strong> translational acceleration (3 axes)</li>
+                        <li><strong>Gyroscope:</strong> rotational velocity (3 axes)</li>
+                        <li><strong>Magnetometer:</strong> absolute orientation (compass)</li>
+                    </ul>
+                    <br>
+                    Together = 6 DoF motion sensing!
+                </div>
+            </section>
+
+            <!-- MC 7 -->
+            <section>
+                <h2>Multiple Choice Practice 7</h2>
+                <div class="box" style="font-size: 0.9em;">
+                    <strong>How many Cartesian DoF does a robot have when moving on a flat 2D plane?</strong>
+                    <div style="margin-top: 20px;">
+                        <p>🔴 <strong>Red:</strong> 2 DoF (X, Y)</p>
+                        <p>🟢 <strong>Green:</strong> 3 DoF (X, Y, θ)</p>
+                        <p>🔵 <strong>Blue:</strong> 4 DoF (X, Y, Z, θ)</p>
+                        <p>� <strong>Orange:</strong> 6 DoF (X, Y, Z, pitch, yaw, roll)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 7 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - 3 DoF (X, Y, θ)</h3>
+                <div class="box answer-box" style="font-size: 0.85em;">
+                    <strong>On a 2D plane:</strong>
+                    <ol style="margin-top: 10px;">
+                        <li><strong>X position</strong> (left/right)</li>
+                        <li><strong>Y position</strong> (forward/backward)</li>
+                        <li><strong>Orientation θ</strong> (rotation angle/yaw)</li>
+                    </ol>
+                    <br>
+                    <strong>Key distinction:</strong>
+                    <ul>
+                        <li><strong>Cartesian DoF:</strong> positions/orientations in space (task-dependent)</li>
+                        <li><strong>Mechanical DoF:</strong> number of actuated joints (platform-dependent)</li>
+                    </ul>
+                    <br>
+                    <strong>In 3D space:</strong> 6 DoF
+                    <ul>
+                        <li>3 translations: X, Y, Z</li>
+                        <li>3 rotations: pitch, yaw, roll</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- MC 8 -->
+            <section>
+                <h2>Multiple Choice Practice 8</h2>
+                <div class="box" style="font-size: 0.85em;">
+                    <strong>Which distance sensing principle measures the TIME it takes for a signal to travel to an object and back?</strong>
+                    <div style="margin-top: 20px; font-size: 0.95em;">
+                        <p>🔴 <strong>Red:</strong> Reflection (amplitude)</p>
+                        <p>🟢 <strong>Green:</strong> Time-of-flight</p>
+                        <p>🔵 <strong>Blue:</strong> Phase shift</p>
+                        <p>� <strong>Orange:</strong> Triangulation</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 8 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - Time-of-flight</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <strong>Time-of-flight</strong> = measures travel time of signal
+                    <ul style="margin-top: 10px;">
+                        <li><strong>Ultrasonic sensors:</strong> emit sound pulse, measure return time</li>
+                        <li>Sound travels at ~344 m/s → distance = (time × speed) / 2</li>
+                        <li><strong>Laser ToF:</strong> uses light (3×10⁸ m/s), requires very fast electronics</li>
+                    </ul>
+                    <br>
+                    <strong>Other methods:</strong>
+                    <ul>
+                        <li><strong>Reflection (amplitude):</strong> IR sensors measure reflected signal strength</li>
+                        <li><strong>Phase shift:</strong> measures wave phase difference</li>
+                        <li><strong>Triangulation:</strong> uses geometry with multiple sensors</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- MC 9 -->
+            <section>
+                <h2>Multiple Choice Practice 9</h2>
+                <div class="box" style="font-size: 0.9em;">
+                    <strong>What makes a robot "autonomous" according to the textbook definition?</strong>
+                    <div style="margin-top: 20px;">
+                        <p>🔴 <strong>Red:</strong> It can move on its own power</p>
+                        <p>🟢 <strong>Green:</strong> It makes decisions in response to its environment</p>
+                        <p>🔵 <strong>Blue:</strong> It has sensors and actuators</p>
+                        <p>� <strong>Orange:</strong> It follows pre-programmed motions</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 9 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - It makes decisions in response to its environment</h3>
+                <div class="box answer-box" style="font-size: 0.85em;">
+                    <strong>Autonomous robot</strong> = makes decisions based on environment (not just pre-programmed)
+                    <br><br>
+                    <strong>Key characteristics:</strong>
+                    <ul>
+                        <li>Senses environment</li>
+                        <li>Processes sensor data (computation)</li>
+                        <li>Makes decisions autonomously</li>
+                        <li>Actuates based on those decisions</li>
+                    </ul>
+                    <br>
+                    <strong>Example from Ch.1:</strong> The 1961 Unimate robot
+                    <ul>
+                        <li>Could pour beer, play golf, conduct orchestra</li>
+                        <li>BUT: all motions were pre-programmed</li>
+                        <li>Environment was carefully staged</li>
+                        <li><strong>NOT autonomous by modern definition!</strong></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- MC 10 -->
+            <section>
+                <h2>Multiple Choice Practice 10</h2>
+                <div class="box" style="font-size: 0.85em;">
+                    <strong>Which actuator type uses AIR pressure and is well-suited for soft robotics applications?</strong>
+                    <div style="margin-top: 20px; font-size: 0.95em;">
+                        <p>🔴 <strong>Red:</strong> Hydraulic actuator</p>
+                        <p>🟢 <strong>Green:</strong> Pneumatic actuator</p>
+                        <p>🔵 <strong>Blue:</strong> Stepper motor</p>
+                        <p>� <strong>Orange:</strong> Servo motor</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 10 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - Pneumatic actuator</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <strong>Pneumatic actuator</strong> = operates using compressed air
+                    <ul style="margin-top: 10px;">
+                        <li>Air is highly compressible → compliant, safe</li>
+                        <li>Lightweight, available in small form factors</li>
+                        <li>Lower force than hydraulics, but suitable for soft robotics</li>
+                        <li>Can create arbitrary bending/twisting motions</li>
+                    </ul>
+                    <br>
+                    <strong>Hydraulic actuator:</strong>
+                    <ul>
+                        <li>Uses pressurized liquid (incompressible)</li>
+                        <li>Very high forces, but large/heavy</li>
+                        <li>Used in construction equipment, large robots</li>
+                    </ul>
+                    <br>
+                    <strong>Soft robotics:</strong> Can be modeled as having infinite mechanical DoF!
+                </div>
+            </section>
+
+            <!-- SECTION: Short Answer -->
+            <section>
+                <h1 style="font-size: 2.5em;">SHORT ANSWER<br>QUESTIONS</h1>
+            </section>
+
+            <!-- SA 1 -->
+            <section>
+                <h2>Short Answer Practice 1</h2>
+                <div class="box">
+                    <strong>Define "kinematics" and "dynamics" in robotics. How do they differ?</strong>
+                </div>
+                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
+            </section>
+
+            <!-- SA 1 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.85em;">
+                    <strong>Kinematics</strong> = the study of motion (position, velocity) without considering forces
+                    <ul>
+                        <li>Describes HOW individual parts of a robot move relative to each other and the environment</li>
+                        <li>Concerned with: position, speed (first derivative of position)</li>
+                        <li>Example: calculating end-effector position from joint angles</li>
+                    </ul>
+                    <br>
+                    <strong>Dynamics</strong> = the study of forces and torques that cause motion
+                    <ul>
+                        <li>Describes WHY motion occurs</li>
+                        <li>Concerned with: acceleration (second derivative), jerk (third derivative), forces, torques, mass</li>
+                        <li>Example: calculating motor torques needed to lift a payload</li>
+                    </ul>
+                    <br>
+                    <strong>Key difference:</strong> Kinematics ignores forces; dynamics requires understanding forces and mass.
+                </div>
+            </section>
+
+            <!-- SA 2 -->
+            <section>
+                <h2>Short Answer Practice 2</h2>
+                <div class="box">
+                    <strong>Explain what PWM (Pulse Width Modulation) is and how it's used to control DC motor speed.</strong>
+                </div>
+            </section>
+
+            <!-- SA 2 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <strong>PWM (Pulse Width Modulation)</strong> = technique to simulate analog voltage using digital signals
+                    <ul style="margin-top: 10px;">
+                        <li>Rapidly switches digital pin HIGH (5V) and LOW (0V) at fixed frequency</li>
+                        <li><strong>Duty cycle:</strong> percentage of time signal is HIGH</li>
+                        <li>0% duty cycle = always off (0V average)</li>
+                        <li>50% duty cycle = half time on (2.5V average)</li>
+                        <li>100% duty cycle = always on (5V average)</li>
+                    </ul>
+                    <br>
+                    <strong>Motor speed control:</strong>
+                    <ul>
+                        <li>Motor averages the rapid on/off pulses</li>
+                        <li>Higher duty cycle → higher average voltage → faster rotation</li>
+                        <li><code>analogWrite(motorPin, 0-255)</code> sets duty cycle</li>
+                        <li>Example: <code>analogWrite(motorPin, 128)</code> → 50% speed</li>
+                    </ul>
+                    <br>
+                    <strong>Why use PWM?</strong> Arduino outputs only digital (0V or 5V), not true analog voltages.
+                </div>
+            </section>
+
+            <!-- SA 3 -->
+            <section>
+                <h2>Short Answer Practice 3</h2>
+                <div class="box">
+                    <strong>Explain the relationship between a robot's center of mass and its static stability. Why does a lower center of mass improve stability?</strong>
+                </div>
+            </section>
+
+            <!-- SA 3 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <strong>Center of mass (CoM)</strong> = point where robot's weight is concentrated
+                    <br><br>
+                    <strong>Static stability condition:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Robot is stable if vertical projection of CoM falls INSIDE support polygon</li>
+                        <li><strong>Support polygon:</strong> area bounded by contact points with ground</li>
+                        <li>If CoM projects outside → robot tips over</li>
+                    </ul>
+                    <br>
+                    <strong>Why lower CoM improves stability:</strong>
+                    <ul>
+                        <li>Lower CoM → smaller tipping moment (torque = force × distance)</li>
+                        <li>Robot can tilt further before CoM projection exits support polygon</li>
+                        <li>More resistant to external forces (pushing, inclines)</li>
+                    </ul>
+                    <br>
+                    <strong>Design implications:</strong>
+                    <ul>
+                        <li>Place heavy components (battery, motors) low in robot</li>
+                        <li>Wider wheelbase → larger support polygon → more stable</li>
+                        <li>Six-legged insects very stable (large support polygon)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION: Scenario-Based -->
+            <section>
+                <h1 style="font-size: 2.5em;">SCENARIO-BASED<br>QUESTIONS</h1>
+            </section>
+
+            <!-- Scenario 1 -->
+            <section>
+                <h2>Scenario Practice 1</h2>
+                <div class="box" style="font-size: 0.85em;">
+                    <strong>Your wheeled robot moves forward when both motors are powered, but when you try to turn left, the robot barely moves and the left motor gets hot.</strong>
+                    <br><br>
+                    Identify two potential causes and explain how you would diagnose them.
+                </div>
+                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
+            </section>
+
+            <!-- Scenario 1 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.75em;">
+                    <strong>Potential Cause 1: Wiring issue (reversed polarity)</strong>
+                    <ul>
+                        <li><strong>Diagnosis:</strong> Check that left motor wires are connected correctly to motor driver (IN1/IN2)</li>
+                        <li><strong>Test:</strong> Swap IN1/IN2 connections and see if behavior changes</li>
+                        <li><strong>Fix:</strong> Rewire motor to correct terminals</li>
+                    </ul>
+                    <br>
+                    <strong>Potential Cause 2: Software bug (incorrect PWM values)</strong>
+                    <ul>
+                        <li><strong>Diagnosis:</strong> Print motor speed values to Serial Monitor during turn</li>
+                        <li><strong>Test:</strong> Check if left motor PWM is too low or negative</li>
+                        <li><strong>Fix:</strong> Adjust turn logic in code: <code>leftSpeed = baseSpeed - turnAmount;</code></li>
+                    </ul>
+                    <br>
+                    <strong>Why motor gets hot:</strong> If motor is receiving power but can't turn (due to incorrect signal or mechanical binding), current increases → heat
+                </div>
+            </section>
+
+            <!-- Scenario 2 -->
+            <section>
+                <h2>Scenario Practice 2</h2>
+                <div class="box" style="font-size: 0.9em;">
+                    <strong>You're designing a delivery robot for a warehouse with narrow aisles. The robot must carry heavy loads (20 kg) and make tight turns in confined spaces.</strong>
+                    <br><br>
+                    <strong>Questions:</strong>
+                    <ol style="margin-top: 15px; font-size: 0.95em;">
+                        <li>What locomotion mechanism would you choose and why?</li>
+                        <li>Where would you place the battery and motors to maximize stability?</li>
+                        <li>What constraint(s) does your design have?</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Scenario 2 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.75em;">
+                    <strong>1. Locomotion: Differential drive</strong>
+                    <ul>
+                        <li><strong>Zero turning radius:</strong> can rotate in place → perfect for narrow aisles</li>
+                        <li><strong>Simple:</strong> only 2 motors to control</li>
+                        <li><strong>Robust:</strong> reliable for heavy loads</li>
+                        <li><strong>Cost-effective:</strong> fewer components than mecanum/Ackermann</li>
+                    </ul>
+                    <br>
+                    <strong>2. Component placement for stability:</strong>
+                    <ul>
+                        <li><strong>Battery:</strong> mount LOW and CENTERED (heavy → lower CoM)</li>
+                        <li><strong>Motors:</strong> mount low, close to wheels</li>
+                        <li><strong>Wide wheelbase:</strong> increases support polygon</li>
+                        <li><strong>Goal:</strong> keep center of mass low → prevents tipping when carrying load</li>
+                    </ul>
+                    <br>
+                    <strong>3. Constraints:</strong>
+                    <ul>
+                        <li><strong>Non-holonomic constraint:</strong> cannot move sideways instantly</li>
+                        <li>Must rotate first, then drive → multi-step maneuvers</li>
+                        <li>Alternative: Mecanum wheels remove this constraint but cost more and have less traction</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Scenario 3 -->
+            <section>
+                <h2>Scenario Practice 3 (BONUS)</h2>
+                <div class="box">
+                    <strong>Your Project 1 robot turns left when you command it to go straight. Both motors are connected to the motor driver and receive power.</strong>
+                    <br><br>
+                    <strong>Questions:</strong>
+                    <ol style="margin-top: 15px; font-size: 0.9em;">
+                        <li>List THREE possible causes (hardware OR software)</li>
+                        <li>For each cause, how would you test/diagnose it?</li>
+                        <li>What Arduino function would you use to check motor speeds?</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Scenario 3 Answer -->
+            <section>
+                <h3>Sample Answer (BONUS)</h3>
+                <div class="box answer-box" style="font-size: 0.7em;">
+                    <strong>Possible causes & diagnosis:</strong>
+                    <br>
+                    <strong>1. Motors wired with reversed polarity</strong>
+                    <ul style="margin-top: 8px;">
+                        <li><strong>Test:</strong> Swap motor wires on ONE motor → see if turn direction changes</li>
+                        <li><strong>Fix:</strong> Reverse wiring OR invert PWM logic in code for that motor</li>
+                    </ul>
+                    <strong>2. Unequal PWM values sent to motors</strong>
+                    <ul style="margin-top: 8px;">
+                        <li><strong>Test:</strong> <code>Serial.println()</code> to check leftSpeed vs rightSpeed</li>
+                        <li><strong>Fix:</strong> Ensure both get same value: <code>analogWrite(leftPin, 150); analogWrite(rightPin, 150);</code></li>
+                    </ul>
+                    <strong>3. Mechanical issue (wheel slipping or different diameters)</strong>
+                    <ul style="margin-top: 8px;">
+                        <li><strong>Test:</strong> Lift robot, watch wheels spin → check speeds match</li>
+                        <li><strong>Fix:</strong> Tighten wheel, replace if damaged, or compensate in code</li>
+                    </ul>
+                    <strong>4. Wrong Arduino pins in code</strong>
+                    <ul style="margin-top: 8px;">
+                        <li><strong>Test:</strong> Verify pin numbers match physical wiring</li>
+                        <li><strong>Fix:</strong> Update pin definitions in code</li>
+                    </ul>
+                    <br>
+                    <strong>3. Debugging function:</strong> <code>Serial.println()</code> to monitor PWM values sent to each motor
+                </div>
+            </section>
+
+            <!-- Key Concepts Review -->
+            <section>
+                <h2>Key Concepts & Vocabulary Review</h2>
+                <div style="font-size: 0.7em; text-align: left;">
+                    <strong>Ch 1: Introduction</strong>
+                    <ul>
+                        <li><strong>Autonomous:</strong> makes decisions based on environment (not pre-programmed)</li>
+                        <li><strong>SLAM:</strong> Simultaneous Localization And Mapping</li>
+                        <li>Depth-first search, robotics challenges</li>
+                    </ul>
+                    <strong>Ch 2: Locomotion & DoF</strong>
+                    <ul>
+                        <li><strong>Kinematics:</strong> motion (position, velocity) without forces</li>
+                        <li><strong>Dynamics:</strong> forces that cause motion</li>
+                        <li><strong>Static stability:</strong> stable when not moving</li>
+                        <li><strong>Dynamic stability:</strong> requires constant motion</li>
+                        <li><strong>Cartesian DoF:</strong> directions of movement in space (task-dependent)</li>
+                        <li><strong>Mechanical DoF:</strong> actuated joints (platform-dependent)</li>
+                        <li>Wheel types: standard, caster, Swedish (mecanum), spherical</li>
+                    </ul>
+                    <strong>Ch 6: Actuators</strong>
+                    <ul>
+                        <li><strong>Rotor:</strong> rotating part, <strong>Stator:</strong> stationary part</li>
+                        <li><strong>Commutator:</strong> switches current in brushed DC motor</li>
+                        <li><strong>Brushless DC:</strong> uses electronics instead of brushes</li>
+                        <li><strong>Stepper motor:</strong> precise rotation in fixed steps</li>
+                        <li><strong>Servo motor:</strong> motor + gears + encoder + controller</li>
+                        <li><strong>Pneumatic:</strong> air-powered, <strong>Hydraulic:</strong> liquid-powered</li>
+                        <li><strong>Compliance:</strong> "give" in mechanism (inverse of stiffness)</li>
+                        <li><strong>Series elastic actuator:</strong> motor + spring → force limiting</li>
+                    </ul>
+                    <strong>Ch 7: Sensors</strong>
+                    <ul>
+                        <li><strong>Proprioception:</strong> internal state, <strong>Exteroception:</strong> external world</li>
+                        <li><strong>Active sensor:</strong> emits energy, <strong>Passive sensor:</strong> measures energy</li>
+                        <li><strong>Accuracy:</strong> close to true value, <strong>Precision:</strong> repeatability</li>
+                        <li><strong>Resolution:</strong> smallest difference, <strong>Bandwidth:</strong> measurement rate</li>
+                        <li><strong>Range:</strong> max-min values, <strong>Dynamic range:</strong> ratio (logarithmic)</li>
+                        <li><strong>Encoder:</strong> measures rotation (incremental vs absolute)</li>
+                        <li><strong>IMU:</strong> accelerometer + gyroscope + magnetometer</li>
+                        <li><strong>Gyroscope (rate gyro):</strong> rotational velocity</li>
+                        <li><strong>Time-of-flight:</strong> measures travel time</li>
+                        <li><strong>Phase shift:</strong> measures wave phase difference</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Exam Tips -->
+            <section>
+                <h2>General Exam Tips (50 minutes)</h2>
+                <div style="font-size: 0.85em;">
+                    <p><span class="checkmark">✓</span> <strong>Time management:</strong> ~5 min per question</p>
+                    <p><span class="checkmark">✓</span> <strong>MC questions:</strong> Know vocabulary definitions!</p>
+                    <p><span class="checkmark">✓</span> <strong>Short answer:</strong> Be specific, use terminology correctly</p>
+                    <p><span class="checkmark">✓</span> <strong>Scenarios:</strong> Show reasoning, reference Project 1 experiences</p>
+                    <p><span class="checkmark">✓</span> <strong>Draw diagrams</strong> if helpful (circuits, DoF, stability)</p>
+                    <p><span class="checkmark">✓</span> <strong>Check units</strong> in calculations (V, A, cm, deg, Hz)</p>
+                </div>
+            </section>
+
+            <!-- Practice Resources -->
+            <section>
+                <h2>Practice Resources</h2>
+                <div style="font-size: 0.85em;">
+                    <strong>Review:</strong>
+                    <ul>
+                        <li>Your Project 1 code and documentation</li>
+                        <li>All class slides (locomotion, motors, sensors)</li>
+                        <li>Activity code (servo, ultrasonic, IR, environmental sensors)</li>
+                        <li>IAR textbook chapters</li>
+                    </ul>
+                    <br>
+                    <strong>Test yourself:</strong>
+                    <ul>
+                        <li>Can you explain each concept to a classmate?</li>
+                        <li>Can you wire a circuit from memory?</li>
+                        <li>Can you debug a motor control circuit?</li>
+                        <li>Can you choose appropriate sensors for different tasks?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Common Mistakes -->
+            <section>
+                <h2>Common Mistakes to Avoid</h2>
+                <div style="font-size: 0.85em; text-align: left;">
+                    <p><span class="crossmark">✗</span> Confusing static and dynamic stability</p>
+                    <p><span class="crossmark">✗</span> Thinking Arduino pins can power motors directly</p>
+                    <p><span class="crossmark">✗</span> Mixing up PWM range (0-255) with analogRead range (0-1023)</p>
+                    <p><span class="crossmark">✗</span> Not considering sensor limitations (glass + IR, soft surfaces + ultrasonic)</p>
+                    <p><span class="crossmark">✗</span> Forgetting about battery series/parallel voltage rules</p>
+                    <p><span class="crossmark">✗</span> Confusing mechanical DoF with Cartesian DoF</p>
+                </div>
+            </section>
+
+            <!-- Final Slide -->
+            <section>
+                <h2>Questions?</h2>
+                <div style="font-size: 0.85em; margin-top: 30px;">
+                    <p><strong>Review sessions:</strong> Check Discord for study group times</p>
+                    <p><strong>Office hours:</strong> See <a href="https://janyljumadinova.com/schedule">instructor schedule</a></p>
+                    <p><strong>Day before exam:</strong> Final Q&A in class</p>
+                </div>
+                <div class="box box-success" style="margin-top: 50px;">
+                    <strong>Good luck on Exam 1!</strong>
+                    <br><br>
+                    Remember: This exam tests your understanding of fundamental robotics concepts that you've <strong>built and programmed</strong> in Project 1.
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            progress: true,
+            controls: true,
+            center: true,
+            touch: true,
+            loop: false,
+            rtl: false,
+            navigationMode: 'default',
+            shuffle: false,
+            fragments: true,
+            embedded: false,
+            help: true,
+            pause: true,
+            showNotes: false,
+            autoPlayMedia: null,
+            preloadIframes: null,
+            autoSlide: 0,
+            autoSlideStoppable: true,
+            mouseWheel: false,
+            hideInactiveCursor: true,
+            hideCursorTime: 5000,
+            keyboard: true,
+            overview: true,
+            disableLayout: false,
+            touch: true,
+            margin: 0.04,
+            width: 1280,
+            height: 720,
+        });
+    </script>
+</body>
+</html>
