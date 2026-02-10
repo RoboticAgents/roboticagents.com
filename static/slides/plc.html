@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLC Training System | CS304</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <style>
+        :root {
+            --primary: #5a4ba4;
+            --secondary: #6610f2;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .reveal h1 {
+            color: var(--primary);
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 0.4em;
+        }
+        
+        .reveal h3 {
+            color: var(--secondary);
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        
+        .reveal .subtitle {
+            color: var(--dark);
+            font-size: 1.2em;
+            margin-top: -20px;
+        }
+        
+        .reveal ul {
+            font-size: 0.8em;
+            line-height: 1.5;
+        }
+        
+        .reveal li {
+            margin: 0.25em 0;
+        }
+        
+        .reveal .highlight {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .reveal .box {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 15px auto;
+            max-width: 90%;
+            font-size: 0.9em;
+        }
+        
+        .reveal .box-success {
+            border-left-color: var(--success);
+        }
+        
+        .reveal .box-info {
+            border-left-color: var(--info);
+        }
+        
+        .reveal .box-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        
+        .reveal .col-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .reveal table {
+            font-size: 0.7em;
+            margin: 15px auto;
+        }
+        
+        .reveal th {
+            background: var(--primary);
+            color: white;
+            padding: 10px;
+        }
+        
+        .reveal td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .reveal pre {
+            font-size: 0.55em;
+            box-shadow: none;
+        }
+        
+        .reveal code {
+            background: var(--light);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .reveal .small-text {
+            font-size: 0.7em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section>
+                <h1>PLC Training System</h1>
+                <p class="subtitle">Industrial Control with Allen-Bradley Micro 800</p>
+                <p style="margin-top: 40px;"><strong>CS 304: Robotic Agents</strong></p>
+            </section>
+
+            <!-- What is a PLC? -->
+            <section>
+                <h2>What is a PLC?</h2>
+                <p><strong>Programmable Logic Controller</strong></p>
+                <ul style="margin-top: 25px;">
+                    <li><span class="highlight">Industrial computer</span> designed for factory automation</li>
+                    <li>Controls machines, processes, and assembly lines</li>
+                    <li>Reads inputs (sensors, switches) → Makes decisions → Controls outputs (motors, lights)</li>
+                    <li>Replaces traditional relay-based control systems</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 25px;">
+                    <strong>Why PLCs?</strong> Rugged, reliable, easy to reprogram, real-time control
+                </div>
+            </section>
+
+            <!-- LearnLab Training System -->
+            <section>
+                <h2>Our Training System: LearnLab</h2>
+                <div class="box">
+                    <strong>Complete PLC training platform</strong> with industrial components
+                </div>
+                <p style="margin-top: 25px;"><strong>5 Major Components:</strong></p>
+                <ol style="margin-top: 15px; font-size: 0.85em;">
+                    <li><strong>PLC Unit</strong> - Allen-Bradley Micro 800 Series</li>
+                    <li><strong>Motor Starter</strong> - Controls motor power</li>
+                    <li><strong>Contactors & Ice Cube Relays</strong> - Switching devices</li>
+                    <li><strong>Indicator Lamps & Limit Switches</strong> - Visual feedback & sensing</li>
+                    <li><strong>Terminal Strips, User Controls & Power</strong> - Wiring infrastructure</li>
+                </ol>
+                <div class="box box-info" style="margin-top: 20px;">
+                    Each component teaches real industrial automation skills
+                </div>
+            </section>
+
+            <!-- Component 1: PLC Unit -->
+            <section>
+                <h2>Component 1: PLC Unit</h2>
+                <div class="box box-success">
+                    <strong>Allen-Bradley Micro 800 Series</strong>
+                </div>
+                <p style="margin-top: 25px;"><strong>Key Features:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Compact design</strong> for small to medium applications</li>
+                    <li><strong>Digital I/O:</strong> 20 input points, 12 output points</li>
+                    <li><strong>Programming:</strong> Ladder logic via Connected Components Workbench</li>
+                    <li><strong>Communication:</strong> Ethernet, USB, serial ports</li>
+                    <li><strong>Real-time processing:</strong> Scan time ~1-10 ms</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Brain of the system</strong> - reads inputs, executes logic, controls outputs
+                </div>
+            </section>
+
+            <!-- Component 2: Motor Starter -->
+            <section>
+                <h2>Component 2: Motor Starter</h2>
+                <div class="box">
+                    <strong>Purpose:</strong> Safely start and stop electric motors
+                </div>
+                <p style="margin-top: 25px;"><strong>Components:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Contactor:</strong> Heavy-duty switch for motor power</li>
+                    <li><strong>Overload relay:</strong> Protects motor from overcurrent</li>
+                    <li><strong>Disconnect switch:</strong> Manual power isolation</li>
+                </ul>
+                <div class="two-col" style="margin-top: 25px; font-size: 0.8em;">
+                    <div class="col-item">
+                        <h3>Why Needed?</h3>
+                        <ul>
+                            <li>Motors draw high inrush current</li>
+                            <li>Need overload protection</li>
+                            <li>Must meet safety codes</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3>PLC Control</h3>
+                        <ul>
+                            <li>PLC output energizes contactor coil</li>
+                            <li>Contactor closes, motor runs</li>
+                            <li>PLC can start/stop based on logic</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Component 3: Contactors -->
+            <section>
+                <h2>Component 3: Contactors</h2>
+                <div class="box">
+                    <strong>Electromagnetically operated switch</strong> for high-power loads
+                </div>
+                <p style="margin-top: 25px;"><strong>How it works:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Control side:</strong> Low-voltage coil (24V DC) from PLC output</li>
+                    <li><strong>Power side:</strong> High-voltage contacts (120V/240V AC) for load</li>
+                    <li>When coil energized → electromagnetic field → contacts close → load powered</li>
+                    <li>When coil de-energized → spring opens contacts → load off</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 20px;">
+                    <strong>Key advantage:</strong> PLC's weak signal controls powerful equipment safely
+                </div>
+            </section>
+
+            <!-- Component 4: Ice Cube Relay -->
+            <section>
+                <h2>Component 4: Ice Cube Relay</h2>
+                <div class="box">
+                    <strong>Small electromechanical relay</strong> (gets name from cube shape)
+                </div>
+                <p style="margin-top: 25px;"><strong>Characteristics:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Plug-in design:</strong> Easy to replace without rewiring</li>
+                    <li><strong>Multiple contacts:</strong> SPDT, DPDT, 3PDT, 4PDT configurations</li>
+                    <li><strong>Ratings:</strong> Typically 10A at 250V AC</li>
+                    <li><strong>LED indicator:</strong> Shows when coil is energized</li>
+                </ul>
+                <div class="box box-info" style="margin-top: 20px;">
+                    <strong>Use case:</strong> Interface between PLC and multiple loads, or invert signals
+                </div>
+            </section>
+
+            <!-- Component 5: Indicator Lamps -->
+            <section>
+                <h2>Component 5: Indicator Lamps</h2>
+                <div class="box">
+                    <strong>Visual feedback</strong> for system status
+                </div>
+                <p style="margin-top: 25px;"><strong>Types on LearnLab:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Panel mount LEDs:</strong> Red, green, yellow, white</li>
+                    <li><strong>120V AC rated:</strong> Can be driven directly by PLC outputs</li>
+                    <li><strong>Common uses:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Green = System running / Motor ON</li>
+                            <li>Red = Fault / Emergency stop</li>
+                            <li>Yellow = Warning / Manual mode</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Critical for operators:</strong> Immediate visual feedback without looking at HMI
+                </div>
+            </section>
+
+            <!-- Component 6: Limit Switches -->
+            <section>
+                <h2>Component 6: Limit Switches</h2>
+                <div class="box">
+                    <strong>Mechanical position sensors</strong> for detecting object presence or position
+                </div>
+                <p style="margin-top: 25px;"><strong>How they work:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Physical actuator:</strong> Roller, lever, or plunger</li>
+                    <li>When actuator pressed → internal contacts change state</li>
+                    <li><strong>Types:</strong> Normally Open (NO) or Normally Closed (NC)</li>
+                    <li>Connected to PLC digital inputs</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 20px;">
+                    <strong>Applications:</strong> End-of-travel detection, door closed sensing, part presence verification
+                </div>
+            </section>
+
+            <!-- Component 7: Terminal Strips -->
+            <section>
+                <h2>Component 7: Terminal Strips</h2>
+                <div class="box">
+                    <strong>Organized wiring connection points</strong>
+                </div>
+                <p style="margin-top: 25px;"><strong>Purpose:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Central wiring hub:</strong> All field devices connect here first</li>
+                    <li><strong>Easy troubleshooting:</strong> Can disconnect/test individual circuits</li>
+                    <li><strong>Color-coded:</strong> Red = power, Blue = neutral, Green = ground</li>
+                    <li><strong>Labeled:</strong> Each terminal has unique identifier</li>
+                </ul>
+                <div class="box box-info" style="margin-top: 20px;">
+                    <strong>Best practice:</strong> Never wire directly to PLC - always go through terminals
+                </div>
+            </section>
+
+            <!-- Component 8: User Controls -->
+            <section>
+                <h2>Component 8: User Controls</h2>
+                <div class="box">
+                    <strong>Manual input devices</strong> for operator interaction
+                </div>
+                <p style="margin-top: 25px;"><strong>Common controls on LearnLab:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Push buttons:</strong>
+                        <ul style="margin-left: 20px; margin-top: 8px;">
+                            <li>Momentary (spring return) - Start/Stop</li>
+                            <li>Maintained (stays pressed) - Mode select</li>
+                        </ul>
+                    </li>
+                    <li><strong>Selector switches:</strong> 2 or 3 position (Auto/Off/Manual)</li>
+                    <li><strong>Emergency stop:</strong> Mushroom-head, twist-to-release</li>
+                    <li><strong>Key switches:</strong> Prevent unauthorized operation</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Safety rule:</strong> Emergency stop must be hardwired, not PLC-controlled
+                </div>
+            </section>
+
+            <!-- Component 9: Power System -->
+            <section>
+                <h2>Component 9: Power System</h2>
+                <div class="box">
+                    <strong>Multiple voltage levels</strong> for different components
+                </div>
+                <p style="margin-top: 25px;"><strong>Power distribution:</strong></p>
+                <table style="margin-top: 15px;">
+                    <thead>
+                        <tr>
+                            <th>Voltage</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>120V AC</td>
+                            <td>Input power, indicator lamps, relay coils</td>
+                        </tr>
+                        <tr>
+                            <td>24V DC</td>
+                            <td>PLC power supply, digital I/O, sensors</td>
+                        </tr>
+                        <tr>
+                            <td>240V AC (optional)</td>
+                            <td>Large motors, heaters</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="box box-warning" style="margin-top: 20px;">
+                    <strong>Safety:</strong> Circuit breakers, fuses, and proper grounding throughout
+                </div>
+            </section>
+
+            <!-- System Integration -->
+            <section>
+                <h2>How It All Works Together</h2>
+                <p style="font-size: 0.75em; margin-top: 20px;"><strong>Signal flow in PLC system:</strong></p>
+                <ol style="font-size: 0.75em; margin-top: 15px; line-height: 1.6;">
+                    <li><strong>Input:</strong> Operator presses START button → 24V signal to PLC input</li>
+                    <li><strong>Processing:</strong> PLC scans ladder logic → determines output state</li>
+                    <li><strong>Output:</strong> PLC energizes output → Contactor coil activates</li>
+                    <li><strong>Power:</strong> Contactor contacts close → Motor receives 120V AC</li>
+                    <li><strong>Feedback:</strong> Green lamp illuminates, limit switch confirms position</li>
+                    <li><strong>Monitoring:</strong> PLC continuously scans, reacts to STOP or faults</li>
+                </ol>
+                <div class="box box-success" style="margin-top: 20px;">
+                    <strong>Result:</strong> Safe, predictable, and repeatable industrial control
+                </div>
+            </section>
+
+            <!-- Why Learn PLCs? -->
+            <section>
+                <h2>Why Learn PLCs in Robotics?</h2>
+                <ul style="margin-top: 20px;">
+                    <li><strong>Industry standard:</strong> 90%+ of factories use PLCs</li>
+                    <li><strong>Deterministic control:</strong> Predictable, safety-critical systems</li>
+                    <li><strong>Different paradigm:</strong> Ladder logic vs. Python/C++</li>
+                    <li><strong>Integration:</strong> PLCs often coordinate with robots (like FANUC)</li>
+                    <li><strong>Career skills:</strong> High demand, well-paid positions</li>
+                </ul>
+                <div class="box box-info" style="margin-top: 25px;">
+                    <strong>Course perspective:</strong> Compare PLC (deterministic) with ROS (probabilistic)
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section>
+                <h2>What's Next?</h2>
+                <p style="margin-top: 20px;"><strong>Your PLC Learning Journey:</strong></p>
+                <ul style="margin-top: 20px;">
+                    <li><strong>Week 5:</strong> Hands-on training at Bessemer facility</li>
+                    <li><strong>Safety first:</strong> Tour, lockout/tagout procedures</li>
+                    <li><strong>Project 2:</strong> Program ladder logic for real industrial tasks</li>
+                    <li><strong>Week 6-7:</strong> Integrate PLC with FANUC robot arm</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 25px;">
+                    <strong>Before next class:</strong> Read PLC Guidebook Part II
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section>
+                <h2>Key Takeaways</h2>
+                <ol style="margin-top: 20px; font-size: 0.85em;">
+                    <li>PLCs are <strong>industrial computers</strong> for automation</li>
+                    <li>LearnLab system has <strong>9 integrated components</strong></li>
+                    <li><strong>Allen-Bradley Micro 800</strong> is our PLC unit</li>
+                    <li><strong>Contactors & relays</strong> interface low-power PLC to high-power loads</li>
+                    <li><strong>Safety components</strong> (E-stop, overloads) are critical</li>
+                    <li><strong>Terminal strips</strong> organize wiring professionally</li>
+                    <li>System uses <strong>multiple voltage levels</strong> (120V AC, 24V DC)</li>
+                </ol>
+            </section>
+
+            <!-- Questions -->
+            <section>
+                <h2>Questions?</h2>
+                <div class="box" style="margin-top: 40px;">
+                    <strong>Next Session:</strong> Hands-on PLC training @ Bessemer<br>
+                    <strong>Bring:</strong> Laptop, safety awareness, curiosity!
+                </div>
+                <p style="margin-top: 30px;"><strong>Read before next class:</strong> PLC Guidebook Part II</p>
+                <p class="small-text" style="margin-top: 40px;"><em>Get ready to program real industrial automation!</em></p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'all'
+        });
+    </script>
+</body>
+</html>
