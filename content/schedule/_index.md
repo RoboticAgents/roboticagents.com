@@ -23,18 +23,18 @@ weight = 1
 | 2 (Jan 20–24)<br>*(MLK Mon off)* | Actuators; wiring, power | Project 1 work time | P1: Mechanical build, wiring, power | [Motors & Arduino Slides](/slides/motors.html)<br>IAR Ch. 2.1-2.3, 6 |
 | 3 (Jan 26–30) | Actuators (cont.); sensors; kinematics; reactive control | [Activity 1: Servo and Stepper Motor Experiments](/activities/activity1) (Due Jan 28, 11:50am)<br>[Activity 2: Distance Sensors](/activities/activity2) (Due Feb 2, 11:50am) | P1: Basic control + sensing; demo | [Sensors Slides](/slides/sensors.html)<br>IAR Ch. 7 |
 | 4 (Feb 2–6) | Deterministic control; state machines; why PLCs exist | [Activity 3: Environmental Sensors](https://classroom.github.com/a/hZZHXESz) (Due Feb 6, 11:50am)<br>**Feb 6: No class - read [PLC Guidebook Part II](https://drive.google.com/file/d/1AJO1DTbOZ3kqSwy_S45eYM9pQ3S7zvnD/view?usp=sharing)** | P1 demos | [PLC Guidebook Part II](https://drive.google.com/file/d/1AJO1DTbOZ3kqSwy_S45eYM9pQ3S7zvnD/view?usp=sharing) |
-| 5 (Feb 9–13) | Safety, interlocks, fault handling | **Feb 9 (11am-11:50am @ Bessemer)**: Tour, safety instructions, PLC demo<br>**Feb 10 (2:30-4pm @ Bessemer)**: PLC work | P2: PLC ladder logic basics; discrete I/O; timers, counters, safety logic | [PLC Slides](https://docs.google.com/presentation/d/e/2PACX-1vQVqMm1sQSfTw7AIwK6qxmptmswl_DdMyi4zwb1S8UN1s9INryruMhq0hCCyoAPCg/pub?start=false&loop=false&delayms=3000)<br>PLC Guidebook Part III |
+| 5 (Feb 9–13) | Safety, interlocks, fault handling | **Feb 9 (11am-11:50am @ Bessemer)**: Tour, safety instructions, PLC demo<br>**Feb 10 (2:30-4pm @ Bessemer)**: PLC work | P2: PLC | [PLC Slides](https://docs.google.com/presentation/d/e/2PACX-1vQVqMm1sQSfTw7AIwK6qxmptmswl_DdMyi4zwb1S8UN1s9INryruMhq0hCCyoAPCg/pub?start=false&loop=false&delayms=3000)<br>PLC Guidebook Part III |
 | — | **Exam 1** (February 13th) | — | — | Covers P1 (locomotion, kinematics, sensors) |
-| 6 (Feb 16–20) | Human–robot collaboration; industrial workflows | **Feb 17 (2:30-4pm @ Bessemer)**: PLC work<br>**Feb 18 (11am-11:50am @ Bessemer)**: PLC work | P3: FANUC CRX task programming; PLC ↔ robot coordination | FANUC Manual: Teach pendant operation, task execution<br>IAR: Ch. 1 (human–robot interaction sections) |
-| 7 (Feb 23–27) | System integration; comparison to autonomy | **Feb 23 (11am-11:50am @ Bessemer)**: PLC work day (P2 due)<br>**Feb 24 (2:30-4pm @ Bessemer)**: FANUC work (tentative)<br>**Feb 27 (11am-11:50am @ Bessemer)**: FANUC work | P3: Full PLC–FANUC cell demo | IAR: Ch. 3 (reactive systems)<br>Short instructor note: PLC vs ROS comparison |
+| 6 (Feb 16–20) | Human–robot collaboration; industrial workflows | **Feb 17 (2:30-4pm @ Bessemer)**: PLC work<br>**Feb 18 (11am-11:50am @ Bessemer)**: PLC work | P2: PLC | FANUC Manual: Teach pendant operation, task execution<br>IAR: Ch. 1 (human–robot interaction sections) |
+| 7 (Feb 23–27) | System integration; comparison to autonomy | **Feb 23 (11am-11:50am @ Bessemer)**: PLC work day (P2 due)<br>**Feb 24 (2:30-4pm @ Bessemer)**: FANUC work (tentative)<br>**Feb 27 (11am-11:50am @ Bessemer)**: FANUC work | P2: PLC due; P3: FANUC | IAR: Ch. 3 (reactive systems)<br>Short instructor note: PLC vs ROS comparison |
 | 8 (Mar 1–8) | **Spring Break – No Classes** | — | — | — |
-| 9 (Mar 9–13) | Why ROS? Robot software architectures | **Mar 9 (11am-11:50am @ Bessemer)**: FANUC work (tentative)<br>**Mar 10 (2:30-4pm @ Bessemer)**: FANUC work | P4: ROS setup; simulation intro | IAR Ch. 2–3; ROS 2 Beginner Tutorials |
+| 9 (Mar 9–13) | Why ROS? Robot software architectures | **Mar 9 (11am-11:50am @ Bessemer)**: FANUC work (tentative)<br>**Mar 10 (2:30-4pm @ Bessemer)**: FANUC work | P3: FANUC | IAR Ch. 2–3; ROS 2 Beginner Tutorials |
 | — | **Exam 2** (March 13th) | — | — | Covers PLC/FANUC + ROS fundamentals |
-| 10 (Mar 16–20) | Motion models; navigation concepts | — | P4: Autonomous behaviors in simulation | IAR Ch. 12 |
-| 11 (Mar 23–27) | Simulation vs reality; sensing uncertainty | — | P5: TurtleBot bring-up & navigation | IAR Ch. 14 |
-| 12 (Mar 30–Apr 3) | Robustness, recovery, evaluation | — | P5: TurtleBot demos & comparison | ROS navigation docs |
+| 10 (Mar 16–20) | Motion models; navigation concepts | — | P4: ROS | IAR Ch. 12 |
+| 11 (Mar 23–27) | Simulation vs reality; sensing uncertainty | — | P4: ROS | IAR Ch. 14 |
+| 12 (Mar 30–Apr 3) | Robustness, recovery, evaluation | — | P5: TurtleBots | ROS navigation docs |
 | — | **Exam 3** (April 3rd) | — | — | ROS + autonomy concepts |
-| 13 (Apr 6–10)<br>*(Decl Day Apr 6; Recharge Apr 9–10)* | Project integration; system design | — | FP: Proposal + architecture review | No new reading |
+| 13 (Apr 6–10)<br>*(Decl Day Apr 6; Recharge Apr 9–10)* | Project integration; system design | — | P5: TurtleBots; FP: Proposal + architecture review | No new reading |
 | 14 (Apr 13–17) | Ethics, communication, deployment | — | FP: Build & test | Selected civic/ethics readings |
 | 15 (Apr 20–24) | Reflection; future of robotics | — | FP: Demos & presentations | None |
 {{< /table >}}
