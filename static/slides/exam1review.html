@@ -260,6 +260,7 @@
                     <ul style="margin-top: 10px;">
                         <li>🥇 <strong>1st place team:</strong> +1 point on exam</li>
                         <li>🥈 <strong>2nd place team:</strong> +0.5 points on exam</li>
+                        <li>🥉 <strong>3rd place team:</strong> +0.25 points on exam</li>
                     </ul>
                 </div>
                 <p style="margin-top: 30px; font-size: 0.85em;"><em>Work together with your team, but only one person answers at a time!</em></p>
@@ -357,18 +358,16 @@
             <!-- MC 3 Answer -->
             <section>
                 <h3>Answer: 🟢 Green - analogWrite()</h3>
-                <div class="box answer-box" style="font-size: 0.85em;">
-                    <p style="margin-bottom: 10px;"><strong>analogWrite()</strong> uses PWM (Pulse Width Modulation) to control motor speed</p>
-                    <ul style="margin-top: 10px;">
-                        <li>Rapidly switches pin HIGH/LOW at fixed frequency (~500 Hz)</li>
-                        <li>Values: 0 (always off) to 255 (always on)</li>
-                        <li>Available on Arduino PWM pins: 3, 5, 6, 9, 10, 11 (marked with ~)</li>
-                        <li>Average voltage = (dutyCycle / 255) × 5V</li>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <p style="margin-bottom: 8px;"><strong>analogWrite()</strong> uses PWM (Pulse Width Modulation) to control motor speed</p>
+                    <ul style="margin-top: 8px; margin-bottom: 10px;">
+                        <li>Rapidly switches pin HIGH/LOW at ~500 Hz</li>
+                        <li>Values: 0 (off) to 255 (on), average voltage = (dutyCycle / 255) × 5V</li>
+                        <li>Arduino PWM pins: 3, 5, 6, 9, 10, 11 (marked with ~)</li>
                     </ul>
-                    <br>
-                    <strong>Example:</strong> <code>analogWrite(motorPin, 128);</code> → 50% duty cycle → motor at half speed
+                    <strong>Example:</strong> <code>analogWrite(motorPin, 128);</code> → 50% duty cycle → half speed
                     <br><br>
-                    <strong>Why PWM?</strong> Motors need varying voltage for speed control. PWM achieves this with digital signals!
+                    <strong>Why PWM?</strong> Motors need varying voltage; PWM simulates this with digital signals!
                 </div>
             </section>
 
