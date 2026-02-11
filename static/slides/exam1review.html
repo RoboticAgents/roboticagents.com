@@ -210,36 +210,43 @@
             <!-- Study Materials -->
             <section>
                 <h2>Study Materials</h2>
-                <div style="font-size: 0.85em;">
-                    <strong>Project 1:</strong> Wheeled Robot documentation and code<br><br>
-                    <strong>Slides:</strong>
-                    <ul>
-                        <li>Locomotion</li>
-                        <li>Motors and Arduino</li>
-                        <li>Sensors</li>
-                    </ul>
-                    <br>
-                    <strong>Activities:</strong>
-                    <ul>
-                        <li>Activity 1: Servo Motor Control</li>
-                        <li>Activity 2: Distance Sensors</li>
-                        <li>Activity 3: Environmental Sensors</li>
-                    </ul>
-                    <br>
-                    <strong>Readings:</strong>
-                    <ul>
-                        <li>IAR Chapter 1: Introduction</li>
-                        <li>IAR Chapter 2.1-2.3: Locomotion & DoF</li>
-                        <li>IAR Chapter 6: Actuators</li>
-                        <li>IAR Chapter 7: Sensors</li>
-                    </ul>
+                <div class="two-col" style="font-size: 0.75em;">
+                    <div>
+                        <h3 style="margin-top: 0;">Project 1</h3>
+                        <ul style="margin-top: 10px;">
+                            <li>Wheeled Robot documentation and code</li>
+                        </ul>
+                        
+                        <h3 style="margin-top: 20px;">Slides</h3>
+                        <ul style="margin-top: 10px;">
+                            <li>Locomotion</li>
+                            <li>Motors and Arduino</li>
+                            <li>Sensors</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="margin-top: 0;">Activities</h3>
+                        <ul style="margin-top: 10px;">
+                            <li>Activity 1: Servo Motor Control</li>
+                            <li>Activity 2: Distance Sensors</li>
+                            <li>Activity 3: Environmental Sensors</li>
+                        </ul>
+                        
+                        <h3 style="margin-top: 20px;">Readings</h3>
+                        <ul style="margin-top: 10px;">
+                            <li>IAR Ch 1: Introduction</li>
+                            <li>IAR Ch 2.1-2.3: Locomotion & DoF</li>
+                            <li>IAR Ch 6: Actuators</li>
+                            <li>IAR Ch 7: Sensors</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <!-- SECTION: Multiple Choice -->
             <section>
                 <h1 style="font-size: 2.5em;">MULTIPLE CHOICE<br>QUESTIONS</h1>
-                <p style="margin-top: 30px; font-size: 0.9em;">Answer using colored cards: 🔴 Red • 🟢 Green • ⚫ Black • 🟠 Orange</p>
+                <p style="margin-top: 30px; font-size: 1.5em;">🔴 🟢 ⚫ 🟠</p>
             </section>
 
             <!-- MC 1 -->
@@ -251,7 +258,7 @@
                         <p>🔴 <strong>Red:</strong> Static stability</p>
                         <p>🟢 <strong>Green:</strong> Dynamic stability</p>
                         <p>⚫ <strong>Black:</strong> Kinematic stability</p>
-                        <p>� <strong>Orange:</strong> Passive stability</p>
+                        <p>🟠 <strong>Orange:</strong> Passive stability</p>
                     </div>
                 </div>
                 <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
@@ -283,7 +290,7 @@
                         <p>🔴 <strong>Red:</strong> Exteroception</p>
                         <p>🟢 <strong>Green:</strong> Proprioception</p>
                         <p>⚫ <strong>Black:</strong> Perception</p>
-                        <p>� <strong>Orange:</strong> Interoception</p>
+                        <p>🟠 <strong>Orange:</strong> Interoception</p>
                     </div>
                 </div>
             </section>
@@ -293,19 +300,21 @@
                 <h3>Answer: 🟢 Green - Proprioception</h3>
                 <div class="box answer-box" style="font-size: 0.72em;">
                     <strong>Proprioception</strong> = sensing the robot's internal state
-                    <ul style="margin-top: 8px; margin-bottom: 8px;">
+                    <ul style="margin-top: 8px; margin-bottom: 12px;">
                         <li>Joint angles (encoders)</li>
                         <li>Joint speeds (encoders/tachometers)</li>
                         <li>Joint torques (current sensors, F/T sensors)</li>
                         <li>Robot orientation (IMU: accelerometer, gyroscope)</li>
                     </ul>
+                    
                     <strong>Exteroception</strong> = sensing the external environment
-                    <ul style="margin-top: 8px; margin-bottom: 8px;">
+                    <ul style="margin-top: 8px; margin-bottom: 12px;">
                         <li>Distance to obstacles (ultrasonic, laser)</li>
                         <li>Vision (cameras)</li>
                         <li>Temperature, light, sound</li>
                     </ul>
-                    Both are essential for autonomous robots!
+                    
+                    <strong>Both are essential for autonomous robots!</strong>
                 </div>
             </section>
 
@@ -325,7 +334,7 @@
 
             <!-- MC 3 Answer -->
             <section>
-                <h3>Answer: � Green - analogWrite()</h3>
+                <h3>Answer: 🟢 Green - analogWrite()</h3>
                 <div class="box answer-box" style="font-size: 0.85em;">
                     <strong>analogWrite()</strong> uses PWM (Pulse Width Modulation) to control motor speed
                     <ul style="margin-top: 10px;">
@@ -350,7 +359,7 @@
                         <p>🔴 <strong>Red:</strong> Accuracy</p>
                         <p>🟢 <strong>Green:</strong> Precision</p>
                         <p>⚫ <strong>Black:</strong> Resolution</p>
-                        <p>� <strong>Orange:</strong> Bandwidth</p>
+                        <p>🟠 <strong>Orange:</strong> Bandwidth</p>
                     </div>
                 </div>
             </section>
@@ -399,26 +408,27 @@
             <!-- MC 5 Answer -->
             <section>
                 <h3>Answer: 🟢 Green - 2 DoF</h3>
-                <div class="box answer-box" style="font-size: 0.85em;">
+                <div class="box answer-box" style="font-size: 0.75em;">
                     <strong>Mechanical DoF</strong> = number of independently controlled actuators
-                    <ul style="margin-top: 10px;">
+                    <ul style="margin-top: 8px; margin-bottom: 12px;">
                         <li>Differential drive: 2 motors → 2 mechanical DoF</li>
                         <li>Each motor speed can be controlled independently</li>
                     </ul>
-                    <br>
-                    <strong>BUT:</strong> Can achieve 3 Cartesian DoF (X, Y, θ) by coordinating the 2 motors!
-                    <ul>
-                        <li>Both motors forward → move forward (Y)</li>
+                    
+                    <strong>BUT:</strong> Can achieve 3 Cartesian DoF (X, Y, θ) by coordinating
+                    <ul style="margin-top: 8px; margin-bottom: 12px;">
+                        <li>Both forward → move forward (Y)</li>
                         <li>Different speeds → turn (θ)</li>
                         <li>Opposite directions → rotate in place (θ)</li>
                     </ul>
-                    <br>
+                    
                     <strong>Key distinction:</strong>
-                    <ul>
+                    <ul style="margin-top: 8px;">
                         <li><strong>Mechanical DoF:</strong> actuated joints (platform-dependent)</li>
-                        <li><strong>Cartesian DoF:</strong> directions of movement in space (task-dependent)</li>
+                        <li><strong>Cartesian DoF:</strong> movement directions in space (task-dependent)</li>
                     </ul>
                 </div>
+            </section>
             </section>
 
             <!-- MC 6 -->
@@ -428,35 +438,35 @@
                     <strong>A car cannot move sideways without first rotating. What type of constraint is this?</strong>
                     <div style="margin-top: 20px;">
                         <p>🔴 <strong>Red:</strong> Holonomic constraint</p>
-                        <p>🟢 <strong>Green:</strong> Non-holonomic constraint</p>
-                        <p>⚫ <strong>Black:</strong> Kinematic chain</p>
-                        <p>🟠 <strong>Orange:</strong> Dynamic constraint</p>
+                        <p>🟢 <strong>Green:</strong> Dynamic constraint</p>
+                        <p>⚫ <strong>Black:</strong> Kinematic constraint</p>
+                        <p>🟠 <strong>Orange:</strong> Geometric constraint</p>
                     </div>
                 </div>
             </section>
 
             <!-- MC 6 Answer -->
             <section>
-                <h3>Answer: 🟢 Green - Non-holonomic constraint</h3>
+                <h3>Answer: ⚫ Black - Kinematic constraint</h3>
                 <div class="box answer-box" style="font-size: 0.8em;">
-                    <strong>Non-holonomic constraint</strong> = cannot move in all directions instantly
+                    <strong>Kinematic constraint</strong> = restriction on how a robot can move
                     <ul style="margin-top: 10px;">
-                        <li>Velocity constraint: car wheels must roll, can't slide sideways</li>
-                        <li>Fewer controllable DoF than total DoF</li>
-                        <li>Makes path planning harder (must consider reachability)</li>
+                        <li>Car wheels must roll (not slide) → kinematic constraint</li>
+                        <li>Limits instantaneous motion directions</li>
+                        <li>Cannot move sideways without first rotating</li>
                     </ul>
                     <br>
-                    <strong>Examples of non-holonomic robots:</strong>
+                    <strong>Types of kinematic constraints:</strong>
                     <ul>
-                        <li>Car with Ackermann steering</li>
-                        <li>Differential drive robot (can't move sideways)</li>
-                        <li>Bicycle</li>
+                        <li><strong>Holonomic:</strong> can reach any position/orientation with any path</li>
+                        <li><strong>Non-holonomic:</strong> velocity constraint (fewer controllable DoF than total DoF)</li>
                     </ul>
                     <br>
-                    <strong>Holonomic robots:</strong> can move in any direction instantly
+                    <strong>Examples:</strong>
                     <ul>
-                        <li>Mecanum wheels, omni wheels</li>
-                        <li>Helicopter/drone (can move X, Y, Z independently)</li>
+                        <li>Car with Ackermann steering (non-holonomic kinematic constraint)</li>
+                        <li>Differential drive robot (non-holonomic kinematic constraint)</li>
+                        <li>Mecanum/omni wheels (holonomic - no constraint)</li>
                     </ul>
                 </div>
             </section>
@@ -470,7 +480,7 @@
                         <p>🔴 <strong>Red:</strong> 2 DoF (X, Y)</p>
                         <p>🟢 <strong>Green:</strong> 3 DoF (X, Y, θ)</p>
                         <p>⚫ <strong>Black:</strong> 4 DoF (X, Y, Z, θ)</p>
-                        <p>� <strong>Orange:</strong> 6 DoF (X, Y, Z, pitch, yaw, roll)</p>
+                        <p>🟠 <strong>Orange:</strong> 6 DoF (X, Y, Z, pitch, yaw, roll)</p>
                     </div>
                 </div>
             </section>
@@ -509,7 +519,7 @@
                         <p>🔴 <strong>Red:</strong> Reflection (amplitude)</p>
                         <p>🟢 <strong>Green:</strong> Time-of-flight</p>
                         <p>⚫ <strong>Black:</strong> Phase shift</p>
-                        <p>� <strong>Orange:</strong> Triangulation</p>
+                        <p>🟠 <strong>Orange:</strong> Triangulation</p>
                     </div>
                 </div>
             </section>
@@ -543,7 +553,7 @@
                         <p>🔴 <strong>Red:</strong> It can move on its own power</p>
                         <p>🟢 <strong>Green:</strong> It makes decisions in response to its environment</p>
                         <p>⚫ <strong>Black:</strong> It has sensors and actuators</p>
-                        <p>� <strong>Orange:</strong> It follows pre-programmed motions</p>
+                        <p>🟠 <strong>Orange:</strong> It follows pre-programmed motions</p>
                     </div>
                 </div>
             </section>
@@ -581,7 +591,7 @@
                         <p>🔴 <strong>Red:</strong> Hydraulic actuator</p>
                         <p>🟢 <strong>Green:</strong> Pneumatic actuator</p>
                         <p>⚫ <strong>Black:</strong> Stepper motor</p>
-                        <p>� <strong>Orange:</strong> Servo motor</p>
+                        <p>🟠 <strong>Orange:</strong> Servo motor</p>
                     </div>
                 </div>
             </section>
@@ -771,35 +781,32 @@
             <!-- Scenario 2 Answer -->
             <section>
                 <h3>Sample Answer</h3>
-                <div class="box answer-box" style="font-size: 0.75em;">
+                <div class="box answer-box" style="font-size: 0.7em;">
                     <strong>1. Locomotion: Differential drive</strong>
-                    <ul>
-                        <li><strong>Zero turning radius:</strong> can rotate in place → perfect for narrow aisles</li>
-                        <li><strong>Simple:</strong> only 2 motors to control</li>
-                        <li><strong>Robust:</strong> reliable for heavy loads</li>
+                    <ul style="margin-top: 8px; margin-bottom: 10px;">
+                        <li><strong>Zero turning radius:</strong> rotate in place → perfect for narrow aisles</li>
+                        <li><strong>Simple:</strong> only 2 motors, <strong>Robust:</strong> reliable for heavy loads</li>
                         <li><strong>Cost-effective:</strong> fewer components than mecanum/Ackermann</li>
                     </ul>
-                    <br>
+                    
                     <strong>2. Component placement for stability:</strong>
-                    <ul>
+                    <ul style="margin-top: 8px; margin-bottom: 10px;">
                         <li><strong>Battery:</strong> mount LOW and CENTERED (heavy → lower CoM)</li>
                         <li><strong>Motors:</strong> mount low, close to wheels</li>
-                        <li><strong>Wide wheelbase:</strong> increases support polygon</li>
-                        <li><strong>Goal:</strong> keep center of mass low → prevents tipping when carrying load</li>
+                        <li><strong>Wide wheelbase:</strong> increases support polygon → prevents tipping</li>
                     </ul>
-                    <br>
+                    
                     <strong>3. Constraints:</strong>
-                    <ul>
-                        <li><strong>Non-holonomic constraint:</strong> cannot move sideways instantly</li>
+                    <ul style="margin-top: 8px;">
+                        <li><strong>Kinematic (non-holonomic):</strong> cannot move sideways instantly</li>
                         <li>Must rotate first, then drive → multi-step maneuvers</li>
-                        <li>Alternative: Mecanum wheels remove this constraint but cost more and have less traction</li>
                     </ul>
                 </div>
             </section>
 
             <!-- Scenario 3 -->
             <section>
-                <h2>Scenario Practice 3 (BONUS)</h2>
+                <h2>Scenario Practice 3</h2>
                 <div class="box">
                     <strong>Your Project 1 robot turns left when you command it to go straight. Both motors are connected to the motor driver and receive power.</strong>
                     <br><br>
@@ -814,142 +821,24 @@
 
             <!-- Scenario 3 Answer -->
             <section>
-                <h3>Sample Answer (BONUS)</h3>
-                <div class="box answer-box" style="font-size: 0.7em;">
-                    <strong>Possible causes & diagnosis:</strong>
-                    <br>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.65em;">
                     <strong>1. Motors wired with reversed polarity</strong>
-                    <ul style="margin-top: 8px;">
-                        <li><strong>Test:</strong> Swap motor wires on ONE motor → see if turn direction changes</li>
-                        <li><strong>Fix:</strong> Reverse wiring OR invert PWM logic in code for that motor</li>
+                    <ul style="margin-top: 6px; margin-bottom: 8px;">
+                        <li><strong>Test:</strong> Swap motor wires on ONE motor → see if direction changes</li>
+                        <li><strong>Fix:</strong> Reverse wiring OR invert PWM logic in code</li>
                     </ul>
                     <strong>2. Unequal PWM values sent to motors</strong>
-                    <ul style="margin-top: 8px;">
+                    <ul style="margin-top: 6px; margin-bottom: 8px;">
                         <li><strong>Test:</strong> <code>Serial.println()</code> to check leftSpeed vs rightSpeed</li>
-                        <li><strong>Fix:</strong> Ensure both get same value: <code>analogWrite(leftPin, 150); analogWrite(rightPin, 150);</code></li>
+                        <li><strong>Fix:</strong> Ensure equal: <code>analogWrite(leftPin, 150); analogWrite(rightPin, 150);</code></li>
                     </ul>
-                    <strong>3. Mechanical issue (wheel slipping or different diameters)</strong>
-                    <ul style="margin-top: 8px;">
-                        <li><strong>Test:</strong> Lift robot, watch wheels spin → check speeds match</li>
+                    <strong>3. Mechanical issue (wheel slipping/different diameters)</strong>
+                    <ul style="margin-top: 6px; margin-bottom: 8px;">
+                        <li><strong>Test:</strong> Lift robot, check wheel speeds match</li>
                         <li><strong>Fix:</strong> Tighten wheel, replace if damaged, or compensate in code</li>
                     </ul>
-                    <strong>4. Wrong Arduino pins in code</strong>
-                    <ul style="margin-top: 8px;">
-                        <li><strong>Test:</strong> Verify pin numbers match physical wiring</li>
-                        <li><strong>Fix:</strong> Update pin definitions in code</li>
-                    </ul>
-                    <br>
-                    <strong>3. Debugging function:</strong> <code>Serial.println()</code> to monitor PWM values sent to each motor
-                </div>
-            </section>
-
-            <!-- Key Concepts Review -->
-            <section>
-                <h2>Key Concepts & Vocabulary Review</h2>
-                <div style="font-size: 0.7em; text-align: left;">
-                    <strong>Ch 1: Introduction</strong>
-                    <ul>
-                        <li><strong>Autonomous:</strong> makes decisions based on environment (not pre-programmed)</li>
-                        <li><strong>SLAM:</strong> Simultaneous Localization And Mapping</li>
-                        <li>Depth-first search, robotics challenges</li>
-                    </ul>
-                    <strong>Ch 2: Locomotion & DoF</strong>
-                    <ul>
-                        <li><strong>Kinematics:</strong> motion (position, velocity) without forces</li>
-                        <li><strong>Dynamics:</strong> forces that cause motion</li>
-                        <li><strong>Static stability:</strong> stable when not moving</li>
-                        <li><strong>Dynamic stability:</strong> requires constant motion</li>
-                        <li><strong>Cartesian DoF:</strong> directions of movement in space (task-dependent)</li>
-                        <li><strong>Mechanical DoF:</strong> actuated joints (platform-dependent)</li>
-                        <li>Wheel types: standard, caster, Swedish (mecanum), spherical</li>
-                    </ul>
-                    <strong>Ch 6: Actuators</strong>
-                    <ul>
-                        <li><strong>Rotor:</strong> rotating part, <strong>Stator:</strong> stationary part</li>
-                        <li><strong>Commutator:</strong> switches current in brushed DC motor</li>
-                        <li><strong>Brushless DC:</strong> uses electronics instead of brushes</li>
-                        <li><strong>Stepper motor:</strong> precise rotation in fixed steps</li>
-                        <li><strong>Servo motor:</strong> motor + gears + encoder + controller</li>
-                        <li><strong>Pneumatic:</strong> air-powered, <strong>Hydraulic:</strong> liquid-powered</li>
-                        <li><strong>Compliance:</strong> "give" in mechanism (inverse of stiffness)</li>
-                        <li><strong>Series elastic actuator:</strong> motor + spring → force limiting</li>
-                    </ul>
-                    <strong>Ch 7: Sensors</strong>
-                    <ul>
-                        <li><strong>Proprioception:</strong> internal state, <strong>Exteroception:</strong> external world</li>
-                        <li><strong>Active sensor:</strong> emits energy, <strong>Passive sensor:</strong> measures energy</li>
-                        <li><strong>Accuracy:</strong> close to true value, <strong>Precision:</strong> repeatability</li>
-                        <li><strong>Resolution:</strong> smallest difference, <strong>Bandwidth:</strong> measurement rate</li>
-                        <li><strong>Range:</strong> max-min values, <strong>Dynamic range:</strong> ratio (logarithmic)</li>
-                        <li><strong>Encoder:</strong> measures rotation (incremental vs absolute)</li>
-                        <li><strong>IMU:</strong> accelerometer + gyroscope + magnetometer</li>
-                        <li><strong>Gyroscope (rate gyro):</strong> rotational velocity</li>
-                        <li><strong>Time-of-flight:</strong> measures travel time</li>
-                        <li><strong>Phase shift:</strong> measures wave phase difference</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Exam Tips -->
-            <section>
-                <h2>General Exam Tips (50 minutes)</h2>
-                <div style="font-size: 0.85em;">
-                    <p><span class="checkmark">✓</span> <strong>Time management:</strong> ~5 min per question</p>
-                    <p><span class="checkmark">✓</span> <strong>MC questions:</strong> Know vocabulary definitions!</p>
-                    <p><span class="checkmark">✓</span> <strong>Short answer:</strong> Be specific, use terminology correctly</p>
-                    <p><span class="checkmark">✓</span> <strong>Scenarios:</strong> Show reasoning, reference Project 1 experiences</p>
-                    <p><span class="checkmark">✓</span> <strong>Draw diagrams</strong> if helpful (circuits, DoF, stability)</p>
-                    <p><span class="checkmark">✓</span> <strong>Check units</strong> in calculations (V, A, cm, deg, Hz)</p>
-                </div>
-            </section>
-
-            <!-- Practice Resources -->
-            <section>
-                <h2>Practice Resources</h2>
-                <div style="font-size: 0.85em;">
-                    <strong>Review:</strong>
-                    <ul>
-                        <li>Your Project 1 code and documentation</li>
-                        <li>All class slides (locomotion, motors, sensors)</li>
-                        <li>Activity code (servo, ultrasonic, IR, environmental sensors)</li>
-                        <li>IAR textbook chapters</li>
-                    </ul>
-                    <br>
-                    <strong>Test yourself:</strong>
-                    <ul>
-                        <li>Can you explain each concept to a classmate?</li>
-                        <li>Can you wire a circuit from memory?</li>
-                        <li>Can you debug a motor control circuit?</li>
-                        <li>Can you choose appropriate sensors for different tasks?</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Common Mistakes -->
-            <section>
-                <h2>Common Mistakes to Avoid</h2>
-                <div style="font-size: 0.85em; text-align: left;">
-                    <p><span class="crossmark">✗</span> Confusing static and dynamic stability</p>
-                    <p><span class="crossmark">✗</span> Thinking Arduino pins can power motors directly</p>
-                    <p><span class="crossmark">✗</span> Mixing up PWM range (0-255) with analogRead range (0-1023)</p>
-                    <p><span class="crossmark">✗</span> Not considering sensor limitations (glass + IR, soft surfaces + ultrasonic)</p>
-                    <p><span class="crossmark">✗</span> Forgetting about battery series/parallel voltage rules</p>
-                    <p><span class="crossmark">✗</span> Confusing mechanical DoF with Cartesian DoF</p>
-                </div>
-            </section>
-
-            <!-- Final Slide -->
-            <section>
-                <h2>Questions?</h2>
-                <div style="font-size: 0.85em; margin-top: 30px;">
-                    <p><strong>Review sessions:</strong> Check Discord for study group times</p>
-                    <p><strong>Office hours:</strong> See <a href="https://janyljumadinova.com/schedule">instructor schedule</a></p>
-                    <p><strong>Day before exam:</strong> Final Q&A in class</p>
-                </div>
-                <div class="box box-success" style="margin-top: 50px;">
-                    <strong>Good luck on Exam 1!</strong>
-                    <br><br>
-                    Remember: This exam tests your understanding of fundamental robotics concepts that you've <strong>built and programmed</strong> in Project 1.
+                    <strong>Arduino debugging function:</strong> <code>Serial.println()</code> to monitor PWM values
                 </div>
             </section>
 
