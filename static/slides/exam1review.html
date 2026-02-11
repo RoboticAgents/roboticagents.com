@@ -243,6 +243,28 @@
                 </div>
             </section>
 
+            <!-- Review Game Rules -->
+            <section>
+                <h2>Review Game Rules</h2>
+                <div class="box box-info" style="font-size: 0.85em;">
+                    <strong>How to Answer:</strong>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Multiple Choice:</strong> Raise the correct colored paper 🔴 🟢 ⚫ 🟠</li>
+                        <li style="margin-left: 30px;">First person with correct color gets to answer!</li>
+                        <li style="margin-top: 10px;"><strong>Short Answer & Scenarios:</strong> Raise your hand ✋</li>
+                        <li style="margin-left: 30px;">First hand up gets to answer!</li>
+                    </ul>
+                </div>
+                <div class="box box-success" style="font-size: 0.9em; margin-top: 30px;">
+                    <strong>Scoring:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>🥇 <strong>1st place team:</strong> +1 point on exam</li>
+                        <li>🥈 <strong>2nd place team:</strong> +0.5 points on exam</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 30px; font-size: 0.85em;"><em>Work together with your team, but only one person answers at a time!</em></p>
+            </section>
+
             <!-- SECTION: Multiple Choice -->
             <section>
                 <h1 style="font-size: 2.5em;">MULTIPLE CHOICE<br>QUESTIONS</h1>
@@ -306,14 +328,14 @@
                         <li>Joint torques (current sensors, F/T sensors)</li>
                         <li>Robot orientation (IMU: accelerometer, gyroscope)</li>
                     </ul>
-                    
+                    <br>
                     <strong>Exteroception</strong> = sensing the external environment
                     <ul style="margin-top: 8px; margin-bottom: 12px;">
                         <li>Distance to obstacles (ultrasonic, laser)</li>
                         <li>Vision (cameras)</li>
                         <li>Temperature, light, sound</li>
                     </ul>
-                    
+                    <br>
                     <strong>Both are essential for autonomous robots!</strong>
                 </div>
             </section>
@@ -336,7 +358,7 @@
             <section>
                 <h3>Answer: 🟢 Green - analogWrite()</h3>
                 <div class="box answer-box" style="font-size: 0.85em;">
-                    <strong>analogWrite()</strong> uses PWM (Pulse Width Modulation) to control motor speed
+                    <p style="margin-bottom: 10px;"><strong>analogWrite()</strong> uses PWM (Pulse Width Modulation) to control motor speed</p>
                     <ul style="margin-top: 10px;">
                         <li>Rapidly switches pin HIGH/LOW at fixed frequency (~500 Hz)</li>
                         <li>Values: 0 (always off) to 255 (always on)</li>
