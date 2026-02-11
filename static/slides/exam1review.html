@@ -181,7 +181,7 @@
                 <p class="subtitle">CMPSC 304 Robotic Agents</p>
                 <div class="box" style="margin-top: 40px;">
                     <strong>Exam Date: February 13, 2026</strong><br><br>
-                    <strong>Format:</strong> Paper exam, closed everything (book, notes, electronics)<br>
+                    <strong>Format:</strong> Paper exam, closed everything<br>
                     <strong>Duration:</strong> 50 minutes<br>
                     <strong>Questions:</strong> 10 total
                     <ul style="margin-top: 10px;">
@@ -803,23 +803,23 @@
             <!-- Scenario 2 Answer -->
             <section>
                 <h3>Sample Answer</h3>
-                <div class="box answer-box" style="font-size: 0.7em;">
+                <div class="box answer-box" style="font-size: 0.65em;">
                     <strong>1. Locomotion: Differential drive</strong>
-                    <ul style="margin-top: 8px; margin-bottom: 10px;">
+                    <ul style="margin-top: 6px; margin-bottom: 8px;">
                         <li><strong>Zero turning radius:</strong> rotate in place → perfect for narrow aisles</li>
                         <li><strong>Simple:</strong> only 2 motors, <strong>Robust:</strong> reliable for heavy loads</li>
                         <li><strong>Cost-effective:</strong> fewer components than mecanum/Ackermann</li>
                     </ul>
-                    
+                    <br>
                     <strong>2. Component placement for stability:</strong>
-                    <ul style="margin-top: 8px; margin-bottom: 10px;">
+                    <ul style="margin-top: 6px; margin-bottom: 8px;">
                         <li><strong>Battery:</strong> mount LOW and CENTERED (heavy → lower CoM)</li>
                         <li><strong>Motors:</strong> mount low, close to wheels</li>
                         <li><strong>Wide wheelbase:</strong> increases support polygon → prevents tipping</li>
                     </ul>
-                    
+                    <br>
                     <strong>3. Constraints:</strong>
-                    <ul style="margin-top: 8px;">
+                    <ul style="margin-top: 6px;">
                         <li><strong>Kinematic (non-holonomic):</strong> cannot move sideways instantly</li>
                         <li>Must rotate first, then drive → multi-step maneuvers</li>
                     </ul>
@@ -850,16 +850,19 @@
                         <li><strong>Test:</strong> Swap motor wires on ONE motor → see if direction changes</li>
                         <li><strong>Fix:</strong> Reverse wiring OR invert PWM logic in code</li>
                     </ul>
+                    <br>
                     <strong>2. Unequal PWM values sent to motors</strong>
                     <ul style="margin-top: 6px; margin-bottom: 8px;">
                         <li><strong>Test:</strong> <code>Serial.println()</code> to check leftSpeed vs rightSpeed</li>
                         <li><strong>Fix:</strong> Ensure equal: <code>analogWrite(leftPin, 150); analogWrite(rightPin, 150);</code></li>
                     </ul>
+                    <br>
                     <strong>3. Mechanical issue (wheel slipping/different diameters)</strong>
                     <ul style="margin-top: 6px; margin-bottom: 8px;">
                         <li><strong>Test:</strong> Lift robot, check wheel speeds match</li>
                         <li><strong>Fix:</strong> Tighten wheel, replace if damaged, or compensate in code</li>
                     </ul>
+                    <br>
                     <strong>Arduino debugging function:</strong> <code>Serial.println()</code> to monitor PWM values
                 </div>
             </section>
