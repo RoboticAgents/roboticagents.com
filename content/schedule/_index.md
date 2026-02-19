@@ -26,9 +26,9 @@ weight = 1
 | 5 (Feb 9–13) | Deterministic control; introduction to PLCs | **Feb 9 (11am-11:50am @ Bessemer)**: Tour, safety instructions, PLC demo<br>**Feb 10 (2:30-4pm @ Bessemer)**: PLC preliminary activity | Project 2 Preparation | [PLC Slides](https://docs.google.com/presentation/d/e/2PACX-1vQVqMm1sQSfTw7AIwK6qxmptmswl_DdMyi4zwb1S8UN1s9INryruMhq0hCCyoAPCg/pub?start=false&loop=false&delayms=3000)<br>PLC Guidebook Part III<br>[Exam 1 Review](/slides/exam1review.html) |
 | — | **Exam 1** (February 13th) | — | — | Covers P1 (locomotion, kinematics, sensors) |
 | 6 (Feb 16–20) | Ladder logic and manufacturing applications. | **Feb 17 (2:30-4pm @ Bessemer)**: PLC work | [Project 2: PLC](https://classroom.github.com/a/Ar9L1TFS) <br>[Community Project 1](https://classroom.github.com/a/XbOicBJ2) | [PLC Slides](https://docs.google.com/presentation/d/e/2PACX-1vQVqMm1sQSfTw7AIwK6qxmptmswl_DdMyi4zwb1S8UN1s9INryruMhq0hCCyoAPCg/pub?start=false&loop=false&delayms=3000) |
-| 7 (Feb 23–27) | Human–robot collaboration; industrial workflows | **Feb 23 (11am-11:50am @ Bessemer)**: PLC work day (P2 due)<br>**Feb 24 (2:30-4pm @ Bessemer)**: FANUC work (tentative)<br>**Feb 27 (11am-11:50am @ Bessemer)**: FANUC work | P2: PLC due; P3: FANUC | — |
+| 7 (Feb 23–27) | Human–robot collaboration; industrial workflows | **Feb 23 (11am-11:50am @ Bessemer)**: PLC work day <br>**Feb 24 (2:30-4pm @ Bessemer)**: P2 due, begin FANUC work <br>**Feb 27 (11am-11:50am @ Bessemer)**: FANUC work | P2: PLC due; P3: FANUC | — |
 | 8 (Mar 1–8) | **Spring Break – No Classes** | — | — | — |
-| 9 (Mar 9–13) | Collaborative robot operations and programming | **Mar 9 (11am-11:50am @ Bessemer)**: FANUC work (tentative)<br>**Mar 10 (2:30-4pm @ Bessemer)**: FANUC work<br>**Mar 13 (11am-11:50am @ Bessemer)**:  FANUC work  | P3: FANUC due | — |
+| 9 (Mar 9–13) | Collaborative robot operations and programming | **Mar 9 (11am-11:50am @ Bessemer)**: FANUC work (tentative)<br>**Mar 10 (2:30-4pm @ Bessemer)**: FANUC work (P3 due) | P3: FANUC due | — |
 | — | **Exam 2** (March 13th) | — | — | Covers PLC/FANUC + ROS fundamentals |
 | 10 (Mar 16–20) | Why ROS? Robot software architectures. Motion models; navigation concepts | — | P4: ROS | IAR Ch. 12 |
 | 11 (Mar 23–27) | Simulation vs reality; sensing uncertainty | — | P4: ROS | IAR Ch. 14 |
