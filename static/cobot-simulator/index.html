@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CobotEdu Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --surface-elevated: #1a1a24;
+            --primary: #00d4aa;
+            --secondary: #ff6b35;
+            --accent-x: #ff3366;
+            --accent-y: #33ff66;
+            --accent-z: #3366ff;
+            --text-primary: #e8e8ec;
+            --text-secondary: #8888a0;
+            --border: #2a2a3a;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            background: var(--bg);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .app {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            height: 60px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), #00a080);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--bg);
+        }
+
+        header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--text-primary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 14px 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease-out;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tab:hover {
+            color: var(--text-primary);
+            background: var(--surface-elevated);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            background: var(--surface-elevated);
+            box-shadow: inset 0 -2px 0 var(--primary);
+        }
+
+        .panel {
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .panel.active {
+            display: flex;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .control-value {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(0, 212, 170, 0.5);
+            transition: transform 0.15s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .axis-indicator {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .axis-badge {
+            flex: 1;
+            padding: 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .axis-x { background: rgba(255, 51, 102, 0.2); color: var(--accent-x); }
+        .axis-y { background: rgba(51, 255, 102, 0.2); color: var(--accent-y); }
+        .axis-z { background: rgba(51, 102, 255, 0.2); color: var(--accent-z); }
+
+        .info-card {
+            background: var(--surface-elevated);
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .info-card h3 {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--text-secondary);
+        }
+
+        .info-value {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .payload-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .payload-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+
+        .payload-safe { background: var(--accent-y); }
+        .payload-caution { background: #ffcc00; }
+        .payload-warning { background: var(--secondary); }
+
+        .button-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease-out;
+        }
+
+        .btn:hover {
+            background: var(--border);
+            border-color: var(--primary);
+            box-shadow: 0 0 16px rgba(0, 212, 170, 0.2);
+        }
+
+        .btn.active {
+            background: var(--primary);
+            color: var(--bg);
+            border-color: var(--primary);
+        }
+
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            background: var(--bg);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 212, 170, 0.03) 0%, transparent 50%),
+                linear-gradient(rgba(42, 42, 58, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(42, 42, 58, 0.3) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        #canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .canvas-overlay {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        footer {
+            height: 40px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-y);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .mode-indicator {
+            display: none;
+            padding: 4px 10px;
+            background: rgba(0, 212, 170, 0.15);
+            border-radius: 4px;
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .mode-indicator.active {
+            display: inline-block;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: absolute;
+                left: 0;
+                top: 60px;
+                bottom: 40px;
+                z-index: 50;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                top: auto;
+                bottom: 0;
+                height: 50vh;
+                transform: translateY(100%);
+            }
+            .sidebar.open {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <header>
+            <div class="logo">C</div>
+            <h1>CobotEdu Simulator</h1>
+        </header>
+
+        <div class="main-container">
+            <aside class="sidebar">
+                <div class="tabs">
+                    <button class="tab active" data-mode="cartesian">Cartesian</button>
+                    <button class="tab" data-mode="payload">Payload</button>
+                    <button class="tab" data-mode="orientation">Orienta</button>
+                    <button class="tab" data-mode="info">Info</button>
+                </div>
+
+                <div class="panel active" id="panel-cartesian">
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>X Position</span>
+                            <span class="control-value" id="x-value">0.00</span>
+                        </div>
+                        <input type="range" id="slider-x" min="-10" max="10" step="0.1" value="0">
+                        <div class="axis-indicator">
+                            <div class="axis-badge axis-x">-X</div>
+                            <div class="axis-badge axis-x">+X</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Y Position</span>
+                            <span class="control-value" id="y-value">0.00</span>
+                        </div>
+                        <input type="range" id="slider-y" min="-10" max="10" step="0.1" value="0">
+                        <div class="axis-indicator">
+                            <div class="axis-badge axis-y">-Y</div>
+                            <div class="axis-badge axis-y">+Y</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Z Position</span>
+                            <span class="control-value" id="z-value">0.00</span>
+                        </div>
+                        <input type="range" id="slider-z" min="0" max="10" step="0.1" value="0">
+                        <div class="axis-indicator">
+                            <div class="axis-badge axis-z">-Z</div>
+                            <div class="axis-badge axis-z">+Z</div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>End Effector Position</h3>
+                        <div class="info-row">
+                            <span class="info-label">X</span>
+                            <span class="info-value" id="ee-x">0.00</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Y</span>
+                            <span class="info-value" id="ee-y">0.00</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Z</span>
+                            <span class="info-value" id="ee-z">0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel" id="panel-payload">
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Payload Weight</span>
+                            <span class="control-value" id="payload-value">0.0 kg</span>
+                        </div>
+                        <input type="range" id="slider-payload" min="0" max="10" step="0.1" value="0">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Gripper</span>
+                            <span class="control-value" id="gripper-value">Open</span>
+                        </div>
+                        <input type="range" id="slider-gripper" min="0" max="1" step="1" value="0">
+                        <div class="axis-indicator">
+                            <div class="axis-badge" style="background: rgba(0,212,170,0.2); color: var(--primary);">Open</div>
+                            <div class="axis-badge" style="background: rgba(255,107,53,0.2); color: var(--secondary);">Closed</div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Payload Status</h3>
+                        <div class="info-row">
+                            <span class="info-label">Current</span>
+                            <span class="info-value" id="payload-current">0.0 kg</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Max Capacity</span>
+                            <span class="info-value">10.0 kg</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Usage</span>
+                            <span class="info-value" id="payload-percent">0%</span>
+                        </div>
+                        <div class="payload-bar">
+                            <div class="payload-fill payload-safe" id="payload-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Effect on Robot</h3>
+                        <div class="info-row">
+                            <span class="info-label">Movement Speed</span>
+                            <span class="info-value" id="speed-effect">100%</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Strain Level</span>
+                            <span class="info-value" id="strain-level">None</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Pick & Place</h3>
+                        <div class="info-row">
+                            <span class="info-label">Status</span>
+                            <span class="info-value" id="gripper-status">No Item</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Held Item</span>
+                            <span class="info-value" id="held-item-name">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Drop Zone</span>
+                            <span class="info-value" style="color: var(--primary);">Green Area</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel" id="panel-orientation">
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Yaw (Z-axis)</span>
+                            <span class="control-value" id="yaw-value">0°</span>
+                        </div>
+                        <input type="range" id="slider-yaw" min="-180" max="180" step="1" value="0">
+                        <div class="axis-indicator">
+                            <div class="axis-badge axis-z">-180°</div>
+                            <div class="axis-badge axis-z">+180°</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Pitch (X-axis)</span>
+                            <span class="control-value" id="pitch-value">0°</span>
+                        </div>
+                        <input type="range" id="slider-pitch" min="-90" max="90" step="1" value="0">
+                        <div class="axis-indicator">
+                            <div class="axis-badge axis-x">-90°</div>
+                            <div class="axis-badge axis-x">+90°</div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Roll (Y-axis)</span>
+                            <span class="control-value" id="roll-value">0°</span>
+                        </div>
+                        <input type="range" id="slider-roll" min="-180" max="180" step="1" value="0">
+                        <div class="axis-indicator">
+                            <div class="axis-badge axis-y">-180°</div>
+                            <div class="axis-badge axis-y">+180°</div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Orientation (Euler)</h3>
+                        <div class="info-row">
+                            <span class="info-label">Yaw (Z)</span>
+                            <span class="info-value" id="euler-z">0.00°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Pitch (X)</span>
+                            <span class="info-value" id="euler-x">0.00°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Roll (Y)</span>
+                            <span class="info-value" id="euler-y">0.00°</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel" id="panel-info">
+                    <div class="info-card">
+                        <h3>Joint Angles</h3>
+                        <div class="info-row">
+                            <span class="info-label">Base (J1)</span>
+                            <span class="info-value" id="j1">0°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Shoulder (J2)</span>
+                            <span class="info-value" id="j2">0°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Elbow (J3)</span>
+                            <span class="info-value" id="j3">0°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Wrist 1 (J4)</span>
+                            <span class="info-value" id="j4">0°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Wrist 2 (J5)</span>
+                            <span class="info-value" id="j5">0°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Gripper (J6)</span>
+                            <span class="info-value" id="j6">0°</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Quick Actions</h3>
+                        <div class="button-row">
+                            <button class="btn" id="btn-reset">Reset View</button>
+                            <button class="btn" id="btn-grid">Toggle Grid</button>
+                        </div>
+                        <div class="button-row" style="margin-top: 8px;">
+                            <button class="btn" id="btn-labels">Toggle Labels</button>
+                            <button class="btn" id="btn-joints">Joint Labels</button>
+                        </div>
+                        <div class="button-row" style="margin-top: 8px;">
+                            <button class="btn" id="btn-home" style="flex: 1;">Home Position</button>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Controls Help</h3>
+                        <div class="info-row">
+                            <span class="info-label">Rotate View</span>
+                            <span class="info-value">Left Click + Drag</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Pan View</span>
+                            <span class="info-value">Right Click + Drag</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Zoom</span>
+                            <span class="info-value">Scroll Wheel</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Robot Specs (CRX 10iA)</h3>
+                        <div class="info-row">
+                            <span class="info-label">Max Payload</span>
+                            <span class="info-value">10 kg</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Max Reach</span>
+                            <span class="info-value">1249 mm</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Gripper</span>
+                            <span class="info-value">SCHUNK EGP 64</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Joint Limits</h3>
+                        <div class="info-row">
+                            <span class="info-label">J1 (Base)</span>
+                            <span class="info-value">±360°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">J2 (Shoulder)</span>
+                            <span class="info-value">±360°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">J3 (Elbow)</span>
+                            <span class="info-value">±540°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">J4 (Wrist 1)</span>
+                            <span class="info-value">±380°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">J5 (Wrist 2)</span>
+                            <span class="info-value">±360°</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">J6 (Wrist 3)</span>
+                            <span class="info-value">±380°</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="canvas-container">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+
+        <footer>
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>WebGL Active</span>
+            </div>
+            <span class="mode-indicator active" id="mode-display">Cartesian Mode</span>
+            <span>FPS: <span id="fps">60</span></span>
+        </footer>
+    </div>
+
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), antialias: true });
+        
+        renderer.setSize(document.querySelector('.canvas-container').clientWidth, window.innerHeight - 100);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        const ambientLight = new THREE.AmbientLight(0x404050, 0.6);
+        scene.add(ambientLight);
+
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        mainLight.position.set(10, 20, 10);
+        mainLight.castShadow = true;
+        mainLight.shadow.mapSize.width = 2048;
+        mainLight.shadow.mapSize.height = 2048;
+        scene.add(mainLight);
+
+        const fillLight = new THREE.DirectionalLight(0x00d4aa, 0.3);
+        fillLight.position.set(-10, 5, -10);
+        scene.add(fillLight);
+
+        const gridHelper = new THREE.GridHelper(20, 20, 0x2a2a3a, 0x1a1a24);
+        gridHelper.position.y = -0.01;
+        scene.add(gridHelper);
+
+        const groundGeometry = new THREE.PlaneGeometry(20, 20);
+        const groundMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0x0a0a0f,
+            roughness: 0.9,
+            metalness: 0.1
+        });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        const axisLength = 3;
+        const axisHelper = new THREE.AxesHelper(axisLength);
+        scene.add(axisHelper);
+
+        const robotGroup = new THREE.Group();
+        scene.add(robotGroup);
+
+        const jointMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0x2a2a3a,
+            roughness: 0.4,
+            metalness: 0.6
+        });
+        const armMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0x00d4aa,
+            roughness: 0.3,
+            metalness: 0.5,
+            emissive: 0x00d4aa,
+            emissiveIntensity: 0.1
+        });
+        const accentMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0xff6b35,
+            roughness: 0.3,
+            metalness: 0.5
+        });
+
+        const base = new THREE.Mesh(
+            new THREE.CylinderGeometry(1.2, 1.5, 0.5, 32),
+            jointMaterial
+        );
+        base.position.y = 0.25;
+        base.castShadow = true;
+        robotGroup.add(base);
+
+        const baseRing = new THREE.Mesh(
+            new THREE.TorusGeometry(1.3, 0.08, 16, 32),
+            armMaterial
+        );
+        baseRing.rotation.x = Math.PI / 2;
+        baseRing.position.y = 0.5;
+        robotGroup.add(baseRing);
+
+        const joint1 = new THREE.Group();
+        joint1.position.y = 0.5;
+        robotGroup.add(joint1);
+
+        const shoulder = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.5, 0.6, 1.5, 24),
+            jointMaterial
+        );
+        shoulder.position.y = 0.75;
+        shoulder.castShadow = true;
+        joint1.add(shoulder);
+
+        const upperArm = new THREE.Mesh(
+            new THREE.BoxGeometry(0.4, 3, 0.4),
+            armMaterial
+        );
+        upperArm.position.y = 2.5;
+        upperArm.castShadow = true;
+        joint1.add(upperArm);
+
+        const joint2 = new THREE.Group();
+        joint2.position.y = 4;
+        joint1.add(joint2);
+
+        const elbow = new THREE.Mesh(
+            new THREE.SphereGeometry(0.4, 24, 24),
+            jointMaterial
+        );
+        elbow.castShadow = true;
+        joint2.add(elbow);
+
+        const forearm = new THREE.Mesh(
+            new THREE.BoxGeometry(0.35, 2.5, 0.35),
+            armMaterial
+        );
+        forearm.position.y = 1.25;
+        forearm.castShadow = true;
+        joint2.add(forearm);
+
+        const joint3 = new THREE.Group();
+        joint3.position.y = 2.5;
+        joint2.add(joint3);
+
+        const wrist1 = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.25, 0.3, 0.6, 16),
+            jointMaterial
+        );
+        wrist1.castShadow = true;
+        joint3.add(wrist1);
+
+        const joint4 = new THREE.Group();
+        joint4.position.y = 0.4;
+        joint3.add(joint4);
+
+        const wrist2 = new THREE.Mesh(
+            new THREE.SphereGeometry(0.25, 16, 16),
+            jointMaterial
+        );
+        wrist2.castShadow = true;
+        joint4.add(wrist2);
+
+        const joint5 = new THREE.Group();
+        joint5.position.y = 0.3;
+        joint4.add(joint5);
+
+        const wrist3 = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.2, 0.25, 0.5, 16),
+            jointMaterial
+        );
+        wrist3.castShadow = true;
+        joint5.add(wrist3);
+
+        const endEffector = new THREE.Group();
+        endEffector.position.y = 0.4;
+        joint5.add(endEffector);
+
+        const gripperBase = new THREE.Mesh(
+            new THREE.BoxGeometry(0.3, 0.2, 0.4),
+            accentMaterial
+        );
+        gripperBase.castShadow = true;
+        endEffector.add(gripperBase);
+
+        const gripperFinger1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.08, 0.4, 0.08),
+            accentMaterial
+        );
+        gripperFinger1.position.set(0.15, 0.25, 0);
+        gripperFinger1.castShadow = true;
+        endEffector.add(gripperFinger1);
+
+        const gripperFinger2 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.08, 0.4, 0.08),
+            accentMaterial
+        );
+        gripperFinger2.position.set(-0.15, 0.25, 0);
+        gripperFinger2.castShadow = true;
+        endEffector.add(gripperFinger2);
+
+        const payloadGroup = new THREE.Group();
+        payloadGroup.position.y = 0.6;
+        endEffector.add(payloadGroup);
+
+        const payloadGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+        const payloadMaterial = new THREE.MeshStandardMaterial({
+            color: 0x33ff66,
+            roughness: 0.4,
+            metalness: 0.3,
+            transparent: true,
+            opacity: 0.9
+        });
+        const payload = new THREE.Mesh(payloadGeometry, payloadMaterial);
+        payload.castShadow = true;
+        payloadGroup.add(payload);
+        payloadGroup.visible = false;
+
+        const endEffectorAxis = new THREE.Group();
+        endEffector.add(endEffectorAxis);
+
+        const axisXLocal = new THREE.ArrowHelper(
+            new THREE.Vector3(1, 0, 0),
+            new THREE.Vector3(0, 0.5, 0),
+            0.5,
+            0xff3366,
+            0.15,
+            0.08
+        );
+        endEffectorAxis.add(axisXLocal);
+
+        const axisYLocal = new THREE.ArrowHelper(
+            new THREE.Vector3(0, 1, 0),
+            new THREE.Vector3(0, 0.5, 0),
+            0.5,
+            0x33ff66,
+            0.15,
+            0.08
+        );
+        endEffectorAxis.add(axisYLocal);
+
+        const axisZLocal = new THREE.ArrowHelper(
+            new THREE.Vector3(0, 0, 1),
+            new THREE.Vector3(0, 0.5, 0),
+            0.5,
+            0x3366ff,
+            0.15,
+            0.08
+        );
+        endEffectorAxis.add(axisZLocal);
+
+        function createTextSprite(text, color = '#00d4aa') {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 128;
+            canvas.height = 64;
+            ctx.font = 'bold 32px JetBrains Mono, monospace';
+            ctx.fillStyle = color;
+            ctx.textAlign = 'center';
+            ctx.fillText(text, 64, 40);
+            const texture = new THREE.CanvasTexture(canvas);
+            const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
+            const sprite = new THREE.Sprite(material);
+            sprite.scale.set(0.8, 0.4, 1);
+            return sprite;
+        }
+
+        const jointLabelsGroup = new THREE.Group();
+        scene.add(jointLabelsGroup);
+
+        const j1Label = createTextSprite('J1', '#ff6b35');
+        jointLabelsGroup.add(j1Label);
+
+        const j2Label = createTextSprite('J2', '#ff6b35');
+        jointLabelsGroup.add(j2Label);
+
+        const j3Label = createTextSprite('J3', '#ff6b35');
+        jointLabelsGroup.add(j3Label);
+
+        const j4Label = createTextSprite('J4', '#ff6b35');
+        jointLabelsGroup.add(j4Label);
+
+        const j5Label = createTextSprite('J5', '#ff6b35');
+        jointLabelsGroup.add(j5Label);
+
+        const j6Label = createTextSprite('J6', '#ff6b35');
+        jointLabelsGroup.add(j6Label);
+
+        camera.position.set(8, 8, 12);
+        camera.lookAt(0, 3, 0);
+
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        let cameraAngle = { theta: Math.PI / 4, phi: Math.PI / 4 };
+        let cameraDistance = 15;
+        let cameraTarget = new THREE.Vector3(0, 3, 0);
+
+        const canvas = renderer.domElement;
+
+        canvas.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            const deltaX = e.clientX - previousMousePosition.x;
+            const deltaY = e.clientY - previousMousePosition.y;
+
+            if (e.buttons === 1) {
+                cameraAngle.theta -= deltaX * 0.01;
+                cameraAngle.phi = Math.max(0.1, Math.min(Math.PI / 2 - 0.1, cameraAngle.phi - deltaY * 0.01));
+            } else if (e.buttons === 2) {
+                cameraTarget.x -= deltaX * 0.02;
+                cameraTarget.y += deltaY * 0.02;
+            }
+
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+            updateCamera();
+        });
+
+        canvas.addEventListener('mouseup', () => isDragging = false);
+        canvas.addEventListener('mouseleave', () => isDragging = false);
+
+        canvas.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            cameraDistance = Math.max(5, Math.min(30, cameraDistance + e.deltaY * 0.01));
+            updateCamera();
+        });
+
+        canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        function updateCamera() {
+            camera.position.x = cameraTarget.x + cameraDistance * Math.sin(cameraAngle.phi) * Math.cos(cameraAngle.theta);
+            camera.position.y = cameraTarget.y + cameraDistance * Math.cos(cameraAngle.phi);
+            camera.position.z = cameraTarget.z + cameraDistance * Math.sin(cameraAngle.phi) * Math.sin(cameraAngle.theta);
+            camera.lookAt(cameraTarget);
+        }
+
+        let state = {
+            x: 0,
+            y: 0,
+            z: 0,
+            payload: 0,
+            gripper: 0,
+            yaw: 0,
+            pitch: 0,
+            roll: 0,
+            showGrid: true,
+            showLabels: true,
+            showJointLabels: false,
+            heldItem: null
+        };
+
+        const tableGroup = new THREE.Group();
+        scene.add(tableGroup);
+
+        const tableTop = new THREE.Mesh(
+            new THREE.BoxGeometry(8, 0.2, 4),
+            new THREE.MeshStandardMaterial({ color: 0x3a3a4a, roughness: 0.7, metalness: 0.2 })
+        );
+        tableTop.position.set(6, 0.1, 0);
+        tableTop.receiveShadow = true;
+        tableTop.castShadow = true;
+        tableGroup.add(tableTop);
+
+        const tableLeg1 = new THREE.Mesh(
+            new THREE.BoxGeometry(0.2, 2.5, 0.2),
+            new THREE.MeshStandardMaterial({ color: 0x2a2a3a, roughness: 0.8 })
+        );
+        tableLeg1.position.set(3, -1.15, -1.8);
+        tableGroup.add(tableLeg1);
+
+        const tableLeg2 = tableLeg1.clone();
+        tableLeg2.position.set(3, -1.15, 1.8);
+        tableGroup.add(tableLeg2);
+
+        const tableLeg3 = tableLeg1.clone();
+        tableLeg3.position.set(9, -1.15, -1.8);
+        tableGroup.add(tableLeg3);
+
+        const tableLeg4 = tableLeg1.clone();
+        tableLeg4.position.set(9, -1.15, 1.8);
+        tableGroup.add(tableLeg4);
+
+        const items = [];
+        const itemColors = [0xff3366, 0x3366ff, 0xffcc00, 0x00d4aa];
+        const itemNames = ['Red Box', 'Blue Box', 'Yellow Box', 'Green Box'];
+        
+        for (let i = 0; i < 4; i++) {
+            const item = new THREE.Mesh(
+                new THREE.BoxGeometry(0.5, 0.5, 0.5),
+                new THREE.MeshStandardMaterial({ 
+                    color: itemColors[i], 
+                    roughness: 0.4, 
+                    metalness: 0.3 
+                })
+            );
+            item.position.set(4 + (i % 2) * 1.5, 0.45, -0.75 + Math.floor(i / 2) * 1.5);
+            item.castShadow = true;
+            item.userData = { 
+                name: itemNames[i], 
+                originalPos: item.position.clone(),
+                index: i 
+            };
+            items.push(item);
+            scene.add(item);
+        }
+
+        const dropZone = new THREE.Mesh(
+            new THREE.BoxGeometry(1.5, 0.05, 1.5),
+            new THREE.MeshStandardMaterial({ 
+                color: 0x00d4aa, 
+                transparent: true, 
+                opacity: 0.3 
+            })
+        );
+        dropZone.position.set(6, 0.25, 3);
+        scene.add(dropZone);
+
+        function simpleIK(targetX, targetY, targetZ) {
+            const baseHeight = 0.5;
+            const upperArmLength = 3;
+            const forearmLength = 2.5;
+            const wristOffset = 0.7;
+
+            const dx = targetX;
+            const dz = targetZ;
+            const baseAngle = Math.atan2(dx, dz);
+
+            const horizontalDist = Math.sqrt(dx * dx + dz * dz);
+            const verticalDist = targetY - baseHeight - wristOffset;
+
+            const targetDist = Math.sqrt(horizontalDist * horizontalDist + verticalDist * verticalDist);
+            const maxReach = upperArmLength + forearmLength - 0.3;
+            const minReach = 0.5;
+
+            const clampedDist = Math.max(minReach, Math.min(maxReach, targetDist));
+
+            let cosElbow = (clampedDist * clampedDist - upperArmLength * upperArmLength - forearmLength * forearmLength) 
+                          / (2 * upperArmLength * forearmLength);
+            cosElbow = Math.max(-1, Math.min(1, cosElbow));
+            const elbowAngle = Math.PI - Math.acos(cosElbow);
+
+            let cosShoulder = (upperArmLength * upperArmLength + clampedDist * clampedDist - forearmLength * forearmLength) 
+                             / (2 * upperArmLength * clampedDist);
+            cosShoulder = Math.max(-1, Math.min(1, cosShoulder));
+            const shoulderOffset = Math.acos(cosShoulder);
+            const shoulderAngle = Math.atan2(verticalDist, horizontalDist) + shoulderOffset;
+
+            const wristAngle1 = -(shoulderAngle + elbowAngle - Math.PI / 2);
+            const wristAngle2 = -wristAngle1 * 0.5;
+
+            return {
+                base: baseAngle,
+                shoulder: shoulderAngle - Math.PI / 2,
+                elbow: -elbowAngle,
+                wrist1: wristAngle1,
+                wrist2: wristAngle2
+            };
+        }
+
+        function updateRobot() {
+            const ik = simpleIK(state.x, state.y, state.z);
+
+            joint1.rotation.y = ik.base;
+            joint2.rotation.x = ik.shoulder;
+            joint3.rotation.x = ik.elbow;
+            joint4.rotation.z = ik.wrist1;
+            joint5.rotation.x = ik.wrist2;
+
+            const yawRad = THREE.MathUtils.degToRad(state.yaw);
+            const pitchRad = THREE.MathUtils.degToRad(state.pitch);
+            const rollRad = THREE.MathUtils.degToRad(state.roll);
+
+            endEffector.rotation.set(pitchRad, yawRad, rollRad);
+
+            const endPos = new THREE.Vector3();
+            endEffector.getWorldPosition(endPos);
+
+            document.getElementById('ee-x').textContent = endPos.x.toFixed(2);
+            document.getElementById('ee-y').textContent = endPos.y.toFixed(2);
+            document.getElementById('ee-z').textContent = endPos.z.toFixed(2);
+
+            document.getElementById('j1').textContent = THREE.MathUtils.radToDeg(ik.base).toFixed(1) + '°';
+            document.getElementById('j2').textContent = THREE.MathUtils.radToDeg(ik.shoulder).toFixed(1) + '°';
+            document.getElementById('j3').textContent = THREE.MathUtils.radToDeg(ik.elbow).toFixed(1) + '°';
+            document.getElementById('j4').textContent = THREE.MathUtils.radToDeg(ik.wrist1).toFixed(1) + '°';
+            document.getElementById('j5').textContent = THREE.MathUtils.radToDeg(ik.wrist2).toFixed(1) + '°';
+            document.getElementById('j6').textContent = (state.payload > 0 ? 45 : 0) + '°';
+
+            document.getElementById('euler-x').textContent = state.pitch.toFixed(2) + '°';
+            document.getElementById('euler-y').textContent = state.roll.toFixed(2) + '°';
+            document.getElementById('euler-z').textContent = state.yaw.toFixed(2) + '°';
+
+            endEffectorAxis.visible = state.showLabels;
+
+            const j1Pos = new THREE.Vector3();
+            joint1.getWorldPosition(j1Pos);
+            j1Label.position.set(j1Pos.x, j1Pos.y + 0.3, j1Pos.z + 0.8);
+
+            const j2Pos = new THREE.Vector3();
+            joint2.getWorldPosition(j2Pos);
+            j2Label.position.set(j2Pos.x, j2Pos.y + 0.3, j2Pos.z + 0.5);
+
+            const j3Pos = new THREE.Vector3();
+            joint3.getWorldPosition(j3Pos);
+            j3Label.position.set(j3Pos.x, j3Pos.y + 0.3, j3Pos.z + 0.4);
+
+            const j4Pos = new THREE.Vector3();
+            joint4.getWorldPosition(j4Pos);
+            j4Label.position.set(j4Pos.x, j4Pos.y + 0.3, j4Pos.z + 0.3);
+
+            const j5Pos = new THREE.Vector3();
+            joint5.getWorldPosition(j5Pos);
+            j5Label.position.set(j5Pos.x, j5Pos.y + 0.2, j5Pos.z + 0.2);
+
+            const j6Pos = new THREE.Vector3();
+            endEffector.getWorldPosition(j6Pos);
+            j6Label.position.set(j6Pos.x, j6Pos.y + 0.3, j6Pos.z + 0.2);
+        }
+
+        function updatePayload() {
+            const weight = state.payload;
+            
+            if (weight > 0) {
+                payloadGroup.visible = true;
+                const scale = 0.5 + weight * 0.05;
+                payload.scale.set(scale, scale, scale);
+                payload.position.y = scale / 2;
+
+                const percent = (weight / 10) * 100;
+                let color, statusClass, statusText;
+
+                if (percent < 50) {
+                    color = '#33ff66';
+                    statusClass = 'payload-safe';
+                    statusText = 'None';
+                } else if (percent < 80) {
+                    color = '#ffcc00';
+                    statusClass = 'payload-caution';
+                    statusText = 'Low';
+                } else {
+                    color = '#ff6b35';
+                    statusClass = 'payload-warning';
+                    statusText = 'High';
+                }
+
+                payloadMaterial.color.set(color);
+                document.getElementById('payload-bar').style.width = percent + '%';
+                document.getElementById('payload-bar').className = 'payload-fill ' + statusClass;
+                document.getElementById('strain-level').textContent = statusText;
+
+                const speedPercent = Math.max(30, 100 - percent * 0.5);
+                document.getElementById('speed-effect').textContent = speedPercent.toFixed(0) + '%';
+
+                if (percent > 80) {
+                    const shake = Math.sin(Date.now() * 0.05) * 0.02 * (percent / 100);
+                    joint5.position.x = shake;
+                }
+            } else {
+                payloadGroup.visible = false;
+                document.getElementById('payload-bar').style.width = '0%';
+                document.getElementById('strain-level').textContent = 'None';
+                document.getElementById('speed-effect').textContent = '100%';
+                joint5.position.x = 0;
+            }
+
+            document.getElementById('payload-current').textContent = weight.toFixed(1) + ' kg';
+            document.getElementById('payload-percent').textContent = ((weight / 10) * 100).toFixed(0) + '%';
+        }
+
+        function updateGripper() {
+            const closed = state.gripper === 1;
+            const offset = closed ? 0.06 : 0.15;
+            gripperFinger1.position.x = offset;
+            gripperFinger2.position.x = -offset;
+        }
+
+        function checkPickPlace() {
+            const endPos = new THREE.Vector3();
+            endEffector.getWorldPosition(endPos);
+            
+            const pickupHeight = 0.7;
+            const pickupRadius = 0.8;
+            const dropZonePos = new THREE.Vector3(6, 0, 3);
+
+            if (state.gripper === 1 && !state.heldItem) {
+                for (const item of items) {
+                    const dist = endPos.distanceTo(item.position);
+                    if (dist < pickupRadius && endPos.y < pickupHeight && endPos.y > item.position.y) {
+                        state.heldItem = item;
+                        item.position.y = 1000;
+                        break;
+                    }
+                }
+            } else if (state.gripper === 0 && state.heldItem) {
+                const distToDrop = endPos.distanceTo(dropZonePos);
+                if (distToDrop < 1.5 && endPos.y < 2) {
+                    state.heldItem.position.set(
+                        dropZonePos.x + (Math.random() - 0.5) * 0.5,
+                        0.45,
+                        dropZonePos.z + (Math.random() - 0.5) * 0.5
+                    );
+                } else {
+                    state.heldItem.position.copy(state.heldItem.userData.originalPos);
+                }
+                state.heldItem = null;
+            }
+
+            if (state.heldItem) {
+                const worldPos = new THREE.Vector3();
+                gripperBase.getWorldPosition(worldPos);
+                state.heldItem.position.set(worldPos.x, worldPos.y - 0.4, worldPos.z);
+            }
+
+            document.getElementById('gripper-status').textContent = state.heldItem ? 'Holding' : 'No Item';
+            document.getElementById('held-item-name').textContent = state.heldItem ? state.heldItem.userData.name : '-';
+        }
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const mode = tab.dataset.mode;
+                document.getElementById('panel-' + mode).classList.add('active');
+
+                const modeNames = {
+                    cartesian: 'Cartesian Mode',
+                    payload: 'Payload Mode',
+                    orientation: 'Orientation Mode',
+                    info: 'Info Panel'
+                };
+                document.getElementById('mode-display').textContent = modeNames[mode];
+            });
+        });
+
+        const sliderX = document.getElementById('slider-x');
+        const sliderY = document.getElementById('slider-y');
+        const sliderZ = document.getElementById('slider-z');
+        const sliderPayload = document.getElementById('slider-payload');
+        const sliderGripper = document.getElementById('slider-gripper');
+        const sliderYaw = document.getElementById('slider-yaw');
+        const sliderPitch = document.getElementById('slider-pitch');
+        const sliderRoll = document.getElementById('slider-roll');
+
+        sliderX.addEventListener('input', (e) => {
+            state.x = parseFloat(e.target.value);
+            document.getElementById('x-value').textContent = state.x.toFixed(2);
+            updateRobot();
+        });
+
+        sliderY.addEventListener('input', (e) => {
+            state.y = parseFloat(e.target.value);
+            document.getElementById('y-value').textContent = state.y.toFixed(2);
+            updateRobot();
+        });
+
+        sliderZ.addEventListener('input', (e) => {
+            state.z = parseFloat(e.target.value);
+            document.getElementById('z-value').textContent = state.z.toFixed(2);
+            updateRobot();
+        });
+
+        sliderPayload.addEventListener('input', (e) => {
+            state.payload = parseFloat(e.target.value);
+            document.getElementById('payload-value').textContent = state.payload.toFixed(1) + ' kg';
+            updatePayload();
+        });
+
+        sliderGripper.addEventListener('input', (e) => {
+            state.gripper = parseInt(e.target.value);
+            document.getElementById('gripper-value').textContent = state.gripper ? 'Closed' : 'Open';
+            updateGripper();
+            checkPickPlace();
+        });
+
+        sliderYaw.addEventListener('input', (e) => {
+            state.yaw = parseFloat(e.target.value);
+            document.getElementById('yaw-value').textContent = state.yaw + '°';
+            updateRobot();
+        });
+
+        sliderPitch.addEventListener('input', (e) => {
+            state.pitch = parseFloat(e.target.value);
+            document.getElementById('pitch-value').textContent = state.pitch + '°';
+            updateRobot();
+        });
+
+        sliderRoll.addEventListener('input', (e) => {
+            state.roll = parseFloat(e.target.value);
+            document.getElementById('roll-value').textContent = state.roll + '°';
+            updateRobot();
+        });
+
+        document.getElementById('btn-reset').addEventListener('click', () => {
+            cameraAngle = { theta: Math.PI / 4, phi: Math.PI / 4 };
+            cameraDistance = 15;
+            cameraTarget = new THREE.Vector3(0, 3, 0);
+            updateCamera();
+        });
+
+        document.getElementById('btn-grid').addEventListener('click', () => {
+            state.showGrid = !state.showGrid;
+            gridHelper.visible = state.showGrid;
+            document.getElementById('btn-grid').classList.toggle('active', state.showGrid);
+        });
+
+        document.getElementById('btn-labels').addEventListener('click', () => {
+            state.showLabels = !state.showLabels;
+            axisHelper.visible = state.showLabels;
+            endEffectorAxis.visible = state.showLabels;
+            document.getElementById('btn-labels').classList.toggle('active', state.showLabels);
+        });
+
+        document.getElementById('btn-joints').addEventListener('click', () => {
+            state.showJointLabels = !state.showJointLabels;
+            jointLabelsGroup.visible = state.showJointLabels;
+            document.getElementById('btn-joints').classList.toggle('active', state.showJointLabels);
+        });
+
+        document.getElementById('btn-home').addEventListener('click', () => {
+            state = { x: 0, y: 3, z: 0, payload: 0, gripper: 0, yaw: 0, pitch: 0, roll: 0, showGrid: state.showGrid, showLabels: state.showLabels, showJointLabels: state.showJointLabels, heldItem: null };
+            sliderX.value = 0;
+            sliderY.value = 3;
+            sliderZ.value = 0;
+            sliderPayload.value = 0;
+            sliderGripper.value = 0;
+            sliderYaw.value = 0;
+            sliderPitch.value = 0;
+            sliderRoll.value = 0;
+            document.getElementById('x-value').textContent = '0.00';
+            document.getElementById('y-value').textContent = '3.00';
+            document.getElementById('z-value').textContent = '0.00';
+            document.getElementById('payload-value').textContent = '0.0 kg';
+            document.getElementById('gripper-value').textContent = 'Open';
+            document.getElementById('yaw-value').textContent = '0°';
+            document.getElementById('pitch-value').textContent = '0°';
+            document.getElementById('roll-value').textContent = '0°';
+            items.forEach(item => item.position.copy(item.userData.originalPos));
+            updateRobot();
+            updatePayload();
+            updateGripper();
+        });
+
+        document.getElementById('btn-grid').classList.add('active');
+        document.getElementById('btn-labels').classList.add('active');
+        jointLabelsGroup.visible = false;
+
+        let lastTime = performance.now();
+        let frameCount = 0;
+        let fps = 60;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            frameCount++;
+            const currentTime = performance.now();
+            if (currentTime - lastTime >= 1000) {
+                fps = frameCount;
+                frameCount = 0;
+                lastTime = currentTime;
+                document.getElementById('fps').textContent = fps;
+            }
+
+            if (state.payload > 8) {
+                const vibration = Math.sin(currentTime * 0.02) * 0.01;
+                joint5.position.x = vibration;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            const container = document.querySelector('.canvas-container');
+            camera.aspect = container.clientWidth / (container.clientHeight - 100);
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight - 100);
+        });
+
+        updateRobot();
+        updateGripper();
+        animate();
+    </script>
+</body>
+</html>
