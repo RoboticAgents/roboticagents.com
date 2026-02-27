@@ -400,7 +400,7 @@
                             <span>X Position</span>
                             <span class="control-value" id="x-value">0.00</span>
                         </div>
-                        <input type="range" id="slider-x" min="-10" max="10" step="0.1" value="0">
+                        <input type="range" id="slider-x" min="-5" max="10" step="0.1" value="0">
                         <div class="axis-indicator">
                             <div class="axis-badge axis-x">-X</div>
                             <div class="axis-badge axis-x">+X</div>
@@ -412,7 +412,7 @@
                             <span>Y Position</span>
                             <span class="control-value" id="y-value">0.00</span>
                         </div>
-                        <input type="range" id="slider-y" min="-10" max="10" step="0.1" value="0">
+                        <input type="range" id="slider-y" min="-2" max="12" step="0.1" value="3">
                         <div class="axis-indicator">
                             <div class="axis-badge axis-y">-Y</div>
                             <div class="axis-badge axis-y">+Y</div>
@@ -424,7 +424,7 @@
                             <span>Z Position</span>
                             <span class="control-value" id="z-value">0.00</span>
                         </div>
-                        <input type="range" id="slider-z" min="0" max="10" step="0.1" value="0">
+                        <input type="range" id="slider-z" min="-5" max="8" step="0.1" value="0">
                         <div class="axis-indicator">
                             <div class="axis-badge axis-z">-Z</div>
                             <div class="axis-badge axis-z">+Z</div>
@@ -785,10 +785,10 @@
         joint1.add(shoulder);
 
         const upperArm = new THREE.Mesh(
-            new THREE.BoxGeometry(0.4, 3, 0.4),
+            new THREE.BoxGeometry(0.4, 3.5, 0.4),
             armMaterial
         );
-        upperArm.position.y = 2.5;
+        upperArm.position.y = 2;
         upperArm.castShadow = true;
         joint1.add(upperArm);
 
@@ -807,12 +807,12 @@
             new THREE.BoxGeometry(0.35, 2.5, 0.35),
             armMaterial
         );
-        forearm.position.y = 1.25;
+        forearm.position.y = 1.5;
         forearm.castShadow = true;
         joint2.add(forearm);
 
         const joint3 = new THREE.Group();
-        joint3.position.y = 2.5;
+        joint3.position.y = 3;
         joint2.add(joint3);
 
         const wrist1 = new THREE.Mesh(
@@ -1012,7 +1012,7 @@
 
         let state = {
             x: 0,
-            y: 0,
+            y: 3,
             z: 0,
             payload: 0,
             gripper: 0,
@@ -1028,32 +1028,34 @@
         const tableGroup = new THREE.Group();
         scene.add(tableGroup);
 
+        const tableHeight = 0.2;
         const tableTop = new THREE.Mesh(
-            new THREE.BoxGeometry(8, 0.2, 4),
+            new THREE.BoxGeometry(6, tableHeight, 4),
             new THREE.MeshStandardMaterial({ color: 0x3a3a4a, roughness: 0.7, metalness: 0.2 })
         );
-        tableTop.position.set(6, 0.1, 0);
+        tableTop.position.set(4, tableHeight / 2, 0);
         tableTop.receiveShadow = true;
         tableTop.castShadow = true;
         tableGroup.add(tableTop);
 
+        const legHeight = tableHeight;
         const tableLeg1 = new THREE.Mesh(
-            new THREE.BoxGeometry(0.2, 2.5, 0.2),
+            new THREE.BoxGeometry(0.2, legHeight, 0.2),
             new THREE.MeshStandardMaterial({ color: 0x2a2a3a, roughness: 0.8 })
         );
-        tableLeg1.position.set(3, -1.15, -1.8);
+        tableLeg1.position.set(1.2, legHeight / 2, -1.8);
         tableGroup.add(tableLeg1);
 
         const tableLeg2 = tableLeg1.clone();
-        tableLeg2.position.set(3, -1.15, 1.8);
+        tableLeg2.position.set(1.2, legHeight / 2, 1.8);
         tableGroup.add(tableLeg2);
 
         const tableLeg3 = tableLeg1.clone();
-        tableLeg3.position.set(9, -1.15, -1.8);
+        tableLeg3.position.set(6.8, legHeight / 2, -1.8);
         tableGroup.add(tableLeg3);
 
         const tableLeg4 = tableLeg1.clone();
-        tableLeg4.position.set(9, -1.15, 1.8);
+        tableLeg4.position.set(6.8, legHeight / 2, 1.8);
         tableGroup.add(tableLeg4);
 
         const items = [];
@@ -1069,7 +1071,7 @@
                     metalness: 0.3 
                 })
             );
-            item.position.set(4 + (i % 2) * 1.5, 0.45, -0.75 + Math.floor(i / 2) * 1.5);
+            item.position.set(2.5 + (i % 2) * 1.0, 0.45, -0.5 + Math.floor(i / 2) * 1.0);
             item.castShadow = true;
             item.userData = { 
                 name: itemNames[i], 
@@ -1088,14 +1090,14 @@
                 opacity: 0.3 
             })
         );
-        dropZone.position.set(6, 0.25, 3);
+        dropZone.position.set(3, 0.25, 2.5);
         scene.add(dropZone);
 
         function simpleIK(targetX, targetY, targetZ) {
             const baseHeight = 0.5;
-            const upperArmLength = 3;
+            const upperArmLength = 3.5;
             const forearmLength = 2.5;
-            const wristOffset = 0.7;
+            const wristOffset = 0;
 
             const dx = targetX;
             const dz = targetZ;
@@ -1254,22 +1256,24 @@
             const endPos = new THREE.Vector3();
             endEffector.getWorldPosition(endPos);
             
-            const pickupHeight = 0.7;
-            const pickupRadius = 0.8;
-            const dropZonePos = new THREE.Vector3(6, 0, 3);
+            const pickupRadius = 1.5;
+            const dropZonePos = new THREE.Vector3(3, 0, 2.5);
 
             if (state.gripper === 1 && !state.heldItem) {
                 for (const item of items) {
-                    const dist = endPos.distanceTo(item.position);
-                    if (dist < pickupRadius && endPos.y < pickupHeight && endPos.y > item.position.y) {
+                    const dx = endPos.x - item.position.x;
+                    const dz = endPos.z - item.position.z;
+                    const horizDist = Math.sqrt(dx * dx + dz * dz);
+                    if (horizDist < pickupRadius && endPos.y > 0.3 && endPos.y < 4.0) {
                         state.heldItem = item;
-                        item.position.y = 1000;
                         break;
                     }
                 }
             } else if (state.gripper === 0 && state.heldItem) {
-                const distToDrop = endPos.distanceTo(dropZonePos);
-                if (distToDrop < 1.5 && endPos.y < 2) {
+                const dx = endPos.x - dropZonePos.x;
+                const dz = endPos.z - dropZonePos.z;
+                const horizDist = Math.sqrt(dx * dx + dz * dz);
+                if (horizDist < 2.5 && endPos.y > 0.3 && endPos.y < 4.0) {
                     state.heldItem.position.set(
                         dropZonePos.x + (Math.random() - 0.5) * 0.5,
                         0.45,
@@ -1441,6 +1445,12 @@
             if (state.payload > 8) {
                 const vibration = Math.sin(currentTime * 0.02) * 0.01;
                 joint5.position.x = vibration;
+            }
+
+            if (state.heldItem) {
+                const worldPos = new THREE.Vector3();
+                gripperBase.getWorldPosition(worldPos);
+                state.heldItem.position.set(worldPos.x, worldPos.y - 0.4, worldPos.z);
             }
 
             renderer.render(scene, camera);
