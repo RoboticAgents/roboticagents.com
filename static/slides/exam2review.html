@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam 2 Review | CS304</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <style>
+        :root {
+            --primary: #5a4ba4;
+            --secondary: #6610f2;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .reveal h1 {
+            color: var(--primary);
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+        }
+        
+        .reveal h3 {
+            color: var(--secondary);
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .reveal .subtitle {
+            color: var(--dark);
+            font-size: 1.2em;
+            margin-top: -20px;
+        }
+        
+        .reveal ul {
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        
+        .reveal li {
+            margin: 0.5em 0;
+        }
+        
+        .reveal .highlight {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .reveal .box {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary);
+            margin: 20px auto;
+            max-width: 90%;
+        }
+        
+        .reveal .box-success {
+            border-left-color: var(--success);
+        }
+        
+        .reveal .box-info {
+            border-left-color: var(--info);
+        }
+        
+        .reveal .box-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .reveal .col-item {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .reveal .small-text {
+            font-size: 0.75em;
+            color: #666;
+        }
+        
+        .reveal table {
+            font-size: 0.8em;
+            margin: 20px auto;
+        }
+        
+        .reveal th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+        }
+        
+        .reveal td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .reveal img {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .reveal .progress {
+            background: rgba(90, 75, 164, 0.2);
+        }
+        
+        .reveal .progress span {
+            background: var(--primary);
+        }
+        
+        .reveal .checkmark {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .reveal .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .reveal .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+        
+        .reveal .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .reveal .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .reveal .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .reveal .answer-box {
+            background: #e8f5e9;
+            border-left: 5px solid var(--success);
+        }
+
+        .reveal .lh {
+            display: block;
+            margin: 8px 0 2px 0;
+        }
+
+        .reveal pre {
+            font-size: 0.7em;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        .reveal code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section>
+                <h1>Exam 2 Review</h1>
+                <p class="subtitle">CMPSC 304 Robotic Agents</p>
+                <div class="box" style="margin-top: 40px;">
+                    <strong>Topics:</strong> PLCs &amp; Collaborative Robots<br><br>
+                    <strong>Format:</strong> Paper exam, closed everything<br>
+                    <strong>Duration:</strong> 50 minutes<br>
+                    <strong>Questions:</strong> 10 total
+                    <ul style="margin-top: 10px;">
+                        <li>5 multiple-choice</li>
+                        <li>3 short answer</li>
+                        <li>2 scenario-based</li>
+                    </ul>
+                </div>
+                <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>→</strong> to advance</p>
+            </section>
+
+            <!-- Coverage -->
+            <section>
+                <h2>What's Covered on Exam 2?</h2>
+                <div class="box">
+                    <p style="margin: 0 0 4px 0;"><strong>Topics:</strong> Week 5 through week 8</p>
+                    <ul style="margin-top: 6px;">
+                        <li>Programmable Logic Controllers (PLCs)</li>
+                        <li>Ladder logic: contacts, coils, latching, timers</li>
+                        <li>Collaborative robots (FANUC CRX)</li>
+                        <li>Safety rules and work cell operation</li>
+                        <li>Programming: jogging, teaching, pick-and-place</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Study Materials -->
+            <section>
+                <h2>Study Materials</h2>
+                <div class="two-col" style="font-size: 0.75em;">
+                    <div>
+                        <h3 style="margin-top: 0;">Projects</h3>
+                        <ul style="margin-top: 10px;">
+                            <li>Project 2</li>
+                            <li>Project 3</li>
+                        </ul>
+                        
+                        <h3 style="margin-top: 20px;">Slides</h3>
+                        <ul style="margin-top: 10px;">
+                            <li>PLC Slides</li>
+                            <li>Collaborative Robots Slides</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="margin-top: 0;">Readings</h3>
+                        <ul style="margin-top: 10px;">
+                            <li>PLC Guidebook Part II</li>
+                            <li>PLC Guidebook Part III</li>
+                        </ul>
+                        
+                        <h3 style="margin-top: 20px;">Activities</h3>
+                        <ul style="margin-top: 10px;">
+                            <li>Activity 4: FANUC CRX</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Review Game Rules -->
+            <section>
+                <h2>Review Game Rules</h2>
+                <div class="box box-info" style="font-size: 0.8em;">
+                    <strong>How to Answer:</strong>
+                    <ul style="margin-top: 12px; margin-bottom: 0;">
+                        <li><strong>Multiple Choice:</strong> Raise the correct colored paper 🔴 🟢 ⚫ 🟠</li>
+                        <li style="margin-left: 30px;">First person with correct color gets to answer!</li>
+                        <li style="margin-top: 8px;"><strong>Short Answer &amp; Scenarios:</strong> Raise your hand ✋</li>
+                        <li style="margin-left: 30px;">First hand up gets to answer!</li>
+                    </ul>
+                </div>
+                <div class="box box-success" style="font-size: 0.8em; margin-top: 20px;">
+                    <strong>Scoring:</strong>
+                    <ul style="margin-top: 8px; margin-bottom: 0;">
+                        <li>🥇 <strong>1st place team:</strong> +1 point on exam</li>
+                        <li>🥈 <strong>2nd place team:</strong> +0.5 points on exam</li>
+                        <li>🥉 <strong>3rd place team:</strong> +0.25 points on exam</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.8em;"><em>Work together with your team, but only one person answers at a time!</em></p>
+            </section>
+
+            <!-- SECTION: Multiple Choice -->
+            <section>
+                <h1 style="font-size: 2.5em;">MULTIPLE CHOICE<br>QUESTIONS</h1>
+                <p style="margin-top: 30px; font-size: 1.5em;">🔴 🟢 ⚫ 🟠</p>
+            </section>
+
+            <!-- MC 1 -->
+            <section>
+                <h2>Multiple Choice Practice 1</h2>
+                <div class="box">
+                    <strong>Which of the following is an INPUT device on a PLC training system?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>🔴 <strong>Red:</strong> Indicator lamp</p>
+                        <p>🟢 <strong>Green:</strong> Motor contactor</p>
+                        <p>⚫ <strong>Black:</strong> Limit switch</p>
+                        <p>🟠 <strong>Orange:</strong> Output coil</p>
+                    </div>
+                </div>
+                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
+            </section>
+
+            <!-- MC 1 Answer -->
+            <section>
+                <h3>Answer: ⚫ Black - Limit switch</h3>
+                <div class="box answer-box" style="font-size: 0.82em;">
+                    <p style="margin: 0 0 2px 0;"><strong>Input devices</strong> supply a voltage signal TO the PLC — they are sensing/triggering devices.</p>
+                    <strong class="lh">Examples of inputs:</strong>
+                    <ul style="margin-top: 4px;">
+                        <li>Limit switches</li>
+                        <li>Push buttons</li>
+                    </ul>
+                    <p style="margin: 8px 0 2px 0;"><strong>Output devices</strong> receive a signal FROM the PLC — they do work.</p>
+                    <ul style="margin-top: 4px;">
+                        <li>Indicator lamps</li>
+                        <li>Motor contactors</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- MC 2 -->
+            <section>
+                <h2>Multiple Choice Practice 2</h2>
+                <div class="box">
+                    <strong>Which of the following correctly describes a Normally Open (NO) contact in ladder logic?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>🔴 <strong>Red:</strong> Passes power when the referenced bit is FALSE (0)</p>
+                        <p>🟢 <strong>Green:</strong> Passes power when the referenced bit is TRUE (1)</p>
+                        <p>⚫ <strong>Black:</strong> Always blocks power regardless of input state</p>
+                        <p>🟠 <strong>Orange:</strong> Inverts the state of the output coil</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 2 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - Passes power when the referenced bit is TRUE (1)</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    A <strong>Normally Open (NO) contact</strong> (XIC — Examine if Closed) is open by default and closes when its referenced bit is TRUE.
+                    <br><br>
+                    <strong class="lh">NO contact (XIC):</strong>
+                    <ul style="margin-top: 4px;">
+                        <li>Bit = 1 (TRUE) → contact CLOSES → power passes</li>
+                        <li>Bit = 0 (FALSE) → contact stays open → no power</li>
+                        <li>Used for start buttons and seal-in (latch) contacts</li>
+                    </ul>
+                    <br>
+                    <strong class="lh">Normally Closed (NC / XIO) contact:</strong>
+                    <ul style="margin-top: 4px;">
+                        <li>Bit = 0 (FALSE) → contact CLOSED → power passes</li>
+                        <li>Bit = 1 (TRUE) → contact OPENS → power blocked</li>
+                        <li>Used for stop buttons and safety interlocks</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- MC 3 -->
+            <section>
+                <h2>Multiple Choice Practice 3</h2>
+                <div class="box">
+                    <strong>In a PLC ladder logic rung, what condition must be true for the output coil to energize?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>🔴 <strong>Red:</strong> Any one input contact on the rung must be closed (NO)</p>
+                        <p>🟢 <strong>Green:</strong> All series contacts on the path to the coil must be closed</p>
+                        <p>⚫ <strong>Black:</strong> The coil must be connected directly to the power rail</p>
+                        <p>🟠 <strong>Orange:</strong> At least one normally-closed (NC) contact must be open</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 3 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - All series contacts on the path to the coil must be closed</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <p style="margin: 0 0 4px 0;"><strong>Ladder logic</strong> reads like an electrical circuit:</p>
+                    <ul style="margin-top: 4px;">
+                        <li><strong>Left rail</strong> = power supply (+)</li>
+                        <li><strong>Right rail</strong> = return (−)</li>
+                        <li><strong>Rung</strong> = path from left to right rail</li>
+                    </ul>
+                    <br>
+                    <strong>Series contacts (AND logic):</strong> ALL must be closed for power to reach the coil.
+                    <br><br>
+                    <strong>Parallel contacts (OR logic):</strong> ANY one closed path is enough.
+                    <br><br>
+                    The coil energizes when there is a <strong>complete circuit path</strong> from left to right rail.
+                </div>
+            </section>
+
+            <!-- MC 4 -->
+            <section>
+                <h2>Multiple Choice Practice 4</h2>
+                <div class="box">
+                    <strong>Which motion type moves the FANUC CRX's tool tip (TCP) in a predictable straight line between two points?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>🔴 <strong>Red:</strong> Joint (J)</p>
+                        <p>🟢 <strong>Green:</strong> Linear (L)</p>
+                        <p>⚫ <strong>Black:</strong> Arc (A)</p>
+                        <p>🟠 <strong>Orange:</strong> Free-hand</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 4 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - Linear (L)</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <strong class="lh">Linear (L) motion:</strong>
+                    <ul style="margin-top: 4px;">
+                        <li>Moves the TCP in a <strong>straight line</strong> from start to end point</li>
+                        <li>Path is predictable — useful when obstacles are nearby</li>
+                        <li>Used for approach and depart moves in pick-and-place</li>
+                    </ul>
+                    <br>
+                    <strong class="lh">Joint (J) motion:</strong>
+                    <ul style="margin-top: 4px;">
+                        <li>Each joint moves independently to reach the target</li>
+                        <li>TCP path can be <strong>curved or unexpected</strong></li>
+                        <li>Faster, but less predictable — use only in open space</li>
+                    </ul>
+                    <br>
+                    <strong>Arc (A)</strong> motion is used for circular/curved paths (e.g., welding arcs).
+                </div>
+            </section>
+
+            <!-- MC 5 -->
+            <section>
+                <h2>Multiple Choice Practice 5</h2>
+                <div class="box">
+                    <strong>When a movement command in a FANUC CRX program is set to <em>Fine</em> routing, what does the robot do?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>🔴 <strong>Red:</strong> Continues through the point at full speed without slowing down</p>
+                        <p>🟢 <strong>Green:</strong> Stops completely at the point before moving to the next command</p>
+                        <p>⚫ <strong>Black:</strong> Creates the largest possible blend arc, staying farthest from the point</p>
+                        <p>🟠 <strong>Orange:</strong> Skips the point and interpolates directly to the destination</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 5 Answer -->
+            <section>
+                <h3>Answer: 🟢 Green - Stops completely at the point before moving to the next command</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <strong class="lh">Fine routing:</strong>
+                    <ul style="margin-top: 4px;">
+                        <li>Robot decelerates to <strong>zero velocity</strong> and fully stops at the point</li>
+                        <li>Use Fine for precision positions: pick/place locations, critical waypoints</li>
+                    </ul>
+                    <br>
+                    <strong class="lh">CNT routing (Continuous):</strong>
+                    <ul style="margin-top: 4px;">
+                        <li><strong>CNT 0</strong> — blends close to the point (smallest arc, nearly stops)</li>
+                        <li><strong>CNT 100</strong> — largest blend arc; robot swings farthest from the point</li>
+                        <li>Robot never fully stops — creates smoother, faster transitions</li>
+                    </ul>
+                    <br>
+                    <strong>In Project 3:</strong> CNT was used on the Circle program to smooth the transition between the two Circular commands at the mid-circle point.
+                </div>
+            </section>
+
+            <!-- SECTION: Short Answer -->
+            <section>
+                <h1 style="font-size: 2.5em;">SHORT ANSWER<br>QUESTIONS</h1>
+            </section>
+
+            <!-- SA 1 -->
+            <section>
+                <h2>Short Answer Practice 1</h2>
+                <div class="box">
+                    <strong>Explain how a latching circuit works in PLC ladder logic and why it is useful.</strong>
+                </div>
+                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
+            </section>
+
+            <!-- SA 1 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    A <strong>latching circuit</strong> (seal-in circuit) allows an output to remain energized even after the input that triggered it is released.
+                    <br><br>
+                    <strong class="lh">How it works:</strong>
+                    <ul style="margin-top: 4px;">
+                        <li>A momentary input (e.g., push button) energizes the output coil</li>
+                        <li>A <strong>normally-open contact of that same output</strong> is wired in parallel with the input</li>
+                        <li>Once the output energizes, it "seals itself on" through its own contact</li>
+                        <li>A separate <strong>stop input</strong> (normally-closed contact in series) breaks the latch</li>
+                    </ul>
+                    <br>
+                    <strong class="lh">Why it's useful:</strong>
+                    <ul>
+                        <li>Models real-world behavior: a motor should stay ON after you press start</li>
+                        <li>Avoids holding a button continuously</li>
+                        <li>Mirrors industrial conveyor, pump, and motor control logic</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SA 2 -->
+            <section>
+                <h2>Short Answer Practice 2</h2>
+                <div class="box">
+                    <strong>Describe how a TON (timer on-delay) works in PLC ladder logic and give a practical use case.</strong>
+                </div>
+            </section>
+
+            <!-- SA 2 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    A <strong>TON (timer on-delay)</strong> counts time while its enabling rung is continuously TRUE.
+                    <br><br>
+                    <strong class="lh">How it works:</strong>
+                    <ol style="margin-top: 4px;">
+                        <li>Enabling rung goes TRUE → timer begins counting</li>
+                        <li>When accumulated value reaches preset → timer done bit (DN) energizes</li>
+                        <li>If enabling rung goes FALSE before preset → timer resets to zero</li>
+                    </ol>
+                    <br>
+                    <strong class="lh">Key parameters:</strong>
+                    <ul style="margin-top: 4px;">
+                        <li><strong>Preset (PT):</strong> Target time (e.g., 5 seconds)</li>
+                        <li><strong>Accumulated (ET):</strong> Current elapsed time</li>
+                        <li><strong>Done bit (DN/Q):</strong> Becomes TRUE when ET ≥ PT</li>
+                    </ul>
+                    <br>
+                    <strong>Practical use case:</strong> Turn on a warning light 10 seconds after a machine starts, or control a timed lamp sequence (as in Project 2, Part 3).
+                </div>
+            </section>
+
+            <!-- SA 3 -->
+            <section>
+                <h2>Short Answer Practice 3</h2>
+                <div class="box">
+                    <strong>Explain the difference between Teach mode (TP enabled) and Auto mode (TP disabled) on the FANUC CRX, and when you would use each.</strong>
+                </div>
+            </section>
+
+            <!-- SA 3 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <strong class="lh">Teach mode (TP enabled):</strong>
+                    <ul style="margin-top: 4px;">
+                        <li>Used for <strong>programming and testing</strong> — jogging, teaching points, stepping through programs</li>
+                        <li>Enable function (open rectangle icon, top right) must be toggled ON</li>
+                        <li>Run programs step-by-step using the Play Tab &rarr; Step &rarr; drag Run slider</li>
+                        <li>Required any time you enter the work cell</li>
+                    </ul>
+                    <br>
+                    <strong class="lh">Auto mode (TP disabled):</strong>
+                    <ul>
+                        <li>Used for <strong>running completed programs continuously</strong></li>
+                        <li>TP is disabled; robot runs from Play menu (Run slider FWD)</li>
+                        <li>Operator must be <strong>outside</strong> the work cell</li>
+                        <li>Only use after fully verifying all points in Teach (Step) mode first</li>
+                    </ul>
+                    <br>
+                    <strong>Key rule:</strong> Always verify in Teach mode step-by-step before switching to Auto mode.
+                </div>
+            </section>
+
+            <!-- SA 4 -->
+            <section>
+                <h2>Short Answer Practice 4</h2>
+                <div class="box">
+                    <strong>What is "payload" in the context of a collaborative robot, and why is it important to configure it correctly?</strong>
+                </div>
+            </section>
+
+            <!-- SA 4 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.8em;">
+                    <p style="margin: 0 0 4px 0;"><strong>Payload</strong> is the total mass the robot must support at its end of arm — including the <strong>end effector</strong> (e.g., gripper) and any <strong>object being carried</strong>.</p>
+                    <strong class="lh">Why it matters:</strong>
+                    <ul style="margin-top: 4px; margin-bottom: 8px;">
+                        <li><strong>Motion accuracy:</strong> The controller uses payload to calculate correct speed, acceleration, and motor torque — wrong payload leads to overshoot or sluggish motion</li>
+                        <li><strong>Force sensing:</strong> Cobots use payload to calibrate collision detection — if payload is wrong, the robot may not stop when it should (or may stop unnecessarily)</li>
+                        <li><strong>Mechanical safety:</strong> Exceeding the rated payload can overload joints and damage the robot</li>
+                    </ul>
+                    <strong class="lh">In a pick-and-place task:</strong>
+                    <ul style="margin-top: 4px;">
+                        <li>Payload changes mid-program: <strong>gripper only</strong> (moving to pick) vs. <strong>gripper + object</strong> (carrying)</li>
+                        <li>The payload setting must be updated at the right point in the sequence so the robot always has accurate inertia information</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION: Scenario-Based -->
+            <section>
+                <h1 style="font-size: 2.5em;">SCENARIO-BASED<br>QUESTIONS</h1>
+            </section>
+
+            <!-- Scenario 1 -->
+            <section>
+                <h2>Scenario Practice 1</h2>
+                <div class="box" style="font-size: 0.85em;">
+                    <strong>Your PLC program should turn on a lamp when a button is pressed and keep it on until a reset button is pressed. You test it and the lamp turns on, but immediately turns off when you release the button.</strong>
+                    <br><br>
+                    What is likely missing from your ladder logic, and how do you fix it?
+                </div>
+                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
+            </section>
+
+            <!-- Scenario 1 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.75em;">
+                    <strong>Problem:</strong> No latch (seal-in) circuit — the lamp output is only powered while the input button contact is TRUE.
+                    <br><br>
+                    <strong class="lh">Fix: Add a seal-in branch</strong>
+                    <pre>
+[Stop_In NC] ─── [Start_In NO] ──────────────( Lamp_Out )
+                       │
+               [Lamp_Out NO] ────────────────
+                    </pre>
+                    <ul style="margin-top: 8px;">
+                        <li>Add a <strong>normally-open contact</strong> of the Lamp Output <strong>in parallel</strong> with the Start Button contact</li>
+                        <li>Once the lamp energizes, it "seals itself on" through its own contact</li>
+                        <li>A <strong>normally-closed Reset Button contact in series</strong> breaks the latch</li>
+                    </ul>
+                    <br>
+                    <strong>This is the standard latching circuit (Part 1 of Project 2).</strong>
+                </div>
+            </section>
+
+            <!-- Scenario 2 -->
+            <section>
+                <h2>Scenario Practice 2</h2>
+                <div class="box" style="font-size: 0.78em;">
+                    <strong>Describe what the following PLC program does, step by step. Be specific about when each output turns on and off.</strong>
+                    <pre style="margin-top: 10px; font-size: 0.95em;">
+Rung 1:
+[Stop_In NC] ─── [Start_In NO] ──────────────────────( Motor_Out )
+                      │
+               [Motor_Out NO] ──────────────────────
+
+Rung 2:
+[Motor_Out NO] ──────────────────────────────────( TON Timer1 PRE:5s )
+
+Rung 3:
+[Timer1 DN NO] ──────────────────────────────────( Alarm_Out )
+                    </pre>
+                </div>
+            </section>
+
+            <!-- Scenario 2 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.75em;">
+                    <strong class="lh">Rung 1 — Motor latch:</strong>
+                    <ul style="margin-top: 4px; margin-bottom: 8px;">
+                        <li>Pressing <strong>Start_In</strong> energizes <strong>Motor_Out</strong></li>
+                        <li><strong>Motor_Out NO</strong> in parallel seals the latch — motor stays on after Start is released</li>
+                        <li>Pressing <strong>Stop_In</strong> opens the NC contact, cutting power and turning the motor off</li>
+                    </ul>
+                    <strong class="lh">Rung 2 — Timer starts when motor runs:</strong>
+                    <ul style="margin-top: 4px; margin-bottom: 8px;">
+                        <li><strong>Motor_Out NO</strong> enables Timer1 (TON, preset = 5 s)</li>
+                        <li>The timer accumulates only while the motor is running; resets if motor stops before 5 s</li>
+                    </ul>
+                    <strong class="lh">Rung 3 — Alarm after 5 seconds:</strong>
+                    <ul style="margin-top: 4px;">
+                        <li>When Timer1 reaches its preset, the <strong>DN (done) bit</strong> goes TRUE</li>
+                        <li><strong>Alarm_Out</strong> energizes — e.g., a warning light or buzzer turns on</li>
+                        <li>Alarm stays on as long as the motor has been running &ge; 5 s; turns off when motor stops</li>
+                    </ul>
+                    <br>
+                    <strong>Summary:</strong> This program latches a motor on/off and triggers an alarm output if the motor runs continuously for more than 5 seconds.
+                </div>
+            </section>
+
+            <!-- Scenario 3 -->
+            <section>
+                <h2>Scenario Practice 3</h2>
+                <div class="box" style="font-size: 0.85em;">
+                    <strong>A student is teaching a pick-and-place program. They jog the robot to the pick position using Cartesian mode, moving it in the +X direction. Later, they rotate the robot's flange (end of arm) 90° and jog in +X again — but the robot moves in a completely different direction in the real world.</strong>
+                    <br><br>
+                    Why does this happen? What does X, Y, Z mean in Cartesian jogging, and what determines which way is "X"?
+                </div>
+            </section>
+
+            <!-- Scenario 3 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.75em;">
+                    <p style="margin: 0 0 4px 0;">In <strong>Cartesian (World) jogging</strong>, X, Y, and Z refer to axes of a <strong>fixed coordinate frame</strong> attached to the robot's base — not to the tool or the flange.</p>
+                    <strong class="lh">So why did +X look different after rotating the flange?</strong>
+                    <ul style="margin-top: 4px; margin-bottom: 8px;">
+                        <li>It didn't — +X in World frame is always the same direction regardless of how the arm is oriented</li>
+                        <li>The <em>robot's joints</em> move differently to achieve the same World-frame motion, which can make it look unexpected</li>
+                        <li>If the student was jogging in <strong>Tool frame</strong> instead, then rotating the flange <em>would</em> change which real-world direction +X points</li>
+                    </ul>
+                    <strong class="lh">Key concept:</strong>
+                    <ul style="margin-top: 4px;">
+                        <li><strong>World/Cartesian frame:</strong> Fixed to the robot base — X, Y, Z always point the same way</li>
+                        <li><strong>Tool frame:</strong> Fixed to the end effector — axes move with the tool as it rotates</li>
+                        <li>Choosing the right frame for jogging matters: World frame is predictable; Tool frame is useful when you want to move relative to the tool tip</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Scenario 4 -->
+            <section>
+                <h2>Scenario Practice 4</h2>
+                <div class="box" style="font-size: 0.9em;">
+                    <strong>Your collaborative robot pick-and-place program picks the object correctly, but during the move to the place position the robot takes a long, sweeping arc that nearly hits the table edge. How would you address this?</strong>
+                </div>
+            </section>
+
+            <!-- Scenario 4 Answer -->
+            <section>
+                <h3>Sample Answer</h3>
+                <div class="box answer-box" style="font-size: 0.75em;">
+                    <p style="margin: 0 0 4px 0;"><strong>Problem:</strong> The robot is using <strong>Joint motion</strong>, which optimizes each joint independently and can produce unexpected TCP paths.</p>
+                    <strong class="lh">Solutions:</strong>
+                    <ol style="margin-top: 4px; margin-bottom: 0;">
+                        <li style="margin-bottom: 4px;"><strong>Switch transit motion to Linear (L)</strong> — moves the TCP in a straight line; change Motion Type in the code block Details tab</li>
+                        <li style="margin-bottom: 4px;"><strong>Add an intermediate waypoint</strong> — teach a safe via-point between pick and place to guide the path</li>
+                        <li style="margin-bottom: 4px;"><strong>Reduce approach height</strong> so the robot lifts less before traveling horizontally</li>
+                        <li><strong>Reduce override speed</strong> while testing to catch unexpected paths before they cause damage</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Key Concepts -->
+            <section>
+                <h2>Key Concepts Review</h2>
+                <div class="two-col" style="font-size: 0.72em;">
+                    <div class="col-item">
+                        <h3 style="margin-top: 0;">PLCs</h3>
+                        <ul style="margin-top: 8px;">
+                            <li>Input vs. output devices</li>
+                            <li>Ladder logic: rungs, contacts (NO/NC), coils</li>
+                            <li>Latching circuits (seal-in)</li>
+                            <li>Timers (TON: preset, accumulated, done bit)</li>
+                            <li>Deterministic scan-cycle execution</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3 style="margin-top: 0;">FANUC CRX</h3>
+                        <ul style="margin-top: 8px;">
+                            <li>Cell: robot, controller, Tablet TP, gripper, control panel</li>
+                            <li>Safety rules: work cell entry, E-stop, escape plan</li>
+                            <li>Teach Mode vs. Production Mode</li>
+                            <li>Jogging: Joint, Cartesian (Cart), MPG</li>
+                            <li>Programming: code blocks, timeline, touch-up, Basic Pick/Place</li>
+                            <li>Gripper: width, force, wait</li>
+                            <li>Motion types: Joint vs. Linear; override speed ≤ 250 mm/s</li>
+                            <li>Step mode verification before full-speed runs</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            progress: true,
+            controls: true,
+            center: true,
+            touch: true,
+            loop: false,
+            rtl: false,
+            navigationMode: 'default',
+            shuffle: false,
+            fragments: true,
+            embedded: false,
+            help: true,
+            pause: true,
+            showNotes: false,
+            autoPlayMedia: null,
+            preloadIframes: null,
+            autoSlide: 0,
+            autoSlideStoppable: true,
+            mouseWheel: false,
+            hideInactiveCursor: true,
+            hideCursorTime: 5000,
+            keyboard: true,
+            overview: true,
+            disableLayout: false,
+            margin: 0.04,
+            width: 1280,
+            height: 720,
+        });
+    </script>
+</body>
+</html>
