@@ -425,23 +425,23 @@ The gripper is controlled using a **Gripper 2 Point code block** within a Basic 
 
 ### Sample Answer
 
-<div class="box small">
+<div style="font-size:0.72em">
 
 **Rung structure:**
 
 ```
-[Stop_In NC] ─── [Door_Closed NO] ─── [Start_In NO] ──────( Motor_Out )
-                                             │
-                                      [Motor_Out NO] ──────
+[Stop NC]─[Door NO]─[Start NO]─( Motor_Out )
+                        │
+                  [Motor NO]─
 ```
 
 **Explanation:**
-- **Stop_In (NC):** Normally-closed; opening this contact (pressing stop) cuts power to the rung
-- **Door_Closed (NO):** Must be TRUE (door shut) for any output
-- **Start_In (NO)** in parallel with **Motor_Out (NO):** Creates the latch — motor stays on after start is released
-- **Motor_Out:** Output coil energizes when path is complete
+- **Stop_In (NC):** Opens on press → de-energizes output
+- **Door_Closed (NO):** Must be TRUE (door shut)
+- **Start_In (NO)** ∥ **Motor_Out (NO):** Seal-in latch
+- **Motor_Out:** Coil energizes when path is complete
 
-**Safety note:** Door sensor in series ensures the motor CANNOT run with the door open — a safety interlock.
+**Safety:** Door in series = motor cannot run with door open.
 
 </div>
 
@@ -527,96 +527,5 @@ The gripper is controlled using a **Gripper 2 Point code block** within a Basic 
    - Lower the **Height Between Pick/Place Point and Approach Point** so the robot lifts less before traveling
 
 4. **Reduce override speed** while testing to catch unexpected paths before they cause damage
-
-</div>
-
----
-
-## Key Concepts Review
-
-<div class="box small">
-
-**PLCs:**
-- Input vs. output devices
-- Ladder logic: rungs, contacts (NO/NC), coils
-- Latching circuits (seal-in)
-- Timers (TON: preset, accumulated, done bit)
-- Ice cube relays: isolation, amplification
-- Deterministic scan-cycle execution
-
-**FANUC CRX:**
-- Cell components: robot, controller, Tablet TP, gripper, control panel
-- Safety rules: work cell entry, E-stop, escape plan
-- Teach Mode vs. Production Mode
-- Jogging: Joint mode vs. Cartesian (Cart) mode vs. MPG
-- Free-hand teaching; teaching weight
-- Programming: code blocks, timeline, touch-up, Basic Pick/Place
-- Gripper code block: width, force, wait
-- Motion types: Joint vs. Linear; override speed
-- Step mode verification before full-speed runs
-
-</div>
-
----
-
-## General Exam Tips
-
-✓ **Understand WHY**, not just memorize facts
-
-✓ **Draw diagrams** if helpful (ladder rungs, work cell layouts)
-
-✓ **Show your reasoning** in short-answer and scenario questions
-
-✓ **Refer to Project 2 and Project 3** experiences in scenario questions
-
-✓ **Budget time:** Don't spend too long on one question
-
-✓ **Check terminology:** inputs vs. outputs, NO vs. NC contacts, Joint vs. Cartesian
-
----
-
-## Practice Resources
-
-**Review:**
-- Your Project 2 condition tables and reflection
-- Your Project 3 build log and reflection
-- PLC lecture slides and PLC Guidebook Parts II & III
-- Collaborative Robots slides
-
-**Test yourself:**
-- Can you trace a ladder logic rung and predict the output?
-- Can you describe what happens step-by-step in a latch circuit?
-- Can you explain each safety rule and WHY it exists?
-- Can you describe how to teach and verify a pick-and-place program?
-
----
-
-## Common Mistakes to Avoid
-
-❌ Confusing input devices (supply signal to PLC) with output devices (receive signal from PLC)
-
-❌ Forgetting the seal-in contact in a latching circuit
-
-❌ Thinking a stopped robot in Production Mode is safe to approach
-
-❌ Confusing Joint mode jogging (moves individual joint) with Cartesian mode (moves TCP along axes)
-
-❌ Confusing Teach Mode (programming/testing) with Production Mode (autonomous run)
-
-❌ Forgetting that timer accumulated value resets when the enabling rung goes FALSE before preset is reached
-
----
-
-## Questions?
-
-**Review sessions:** Check Discord for study group times
-
-**Office hours:** See [instructor schedule](https://janyljumadinova.com/schedule)
-
-**Day before exam:** Final Q&A in class
-
-<div class="box">
-
-**Good luck on Exam 2!**
 
 </div>
