@@ -10,3 +10,4 @@ weight = 4
 - [Activity 2: Distance Sensors](/activities/activity2) - Due February 2nd by 11:50 AM
 - [Activity 3: Environmental Sensors](https://classroom.github.com/a/hZZHXESz) - Due February 6th by 11:50 AM
 - [Activity 4: Collaborative Robot Fundamentals](https://classroom.github.com/a/Ird7WOld) - Due February 27th by 11:59 PM
+- [Activity 5: ROS2 Environment Setup & First Simulation](/activities/activity5) - March 17th (in class)
