@@ -635,17 +635,17 @@
                 <h2>Scenario Practice 2</h2>
                 <div class="box" style="font-size: 0.78em;">
                     <strong>Describe what the following PLC program does, step by step. Be specific about when each output turns on and off.</strong>
-                    <pre style="margin-top: 10px; font-size: 0.95em;">
+                    <pre style="margin-top: 10px; font-size: 0.8em;">
 Rung 1:
-[Stop_In NC] ─── [Start_In NO] ──────────────────────( Motor_Out )
-                      │
-               [Motor_Out NO] ──────────────────────
+[Stop_In NC]─[Start_In NO]────( Motor_Out )
+                  │
+           [Motor_Out NO]────
 
 Rung 2:
-[Motor_Out NO] ──────────────────────────────────( TON Timer1 PRE:5s )
+[Motor_Out NO]────( TON Timer1 PRE:5s )
 
 Rung 3:
-[Timer1 DN NO] ──────────────────────────────────( Alarm_Out )
+[Timer1 DN NO]────( Alarm_Out )
                     </pre>
                 </div>
             </section>
@@ -653,20 +653,20 @@ Rung 3:
             <!-- Scenario 2 Answer -->
             <section>
                 <h3>Sample Answer</h3>
-                <div class="box answer-box" style="font-size: 0.75em;">
+                <div class="box answer-box" style="font-size: 0.65em;">
                     <strong class="lh">Rung 1 — Motor latch:</strong>
-                    <ul style="margin-top: 4px; margin-bottom: 8px;">
+                    <ul style="margin-top: 2px; margin-bottom: 4px;">
                         <li>Pressing <strong>Start_In</strong> energizes <strong>Motor_Out</strong></li>
                         <li><strong>Motor_Out NO</strong> in parallel seals the latch — motor stays on after Start is released</li>
                         <li>Pressing <strong>Stop_In</strong> opens the NC contact, cutting power and turning the motor off</li>
                     </ul>
                     <strong class="lh">Rung 2 — Timer starts when motor runs:</strong>
-                    <ul style="margin-top: 4px; margin-bottom: 8px;">
+                    <ul style="margin-top: 2px; margin-bottom: 4px;">
                         <li><strong>Motor_Out NO</strong> enables Timer1 (TON, preset = 5 s)</li>
                         <li>The timer accumulates only while the motor is running; resets if motor stops before 5 s</li>
                     </ul>
                     <strong class="lh">Rung 3 — Alarm after 5 seconds:</strong>
-                    <ul style="margin-top: 4px;">
+                    <ul style="margin-top: 2px; margin-bottom: 2px;">
                         <li>When Timer1 reaches its preset, the <strong>DN (done) bit</strong> goes TRUE</li>
                         <li><strong>Alarm_Out</strong> energizes — e.g., a warning light or buzzer turns on</li>
                         <li>Alarm stays on as long as the motor has been running &ge; 5 s; turns off when motor stops</li>
@@ -689,7 +689,7 @@ Rung 3:
             <!-- Scenario 3 Answer -->
             <section>
                 <h3>Sample Answer</h3>
-                <div class="box answer-box" style="font-size: 0.75em;">
+                <div class="box answer-box" style="font-size: 0.65em;">
                     <p style="margin: 0 0 4px 0;">In <strong>Cartesian (World) jogging</strong>, X, Y, and Z refer to axes of a <strong>fixed coordinate frame</strong> attached to the robot's base — not to the tool or the flange.</p>
                     <strong class="lh">So why did +X look different after rotating the flange?</strong>
                     <ul style="margin-top: 4px; margin-bottom: 8px;">
