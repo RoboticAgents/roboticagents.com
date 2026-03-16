@@ -10,4 +10,6 @@ weight = 5
 - [Week 2: Motors & Arduino](/slides/motors.html)
 - [Week 3-4: Sensors](/slides/sensors.html)
 - [Week 5: PLC Training System](https://docs.google.com/presentation/d/e/2PACX-1vQVqMm1sQSfTw7AIwK6qxmptmswl_DdMyi4zwb1S8UN1s9INryruMhq0hCCyoAPCg/pub?start=false&loop=false&delayms=3000)
-- [Exam 1 Review](/slides/exam1review.html) 
+- [Week 7: Collaborative Robots](https://docs.google.com/presentation/d/e/2PACX-1vQtDh_u2sFnaStxR_ayrAGsCWQVRVHsODT52vcjcaoEVp34QamW_7fU5B9tGHuDzg/pub?start=false&loop=false&delayms=3000)
+- [Exam 1 Review](/slides/exam1review.html)
+- [Exam 2 Review](/slides/exam2review.html)

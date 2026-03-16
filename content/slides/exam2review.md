@@ -2,7 +2,6 @@
 title = "Exam 2 Review"
 description = "Review for Exam 2 covering PLCs and collaborative robots"
 weight = 5
-draft = true
 +++
 
 This content is available as an HTML slide deck at [/slides/exam2review.html](/slides/exam2review.html).
