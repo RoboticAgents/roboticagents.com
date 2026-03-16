@@ -15,6 +15,6 @@ The slides cover:
 - Core Concept: Messages
 - The Publish/Subscribe Pattern
 - Simulation with Gazebo
-- TurtleBot3: Our Robot Platform
+- TurtleBot 4: Our Robot Platform
 - Essential ROS2 Commands
 - What's Coming Next (Weeks 10–13)
