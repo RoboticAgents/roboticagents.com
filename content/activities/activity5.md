@@ -9,7 +9,6 @@ weight = 5
 In this activity, you will set up a **ROS2 robotics simulation environment** using Docker and run your first robot simulation. By the end of class, you will have a working ROS2 + Gazebo + TurtleBot3 environment on your laptop and will have driven a simulated robot using keyboard teleoperation.
 
 **Due:** Complete during class, March 17th
-**Time:** ~1 hour
 
 ---
 
@@ -49,7 +48,7 @@ docker --version
 ### Step 2: Clone the Course ROS2 Repository
 
 ```bash
-git clone https://github.com/CMPSC304-RoboticAgents-Spring2026/ros2-environment.git
+git clone https://github.com/RoboticAgents/ros2-environment.git
 cd ros2-environment
 ```
 
@@ -65,7 +64,7 @@ Once you see the desktop running, press `Ctrl+C` to stop. The built image is cac
 
 ---
 
-## Part 1: Start the ROS2 Environment (~10 min)
+## Part 1: Start the ROS2 Environment
 
 ### 1.1 Build and Launch
 
@@ -93,7 +92,7 @@ You should see a **Linux desktop** running inside your browser. This is a full U
 
 ---
 
-## Part 2: Launch TurtleBot3 in Gazebo (~15 min)
+## Part 2: Launch TurtleBot3 in Gazebo
 
 ### 2.1 Open a Terminal
 
@@ -119,7 +118,7 @@ Wait ~30–60 seconds for Gazebo to load. You should see:
 
 ---
 
-## Part 3: Drive the Robot (~15 min)
+## Part 3: Drive the Robot
 
 ### 3.1 Open a Second Terminal
 
@@ -160,7 +159,7 @@ Drive the robot around the world. Try navigating through gaps between obstacles 
 
 ---
 
-## Part 4: Explore ROS2 (~15 min)
+## Part 4: Explore ROS2
 
 Open a **third terminal** in the VNC desktop.
 

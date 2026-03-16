@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to ROS2 | CS304</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <style>
+        :root {
+            --primary: #5a4ba4;
+            --secondary: #6610f2;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .reveal h1 {
+            color: var(--primary);
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 0.4em;
+        }
+        
+        .reveal h3 {
+            color: var(--secondary);
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        
+        .reveal .subtitle {
+            color: var(--dark);
+            font-size: 1.2em;
+            margin-top: -20px;
+        }
+        
+        .reveal ul {
+            font-size: 0.8em;
+            line-height: 1.5;
+        }
+        
+        .reveal li {
+            margin: 0.25em 0;
+        }
+        
+        .reveal .highlight {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .reveal .box {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 15px auto;
+            max-width: 90%;
+            font-size: 0.9em;
+        }
+        
+        .reveal .box-success {
+            border-left-color: var(--success);
+        }
+        
+        .reveal .box-info {
+            border-left-color: var(--info);
+        }
+        
+        .reveal .box-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        
+        .reveal .col-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .reveal .small-text {
+            font-size: 0.7em;
+            color: #666;
+        }
+        
+        .reveal table {
+            font-size: 0.7em;
+            margin: 15px auto;
+        }
+        
+        .reveal th {
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+        }
+        
+        .reveal td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .reveal img {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .reveal .progress {
+            background: rgba(90, 75, 164, 0.2);
+        }
+        
+        .reveal .progress span {
+            background: var(--primary);
+        }
+        
+        .reveal .checkmark {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .reveal .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .reveal .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+        
+        .reveal .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .reveal .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .reveal .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .reveal code {
+            background: #f4f4f4;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .reveal pre {
+            margin: 15px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .reveal pre code {
+            padding: 20px;
+            font-size: 0.65em;
+            line-height: 1.4;
+        }
+
+        .reveal .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            font-size: 0.85em;
+        }
+
+        .reveal .flow-box {
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .reveal .flow-arrow {
+            font-size: 1.5em;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section>
+                <h1>Introduction to ROS2</h1>
+                <p class="subtitle">Week 10 &bull; CMPSC 304 Robotic Agents</p>
+                <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>&rarr;</strong> to advance</p>
+            </section>
+
+            <!-- Why ROS? -->
+            <section>
+                <h2>The Problem: Building Robot Software Is Hard</h2>
+                <div class="two-col" style="margin-top: 20px;">
+                    <div class="col-item">
+                        <h3 style="margin-top: 0;">Without ROS</h3>
+                        <ul style="margin-top: 8px;">
+                            <li>Write your own sensor drivers</li>
+                            <li>Write your own motor controllers</li>
+                            <li>Write your own communication layer</li>
+                            <li>Write your own navigation algorithms</li>
+                            <li>Everything is custom, <span class="highlight">every time</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3 style="margin-top: 0;">With ROS</h3>
+                        <ul style="margin-top: 8px;">
+                            <li>Standardized sensor interfaces</li>
+                            <li>Reusable motor controllers</li>
+                            <li>Built-in publish/subscribe messaging</li>
+                            <li>Full navigation stack available</li>
+                            <li>Write once, <span class="checkmark">reuse everywhere</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-info" style="margin-top: 15px;">
+                    ROS = <strong>Robot Operating System</strong> &mdash; not actually an OS, but <strong>middleware</strong> that connects robot software components.
+                </div>
+            </section>
+
+            <!-- Where ROS Is Used -->
+            <section>
+                <h2>ROS in the Real World</h2>
+                <ul style="font-size: 0.85em;">
+                    <li><strong>Research:</strong> Most university and research lab robots run ROS</li>
+                    <li><strong>Industry:</strong> Warehouse robots, agricultural robots, inspection drones</li>
+                    <li><strong>Self-driving cars:</strong> Autoware (built on ROS2) powers autonomous vehicles</li>
+                    <li><strong>Space:</strong> NASA uses ROS for rover prototyping and ISS experiments</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 20px;">
+                    <strong>Why ROS2?</strong> ROS2 is the current generation. Improvements over ROS1: real-time support, better security, no single point of failure, multi-platform (Linux, macOS, Windows).
+                </div>
+            </section>
+
+            <!-- Course Progression -->
+            <section>
+                <h2>How ROS Fits Our Course</h2>
+                <div class="flow-diagram">
+                    <div class="flow-box" style="background: var(--info);">Arduino<br><span style="font-size:0.7em; font-weight:400;">Hardware</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--warning); color: var(--dark);">PLC<br><span style="font-size:0.7em; font-weight:400;">Deterministic</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--success);">FANUC<br><span style="font-size:0.7em; font-weight:400;">Industrial</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--primary);">ROS2<br><span style="font-size:0.7em; font-weight:400;">Autonomous</span></div>
+                </div>
+                <table style="margin-top: 15px;">
+                    <thead>
+                        <tr><th>You Already Know</th><th>ROS2 Equivalent</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Arduino sensors</td><td>ROS <strong>topics</strong> (sensor data streams)</td></tr>
+                        <tr><td>Arduino motor control</td><td>ROS <strong>nodes</strong> (individual processes)</td></tr>
+                        <tr><td>PLC scan cycle</td><td>ROS <strong>publish/subscribe</strong> loop</td></tr>
+                        <tr><td>FANUC teach pendant</td><td>ROS <strong>command-line tools</strong></td></tr>
+                        <tr><td>FANUC program timeline</td><td>ROS <strong>launch files</strong></td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Core Concepts: Nodes -->
+            <section>
+                <h2>Core Concept: Nodes</h2>
+                <div class="box" style="margin-top: 20px; font-size: 0.85em;">
+                    A <strong>node</strong> is a single process that does one job.
+                </div>
+                <div class="flow-diagram" style="flex-wrap: wrap; gap: 10px; margin-top: 20px;">
+                    <div class="flow-box" style="background: var(--info); font-size: 0.8em;">Lidar<br>Driver</div>
+                    <div class="flow-box" style="background: var(--info); font-size: 0.8em;">Camera<br>Driver</div>
+                    <div class="flow-box" style="background: var(--warning); color: var(--dark); font-size: 0.8em;">SLAM<br>Mapper</div>
+                    <div class="flow-box" style="background: var(--warning); color: var(--dark); font-size: 0.8em;">Path<br>Planner</div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.8em;">Motor<br>Controller</div>
+                </div>
+                <ul style="margin-top: 20px;">
+                    <li>Each node is <strong>independent</strong> &mdash; it can be started, stopped, or replaced individually</li>
+                    <li>Nodes communicate with each other through <strong>topics</strong></li>
+                    <li>A robot is a <strong>graph of connected nodes</strong></li>
+                </ul>
+                <pre><code>ros2 node list          # See all running nodes</code></pre>
+            </section>
+
+            <!-- Core Concepts: Topics -->
+            <section>
+                <h2>Core Concept: Topics</h2>
+                <div class="box" style="margin-top: 20px; font-size: 0.85em;">
+                    A <strong>topic</strong> is a named channel for sending messages between nodes.
+                </div>
+                <div style="margin: 25px auto; max-width: 80%; font-size: 0.8em;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px;">
+                        <div class="flow-box" style="background: var(--info); font-size: 0.85em; min-width: 80px;">Lidar<br>Node</div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 0.7em; color: var(--primary); font-weight: 600;">/scan</div>
+                            <div style="font-size: 1.3em; color: var(--primary);">&xrarr;</div>
+                        </div>
+                        <div class="flow-box" style="background: var(--warning); color: var(--dark); font-size: 0.85em; min-width: 80px;">SLAM<br>Node</div>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <div class="flow-box" style="background: var(--warning); color: var(--dark); font-size: 0.85em; min-width: 80px;">Teleop<br>Node</div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 0.7em; color: var(--primary); font-weight: 600;">/cmd_vel</div>
+                            <div style="font-size: 1.3em; color: var(--primary);">&xrarr;</div>
+                        </div>
+                        <div class="flow-box" style="background: var(--success); font-size: 0.85em; min-width: 80px;">Motor<br>Node</div>
+                    </div>
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Publishers</strong> send data to a topic</li>
+                    <li><strong>Subscribers</strong> receive data from a topic</li>
+                    <li>Multiple nodes can publish or subscribe to the same topic</li>
+                </ul>
+                <pre><code>ros2 topic list         # See all active topics
+ros2 topic echo /scan   # View messages on a topic</code></pre>
+            </section>
+
+            <!-- Core Concepts: Messages -->
+            <section>
+                <h2>Core Concept: Messages</h2>
+                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                    A <strong>message</strong> is structured data sent over a topic. Each topic has a specific message type.
+                </div>
+                <div class="two-col" style="margin-top: 20px;">
+                    <div class="col-item">
+                        <h3 style="margin-top: 0;">Twist (velocity)</h3>
+                        <p style="font-size: 0.7em; color: #666;">Topic: <code>/cmd_vel</code></p>
+                        <pre style="font-size: 0.75em; margin: 5px 0;"><code>linear:
+  x: 0.2    # forward m/s
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.5    # turn rad/s</code></pre>
+                    </div>
+                    <div class="col-item">
+                        <h3 style="margin-top: 0;">LaserScan (lidar)</h3>
+                        <p style="font-size: 0.7em; color: #666;">Topic: <code>/scan</code></p>
+                        <pre style="font-size: 0.75em; margin: 5px 0;"><code>angle_min: -3.14
+angle_max: 3.14
+ranges:
+  - 2.45    # distance (m)
+  - 2.41
+  - 1.03    # obstacle!
+  - 0.52
+  ...</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Publish/Subscribe Pattern -->
+            <section>
+                <h2>The Publish/Subscribe Pattern</h2>
+                <div class="box box-info" style="margin-top: 20px; font-size: 0.85em;">
+                    Nodes don't talk to each other directly. They communicate through topics &mdash; publishers don't know who is listening, and subscribers don't know who is sending.
+                </div>
+                <div style="margin: 25px auto; text-align: center; font-size: 0.78em;">
+                    <div style="display: inline-block; background: var(--light); padding: 20px; border-radius: 10px;">
+                        <strong style="color: var(--primary);">Why is this useful?</strong>
+                        <ul style="text-align: left; margin-top: 10px;">
+                            <li><strong>Modularity:</strong> Swap a real lidar for a simulated one &mdash; subscribers don't change</li>
+                            <li><strong>Scalability:</strong> Add a new node that listens to <code>/scan</code> without modifying existing code</li>
+                            <li><strong>Testing:</strong> Record and replay topic data for debugging</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-warning" style="font-size: 0.8em;">
+                    <strong>Think about it:</strong> In your Arduino projects, the sensor code and motor code were tightly coupled in one file. ROS separates them into independent nodes connected by topics.
+                </div>
+            </section>
+
+            <!-- Simulation: Why Gazebo -->
+            <section>
+                <h2>Simulation with Gazebo</h2>
+                <div class="two-col" style="margin-top: 20px;">
+                    <div class="col-item">
+                        <h3 style="margin-top: 0;">What Gazebo Provides</h3>
+                        <ul style="margin-top: 8px;">
+                            <li>Physics engine (gravity, collisions, friction)</li>
+                            <li>Simulated sensors (lidar, camera, IMU)</li>
+                            <li>3D environments with obstacles</li>
+                            <li>Sensors publish to <strong>the same ROS topics</strong> as real hardware</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3 style="margin-top: 0;">Why Simulate First?</h3>
+                        <ul style="margin-top: 8px;">
+                            <li><span class="checkmark">✓</span> No hardware damage from bugs</li>
+                            <li><span class="checkmark">✓</span> Everyone gets their own robot</li>
+                            <li><span class="checkmark">✓</span> Reset instantly after crashes</li>
+                            <li><span class="checkmark">✓</span> Test algorithms before real deployment</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-success" style="margin-top: 15px; font-size: 0.85em;">
+                    <strong>Key insight:</strong> Code you write for a simulated TurtleBot3 in Gazebo will also run on a <em>real</em> TurtleBot3 &mdash; because both use the same ROS2 topics and messages.
+                </div>
+            </section>
+
+            <!-- TurtleBot3 -->
+            <section>
+                <h2>TurtleBot3: Our Robot Platform</h2>
+                <div class="box" style="margin-top: 20px; font-size: 0.85em;">
+                    <strong>TurtleBot3 Burger</strong> &mdash; a small, differential-drive robot widely used in robotics education.
+                </div>
+                <div class="two-col" style="margin-top: 20px;">
+                    <div class="col-item">
+                        <h3 style="margin-top: 0;">Hardware</h3>
+                        <ul style="margin-top: 8px;">
+                            <li>2 DC motors (differential drive)</li>
+                            <li>360&deg; lidar scanner</li>
+                            <li>IMU (accelerometer + gyroscope)</li>
+                            <li>Raspberry Pi + OpenCR board</li>
+                        </ul>
+                    </div>
+                    <div class="col-item">
+                        <h3 style="margin-top: 0;">Key ROS2 Topics</h3>
+                        <ul style="margin-top: 8px;">
+                            <li><code>/scan</code> &mdash; lidar distance data</li>
+                            <li><code>/odom</code> &mdash; position estimate</li>
+                            <li><code>/cmd_vel</code> &mdash; velocity commands</li>
+                            <li><code>/imu</code> &mdash; orientation data</li>
+                        </ul>
+                    </div>
+                </div>
+                <pre style="margin-top: 15px;"><code># Launch TurtleBot3 in Gazebo
+ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py</code></pre>
+            </section>
+
+            <!-- Essential Commands -->
+            <section>
+                <h2>Essential ROS2 Commands</h2>
+                <table style="margin-top: 20px; width: 90%;">
+                    <thead>
+                        <tr>
+                            <th>Command</th>
+                            <th>What It Does</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>ros2 node list</code></td>
+                            <td>List all running nodes</td>
+                        </tr>
+                        <tr>
+                            <td><code>ros2 topic list</code></td>
+                            <td>List all active topics</td>
+                        </tr>
+                        <tr>
+                            <td><code>ros2 topic echo /scan</code></td>
+                            <td>Print messages from a topic in real time</td>
+                        </tr>
+                        <tr>
+                            <td><code>ros2 topic echo /scan --once</code></td>
+                            <td>Print one message and stop</td>
+                        </tr>
+                        <tr>
+                            <td><code>ros2 run &lt;pkg&gt; &lt;node&gt;</code></td>
+                            <td>Start a single node</td>
+                        </tr>
+                        <tr>
+                            <td><code>ros2 launch &lt;pkg&gt; &lt;file&gt;</code></td>
+                            <td>Start multiple nodes at once</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="box box-warning" style="margin-top: 15px; font-size: 0.8em;">
+                    <strong>Tip:</strong> You only need these 6 commands for the rest of the semester. Everything else builds on them.
+                </div>
+            </section>
+
+            <!-- What's Next -->
+            <section>
+                <h2>What's Coming Next</h2>
+                <div style="margin-top: 20px; font-size: 0.82em;">
+                    <table style="width: 90%;">
+                        <thead>
+                            <tr><th>Week</th><th>Topic</th><th>What You'll Do</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>10</strong></td><td>ROS2 Basics</td><td>Set up environment, drive TurtleBot3, explore topics</td></tr>
+                            <tr><td><strong>11</strong></td><td>SLAM &amp; Mapping</td><td>Build a map by driving the robot around</td></tr>
+                            <tr><td><strong>12</strong></td><td>Localization &amp; Navigation</td><td>Robot finds itself on a map, plans paths to goals</td></tr>
+                            <tr><td><strong>13</strong></td><td>Autonomous Navigation</td><td>Robot avoids obstacles and replans paths</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box box-success" style="margin-top: 20px; font-size: 0.85em;">
+                    <strong>Today:</strong> Set up your Docker environment and drive a simulated robot.
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section>
+                <h2>Key Takeaways</h2>
+                <ul style="font-size: 0.85em; margin-top: 20px;">
+                    <li><strong>ROS2</strong> is middleware that connects robot software using <strong>publish/subscribe</strong> messaging</li>
+                    <li><strong>Nodes</strong> are independent processes that each do one job</li>
+                    <li><strong>Topics</strong> are named channels that carry <strong>messages</strong> between nodes</li>
+                    <li><strong>Gazebo</strong> simulates physics and sensors &mdash; code works the same on real hardware</li>
+                    <li><strong>TurtleBot3</strong> is our robot platform &mdash; lidar, odometry, and velocity control</li>
+                    <li>You only need <strong>6 commands</strong> to inspect and control the entire system</li>
+                </ul>
+                <div class="box" style="margin-top: 25px; text-align: center; font-size: 1em;">
+                    <strong>Now let's set up the environment! &rarr; <a href="/activities/activity5">Activity 5</a></strong>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'all'
+        });
+    </script>
+</body>
+</html>
