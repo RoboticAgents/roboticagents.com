@@ -127,7 +127,7 @@ Wait ~30–60 seconds for Gazebo to load. You should see:
 ### 3.2 Launch Keyboard Teleoperation
 
 ```bash
-ros2 run turtlebot3_teleop teleop_keyboard
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -p stamped:=true
 ```
 
 You should see control instructions:
@@ -144,6 +144,18 @@ w/x : increase/decrease linear velocity
 a/d : increase/decrease angular velocity
 space key, s : force stop
 ```
+
+### 3.2b Direct Velocity Command (Quick Movement Test)
+
+If keyboard teleop does not move the robot, run this command in a terminal to publish forward velocity directly:
+
+```bash
+ros2 topic pub /cmd_vel geometry_msgs/msg/TwistStamped "{header: {frame_id: 'base_link'}, twist: {linear: {x: 0.2}, angular: {z: 0.0}}}" -r 10
+```
+
+You should immediately see the robot move forward. Press `Ctrl+C` to stop.
+
+This is a useful debugging step because it bypasses keyboard input and tests whether `/cmd_vel` commands reach the simulator.
 
 ### 3.3 Drive Around
 
