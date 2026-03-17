@@ -13,4 +13,4 @@ weight = 5
 - [Week 7: Collaborative Robots](https://docs.google.com/presentation/d/e/2PACX-1vQtDh_u2sFnaStxR_ayrAGsCWQVRVHsODT52vcjcaoEVp34QamW_7fU5B9tGHuDzg/pub?start=false&loop=false&delayms=3000)
 - [Exam 1 Review](/slides/exam1review.html)
 - [Exam 2 Review](/slides/exam2review.html)
-- [Week 10: Introduction to ROS2](/slides/ros2intro.html)
+<!-- - [Week 10: Introduction to ROS2](/slides/ros2intro.html) -->
