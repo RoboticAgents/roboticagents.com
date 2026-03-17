@@ -136,13 +136,13 @@ You should see control instructions:
 Control Your TurtleBot3!
 ---------------------------
 Moving around:
-        w
-   a    s    d
-        x
+        i
+   j    k    l
+        ,
 
-w/x : increase/decrease linear velocity
-a/d : increase/decrease angular velocity
-space key, s : force stop
+i/, : increase/decrease linear velocity
+j/l : increase/decrease angular velocity
+k : force stop
 ```
 
 ### 3.2b Direct Velocity Command (Quick Movement Test)
@@ -159,11 +159,11 @@ This is a useful debugging step because it bypasses keyboard input and tests whe
 
 ### 3.3 Drive Around
 
-- **`w`** — move forward
-- **`a`** — turn left
-- **`d`** — turn right
-- **`x`** — move backward
-- **`s`** or **space** — stop
+- **`i`** — move forward
+- **`j`** — turn left
+- **`l`** — turn right
+- **`,`** — move backward
+- **`k`** — stop
 
 Drive the robot around the world. Try navigating through gaps between obstacles without colliding.
 
