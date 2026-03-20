@@ -17,4 +17,3 @@ The slides cover:
 - Simulation with Gazebo
 - TurtleBot 4: Our Robot Platform
 - Essential ROS2 Commands
-- What's Coming Next (Weeks 10–13)
