@@ -67,7 +67,7 @@ GitHub and Discord are the main digital channels used in this course for communi
 | Category | Total Points | Number of Items | Points per Item |
 |----------|-------------|----------------|----------------|
 | In-Class Activities | 10 | 10 | 1 |
-| Projects | 40 | 5 | 8 |
+| Projects | 40 | 4 | 10 |
 | Community Engagement | 10 | 2 | 5 |
 | Exams | 30 | 3 | 10 |
 | Final Project | 10 | 1 | 10 |
@@ -88,7 +88,7 @@ All students are required to actively participate during all of the class sessio
 
 #### Projects
 
-Graded on a percentage and credit/no-credit basis, five project assignments, invite students to experiment with various tools and techniques for designing, implementing, evaluating, and documenting your robotic agent system. Additionally, you will be required to submit reflections on the civic learning components if relevant to the particular project.  To best ensure that students are ready to develop software  after graduation, students will complete most of the lab asprojectssignments in teams. All lab projects in this course will expect students to give both a presentation and a demonstration of the system that they created. Additionally, you will be required to engage in a code review with the instructor for applicable projects.
+Graded on a percentage and credit/no-credit basis, four project assignments, invite students to experiment with various tools and techniques for designing, implementing, evaluating, and documenting your robotic agent system. Additionally, you will be required to submit reflections on the civic learning components if relevant to the particular project.  To best ensure that students are ready to develop software  after graduation, students will complete most of the lab asprojectssignments in teams. All lab projects in this course will expect students to give both a presentation and a demonstration of the system that they created. Additionally, you will be required to engage in a code review with the instructor for applicable projects.
 
 #### Community Engagement
 
