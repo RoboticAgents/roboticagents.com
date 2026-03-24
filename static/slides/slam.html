@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLAM & Mapping | CS304</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <style>
+        :root {
+            --primary: #5a4ba4;
+            --secondary: #6610f2;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .reveal h1 {
+            color: var(--primary);
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 0.4em;
+        }
+        
+        .reveal h3 {
+            color: var(--secondary);
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        
+        .reveal .subtitle {
+            color: var(--dark);
+            font-size: 1.2em;
+            margin-top: -20px;
+        }
+        
+        .reveal ul {
+            font-size: 0.8em;
+            line-height: 1.5;
+        }
+        
+        .reveal li {
+            margin: 0.25em 0;
+        }
+        
+        .reveal .highlight {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .reveal .box {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 15px auto;
+            max-width: 90%;
+            font-size: 0.9em;
+        }
+        
+        .reveal .box-success {
+            border-left-color: var(--success);
+        }
+        
+        .reveal .box-info {
+            border-left-color: var(--info);
+        }
+        
+        .reveal .box-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        
+        .reveal .col-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .reveal .small-text {
+            font-size: 0.7em;
+            color: #666;
+        }
+        
+        .reveal table {
+            font-size: 0.7em;
+            margin: 15px auto;
+        }
+        
+        .reveal th {
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+        }
+        
+        .reveal td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .reveal img {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .reveal .progress {
+            background: rgba(90, 75, 164, 0.2);
+        }
+        
+        .reveal .progress span {
+            background: var(--primary);
+        }
+        
+        .reveal .checkmark {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .reveal .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .reveal .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+        
+        .reveal .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .reveal .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .reveal .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .reveal code {
+            background: #f4f4f4;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .reveal pre {
+            margin: 15px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .reveal pre code {
+            padding: 20px;
+            font-size: 0.65em;
+            line-height: 1.4;
+        }
+
+        .reveal .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            font-size: 0.85em;
+        }
+
+        .reveal .flow-box {
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .reveal .flow-arrow {
+            font-size: 1.5em;
+            color: var(--primary);
+        }
+
+        .reveal .grid-demo {
+            display: inline-grid;
+            gap: 1px;
+            background: #999;
+            padding: 1px;
+            border-radius: 4px;
+            margin: 10px;
+        }
+
+        .reveal .grid-demo span {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5em;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section>
+                <h1>SLAM &amp; Mapping</h1>
+                <p class="subtitle">Week 11 &bull; CMPSC 304 Robotic Agents</p>
+                <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>&rarr;</strong> to advance</p>
+            </section>
+
+            <!-- From Activity 5 to P4 -->
+            <section>
+                <h2>Where We Are</h2>
+                <div class="flow-diagram">
+                    <div class="flow-box" style="background: var(--success);">Activity 5<br><span style="font-size:0.7em; font-weight:400;">Nodes, Topics</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--primary);">Today<br><span style="font-size:0.7em; font-weight:400;">SLAM &amp; Mapping</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--info);">Project 4<br><span style="font-size:0.7em; font-weight:400;">Full Pipeline</span></div>
+                </div>
+                <ul>
+                    <li><strong>Activity 5:</strong> You drove a robot, inspected topics — <em>you made a robot move</em></li>
+                    <li><strong>Today:</strong> Where is the robot? What does the world look like? — <em>building a map</em></li>
+                    <li><strong>P4 Part 1:</strong> You'll build a complete map of a simulated environment</li>
+                </ul>
+            </section>
+
+            <!-- The Fundamental Problem -->
+            <section>
+                <h2>The Mapping Problem</h2>
+                <div class="box" style="margin-top: 15px; font-size: 0.9em;">
+                    <strong>Core question:</strong> How does a robot build a representation of its environment using only sensor data?
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li>The robot starts with <span class="highlight">no map</span></li>
+                    <li>It has sensors (lidar, cameras, etc.) that measure <strong>local</strong> surroundings</li>
+                    <li>It needs to combine many local measurements into a <strong>global</strong> map</li>
+                    <li>But to combine them correctly, it needs to know where it <em>was</em> for each measurement</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 15px; padding: 10px 15px; font-size: 0.85em;">
+                    <strong>Chicken-and-egg problem:</strong> To build a map, you need to know where you are. To know where you are, you need a map.
+                </div>
+            </section>
+
+            <!-- SLAM Definition -->
+            <section>
+                <h2>SLAM: Simultaneous Localization and Mapping</h2>
+                <div class="box" style="margin-top: 15px; font-size: 0.9em;">
+                    <strong>SLAM</strong> solves both problems at once: build the map <em>and</em> track position simultaneously.
+                </div>
+                <div class="flow-diagram" style="flex-wrap: wrap; margin-top: 25px;">
+                    <div class="flow-box" style="background: var(--info); font-size: 0.85em; min-width: 120px;">Sensor Data<br><span style="font-size:0.7em; font-weight:400;">(lidar scans)</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--primary); font-size: 0.85em; min-width: 120px;">SLAM<br><span style="font-size:0.7em; font-weight:400;">Algorithm</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.85em; min-width: 120px;">Map +<br><span style="font-size:0.7em; font-weight:400;">Robot Pose</span></div>
+                </div>
+                <ul style="margin-top: 20px;">
+                    <li><strong>Inputs:</strong> sensor readings (lidar), odometry (wheel encoders)</li>
+                    <li><strong>Outputs:</strong> a map of the environment + the robot's estimated trajectory</li>
+                    <li>The algorithm iterates: each new scan updates both the map and the pose estimate</li>
+                </ul>
+            </section>
+
+            <!-- Lidar -->
+            <section>
+                <h2>Lidar: How the Robot "Sees"</h2>
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">How It Works</h3>
+                        <ul style="font-size: 0.75em; margin-top: 5px;">
+                            <li>Emits laser beams in a 360&deg; sweep</li>
+                            <li>Measures <strong>time of flight</strong> for each beam</li>
+                            <li>Converts to distance measurements</li>
+                            <li>TurtleBot3 LDS-02: 360 samples/revolution</li>
+                            <li>Published on <code>/scan</code> topic</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">What You Get</h3>
+                        <ul style="font-size: 0.75em; margin-top: 5px;">
+                            <li>Array of distances at known angles</li>
+                            <li>Range: 0.12m to 3.5m (TurtleBot3)</li>
+                            <li>Close objects &rarr; short distances</li>
+                            <li>Open space &rarr; max range or <code>inf</code></li>
+                            <li>Visualized as red dots in RViz</li>
+                        </ul>
+                    </div>
+                </div>
+                <pre style="margin: 8px auto;"><code>ros2 topic echo /scan --once   # See one lidar scan message</code></pre>
+            </section>
+
+            <!-- Occupancy Grids -->
+            <section>
+                <h2>Occupancy Grids: The Map Representation</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    An <strong>occupancy grid</strong> divides the world into a grid of cells. Each cell stores the <em>probability</em> that it is occupied.
+                </div>
+                <div style="text-align: center; margin: 20px 0;">
+                    <div class="grid-demo" style="grid-template-columns: repeat(8, 1fr);">
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#ccc;">?</span>
+                        <span style="background:#ccc;">?</span>
+                        <span style="background:#ccc;">?</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#ccc;">?</span>
+                        <span style="background:#ccc;">?</span>
+                        <span style="background:#ccc;">?</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#fff;">0.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                        <span style="background:#333; color:#fff;">1.0</span>
+                    </div>
+                </div>
+                <table>
+                    <thead><tr><th>Value</th><th>Meaning</th><th>Color in Map</th></tr></thead>
+                    <tbody>
+                        <tr><td>0.0 (free)</td><td>Definitely empty / traversable</td><td>White</td></tr>
+                        <tr><td>1.0 (occupied)</td><td>Definitely an obstacle / wall</td><td>Black</td></tr>
+                        <tr><td>-1 / unknown</td><td>Not yet observed</td><td>Gray</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Probabilistic Update -->
+            <section>
+                <h2>How Cells Get Updated</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    Each cell starts at <strong>0.5</strong> (unknown). As the robot scans, cells are updated using <strong>Bayes' rule</strong>.
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li>Lidar beam <strong>hits an obstacle</strong> &rarr; cell at that distance gets <span class="highlight">more occupied</span> (probability increases toward 1.0)</li>
+                    <li>Lidar beam <strong>passes through</strong> &rarr; cells along the beam path get <span class="checkmark">more free</span> (probability decreases toward 0.0)</li>
+                    <li>Multiple observations of the same cell &rarr; <strong>probability converges</strong> to the true state</li>
+                </ul>
+                <div class="box box-info" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>Log-odds trick:</strong> Instead of multiplying small probabilities (numerical issues), SLAM implementations use log-odds: <code>l = log(p / (1-p))</code>. Additions in log-odds space = multiplications in probability space.
+                </div>
+            </section>
+
+            <!-- Scan Matching -->
+            <section>
+                <h2>Scan Matching: Aligning Scans</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    How does SLAM know where the robot moved between scans?
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Odometry</strong> gives an initial guess (from wheel encoders) — but it <em>drifts</em></li>
+                    <li><strong>Scan matching</strong> aligns consecutive lidar scans to refine the pose</li>
+                    <li>Algorithm: find the rotation &amp; translation that best aligns scan B to scan A</li>
+                </ul>
+                <div class="flow-diagram" style="margin-top: 20px;">
+                    <div class="flow-box" style="background: var(--info); font-size: 0.8em;">Scan at<br>time t</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--warning); color: var(--dark); font-size: 0.8em;">Scan<br>Matching</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--info); font-size: 0.8em;">Scan at<br>time t+1</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.8em;">Refined<br>Pose</div>
+                </div>
+                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>ICP (Iterative Closest Point)</strong> is a classic scan matching algorithm: iteratively finds closest points between scans, computes optimal transform, repeats until convergence.
+                </div>
+            </section>
+
+            <!-- Loop Closure -->
+            <section>
+                <h2>Loop Closure: Fixing Accumulated Error</h2>
+                <ul style="margin-top: 15px;">
+                    <li>Even with scan matching, <strong>small errors accumulate</strong> over time</li>
+                    <li>After a long drive, the robot's position estimate <em>drifts</em> from truth</li>
+                    <li><strong>Loop closure:</strong> the robot returns to a previously visited location</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 15px; font-size: 0.85em;">
+                    When the SLAM algorithm detects it has returned to a known place, it <strong>distributes the accumulated error</strong> back across the entire trajectory, correcting the map.
+                </div>
+                <div class="two-col" style="margin-top: 15px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Before Loop Closure</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Walls don't quite line up</li>
+                            <li>Rooms appear slightly shifted</li>
+                            <li>Corridors may look bent</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">After Loop Closure</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Walls snap into alignment</li>
+                            <li>Room shapes correct</li>
+                            <li>Map becomes globally consistent</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cartographer -->
+            <section>
+                <h2>Google Cartographer</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    <strong>Cartographer</strong> is the SLAM algorithm installed in our Docker environment.
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li>Developed by Google, open-sourced in 2016</li>
+                    <li>Uses a <strong>submap</strong> approach: builds small local maps, then optimizes their alignment</li>
+                    <li>Handles loop closure through <strong>pose graph optimization</strong></li>
+                    <li>Works with 2D lidar (our TurtleBot3) or 3D lidar</li>
+                </ul>
+                <pre style="margin: 15px auto;"><code># Launch Cartographer with TurtleBot3
+ros2 launch turtlebot3_cartographer cartographer.launch.py</code></pre>
+                <div class="box box-info" style="margin-top: 10px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>What you'll see in RViz:</strong> The map builds in real-time as you drive. Gray = unknown, white = free, black = obstacles. The robot's position is tracked by a small arrow.
+                </div>
+            </section>
+
+            <!-- Saving a Map -->
+            <section>
+                <h2>Saving &amp; Using Maps</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    Once mapping is complete, <strong>save</strong> the map for later use (navigation).
+                </div>
+                <pre style="margin: 15px auto;"><code># Save the current map
+ros2 run nav2_map_server map_saver_cli -f ~/map</code></pre>
+                <p style="font-size: 0.8em; margin-top: 10px;">This creates two files:</p>
+                <table>
+                    <thead><tr><th>File</th><th>Contents</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>map.pgm</code></td><td>Grayscale image — each pixel is one grid cell</td></tr>
+                        <tr><td><code>map.yaml</code></td><td>Metadata: resolution (m/pixel), origin, thresholds</td></tr>
+                    </tbody>
+                </table>
+                <pre style="margin: 15px auto;"><code># map.yaml contents:
+image: map.pgm
+resolution: 0.050000    # 5 cm per pixel
+origin: [-10.0, -10.0, 0.0]
+occupied_thresh: 0.65
+free_thresh: 0.196</code></pre>
+            </section>
+
+            <!-- Good Mapping Tips -->
+            <section>
+                <h2>Tips for Building Good Maps</h2>
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;"><span class="checkmark">&#10003;</span> Do</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Drive <strong>slowly</strong> — fast motion distorts scans</li>
+                            <li>Cover the <strong>entire area</strong> methodically</li>
+                            <li>Return to start for <strong>loop closure</strong></li>
+                            <li>Drive close to walls for clear readings</li>
+                            <li>Make smooth turns</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;"><span class="crossmark">&#10007;</span> Don't</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Race through corridors</li>
+                            <li>Make sharp, jerky turns</li>
+                            <li>Leave large <strong>unknown</strong> areas</li>
+                            <li>Spin in place (confuses odometry)</li>
+                            <li>Stop mapping before revisiting areas</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROS2 Topics in SLAM -->
+            <section>
+                <h2>ROS2 Topics During SLAM</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    During mapping, multiple nodes communicate through these key topics:
+                </div>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Topic</th><th>Message Type</th><th>Purpose</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>/scan</code></td><td>LaserScan</td><td>Lidar distance readings</td></tr>
+                        <tr><td><code>/odom</code></td><td>Odometry</td><td>Wheel encoder pose estimate</td></tr>
+                        <tr><td><code>/map</code></td><td>OccupancyGrid</td><td>The map being built</td></tr>
+                        <tr><td><code>/tf</code></td><td>TransformStamped</td><td>Coordinate frame transforms</td></tr>
+                        <tr><td><code>/cmd_vel</code></td><td>TwistStamped</td><td>Velocity commands (your teleop input)</td></tr>
+                    </tbody>
+                </table>
+                <pre style="margin: 10px auto;"><code># Inspect Cartographer's subscriptions:
+ros2 node info /cartographer_node</code></pre>
+            </section>
+
+            <!-- Textbook Connection -->
+            <section>
+                <h2>Textbook Connection: IAR Chapter 13</h2>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Section 13.1–13.2:</strong> Map representations — occupancy grids are one of several options (topological maps, feature maps)</li>
+                    <li><strong>Section 13.3:</strong> Probabilistic grid mapping — the Bayesian update rule we discussed</li>
+                    <li><strong>Section 13.4:</strong> SLAM problem formulation — why it's "one of the most important problems in robotics"</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 15px; font-size: 0.85em;">
+                    <strong>Key insight from the textbook:</strong> Mapping is fundamentally a <em>probabilistic</em> problem. Sensor noise, odometry drift, and environmental ambiguity mean we can never be 100% certain about any cell. The occupancy grid elegantly encodes this uncertainty.
+                </div>
+            </section>
+
+            <!-- Summary and Activity -->
+            <section>
+                <h2>Summary</h2>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Concept</th><th>What It Does</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Lidar</strong></td><td>Measures distances to obstacles in 360&deg;</td></tr>
+                        <tr><td><strong>Occupancy Grid</strong></td><td>Grid-based map — each cell: occupied, free, or unknown</td></tr>
+                        <tr><td><strong>SLAM</strong></td><td>Builds map while tracking robot position</td></tr>
+                        <tr><td><strong>Scan Matching</strong></td><td>Aligns consecutive scans to estimate motion</td></tr>
+                        <tr><td><strong>Loop Closure</strong></td><td>Corrects drift when revisiting known areas</td></tr>
+                        <tr><td><strong>Cartographer</strong></td><td>Google's SLAM algorithm — what we use in class</td></tr>
+                    </tbody>
+                </table>
+                <div class="box" style="margin-top: 15px; text-align: center; font-size: 1em;">
+                    <strong>Now let's build a map! &rarr; <a href="/activities/activity6">Activity 6</a></strong>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'all'
+        });
+    </script>
+</body>
+</html>

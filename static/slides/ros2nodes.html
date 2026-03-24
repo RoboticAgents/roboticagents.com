@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing ROS2 Nodes | CS304</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <style>
+        :root {
+            --primary: #5a4ba4;
+            --secondary: #6610f2;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .reveal h1 {
+            color: var(--primary);
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 0.4em;
+        }
+        
+        .reveal h3 {
+            color: var(--secondary);
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        
+        .reveal .subtitle {
+            color: var(--dark);
+            font-size: 1.2em;
+            margin-top: -20px;
+        }
+        
+        .reveal ul {
+            font-size: 0.8em;
+            line-height: 1.5;
+        }
+        
+        .reveal li {
+            margin: 0.25em 0;
+        }
+        
+        .reveal .highlight {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .reveal .box {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 15px auto;
+            max-width: 90%;
+            font-size: 0.9em;
+        }
+        
+        .reveal .box-success {
+            border-left-color: var(--success);
+        }
+        
+        .reveal .box-info {
+            border-left-color: var(--info);
+        }
+        
+        .reveal .box-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        
+        .reveal .col-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .reveal .small-text {
+            font-size: 0.7em;
+            color: #666;
+        }
+        
+        .reveal table {
+            font-size: 0.7em;
+            margin: 15px auto;
+        }
+        
+        .reveal th {
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+        }
+        
+        .reveal td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .reveal img {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .reveal .progress {
+            background: rgba(90, 75, 164, 0.2);
+        }
+        
+        .reveal .progress span {
+            background: var(--primary);
+        }
+        
+        .reveal .checkmark {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .reveal .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .reveal code {
+            background: #f4f4f4;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .reveal pre {
+            margin: 15px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .reveal pre code {
+            padding: 20px;
+            font-size: 0.65em;
+            line-height: 1.4;
+        }
+
+        .reveal .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            font-size: 0.85em;
+        }
+
+        .reveal .flow-box {
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .reveal .flow-arrow {
+            font-size: 1.5em;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section>
+                <h1>Writing ROS2 Nodes</h1>
+                <p class="subtitle">Week 12 &bull; CMPSC 304 Robotic Agents</p>
+                <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>&rarr;</strong> to advance</p>
+            </section>
+
+            <!-- Where We Are -->
+            <section>
+                <h2>Course Progression</h2>
+                <div class="flow-diagram">
+                    <div class="flow-box" style="background: var(--success); font-size: 0.8em;">SLAM<br><span style="font-size:0.7em; font-weight:400;">Build maps</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.8em;">Nav2<br><span style="font-size:0.7em; font-weight:400;">Click goals</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--primary); font-size: 0.8em;">Today<br><span style="font-size:0.7em; font-weight:400;">Code goals</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--info); font-size: 0.8em;">Friday<br><span style="font-size:0.7em; font-weight:400;">Real robots</span></div>
+                </div>
+                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                    <strong>The key shift:</strong> Moving from using ROS2 <em>tools</em> (CLI, RViz) to writing ROS2 <em>code</em> (Python nodes that interact with the navigation stack programmatically).
+                </div>
+            </section>
+
+            <!-- Why Write Nodes? -->
+            <section>
+                <h2>Why Write Your Own Nodes?</h2>
+                <div class="two-col" style="margin-top: 15px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Clicking Goals in RViz</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>One goal at a time</li>
+                            <li>Requires a human at the screen</li>
+                            <li>No conditional logic</li>
+                            <li>No reaction to events</li>
+                            <li>Great for <strong>testing</strong></li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Sending Goals from Code</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Multiple waypoints in sequence</li>
+                            <li>Fully autonomous — no human needed</li>
+                            <li>Conditional: "if goal fails, try alternative"</li>
+                            <li>React to sensor data or events</li>
+                            <li>Required for <strong>real robots</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ROS2 Node Anatomy -->
+            <section>
+                <h2>Anatomy of a ROS2 Python Node</h2>
+                <pre><code>import rclpy
+from rclpy.node import Node
+
+class MyNode(Node):
+    def __init__(self):
+        super().__init__('my_node_name')
+        self.get_logger().info('Node started!')
+
+def main(args=None):
+    rclpy.init(args=args)        # Initialize ROS2
+    node = MyNode()               # Create the node
+    rclpy.spin(node)              # Keep it running
+    rclpy.shutdown()              # Clean up</code></pre>
+                <ul style="margin-top: 15px;">
+                    <li><code>rclpy</code> — the ROS2 Python client library</li>
+                    <li><code>Node</code> — base class that gives you publishers, subscribers, timers, etc.</li>
+                    <li><code>spin()</code> — event loop that processes callbacks</li>
+                </ul>
+            </section>
+
+            <!-- Topics Recap -->
+            <section>
+                <h2>Communication: Topics Review</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    Topics are <strong>one-way data streams</strong>: publishers send, subscribers receive. No response expected.
+                </div>
+                <pre><code># Publishing to a topic (e.g., velocity commands)
+from geometry_msgs.msg import Twist
+
+self.publisher = self.create_publisher(Twist, '/cmd_vel', 10)
+
+msg = Twist()
+msg.linear.x = 0.2   # Forward at 0.2 m/s
+msg.angular.z = 0.0   # No rotation
+self.publisher.publish(msg)</code></pre>
+                <pre><code># Subscribing to a topic (e.g., lidar data)
+from sensor_msgs.msg import LaserScan
+
+self.subscription = self.create_subscription(
+    LaserScan, '/scan', self.scan_callback, 10)
+
+def scan_callback(self, msg):
+    min_distance = min(msg.ranges)
+    self.get_logger().info(f'Closest obstacle: {min_distance:.2f}m')</code></pre>
+            </section>
+
+            <!-- Actions -->
+            <section>
+                <h2>Communication: Actions</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    An <strong>action</strong> is for long-running tasks with feedback. The client sends a goal; the server executes it and reports progress.
+                </div>
+                <div class="flow-diagram" style="margin-top: 15px;">
+                    <div class="flow-box" style="background: var(--info); font-size: 0.8em;">Your<br>Node</div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 0.7em; color: var(--primary); font-weight: 600;">Goal</div>
+                        <div style="font-size: 1.3em; color: var(--primary);">&xrarr;</div>
+                        <div style="font-size: 1.3em; color: var(--success);">&xlArr;</div>
+                        <div style="font-size: 0.7em; color: var(--success); font-weight: 600;">Feedback + Result</div>
+                    </div>
+                    <div class="flow-box" style="background: var(--primary); font-size: 0.8em;">Nav2<br>Server</div>
+                </div>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Part</th><th>Direction</th><th>Purpose</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Goal</strong></td><td>Client &rarr; Server</td><td>"Navigate to position (2, 3)"</td></tr>
+                        <tr><td><strong>Feedback</strong></td><td>Server &rarr; Client</td><td>"Currently at (1.5, 2.1), ETA 5s"</td></tr>
+                        <tr><td><strong>Result</strong></td><td>Server &rarr; Client</td><td>"Reached goal" or "Failed"</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- NavigateToPose Action -->
+            <section>
+                <h2>The NavigateToPose Action</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    Nav2 exposes a <code>NavigateToPose</code> action — the same thing RViz uses when you click a goal.
+                </div>
+                <pre><code>from rclpy.action import ActionClient
+from nav2_msgs.action import NavigateToPose
+from geometry_msgs.msg import PoseStamped
+
+# Create the action client
+self._client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
+
+# Build a goal
+goal = NavigateToPose.Goal()
+goal.pose = PoseStamped()
+goal.pose.header.frame_id = 'map'
+goal.pose.pose.position.x = 2.0
+goal.pose.pose.position.y = -1.0
+
+# Send it
+self._client.wait_for_server()
+future = self._client.send_goal_async(goal)</code></pre>
+            </section>
+
+            <!-- Async Callbacks -->
+            <section>
+                <h2>Handling the Response (Callbacks)</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    Actions are <strong>asynchronous</strong> — you send the goal and get callbacks when things happen.
+                </div>
+                <pre><code># When goal is accepted/rejected:
+def goal_response_callback(self, future):
+    goal_handle = future.result()
+    if not goal_handle.accepted:
+        self.get_logger().warn('Goal rejected!')
+        return
+    
+    self.get_logger().info('Goal accepted!')
+    # Now wait for the result
+    result_future = goal_handle.get_result_async()
+    result_future.add_done_callback(self.result_callback)
+
+# When navigation completes:
+def result_callback(self, future):
+    self.get_logger().info('Goal reached!')
+    # Send the next waypoint here...</code></pre>
+                <div class="box box-info" style="margin-top: 10px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>Key pattern:</strong> Send goal &rarr; get acceptance &rarr; wait for result &rarr; send next goal. This is how you chain waypoints.
+                </div>
+            </section>
+
+            <!-- Waypoint Pattern -->
+            <section>
+                <h2>Pattern: Sequential Waypoints</h2>
+                <pre><code>class WaypointNavigator(Node):
+    def __init__(self):
+        super().__init__('waypoint_navigator')
+        self._client = ActionClient(
+            self, NavigateToPose, 'navigate_to_pose')
+        
+        # Define your route
+        self.waypoints = [
+            (0.5, -1.0, 0.0),    # (x, y, yaw)
+            (2.0, -1.0, 1.57),
+            (2.0,  0.5, 3.14),
+            (0.0,  0.0, 0.0),    # Back to start
+        ]
+        self.current = 0
+    
+    def result_callback(self, future):
+        self.current += 1
+        if self.current < len(self.waypoints):
+            self.send_next_goal()   # Keep going
+        else:
+            self.get_logger().info('Route complete!')</code></pre>
+                <div class="box box-success" style="margin-top: 10px; padding: 10px 15px; font-size: 0.8em;">
+                    This is the pattern for <strong>P4 Part 3</strong>. The full starter code is in the project README.
+                </div>
+            </section>
+
+            <!-- Orientation (Quaternions) -->
+            <section>
+                <h2>Specifying Orientation</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    Goal poses include orientation as a <strong>quaternion</strong>. For 2D robots, we only care about <strong>yaw</strong> (rotation around the z-axis).
+                </div>
+                <pre><code>import math
+
+yaw = 1.57  # radians (90 degrees)
+
+# Convert yaw to quaternion:
+orientation_z = math.sin(yaw / 2.0)
+orientation_w = math.cos(yaw / 2.0)
+
+goal.pose.pose.orientation.z = orientation_z
+goal.pose.pose.orientation.w = orientation_w</code></pre>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Yaw (radians)</th><th>Direction</th><th>Degrees</th></tr></thead>
+                    <tbody>
+                        <tr><td>0.0</td><td>Facing +x (right)</td><td>0&deg;</td></tr>
+                        <tr><td>1.57</td><td>Facing +y (up)</td><td>90&deg;</td></tr>
+                        <tr><td>3.14</td><td>Facing -x (left)</td><td>180&deg;</td></tr>
+                        <tr><td>-1.57</td><td>Facing -y (down)</td><td>-90&deg;</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Finding Coordinates -->
+            <section>
+                <h2>How to Find Coordinates</h2>
+                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                    Where should your waypoints be? Use RViz to find coordinates on your map.
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Hover method:</strong> Hover your mouse over the map in RViz — coordinates appear at the bottom of the RViz window</li>
+                    <li><strong>Topic method:</strong> Click a "Nav2 Goal" and check the terminal for the goal coordinates</li>
+                    <li><strong>Echo method:</strong> <code>ros2 topic echo /goal_pose</code> to see goals as they're sent</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>Coordinate frame:</strong> All positions are in the <code>map</code> frame. The origin (0, 0) is defined in your <code>map.yaml</code> file. Positive x is forward, positive y is left.
+                </div>
+            </section>
+
+            <!-- ROS2 Package Structure -->
+            <section>
+                <h2>Creating a ROS2 Python Package</h2>
+                <pre><code># Create workspace and package
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
+ros2 pkg create --build-type ament_python waypoint_nav
+
+# Package structure:
+# waypoint_nav/
+# ├── package.xml
+# ├── setup.py
+# ├── setup.cfg
+# └── waypoint_nav/
+#     ├── __init__.py
+#     └── navigate_waypoints.py  ← your node</code></pre>
+                <pre><code># Register node in setup.py → entry_points:
+'console_scripts': [
+    'navigate_waypoints = waypoint_nav.navigate_waypoints:main',
+]</code></pre>
+                <pre><code># Build and run
+cd ~/ros2_ws
+colcon build --packages-select waypoint_nav
+source install/setup.bash
+ros2 run waypoint_nav navigate_waypoints</code></pre>
+            </section>
+
+            <!-- Common Pitfalls -->
+            <section>
+                <h2>Common Pitfalls</h2>
+                <div class="two-col" style="margin-top: 15px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;"><span class="crossmark">&#10007;</span> Mistakes</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Forgetting <code>wait_for_server()</code></li>
+                            <li>Wrong <code>frame_id</code> (must be <code>'map'</code>)</li>
+                            <li>Waypoint inside an obstacle</li>
+                            <li>Not sourcing the workspace</li>
+                            <li>Forgetting to set initial pose first</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;"><span class="checkmark">&#10003;</span> Best Practices</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Test waypoints in RViz first</li>
+                            <li>Always handle goal rejection</li>
+                            <li>Start with 2 waypoints, add more once working</li>
+                            <li>Source workspace after every <code>colcon build</code></li>
+                            <li>Use <code>self.get_logger()</code> for debugging</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Arduino Comparison -->
+            <section>
+                <h2>Arduino vs. ROS2: A Comparison</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    You've already written robot code — in Arduino. How does ROS2 compare?
+                </div>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Aspect</th><th>Arduino (P1)</th><th>ROS2 (P4)</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Movement</strong></td><td><code>analogWrite(motorPin, 200)</code></td><td>Publish to <code>/cmd_vel</code> or use Nav2 action</td></tr>
+                        <tr><td><strong>Sensing</strong></td><td><code>digitalRead(sensorPin)</code></td><td>Subscribe to <code>/scan</code></td></tr>
+                        <tr><td><strong>Control loop</strong></td><td><code>void loop()</code></td><td><code>rclpy.spin()</code> + callbacks</td></tr>
+                        <tr><td><strong>Abstraction</strong></td><td>Direct hardware control</td><td>High-level goals ("go to (2,3)")</td></tr>
+                        <tr><td><strong>Reusability</strong></td><td>Custom to your robot</td><td>Works on any ROS2 robot</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-success" style="margin-top: 10px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>The progression:</strong> Arduino &rarr; PLC &rarr; FANUC &rarr; ROS2. Each step increases the level of abstraction and reusability.
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section>
+                <h2>Summary</h2>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Concept</th><th>What It Does</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>rclpy Node</strong></td><td>Python process that participates in the ROS2 graph</td></tr>
+                        <tr><td><strong>Topics</strong></td><td>One-way data streams (publish/subscribe)</td></tr>
+                        <tr><td><strong>Actions</strong></td><td>Long-running tasks with goal, feedback, and result</td></tr>
+                        <tr><td><strong>NavigateToPose</strong></td><td>Nav2's action for sending navigation goals</td></tr>
+                        <tr><td><strong>Callbacks</strong></td><td>Asynchronous handlers for when goals complete</td></tr>
+                        <tr><td><strong>colcon build</strong></td><td>Build system for ROS2 packages</td></tr>
+                    </tbody>
+                </table>
+                <div class="box" style="margin-top: 15px; text-align: center; font-size: 1em;">
+                    <strong>Now let's write a node! &rarr; <a href="/activities/activity8">Activity 8</a></strong>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'all'
+        });
+    </script>
+</body>
+</html>

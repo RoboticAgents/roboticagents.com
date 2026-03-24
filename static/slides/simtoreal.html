@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation to Reality | CS304</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <style>
+        :root {
+            --primary: #5a4ba4;
+            --secondary: #6610f2;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .reveal h1 {
+            color: var(--primary);
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 0.4em;
+        }
+        
+        .reveal h3 {
+            color: var(--secondary);
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        
+        .reveal .subtitle {
+            color: var(--dark);
+            font-size: 1.2em;
+            margin-top: -20px;
+        }
+        
+        .reveal ul {
+            font-size: 0.8em;
+            line-height: 1.5;
+        }
+        
+        .reveal li {
+            margin: 0.25em 0;
+        }
+        
+        .reveal .highlight {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .reveal .box {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 15px auto;
+            max-width: 90%;
+            font-size: 0.9em;
+        }
+        
+        .reveal .box-success {
+            border-left-color: var(--success);
+        }
+        
+        .reveal .box-info {
+            border-left-color: var(--info);
+        }
+        
+        .reveal .box-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        
+        .reveal .col-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .reveal .small-text {
+            font-size: 0.7em;
+            color: #666;
+        }
+        
+        .reveal table {
+            font-size: 0.7em;
+            margin: 15px auto;
+        }
+        
+        .reveal th {
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+        }
+        
+        .reveal td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .reveal img {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .reveal .progress {
+            background: rgba(90, 75, 164, 0.2);
+        }
+        
+        .reveal .progress span {
+            background: var(--primary);
+        }
+        
+        .reveal .checkmark {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .reveal .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .reveal code {
+            background: #f4f4f4;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .reveal pre {
+            margin: 15px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .reveal pre code {
+            padding: 20px;
+            font-size: 0.65em;
+            line-height: 1.4;
+        }
+
+        .reveal .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            font-size: 0.85em;
+        }
+
+        .reveal .flow-box {
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .reveal .flow-arrow {
+            font-size: 1.5em;
+            color: var(--primary);
+        }
+
+        .reveal .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section>
+                <h1>Simulation to Reality</h1>
+                <p class="subtitle">Week 12 &bull; CMPSC 304 Robotic Agents</p>
+                <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>&rarr;</strong> to advance</p>
+            </section>
+
+            <!-- Where We Are -->
+            <section>
+                <h2>The Full Path</h2>
+                <div class="flow-diagram">
+                    <div class="flow-box" style="background: var(--success); font-size: 0.8em;">SLAM<br><span style="font-size:0.7em; font-weight:400;">Build maps</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.8em;">Nav2<br><span style="font-size:0.7em; font-weight:400;">Click goals</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.8em;">Nodes<br><span style="font-size:0.7em; font-weight:400;">Code goals</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--primary); font-size: 0.8em;">Today<br><span style="font-size:0.7em; font-weight:400;">Real robots</span></div>
+                </div>
+                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                    <strong>Everything you've built works in simulation.</strong> Today we address the question: what changes when you move to a <em>physical</em> TurtleBot3?
+                </div>
+            </section>
+
+            <!-- The Sim-to-Real Gap -->
+            <section>
+                <h2>The Sim-to-Real Gap</h2>
+                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                    <strong>Definition:</strong> The difference in behavior between a robot operating in simulation vs. the real world. Also known as the <em>reality gap</em>.
+                </div>
+                <div class="two-col" style="margin-top: 15px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Simulation</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Perfect physics (no friction variance)</li>
+                            <li>Perfect sensors (no noise)</li>
+                            <li>Instant communication</li>
+                            <li>Unlimited battery</li>
+                            <li>No physical damage possible</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Reality</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Uneven surfaces, wheel slip</li>
+                            <li>Sensor noise, reflections, dead zones</li>
+                            <li>Network latency (Wi-Fi)</li>
+                            <li>Battery drains, voltage drops</li>
+                            <li>Collisions cause real damage</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TurtleBot3 Hardware -->
+            <section>
+                <h2>TurtleBot3 Burger: The Hardware</h2>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Component</th><th>Specification</th><th>Relevance</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Compute</strong></td><td>Raspberry Pi 4</td><td>Runs ROS2, limited CPU compared to your laptop</td></tr>
+                        <tr><td><strong>Microcontroller</strong></td><td>OpenCR (ARM Cortex-M7)</td><td>Motor control, IMU, power — like your Arduino</td></tr>
+                        <tr><td><strong>Lidar</strong></td><td>LDS-02 (360&deg;, 5Hz)</td><td>Same sensor model as in Gazebo</td></tr>
+                        <tr><td><strong>Motors</strong></td><td>2&times; Dynamixel XL430</td><td>Differential drive, encoder feedback</td></tr>
+                        <tr><td><strong>IMU</strong></td><td>MPU9250 (9-axis)</td><td>Helps with odometry on real surfaces</td></tr>
+                        <tr><td><strong>Battery</strong></td><td>LiPo 11.1V, 1800mAh</td><td>~2.5 hours runtime</td></tr>
+                        <tr><td><strong>Max speed</strong></td><td>0.22 m/s</td><td>Same limit in Gazebo and reality</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Sensor Differences -->
+            <section>
+                <h2>Lidar: Simulation vs. Reality</h2>
+                <div class="two-col" style="margin-top: 15px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Gazebo Lidar</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Clean, consistent readings</li>
+                            <li>No reflective surface issues</li>
+                            <li>No interference from other robots</li>
+                            <li>Perfect geometry — walls are flat planes</li>
+                            <li>Updates at exactly the configured rate</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Real LDS-02</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Noise in every scan (&plusmn; a few cm)</li>
+                            <li>Glass, mirrors, dark objects may not reflect</li>
+                            <li>Crosstalk if multiple robots nearby</li>
+                            <li>Irregular surfaces (chair legs, cables)</li>
+                            <li>Speed varies with motor RPM</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-warning" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>Impact on mapping:</strong> Real maps will have more noise. Walls may appear thicker or slightly uneven. This is normal — your navigation should still work.
+                </div>
+            </section>
+
+            <!-- Odometry Differences -->
+            <section>
+                <h2>Odometry: Drift and Slip</h2>
+                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                    <strong>Odometry</strong> estimates position from wheel rotations. In simulation it's nearly perfect. In reality, it <strong>drifts</strong>.
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Wheel slip:</strong> Smooth floors or fast turns cause wheels to lose traction</li>
+                    <li><strong>Carpet vs. tile:</strong> Different surfaces change wheel dynamics</li>
+                    <li><strong>Accumulated error:</strong> Small errors compound — after driving 10m, position may be off by 20+ cm</li>
+                    <li><strong>Why AMCL matters:</strong> The particle filter localizer <em>corrects</em> odometry drift by matching lidar scans to the map</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>Key insight:</strong> This is exactly why we use SLAM and AMCL. Pure odometry navigation would fail on a real robot within minutes. The map-based approach you learned is the solution.
+                </div>
+            </section>
+
+            <!-- Network Setup -->
+            <section>
+                <h2>Networking with Physical Robots</h2>
+                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                    In Docker, everything runs in one container. With a real TurtleBot3, your laptop and the robot communicate over <strong>Wi-Fi</strong>.
+                </div>
+                <pre><code># On the TurtleBot3 (Raspberry Pi):
+export ROS_DOMAIN_ID=30
+
+# On your laptop (same network):
+export ROS_DOMAIN_ID=30</code></pre>
+                <ul style="margin-top: 15px;">
+                    <li><code>ROS_DOMAIN_ID</code> — isolates ROS2 traffic. Each team gets a unique ID.</li>
+                    <li>Both devices must be on the <strong>same Wi-Fi network</strong></li>
+                    <li><code>RMW_IMPLEMENTATION</code> — use <code>rmw_cyclonedds_cpp</code> for best Wi-Fi performance</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>Latency matters:</strong> Wi-Fi adds 5-50ms delay. RViz on your laptop may lag slightly behind the real robot.
+                </div>
+            </section>
+
+            <!-- Practical Mapping Differences -->
+            <section>
+                <h2>Mapping: Sim vs. Real</h2>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Aspect</th><th>Simulation</th><th>Physical</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Environment</strong></td><td>Gazebo world (fixed walls)</td><td>Lab/classroom (furniture, people)</td></tr>
+                        <tr><td><strong>Speed</strong></td><td>Drive fast, no consequences</td><td>Drive slow (0.1-0.15 m/s recommended)</td></tr>
+                        <tr><td><strong>Map quality</strong></td><td>Clean, sharp edges</td><td>Noisy, thicker walls, occasional gaps</td></tr>
+                        <tr><td><strong>Loop closure</strong></td><td>Works reliably</td><td>May need slower driving to succeed</td></tr>
+                        <tr><td><strong>Dynamic obstacles</strong></td><td>None (unless added)</td><td>People walking, doors opening</td></tr>
+                        <tr><td><strong>Time to map</strong></td><td>2-3 minutes</td><td>5-10 minutes for a room</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-info" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>Tip:</strong> Map when the space is empty, at a slow consistent speed, and make sure to revisit your starting area for good loop closure.
+                </div>
+            </section>
+
+            <!-- Navigation Differences -->
+            <section>
+                <h2>Navigation: What Changes?</h2>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Initial pose matters more:</strong> Set it precisely — AMCL needs a good starting estimate on a real robot</li>
+                    <li><strong>Costmap inflation:</strong> You may need to increase the inflation radius to keep the robot farther from real walls (it can't clip through them!)</li>
+                    <li><strong>Recovery behaviors activate more often:</strong> The robot may need to spin or back up when it encounters unexpected obstacles</li>
+                    <li><strong>Goal tolerance:</strong> On a real robot, reaching within 10-15 cm of the goal is typically acceptable</li>
+                </ul>
+                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                    <strong>Your navigation node code does NOT change.</strong> The same <code>NavigateToPose</code> action works identically — you just need new coordinates for the real environment.
+                </div>
+            </section>
+
+            <!-- Safety -->
+            <section>
+                <h2>Safety with Physical Robots</h2>
+                <div class="two-col" style="margin-top: 15px;">
+                    <div class="col-item" style="padding: 12px; border-left: 4px solid var(--danger);">
+                        <h3 style="margin-top: 0; color: var(--danger);">Rules</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li><strong>Always</strong> have a team member ready to pick up the robot</li>
+                            <li><strong>Never</strong> run untested code at full speed</li>
+                            <li><strong>Test in sim first</strong> every time you change waypoints</li>
+                            <li>Keep the area clear of trip hazards</li>
+                            <li>Low battery = unpredictable behavior</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 12px; border-left: 4px solid var(--success);">
+                        <h3 style="margin-top: 0; color: var(--success);">Emergency Stop</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Pick up the robot (wheels will free-spin)</li>
+                            <li>Or publish a zero velocity:<br><code style="font-size: 0.9em;">ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist "{}"</code></li>
+                            <li>Press the power button on the OpenCR board</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workflow -->
+            <section>
+                <h2>Recommended Workflow for P4 Part 4</h2>
+                <div class="flow-diagram" style="flex-wrap: wrap;">
+                    <div class="flow-box" style="background: var(--primary); font-size: 0.7em;">1. Map the<br>real space</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--info); font-size: 0.7em;">2. Save map<br>to robot</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--secondary); font-size: 0.7em;">3. Launch Nav2<br>with real map</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.7em;">4. Test goals<br>in RViz</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--warning); font-size: 0.7em; color: var(--dark);">5. Update node<br>coordinates</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--danger); font-size: 0.7em;">6. Run node<br>on real robot</div>
+                </div>
+                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>Key principle:</strong> Get everything working in simulation first. Transfer to the real robot means only swapping the map file and updating waypoint coordinates.
+                </div>
+            </section>
+
+            <!-- Textbook Reference -->
+            <section>
+                <h2>Textbook Connection</h2>
+                <div class="box" style="margin-top: 20px; font-size: 0.85em;">
+                    <strong>Introduction to Autonomous Mobile Robots</strong> (Siegwart, Nourbakhsh, Scaramuzza)<br><br>
+                    <strong>Chapter 5:</strong> Perception — sensor models and noise characteristics relevant to understanding the sim-to-real gap in lidar and odometry.<br><br>
+                    <strong>Chapter 3:</strong> Mobile Robot Kinematics — differential drive model that explains why wheel slip affects odometry on real surfaces.
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section>
+                <h2>Summary</h2>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Topic</th><th>Key Takeaway</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Sim-to-real gap</strong></td><td>Real sensors are noisy, surfaces cause drift, network adds latency</td></tr>
+                        <tr><td><strong>Lidar differences</strong></td><td>Reflective surfaces, noise, and irregular objects affect scan quality</td></tr>
+                        <tr><td><strong>Odometry drift</strong></td><td>AMCL corrects accumulated errors using the map</td></tr>
+                        <tr><td><strong>Networking</strong></td><td>Same <code>ROS_DOMAIN_ID</code>, same Wi-Fi, CycloneDDS</td></tr>
+                        <tr><td><strong>Your code</strong></td><td>Stays the same — only map and coordinates change</td></tr>
+                        <tr><td><strong>Safety</strong></td><td>Test in sim first, drive slow, always be ready to stop</td></tr>
+                    </tbody>
+                </table>
+                <div class="box" style="margin-top: 15px; text-align: center; font-size: 1em;">
+                    <strong>Prepare for the real robot! &rarr; <a href="/activities/activity9">Activity 9</a></strong>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'all'
+        });
+    </script>
+</body>
+</html>

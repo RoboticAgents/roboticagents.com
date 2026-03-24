@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation & Path Planning | CS304</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+    <style>
+        :root {
+            --primary: #5a4ba4;
+            --secondary: #6610f2;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        .reveal {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .reveal h1 {
+            color: var(--primary);
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 0.3em;
+        }
+        
+        .reveal h2 {
+            color: var(--primary);
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 0.4em;
+        }
+        
+        .reveal h3 {
+            color: var(--secondary);
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        
+        .reveal .subtitle {
+            color: var(--dark);
+            font-size: 1.2em;
+            margin-top: -20px;
+        }
+        
+        .reveal ul {
+            font-size: 0.8em;
+            line-height: 1.5;
+        }
+        
+        .reveal li {
+            margin: 0.25em 0;
+        }
+        
+        .reveal .highlight {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .reveal .box {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 15px auto;
+            max-width: 90%;
+            font-size: 0.9em;
+        }
+        
+        .reveal .box-success {
+            border-left-color: var(--success);
+        }
+        
+        .reveal .box-info {
+            border-left-color: var(--info);
+        }
+        
+        .reveal .box-warning {
+            border-left-color: var(--warning);
+        }
+        
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        
+        .reveal .col-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .reveal .small-text {
+            font-size: 0.7em;
+            color: #666;
+        }
+        
+        .reveal table {
+            font-size: 0.7em;
+            margin: 15px auto;
+        }
+        
+        .reveal th {
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+        }
+        
+        .reveal td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .reveal img {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .reveal .progress {
+            background: rgba(90, 75, 164, 0.2);
+        }
+        
+        .reveal .progress span {
+            background: var(--primary);
+        }
+        
+        .reveal .checkmark {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .reveal .crossmark {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .reveal .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+        
+        .reveal .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .reveal .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .reveal .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .reveal code {
+            background: #f4f4f4;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .reveal pre {
+            margin: 15px auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .reveal pre code {
+            padding: 20px;
+            font-size: 0.65em;
+            line-height: 1.4;
+        }
+
+        .reveal .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            font-size: 0.85em;
+        }
+
+        .reveal .flow-box {
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .reveal .flow-arrow {
+            font-size: 1.5em;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section>
+                <h1>Navigation &amp; Path Planning</h1>
+                <p class="subtitle">Week 11 &bull; CMPSC 304 Robotic Agents</p>
+                <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>&rarr;</strong> to advance</p>
+            </section>
+
+            <!-- Recap + Today -->
+            <section>
+                <h2>From Mapping to Navigation</h2>
+                <div class="flow-diagram">
+                    <div class="flow-box" style="background: var(--success);">Wednesday<br><span style="font-size:0.7em; font-weight:400;">SLAM &amp; Mapping</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--primary);">Today<br><span style="font-size:0.7em; font-weight:400;">Navigation</span></div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--info);">P4 Parts 1-2<br><span style="font-size:0.7em; font-weight:400;">Map &amp; Navigate</span></div>
+                </div>
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 10px;">
+                        <h3 style="margin-top: 0;">Wednesday: SLAM</h3>
+                        <ul style="font-size: 0.75em;">
+                            <li>Built maps from lidar data</li>
+                            <li>Occupancy grids, scan matching</li>
+                            <li>Output: a <strong>map file</strong></li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 10px;">
+                        <h3 style="margin-top: 0;">Today: Navigation</h3>
+                        <ul style="font-size: 0.75em;">
+                            <li><strong>Use</strong> the map to navigate</li>
+                            <li>Localization, path planning, obstacle avoidance</li>
+                            <li>Output: <strong>autonomous movement</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Navigation Problem -->
+            <section>
+                <h2>The Navigation Problem</h2>
+                <div class="box" style="margin-top: 15px; font-size: 0.9em;">
+                    <strong>Given:</strong> a map and a goal position<br>
+                    <strong>Find:</strong> a safe path from the robot's current position to the goal<br>
+                    <strong>Execute:</strong> follow the path while avoiding obstacles
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Where am I?</strong> &rarr; Localization</li>
+                    <li><strong>Where do I want to go?</strong> &rarr; Goal specification</li>
+                    <li><strong>How do I get there?</strong> &rarr; Path planning</li>
+                    <li><strong>How do I avoid obstacles?</strong> &rarr; Local planning / obstacle avoidance</li>
+                </ul>
+            </section>
+
+            <!-- Localization: AMCL -->
+            <section>
+                <h2>Localization: Where Am I?</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    <strong>AMCL</strong> (Adaptive Monte Carlo Localization) is a <em>particle filter</em> that estimates the robot's position on a known map.
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Particles</strong> = many guesses of where the robot might be</li>
+                    <li>Each particle is a possible (x, y, &theta;) pose</li>
+                    <li>Compare each particle's expected lidar scan to the <em>actual</em> scan</li>
+                    <li>Particles that match well <strong>survive</strong>; poor matches are <strong>eliminated</strong></li>
+                    <li>Over time, particles <strong>converge</strong> on the true position</li>
+                </ul>
+                <div class="box box-info" style="margin-top: 10px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>In RViz:</strong> You'll see a cloud of green arrows around the robot. Initially spread out, they converge as the robot moves and gets more sensor data.
+                </div>
+            </section>
+
+            <!-- Initial Pose Estimate -->
+            <section>
+                <h2>Setting the Initial Pose</h2>
+                <div class="box box-warning" style="margin-top: 15px; font-size: 0.85em;">
+                    <strong>Why you must set the initial pose:</strong> AMCL doesn't know where the robot starts. You give it a hint by clicking in RViz.
+                </div>
+                <ol style="font-size: 0.8em; margin-top: 15px;">
+                    <li>Click the <strong>"2D Pose Estimate"</strong> button in the RViz toolbar</li>
+                    <li>Click on the map where the robot is</li>
+                    <li>Drag to set the direction the robot is facing</li>
+                    <li>The particle cloud should jump to that location and then converge</li>
+                </ol>
+                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>What if you get it wrong?</strong> AMCL may still converge to the correct position as the robot moves and gets more scan data — but it takes longer. Set it as accurately as you can.
+                </div>
+            </section>
+
+            <!-- Costmaps -->
+            <section>
+                <h2>Costmaps: The Planner's View</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    A <strong>costmap</strong> is a grid where each cell has a <em>cost</em> — how expensive it is for the robot to be there.
+                </div>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Cost</th><th>Meaning</th><th>Visual</th></tr></thead>
+                    <tbody>
+                        <tr><td>0</td><td>Free space — safe to traverse</td><td>No color</td></tr>
+                        <tr><td>1–252</td><td>Increasing cost (near obstacles)</td><td>Blue &rarr; red gradient</td></tr>
+                        <tr><td>253</td><td>Inscribed — robot center would hit obstacle</td><td>Cyan ring</td></tr>
+                        <tr><td>254</td><td>Lethal — occupied cell</td><td>Purple/pink</td></tr>
+                        <tr><td>255</td><td>Unknown</td><td>No data</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-info" style="margin-top: 10px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>Inflation layer:</strong> Obstacles are "inflated" — expanded by the robot's radius — so the planner can treat the robot as a point. A cell 30 cm from a wall gets a higher cost than one 1 m away.
+                </div>
+            </section>
+
+            <!-- Global vs Local Costmap -->
+            <section>
+                <h2>Global vs. Local Costmap</h2>
+                <div class="two-col" style="margin-top: 15px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Global Costmap</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Covers the <strong>entire map</strong></li>
+                            <li>Based on the static map you saved</li>
+                            <li>Updated slowly (mostly static)</li>
+                            <li>Used for <strong>long-range planning</strong></li>
+                            <li>Finds the overall route</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Local Costmap</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Small area <strong>around the robot</strong></li>
+                            <li>Updated in <strong>real-time</strong> with lidar</li>
+                            <li>Includes <strong>dynamic obstacles</strong></li>
+                            <li>Used for <strong>immediate decisions</strong></li>
+                            <li>Adjusts the path on the fly</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box" style="margin-top: 15px; padding: 10px 15px; font-size: 0.85em;">
+                    <strong>Why two costmaps?</strong> The global costmap gives the "big picture" route. The local costmap handles the messy reality of moment-to-moment driving.
+                </div>
+            </section>
+
+            <!-- Path Planning -->
+            <section>
+                <h2>Path Planning: Global Planner</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    The <strong>global planner</strong> finds a path from the robot's current position to the goal on the global costmap.
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li>Nav2 uses <strong>NavFn</strong> (navigation function) by default — a variant of <strong>Dijkstra's algorithm</strong></li>
+                    <li>Treats the costmap as a <strong>graph</strong> where each cell is a node</li>
+                    <li>Edge weights = cell costs</li>
+                    <li>Finds the <strong>lowest-cost path</strong> (not just shortest distance — avoids getting close to obstacles)</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>In RViz:</strong> The global plan appears as a thin line from robot to goal. It may curve around obstacles and stay away from walls due to the inflation layer.
+                </div>
+            </section>
+
+            <!-- Local Planner -->
+            <section>
+                <h2>Path Following: Local Planner</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    The <strong>local planner</strong> (controller) generates velocity commands to follow the global path while reacting to real-time sensor data.
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li>Nav2 uses <strong>DWB</strong> (Dynamic Window Based) controller by default</li>
+                    <li>Simulates many possible velocity commands forward in time</li>
+                    <li>Scores each trajectory: does it follow the path? avoid obstacles? reach the goal?</li>
+                    <li>Picks the <strong>best-scoring trajectory</strong> and sends velocity commands</li>
+                </ul>
+                <div class="flow-diagram" style="margin-top: 15px;">
+                    <div class="flow-box" style="background: var(--info); font-size: 0.8em; min-width: 90px;">Global<br>Path</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--warning); color: var(--dark); font-size: 0.8em; min-width: 90px;">Local<br>Planner</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.8em; min-width: 90px;">/cmd_vel<br>Commands</div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-box" style="background: var(--primary); font-size: 0.8em; min-width: 90px;">Robot<br>Moves</div>
+                </div>
+            </section>
+
+            <!-- Nav2 Architecture -->
+            <section>
+                <h2>Nav2: The Full Picture</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    <strong>Nav2</strong> (Navigation 2) is the ROS2 navigation framework that combines all these components.
+                </div>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Component</th><th>Role</th><th>ROS2 Node</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Map Server</strong></td><td>Loads and serves the static map</td><td><code>map_server</code></td></tr>
+                        <tr><td><strong>AMCL</strong></td><td>Localizes robot on the map</td><td><code>amcl</code></td></tr>
+                        <tr><td><strong>Global Costmap</strong></td><td>Full-map cost grid</td><td><code>global_costmap</code></td></tr>
+                        <tr><td><strong>Local Costmap</strong></td><td>Real-time local cost grid</td><td><code>local_costmap</code></td></tr>
+                        <tr><td><strong>Planner Server</strong></td><td>Global path planning</td><td><code>planner_server</code></td></tr>
+                        <tr><td><strong>Controller Server</strong></td><td>Local path following</td><td><code>controller_server</code></td></tr>
+                        <tr><td><strong>BT Navigator</strong></td><td>Coordinates everything</td><td><code>bt_navigator</code></td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Sending Goals -->
+            <section>
+                <h2>Sending Navigation Goals</h2>
+                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                    You can send goals two ways:
+                </div>
+                <div class="two-col" style="margin-top: 15px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">RViz (Manual)</h3>
+                        <ol style="font-size: 0.7em;">
+                            <li>Click <strong>"Nav2 Goal"</strong> button</li>
+                            <li>Click where you want to go</li>
+                            <li>Drag to set orientation</li>
+                            <li>Robot plans and drives</li>
+                        </ol>
+                        <p style="font-size: 0.7em; margin-top: 5px;"><em>Great for testing and exploration</em></p>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Code (Programmatic)</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Use <code>NavigateToPose</code> action</li>
+                            <li>Send goals from a Python node</li>
+                            <li>Chain multiple waypoints</li>
+                            <li>React to results automatically</li>
+                        </ul>
+                        <p style="font-size: 0.7em; margin-top: 5px;"><em>Required for P4 Part 3</em></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recovery Behaviors -->
+            <section>
+                <h2>What Happens When Things Go Wrong?</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                    Nav2 has built-in <strong>recovery behaviors</strong> for when the robot gets stuck.
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Clear costmap:</strong> Reset the costmap to remove ghost obstacles from old sensor data</li>
+                    <li><strong>Spin:</strong> Rotate in place to get new sensor readings</li>
+                    <li><strong>Back up:</strong> Drive backwards to recover from a tight space</li>
+                    <li><strong>Wait:</strong> Pause and hope a dynamic obstacle moves</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>If all recovery behaviors fail:</strong> Nav2 aborts the goal and reports failure. Your code needs to handle this — goals don't always succeed! This is very common with physical robots.
+                </div>
+            </section>
+
+            <!-- Launching Nav2 -->
+            <section>
+                <h2>Using Nav2 with TurtleBot3</h2>
+                <pre style="margin: 15px auto;"><code># Terminal 1: Launch Gazebo
+ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+
+# Terminal 2: Launch Nav2 with your map
+ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=$HOME/map.yaml</code></pre>
+                <ol style="font-size: 0.8em; margin-top: 15px;">
+                    <li>Wait for Nav2 to fully start (watch terminal for "Creating bond timer")</li>
+                    <li>Set initial pose with "2D Pose Estimate" in RViz</li>
+                    <li>Send a goal with "Nav2 Goal" in RViz</li>
+                    <li>Watch the robot plan and navigate!</li>
+                </ol>
+                <div class="box box-info" style="margin-top: 10px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>Important:</strong> You must use the map you built in the SLAM exercise. Nav2 needs a pre-built map — it does not build one itself.
+                </div>
+            </section>
+
+            <!-- Textbook Connection -->
+            <section>
+                <h2>Textbook Connection: IAR Chapter 14</h2>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Section 14.1:</strong> The path planning problem — configuration space, free space, obstacles</li>
+                    <li><strong>Section 14.2–14.3:</strong> Graph-based planners — Dijkstra, A*, which Nav2's planner builds on</li>
+                    <li><strong>Section 14.5:</strong> Sensor-based planning — the local planner's job, reacting in real-time</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 15px; font-size: 0.85em;">
+                    <strong>Key insight:</strong> Path planning balances <em>optimality</em> (find the best path) with <em>feasibility</em> (can the robot actually execute it?) and <em>reactivity</em> (can it handle surprises?). Nav2 uses a layered approach: optimal global plan + reactive local controller.
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section>
+                <h2>Summary</h2>
+                <table style="margin-top: 15px;">
+                    <thead><tr><th>Concept</th><th>What It Does</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>AMCL</strong></td><td>Particle filter — localizes robot on a known map</td></tr>
+                        <tr><td><strong>Costmap</strong></td><td>Grid with obstacle costs + inflation for safe planning</td></tr>
+                        <tr><td><strong>Global Planner</strong></td><td>Finds optimal path on the full map (Dijkstra/A*)</td></tr>
+                        <tr><td><strong>Local Planner</strong></td><td>Follows path reactively, avoids dynamic obstacles</td></tr>
+                        <tr><td><strong>Nav2</strong></td><td>Framework that combines all navigation components</td></tr>
+                        <tr><td><strong>Recovery</strong></td><td>Built-in behaviors for when the robot gets stuck</td></tr>
+                    </tbody>
+                </table>
+                <div class="box" style="margin-top: 15px; text-align: center; font-size: 1em;">
+                    <strong>Now let's navigate! &rarr; <a href="/activities/activity7">Activity 7</a></strong>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'all'
+        });
+    </script>
+</body>
+</html>
