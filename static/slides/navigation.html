@@ -207,14 +207,6 @@
             font-size: 1.5em;
             color: var(--primary);
         }
-
-        /* Prevent content from being clipped on tall slides */
-        .reveal .slides > section {
-            overflow-y: auto;
-            height: 100%;
-            max-height: 680px;
-            box-sizing: border-box;
-        }
     </style>
 </head>
 <body>
@@ -533,7 +525,7 @@ ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=$HOME/map.yaml</co
             slideNumber: 'c/t',
             showSlideNumber: 'all',
             width: 960,
-            height: 700,
+            height: 900,
             margin: 0.04,
             minScale: 0.2,
             maxScale: 2.0
