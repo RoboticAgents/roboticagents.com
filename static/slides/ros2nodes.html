@@ -183,6 +183,14 @@
             font-size: 1.5em;
             color: var(--primary);
         }
+
+        /* Prevent content from being clipped on tall slides */
+        .reveal .slides > section {
+            overflow-y: auto;
+            height: 100%;
+            max-height: 680px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -544,9 +552,14 @@ ros2 run waypoint_nav navigate_waypoints</code></pre>
             transitionSpeed: 'default',
             controls: true,
             progress: true,
-            center: true,
+            center: false,
             slideNumber: 'c/t',
-            showSlideNumber: 'all'
+            showSlideNumber: 'all',
+            width: 960,
+            height: 700,
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 2.0
         });
     </script>
 </body>
