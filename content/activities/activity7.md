@@ -1,6 +1,6 @@
 +++
-title = "Activity 7: Navigation with Nav2"
-description = "Use the Nav2 stack to navigate the TurtleBot3 to goal positions"
+title = "Activity 7: Navigation Under the Hood"
+description = "Analyze costmap inflation and Nav2 path planning parameters — no simulation required"
 weight = 7
 +++
 

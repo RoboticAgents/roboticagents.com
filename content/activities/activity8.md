@@ -1,6 +1,6 @@
 +++
-title = "Activity 8: Writing ROS2 Navigation Nodes"
-description = "Write a Python ROS2 node to send navigation goals programmatically"
+title = "Activity 8: Understanding Your ROS2 Node"
+description = "Work through quaternion math exercises and trace the execution of the navigation node you're writing in P4"
 weight = 8
 +++
 

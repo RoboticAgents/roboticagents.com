@@ -1,6 +1,6 @@
 +++
-title = "Activity 9: Sim-to-Real Preparation"
-description = "Analyze the sim-to-real gap and prepare for physical TurtleBot3 deployment"
+title = "Activity 9: Simulation vs. Reality"
+description = "Compare simulation and physical TurtleBot 4 hardware specs, understand ROS2 networking, and plan for your real robot session"
 weight = 9
 +++
 
