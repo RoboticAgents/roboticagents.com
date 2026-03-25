@@ -261,18 +261,23 @@
             <!-- The Fundamental Problem -->
             <section>
                 <h2>The Mapping Problem</h2>
-                <div class="box" style="margin-top: 15px; font-size: 0.9em;">
+                <div class="box" style="margin-top: 10px; font-size: 0.9em;">
                     <strong>Core question:</strong> How does a robot build a representation of its environment using only sensor data?
                 </div>
-                <ul style="margin-top: 15px;">
+                <ul style="margin-top: 10px;">
                     <li>The robot starts with <span class="highlight">no map</span></li>
                     <li>It has sensors (lidar, cameras, etc.) that measure <strong>local</strong> surroundings</li>
                     <li>It needs to combine many local measurements into a <strong>global</strong> map</li>
                     <li>But to combine them correctly, it needs to know where it <em>was</em> for each measurement</li>
                 </ul>
-                <div class="box box-warning" style="margin-top: 15px; padding: 10px 15px; font-size: 0.85em;">
+                <div class="box box-warning" style="margin-top: 10px; padding: 8px 12px; font-size: 0.82em;">
                     <strong>Chicken-and-egg problem:</strong> To build a map, you need to know where you are. To know where you are, you need a map.
                 </div>
+                <aside class="notes">
+                    The mapping problem is the central challenge in mobile robotics before SLAM existed. Early robots carried hand-coded maps.
+                    Emphasize the chicken-and-egg: pose error causes map error; map error feeds back into worse pose estimates. Naive sequential approaches fail over large areas.
+                    Ask students: "If you woke up in an unfamiliar dark room, how would you figure out your location?" They'd feel walls, build a mental map, update their position estimate — that's SLAM.
+                </aside>
             </section>
 
             <!-- SLAM Definition -->
@@ -321,6 +326,26 @@
                     </div>
                 </div>
                 <pre style="margin: 8px auto;"><code>ros2 topic echo /scan --once   # See one lidar scan message</code></pre>
+                <aside class="notes">
+                    TIME OF FLIGHT (ToF): The sensor fires a laser pulse and records the time until reflected light returns. Distance = (speed of light × travel time) / 2. Speed of light ≈ 3×10⁸ m/s, so a 1 nanosecond round trip = 15 cm. This nanosecond-level timing gives centimeter-level distance accuracy.
+
+                    HOW LIDAR WORKS MECHANICALLY: A rotating platform (or MEMS mirror) sweeps the laser through 360°. For each angular step, it fires a pulse and records the return time. One full rotation = one complete scan. In ROS2 this arrives as a LaserScan message on /scan containing: angle_min, angle_max, angle_increment, range_min, range_max, and an array ranges[] of distances — one entry per angular step.
+
+                    TURTLEBOT3 (what students use in Docker):
+                    - LDS-02 lidar
+                    - Range: 0.12 m – 3.5 m
+                    - 360 samples per revolution (~1° angular resolution)
+                    - ~5 Hz scan rate, typical map resolution: 5 cm/pixel
+
+                    TURTLEBOT4 (what alic.pgm was built with in Activity 6):
+                    - RPLidar C1
+                    - Range: 0.1 m – 12 m (much longer!)
+                    - ~1,080 samples per revolution (3× more angular density)
+                    - 10 Hz scan rate
+                    - This is why alic.pgm has 3 cm/pixel resolution instead of the typical 5 cm
+
+                    Common confusion: /scan returns 'inf' for any direction where nothing was detected within max range — this is normal, not an error.
+                </aside>
             </section>
 
             <!-- Occupancy Grids -->
@@ -389,6 +414,20 @@
                         <tr><td>-1 / unknown</td><td>Not yet observed</td><td>Gray</td></tr>
                     </tbody>
                 </table>
+                <aside class="notes">
+                    WHAT IS PROBABILITY HERE: Each cell stores P(occupied) ∈ [0.0, 1.0]. 0.0 = certain this cell is free. 1.0 = certain it contains an obstacle. 0.5 = no information at all.
+
+                    ALL CELLS START AT 0.5 (complete uncertainty → rendered gray). As the robot drives and scans, cells update toward 0.0 (free/white) or 1.0 (occupied/black).
+
+                    ACTIVITY 6 PART 1 — PIXEL SHADE MEANINGS (answers):
+                    - BLACK pixels: walls/obstacles. Low PGM value (near 0) → occupancy probability above occupied_thresh (0.65) → drawn black.
+                    - WHITE pixels: free traversable space. High PGM value (near 255) → occupancy probability below free_thresh (0.25) → drawn white.
+                    - GRAY pixels: unknown / never scanned. The robot's lidar beam never reached those cells during the mapping session.
+
+                    PGM FORMAT NOTE: PGM stores values 0–255 where 0 = black. This is inverted from raw probability — more "ink" means more obstacle. The map_server handles this conversion automatically using the negate field.
+
+                    The grid-demo on this slide: black border = walls, white interior = mapped free space, gray = unmapped area (e.g., behind a wall the robot never went around).
+                </aside>
             </section>
 
             <!-- Probabilistic Update -->
@@ -405,20 +444,37 @@
                 <div class="box box-info" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
                     <strong>Log-odds trick:</strong> Instead of multiplying small probabilities (numerical issues), SLAM implementations use log-odds: <code>l = log(p / (1-p))</code>. Additions in log-odds space = multiplications in probability space.
                 </div>
-            </section>
+                <aside class="notes">
+                    WHAT IS PROBABILITY (in this context): A number 0.0–1.0 representing how likely something is. P=0 means impossible, P=1 means certain, P=0.5 means "I have no idea."
 
-            <!-- Scan Matching -->
+                    BAYES' RULE: P(A|B) = P(B|A) × P(A) / P(B)
+                    In mapping: A = "this cell is occupied",  B = "I got this lidar reading at this distance"
+                    - P(A)   = prior: current belief about the cell (starts at 0.5 for all cells)
+                    - P(B|A) = likelihood: how probable is this lidar reading IF the cell really is occupied?
+                    - P(A|B) = posterior: updated belief after seeing the new reading
+
+                    INTUITION: A lidar "hit" at a cell increases that cell's probability toward 1.0. A beam that passes THROUGH a cell (before hitting something further away) decreases that cell's probability toward 0.0 — the cell must be free for the beam to have passed through it.
+
+                    LOG-ODDS TRICK:
+                    - l = 0 corresponds to p = 0.5 (uncertain)
+                    - l positive → p > 0.5 (probably occupied)
+                    - l negative → p < 0.5 (probably free)
+                    - Each "hit" observation adds a fixed positive value to l; each "pass-through" subtracts
+                    - Saturate at ±10 to prevent cells from locking permanently
+                    - Convert back: p = 1 / (1 + e^(−l))
+                </aside>
+            </section>
             <section>
                 <h2>Scan Matching: Aligning Scans</h2>
                 <div class="box" style="margin-top: 10px; font-size: 0.85em;">
                     How does SLAM know where the robot moved between scans?
                 </div>
-                <ul style="margin-top: 15px;">
+                <ul style="margin-top: 10px;">
                     <li><strong>Odometry</strong> gives an initial guess (from wheel encoders) — but it <em>drifts</em></li>
                     <li><strong>Scan matching</strong> aligns consecutive lidar scans to refine the pose</li>
                     <li>Algorithm: find the rotation &amp; translation that best aligns scan B to scan A</li>
                 </ul>
-                <div class="flow-diagram" style="margin-top: 20px;">
+                <div class="flow-diagram" style="margin-top: 12px;">
                     <div class="flow-box" style="background: var(--info); font-size: 0.8em;">Scan at<br>time t</div>
                     <div class="flow-arrow">&rarr;</div>
                     <div class="flow-box" style="background: var(--warning); color: var(--dark); font-size: 0.8em;">Scan<br>Matching</div>
@@ -427,24 +483,39 @@
                     <div class="flow-arrow">&rarr;</div>
                     <div class="flow-box" style="background: var(--success); font-size: 0.8em;">Refined<br>Pose</div>
                 </div>
-                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                <div class="box box-success" style="margin-top: 10px; padding: 8px 12px; font-size: 0.78em;">
                     <strong>ICP (Iterative Closest Point)</strong> is a classic scan matching algorithm: iteratively finds closest points between scans, computes optimal transform, repeats until convergence.
                 </div>
+                <aside class="notes">
+                    ICP STEP BY STEP:
+                    1. Take scan A (time t) and scan B (time t+1).
+                    2. For each point in B, find the closest point in A — these are "corresponding pairs."
+                    3. Compute the rotation (θ) and translation (x, y) that minimizes the sum of squared distances between all pairs.
+                    4. Apply this transform to B. Repeat until the change drops below a threshold (convergence).
+
+                    WHY ODOMETRY ALONE FAILS: Wheel encoders measure revolutions and convert to distance assuming no wheel slip. On carpet or with sharp turns, slip introduces ~1–2% error per meter. After 10 m of travel, you can be off by 10–20 cm. Over a full room, the map tears apart and walls no longer align.
+
+                    CARTOGRAPHER'S APPROACH — SCAN-TO-SUBMAP: Each new scan is matched against a locally built "submap" (a small occupancy grid from recent scans). This averages out noise in individual scans and is far more robust than scan-to-scan matching.
+
+                    OTHER ALGORITHMS:
+                    - NDT (Normal Distributions Transform): fits Gaussians to local regions, then maximizes likelihood. Faster than ICP for dense scans.
+                    - Feature-based: extracts corners/edges, matches them between scans. Very fast but fails in featureless corridors.
+                </aside>
             </section>
 
             <!-- Loop Closure -->
             <section>
                 <h2>Loop Closure: Fixing Accumulated Error</h2>
-                <ul style="margin-top: 15px;">
+                <ul style="margin-top: 10px;">
                     <li>Even with scan matching, <strong>small errors accumulate</strong> over time</li>
                     <li>After a long drive, the robot's position estimate <em>drifts</em> from truth</li>
                     <li><strong>Loop closure:</strong> the robot returns to a previously visited location</li>
                 </ul>
-                <div class="box box-warning" style="margin-top: 15px; font-size: 0.85em;">
+                <div class="box box-warning" style="margin-top: 10px; font-size: 0.82em;">
                     When the SLAM algorithm detects it has returned to a known place, it <strong>distributes the accumulated error</strong> back across the entire trajectory, correcting the map.
                 </div>
-                <div class="two-col" style="margin-top: 15px;">
-                    <div class="col-item" style="padding: 12px;">
+                <div class="two-col" style="margin-top: 8px;">
+                    <div class="col-item" style="padding: 10px 12px;">
                         <h3 style="margin-top: 0;">Before Loop Closure</h3>
                         <ul style="font-size: 0.7em;">
                             <li>Walls don't quite line up</li>
@@ -452,7 +523,7 @@
                             <li>Corridors may look bent</li>
                         </ul>
                     </div>
-                    <div class="col-item" style="padding: 12px;">
+                    <div class="col-item" style="padding: 10px 12px;">
                         <h3 style="margin-top: 0;">After Loop Closure</h3>
                         <ul style="font-size: 0.7em;">
                             <li>Walls snap into alignment</li>
@@ -461,6 +532,18 @@
                         </ul>
                     </div>
                 </div>
+                <aside class="notes">
+                    POSE GRAPH OPTIMIZATION — what Cartographer runs when it detects a loop closure:
+                    - Every robot pose (position + orientation at a moment in time) is a NODE in a graph.
+                    - Every scan match between consecutive poses is an EDGE with a relative transform constraint (Δx, Δy, Δθ) and an uncertainty value.
+                    - Loop closure adds a new EDGE between the current node and a historical node far back in the graph: "these two poses are actually the same place."
+                    - OPTIMIZATION: find the set of all N pose positions that satisfies all edge constraints with minimum total error. This is a nonlinear least-squares problem solved by Ceres Solver inside Cartographer.
+                    - Result: all poses shift slightly to be globally consistent — no single dramatic snap, but small adjustments distributed across every pose since the divergence point.
+
+                    ANALOGY: Imagine a chain of paper clips. Each clip is a pose, connected to the next with a known relative position (the scan match edge). Loop closure is like connecting the last clip back to an earlier one in the chain — suddenly the whole chain must rearrange to satisfy all connections simultaneously.
+
+                    PRACTICAL TIP FOR P4: If students don't drive back toward their starting area, they won't trigger a loop closure, and maps may show walls that don't quite close at corners. Encourage them to complete a full circuit and revisit the start area.
+                </aside>
             </section>
 
             <!-- Cartographer -->
@@ -498,12 +581,36 @@ ros2 run nav2_map_server map_saver_cli -f ~/map</code></pre>
                         <tr><td><code>map.yaml</code></td><td>Metadata: resolution (m/pixel), origin, thresholds</td></tr>
                     </tbody>
                 </table>
-                <pre style="margin: 15px auto;"><code># map.yaml contents:
-image: map.pgm
-resolution: 0.050000    # 5 cm per pixel
-origin: [-10.0, -10.0, 0.0]
+                <pre style="margin: 15px auto;"><code># alic.yaml — the Activity 6 map file:
+image: alic.pgm
+mode: trinary
+resolution: 0.03        # 3 cm per pixel (TurtleBot4 quality)
+origin: [-8.64, -10.4, 0]
+negate: 0
 occupied_thresh: 0.65
-free_thresh: 0.196</code></pre>
+free_thresh: 0.25</code></pre>
+                <aside class="notes">
+                    ACTIVITY 6 PART 1 — COMPLETE ANSWERS:
+
+                    RESOLUTION: 0.03 m/pixel = 3 cm per pixel. This is a TurtleBot4-quality map. TurtleBot3 maps typically use 0.05 m = 5 cm/pixel due to the shorter lidar range.
+
+                    ORIGIN: [-8.64, -10.4, 0] is the [x, y, θ] of the BOTTOM-LEFT corner of the PGM image in real-world coordinates. The robot started mapping near [0, 0] in world space. The image extends 8.64 m to the left of start and 10.4 m below. θ=0 means no rotation. IMPORTANT: the origin is NOT where the robot started — it's the corner of the bounding image box that was allocated to hold all explored area.
+
+                    THRESHOLDS:
+                    - occupied_thresh 0.65: cells with probability > 65% → drawn BLACK (wall/obstacle)
+                    - free_thresh 0.25: cells with probability < 25% → drawn WHITE (free space)
+                    - Between 0.25 and 0.65 → drawn GRAY (unknown)
+
+                    HOW TO FIND PIXEL DIMENSIONS OF alic.pgm:
+                    Mac:    sips -g pixelWidth -g pixelHeight alic.pgm
+                    Output: pixelWidth: 414  /  pixelHeight: 553
+                    Windows: right-click alic.pgm → Properties → Details tab
+
+                    REAL-WORLD AREA CALCULATION:
+                    Width:  414 pixels × 0.03 m/pixel = 12.42 m
+                    Height: 553 pixels × 0.03 m/pixel = 16.59 m
+                    Total bounding area ≈ 12.42 × 16.59 ≈ 206 m² (includes walls and unmapped interior regions)
+                </aside>
             </section>
 
             <!-- Good Mapping Tips -->
@@ -580,8 +687,8 @@ ros2 node info /cartographer_node</code></pre>
                         <tr><td><strong>Cartographer</strong></td><td>Google's SLAM algorithm — what we use in class</td></tr>
                     </tbody>
                 </table>
-                <div class="box" style="margin-top: 15px; text-align: center; font-size: 1em;">
-                    <strong>Now let's build a map! &rarr; <a href="/activities/activity6">Activity 6</a></strong>
+                <div class="box" style="margin-top: 15px; text-align: center; font-size: 0.9em;">
+                    <strong>Activity 6:</strong> A real map (<code>alic.pgm</code>) is already in your repo — decode it. What do the pixel shades mean? What real-world area is mapped? Then trace the live SLAM data flow in Docker. &rarr; <a href="/activities/activity6">Activity 6</a>
                 </div>
             </section>
 
