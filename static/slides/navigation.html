@@ -274,15 +274,15 @@
                 <div class="box" style="margin-top: 10px; font-size: 0.85em;">
                     <strong>AMCL</strong> (Adaptive Monte Carlo Localization) is a <em>particle filter</em> that estimates the robot's position on a known map.
                 </div>
-                <ul style="margin-top: 15px;">
+                <ul style="margin-top: 10px; font-size: 0.95em;">
                     <li><strong>Particles</strong> = many guesses of where the robot might be</li>
                     <li>Each particle is a possible (x, y, &theta;) pose</li>
                     <li>Compare each particle's expected lidar scan to the <em>actual</em> scan</li>
-                    <li>Particles that match well <strong>survive</strong>; poor matches are <strong>eliminated</strong></li>
-                    <li>Over time, particles <strong>converge</strong> on the true position</li>
+                    <li>Good matches <strong>survive</strong>; poor matches are removed</li>
+                    <li>Over time, the cloud <strong>converges</strong> to the true pose</li>
                 </ul>
-                <div class="box box-info" style="margin-top: 10px; padding: 10px 15px; font-size: 0.8em;">
-                    <strong>In RViz:</strong> You'll see a cloud of green arrows around the robot. Initially spread out, they converge as the robot moves and gets more sensor data.
+                <div class="box box-info" style="margin-top: 8px; padding: 8px 12px; font-size: 0.75em;">
+                    <strong>In RViz:</strong> The green particle cloud starts spread out, then tightens as the robot moves and AMCL gains confidence.
                 </div>
             </section>
 
@@ -400,7 +400,7 @@
                 <div class="box" style="margin-top: 10px; font-size: 0.85em;">
                     <strong>Nav2</strong> (Navigation 2) is the ROS2 navigation framework that combines all these components.
                 </div>
-                <table style="margin-top: 15px;">
+                <table style="margin-top: 15px; font-size: 0.82em;">
                     <thead><tr><th>Component</th><th>Role</th><th>ROS2 Node</th></tr></thead>
                     <tbody>
                         <tr><td><strong>Map Server</strong></td><td>Loads and serves the static map</td><td><code>map_server</code></td></tr>
@@ -412,6 +412,30 @@
                         <tr><td><strong>BT Navigator</strong></td><td>Coordinates everything</td><td><code>bt_navigator</code></td></tr>
                     </tbody>
                 </table>
+            </section>
+
+            <!-- Activity 7 Parameter Cheat Sheet -->
+            <section>
+                <h2>Activity 7: Parameter Cheat Sheet</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.82em;">
+                    Use these meanings for Q5&ndash;Q8 in Activity 7. Focus on <em>what changes behavior</em>, not memorizing every default.
+                </div>
+                <table style="margin-top: 12px; font-size: 0.72em;">
+                    <thead><tr><th>Parameter</th><th>What It Controls</th><th>If Increased</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>min_particles</code> / <code>max_particles</code></td><td>AMCL confidence vs compute cost</td><td>More robustness in uncertainty, slower compute</td></tr>
+                        <tr><td><code>odom_alpha1</code>, <code>odom_alpha2</code></td><td>Assumed odometry noise in rotation/translation coupling</td><td>AMCL trusts odometry less, spreads belief more</td></tr>
+                        <tr><td><code>pf_err</code></td><td>Target localization error for particle filter</td><td>Looser target (can run fewer particles)</td></tr>
+                        <tr><td><code>use_astar</code></td><td>Planner search strategy (A* vs Dijkstra)</td><td>Usually same path quality, often faster planning</td></tr>
+                        <tr><td><code>tolerance</code></td><td>How close counts as goal reached</td><td>Easier goal completion, less positional precision</td></tr>
+                        <tr><td><code>desired_linear_vel</code></td><td>Forward speed cap</td><td>Faster travel, may reduce control margin</td></tr>
+                        <tr><td><code>lookahead_dist</code></td><td>How far ahead controller tracks path</td><td>Smoother but can cut corners/overshoot tight turns</td></tr>
+                        <tr><td><code>max_angular_vel</code></td><td>Turn-rate cap</td><td>Quicker turning, higher risk of oscillation</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-info" style="margin-top: 10px; padding: 8px 12px; font-size: 0.74em;">
+                    <strong>Rule of thumb:</strong> Tune speed, lookahead, and tolerance together for the robot platform (TB3 vs TB4).
+                </div>
             </section>
 
             <!-- Sending Goals -->
@@ -480,19 +504,6 @@ ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=$HOME/map.yaml</co
                 </div>
             </section>
 
-            <!-- Textbook Connection -->
-            <section>
-                <h2>Textbook Connection: IAR Chapter 14</h2>
-                <ul style="margin-top: 15px;">
-                    <li><strong>Section 14.1:</strong> The path planning problem — configuration space, free space, obstacles</li>
-                    <li><strong>Section 14.2–14.3:</strong> Graph-based planners — Dijkstra, A*, which Nav2's planner builds on</li>
-                    <li><strong>Section 14.5:</strong> Sensor-based planning — the local planner's job, reacting in real-time</li>
-                </ul>
-                <div class="box box-success" style="margin-top: 15px; font-size: 0.85em;">
-                    <strong>Key insight:</strong> Path planning balances <em>optimality</em> (find the best path) with <em>feasibility</em> (can the robot actually execute it?) and <em>reactivity</em> (can it handle surprises?). Nav2 uses a layered approach: optimal global plan + reactive local controller.
-                </div>
-            </section>
-
             <!-- Summary -->
             <section>
                 <h2>Summary</h2>
@@ -507,8 +518,8 @@ ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=$HOME/map.yaml</co
                         <tr><td><strong>Recovery</strong></td><td>Built-in behaviors for when the robot gets stuck</td></tr>
                     </tbody>
                 </table>
-                <div class="box" style="margin-top: 15px; text-align: center; font-size: 1em;">
-                    <strong>Now let's navigate! &rarr; <a href="/activities/activity7">Activity 7</a></strong>
+                <div class="box" style="margin-top: 15px; text-align: center; font-size: 0.95em;">
+                    <strong>Next: <a href="/activities/activity7">Activity 7</a> — analyze costmap inflation and Nav2 parameters (no simulation required)</strong>
                 </div>
             </section>
 
