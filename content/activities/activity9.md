@@ -2,6 +2,7 @@
 title = "Activity 9: Simulation vs. Reality"
 description = "Compare simulation and physical TurtleBot 4 hardware specs, understand ROS2 networking, and plan for your real robot session"
 weight = 9
+draft = true
 +++
 
 This activity is hosted on GitHub Classroom.

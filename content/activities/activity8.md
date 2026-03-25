@@ -2,6 +2,7 @@
 title = "Activity 8: Understanding Your ROS2 Node"
 description = "Work through quaternion math exercises and trace the execution of the navigation node you're writing in P4"
 weight = 8
+draft = true
 +++
 
 This activity is hosted on GitHub Classroom.

@@ -274,14 +274,14 @@
                 <div class="box" style="margin-top: 10px; font-size: 0.85em;">
                     <strong>AMCL</strong> (Adaptive Monte Carlo Localization) is a <em>particle filter</em> that estimates the robot's position on a known map.
                 </div>
-                <ul style="margin-top: 10px; font-size: 0.95em;">
+                <ul style="margin-top: 8px; font-size: 0.8em;">
                     <li><strong>Particles</strong> = many guesses of where the robot might be</li>
                     <li>Each particle is a possible (x, y, &theta;) pose</li>
                     <li>Compare each particle's expected lidar scan to the <em>actual</em> scan</li>
                     <li>Good matches <strong>survive</strong>; poor matches are removed</li>
                     <li>Over time, the cloud <strong>converges</strong> to the true pose</li>
                 </ul>
-                <div class="box box-info" style="margin-top: 8px; padding: 8px 12px; font-size: 0.75em;">
+                <div class="box box-info" style="margin-top: 6px; padding: 6px 12px; font-size: 0.72em;">
                     <strong>In RViz:</strong> The green particle cloud starts spread out, then tightens as the robot moves and AMCL gains confidence.
                 </div>
             </section>

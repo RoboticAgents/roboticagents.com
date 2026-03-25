@@ -2,6 +2,7 @@
 title = "Activity 7: Navigation Under the Hood"
 description = "Analyze costmap inflation and Nav2 path planning parameters — no simulation required"
 weight = 7
+draft = true
 +++
 
 This activity is hosted on GitHub Classroom.
