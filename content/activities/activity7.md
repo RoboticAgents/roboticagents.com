@@ -8,6 +8,6 @@ This activity is hosted on GitHub Classroom.
 
 **Due Date: April 1st by 11:00 AM**
 
-[Accept the assignment on GitHub Classroom](https://classroom.github.com/a/6IlnhIU7)
+[Accept the assignment on GitHub Classroom](https://classroom.github.com/a/P82Xnnei)
 
 **Slides:** [Navigation & Path Planning](/slides/navigation.html)
