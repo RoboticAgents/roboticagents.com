@@ -274,46 +274,46 @@
                 <div class="box" style="margin-top: 6px; font-size: 0.85em;">
                     <strong>AMCL</strong> (Adaptive Monte Carlo Localization) is a <em>particle filter</em> that estimates the robot's position on a known map.
                 </div>
-                <ul style="margin-top: 5px; font-size: 0.8em;">
+                <ul style="margin-top: 4px; font-size: 0.76em;">
                     <li><strong>Particles</strong> = many guesses of where the robot might be</li>
                     <li>Each particle is a possible (x, y, &theta;) pose</li>
                     <li>Compare each particle's expected lidar scan to the <em>actual</em> scan</li>
                     <li>Good matches <strong>survive</strong>; poor matches are removed</li>
                     <li>Over time, the cloud <strong>converges</strong> to the true pose</li>
                 </ul>
-                <div class="box box-info" style="margin-top: 4px; padding: 5px 12px; font-size: 0.72em;">
-                    <strong>In RViz:</strong> The green particle cloud starts spread out, then tightens as the robot moves and AMCL gains confidence.
+                <div class="box box-info" style="margin-top: 3px; padding: 4px 10px; font-size: 0.68em;">
+                    <strong>In RViz:</strong> Green arrows start spread out, then tighten as confidence increases.
                 </div>
             </section>
 
             <!-- AMCL particle count -->
             <section>
                 <h2>AMCL: How Many Particles?</h2>
-                <div class="box" style="margin-top: 5px; font-size: 0.85em;">
+                <div class="box" style="margin-top: 4px; font-size: 0.8em;">
                     AMCL adapts its particle count between a <strong>minimum</strong> (when confident) and a <strong>maximum</strong> (when uncertain). More particles = more hypotheses tracked = more computation.
                 </div>
-                <div class="two-col" style="margin-top: 8px; gap: 8px;">
-                    <div class="col-item" style="padding: 9px;">
-                        <h3 style="margin-top: 0; color: var(--success);">Few particles (confident)</h3>
-                        <ul style="font-size: 0.72em;">
-                            <li>Particles are clustered tightly in one spot</li>
-                            <li>Robot has been moving through a <strong>distinctive area</strong> with clear landmarks</li>
+                <div class="two-col" style="margin-top: 6px; gap: 8px;">
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; margin-bottom: 6px; color: var(--success); font-size: 0.8em;">Few particles (confident)</h3>
+                        <ul style="font-size: 0.67em; margin-top: 0;">
+                            <li>Particles cluster tightly</li>
+                            <li>Robot moves through a <strong>distinctive area</strong></li>
                             <li>Lidar scans match the expected map well</li>
-                            <li>Only a small "neighborhood" of poses needs to be tracked</li>
+                            <li>Only a small pose neighborhood is tracked</li>
                         </ul>
                     </div>
-                    <div class="col-item" style="padding: 9px;">
-                        <h3 style="margin-top: 0; color: var(--danger);">Many particles (uncertain)</h3>
-                        <ul style="font-size: 0.72em;">
-                            <li>Particles are spread over a large area</li>
-                            <li>Several locations on the map look <strong>similar</strong> to the robot's scans</li>
-                            <li>e.g., a long featureless corridor — many poses produce the same scan</li>
-                            <li>e.g., just after startup — robot hasn't ruled anything out yet</li>
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; margin-bottom: 6px; color: var(--danger); font-size: 0.8em;">Many particles (uncertain)</h3>
+                        <ul style="font-size: 0.67em; margin-top: 0;">
+                            <li>Particles spread over a larger area</li>
+                            <li>Several map regions look <strong>similar</strong></li>
+                            <li>Long featureless corridors are ambiguous</li>
+                            <li>Startup is uncertain until scans accumulate</li>
                         </ul>
                     </div>
                 </div>
-                <div class="box box-warning" style="margin-top: 6px; padding: 6px 14px; font-size: 0.78em;">
-                    <strong>Rule of thumb:</strong> The harder it is to distinguish the robot's current location from other map locations using the lidar, the more particles AMCL needs.
+                <div class="box box-warning" style="margin-top: 5px; padding: 5px 12px; font-size: 0.72em;">
+                    <strong>Rule of thumb:</strong> Ambiguous scans require more particles.
                 </div>
             </section>
 
@@ -340,7 +340,7 @@
                 <div class="box" style="margin-top: 6px; font-size: 0.85em;">
                     A <strong>costmap</strong> is a grid where each cell has a <em>cost</em> — how expensive it is for the robot to be there.
                 </div>
-                <table style="margin-top: 8px;">
+                <table style="margin-top: 6px; font-size: 0.86em;">
                     <thead><tr><th>Cost</th><th>Meaning</th><th>Visual</th></tr></thead>
                     <tbody>
                         <tr><td>0</td><td>Free space — safe to traverse</td><td>No color</td></tr>
@@ -350,21 +350,21 @@
                         <tr><td>255</td><td>Unknown</td><td>No data</td></tr>
                     </tbody>
                 </table>
-                <div class="box box-info" style="margin-top: 6px; padding: 8px 15px; font-size: 0.8em;">
-                    <strong>Inflation layer:</strong> Obstacles are "inflated" — expanded outward by <code>inflation_radius</code>. Cells inside that buffer get a non-zero cost; the closer to an obstacle, the higher the cost. The planner treats the robot as a point and avoids high-cost cells.
+                <div class="box box-info" style="margin-top: 5px; padding: 6px 12px; font-size: 0.73em;">
+                    <strong>Inflation layer:</strong> Obstacles expand by <code>inflation_radius</code>; nearby cells get higher cost, so paths stay farther from walls.
                 </div>
             </section>
 
             <!-- Inflation: worked example -->
             <section>
                 <h2>Inflation: A Worked Example</h2>
-                <div class="box" style="margin-top: 8px; font-size: 0.82em;">
+                <div class="box" style="margin-top: 6px; font-size: 0.78em;">
                     Config: <code>resolution: 0.05 m/cell</code> &nbsp;|&nbsp; <code>inflation_radius: 0.15 m</code><br>
                     Buffer width: 0.15 &divide; 0.05 = <strong>3 cells</strong>
                 </div>
-                <p style="font-size: 0.75em; margin: 4px 0 2px 0;">Start with a 6&times;6 map — one wall on the left:</p>
-                <div class="two-col" style="margin-top: 2px; gap: 8px;">
-                    <div class="col-item" style="padding: 10px;">
+                <p style="font-size: 0.7em; margin: 3px 0 2px 0;">Start with a 6&times;6 map with a wall on the left:</p>
+                <div class="two-col" style="margin-top: 1px; gap: 8px;">
+                    <div class="col-item" style="padding: 8px;">
                         <h3 style="margin-top: 0; font-size: 0.8em;">Raw map (<code>#</code> = wall)</h3>
                         <pre style="margin: 0; box-shadow: none; font-size: 0.95em;"><code style="padding: 8px; font-size: 0.8em;">  0 1 2 3 4 5
 0 # . . . . .
@@ -374,7 +374,7 @@
 4 # . . . . .
 5 # . . . . .</code></pre>
                     </div>
-                    <div class="col-item" style="padding: 10px;">
+                    <div class="col-item" style="padding: 8px;">
                         <h3 style="margin-top: 0; font-size: 0.8em;">After inflation (<code>I</code> = inflated)</h3>
                         <pre style="margin: 0; box-shadow: none; font-size: 0.95em;"><code style="padding: 8px; font-size: 0.8em;">  0 1 2 3 4 5
 0 # I I I . .
@@ -383,11 +383,11 @@
 3 # I I I . .
 4 # I I I . .
 5 # I I I . .</code></pre>
-                        <p style="font-size: 0.7em; margin: 4px 0 0 0;">Cols 1–3 are within 3 cells of col 0. Cols 4–5 are safe (cost 0).</p>
+                        <p style="font-size: 0.66em; margin: 3px 0 0 0;">Cols 1–3 are within 3 cells of col 0; cols 4–5 remain cost 0.</p>
                     </div>
                 </div>
-                <div class="box box-success" style="margin-top: 6px; padding: 6px 14px; font-size: 0.78em;">
-                    <strong>Key rule:</strong> Measure the straight-line distance in cells from each free cell to the nearest <code>#</code>. If that distance &le; buffer width, the cell is inflated (<code>I</code>). Diagonal neighbors are &radic;2 &asymp; 1.4 cells away.
+                <div class="box box-success" style="margin-top: 5px; padding: 5px 12px; font-size: 0.7em;">
+                    <strong>Key rule:</strong> If a free cell is within the buffer width (in cells) of the nearest obstacle, mark it inflated.
                 </div>
             </section>
 
@@ -455,16 +455,16 @@
             <!-- Path Planning -->
             <section>
                 <h2>Path Planning: Global Planner</h2>
-                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                <div class="box" style="margin-top: 6px; font-size: 0.82em;">
                     The <strong>global planner</strong> finds a path from the robot's current position to the goal on the global costmap.
                 </div>
-                <ul style="margin-top: 15px;">
+                <ul style="margin-top: 8px; font-size: 0.83em;">
                     <li>Treats the costmap as a <strong>graph</strong> — each cell is a node, edge weights = cell costs</li>
                     <li>Explores cells and builds up the <strong>lowest-cost route</strong> to the goal</li>
                     <li>A path through high-cost (inflated) cells is allowed but penalized — the planner picks around them if a cheaper route exists</li>
                     <li>If inflation completely fills a corridor, no path can pass through it</li>
                 </ul>
-                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                <div class="box box-success" style="margin-top: 8px; padding: 8px 12px; font-size: 0.74em;">
                     <strong>In RViz:</strong> The global plan appears as a thin line from robot to goal. It may curve around obstacles and stay away from walls — that's the inflation layer pushing the path toward lower-cost cells.
                 </div>
             </section>
@@ -472,30 +472,30 @@
             <!-- robot_radius and costmap safety -->
             <section>
                 <h2>robot_radius: Matching Config to Hardware</h2>
-                <div class="box" style="margin-top: 5px; font-size: 0.85em;">
+                <div class="box" style="margin-top: 4px; font-size: 0.8em;">
                     The costmap uses <code>robot_radius</code> to determine how close the robot center can get to a wall. If the config doesn't match the real robot, planning goes wrong.
                 </div>
-                <div class="two-col" style="margin-top: 8px; gap: 8px;">
-                    <div class="col-item" style="padding: 9px;">
-                        <h3 style="margin-top: 0; color: var(--danger);">robot_radius too small</h3>
-                        <ul style="font-size: 0.72em;">
+                <div class="two-col" style="margin-top: 6px; gap: 8px;">
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; margin-bottom: 6px; color: var(--danger); font-size: 0.8em;">robot_radius too small</h3>
+                        <ul style="font-size: 0.67em; margin-top: 0;">
                             <li>Planner thinks the robot is smaller than it is</li>
-                            <li>Plans paths through gaps the <em>real</em> robot won't fit through</li>
-                            <li>Robot collides with walls it "should have" avoided</li>
-                            <li>Common mistake when reusing a config on a different platform</li>
+                            <li>Plans gaps the <em>real</em> robot cannot fit through</li>
+                            <li>Collision risk increases near walls</li>
+                            <li>Common when reusing configs across robots</li>
                         </ul>
                     </div>
-                    <div class="col-item" style="padding: 9px;">
-                        <h3 style="margin-top: 0; color: var(--warning);">robot_radius too large</h3>
-                        <ul style="font-size: 0.72em;">
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; margin-bottom: 6px; color: var(--warning); font-size: 0.8em;">robot_radius too large</h3>
+                        <ul style="font-size: 0.67em; margin-top: 0;">
                             <li>Planner thinks the robot is larger than it is</li>
                             <li>Avoids passages the robot could actually navigate</li>
                             <li>May fail to find any path in tight environments</li>
-                            <li>Conservative — but may fail unnecessarily</li>
+                            <li>Safe, but can fail unnecessarily</li>
                         </ul>
                     </div>
                 </div>
-                <div class="box box-info" style="margin-top: 6px; padding: 6px 14px; font-size: 0.78em;">
+                <div class="box box-info" style="margin-top: 5px; padding: 5px 12px; font-size: 0.71em;">
                     <strong>Both parameters matter together:</strong> <code>robot_radius</code> sets the inscribed zone (robot center would collide); <code>inflation_radius</code> sets how far beyond that the planner still prefers to stay away.
                 </div>
             </section>

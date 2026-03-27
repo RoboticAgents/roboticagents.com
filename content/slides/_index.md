@@ -16,4 +16,3 @@ weight = 5
 - [Weeks 11–12: Navigation & Path Planning](/slides/navigation.html)
 - [Exam 1 Review](/slides/exam1review.html)
 - [Exam 2 Review](/slides/exam2review.html)
-- [Week 10: Introduction to ROS2](/slides/ros2intro.html)
