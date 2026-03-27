@@ -6,8 +6,8 @@ weight = 6
 
 This activity is hosted on GitHub Classroom.
 
-**Due Date: March 27th by 11:50 AM**
+**Due Date: March 30th by 11:00 AM**
 
-[Accept the assignment on GitHub Classroom](https://classroom.github.com/a/LINK_TBD)
+[Accept the assignment on GitHub Classroom](https://classroom.github.com/a/1KxSq82p)
 
 **Slides:** [SLAM & Mapping](/slides/slam.html)
