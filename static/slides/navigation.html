@@ -454,31 +454,31 @@
 
             <!-- Path Planning -->
             <section>
-                <h2>Path Planning: Global Planner</h2>
-                <div class="box" style="margin-top: 6px; font-size: 0.82em;">
+                <h2>Global Path Planning</h2>
+                <div class="box" style="margin-top: 5px; font-size: 0.79em;">
                     The <strong>global planner</strong> finds a path from the robot's current position to the goal on the global costmap.
                 </div>
-                <ul style="margin-top: 8px; font-size: 0.83em;">
+                <ul style="margin-top: 6px; font-size: 0.78em;">
                     <li>Treats the costmap as a <strong>graph</strong> — each cell is a node, edge weights = cell costs</li>
                     <li>Explores cells and builds up the <strong>lowest-cost route</strong> to the goal</li>
-                    <li>A path through high-cost (inflated) cells is allowed but penalized — the planner picks around them if a cheaper route exists</li>
+                    <li>High-cost (inflated) cells are allowed but penalized, so cheaper routes are preferred</li>
                     <li>If inflation completely fills a corridor, no path can pass through it</li>
                 </ul>
-                <div class="box box-success" style="margin-top: 8px; padding: 8px 12px; font-size: 0.74em;">
-                    <strong>In RViz:</strong> The global plan appears as a thin line from robot to goal. It may curve around obstacles and stay away from walls — that's the inflation layer pushing the path toward lower-cost cells.
+                <div class="box box-success" style="margin-top: 6px; padding: 7px 10px; font-size: 0.7em;">
+                    <strong>In RViz:</strong> The path often curves away from walls because inflation pushes it toward lower-cost cells.
                 </div>
             </section>
 
             <!-- robot_radius and costmap safety -->
             <section>
-                <h2>robot_radius: Matching Config to Hardware</h2>
-                <div class="box" style="margin-top: 4px; font-size: 0.8em;">
-                    The costmap uses <code>robot_radius</code> to determine how close the robot center can get to a wall. If the config doesn't match the real robot, planning goes wrong.
+                <h2>robot_radius and Safety</h2>
+                <div class="box" style="margin-top: 3px; font-size: 0.76em;">
+                    The costmap uses <code>robot_radius</code> to set how close the robot center can approach walls. If it mismatches hardware, planning fails.
                 </div>
-                <div class="two-col" style="margin-top: 6px; gap: 8px;">
+                <div class="two-col" style="margin-top: 5px; gap: 8px;">
                     <div class="col-item" style="padding: 8px;">
-                        <h3 style="margin-top: 0; margin-bottom: 6px; color: var(--danger); font-size: 0.8em;">robot_radius too small</h3>
-                        <ul style="font-size: 0.67em; margin-top: 0;">
+                        <h3 style="margin-top: 0; margin-bottom: 5px; color: var(--danger); font-size: 0.76em;">robot_radius too small</h3>
+                        <ul style="font-size: 0.64em; margin-top: 0;">
                             <li>Planner thinks the robot is smaller than it is</li>
                             <li>Plans gaps the <em>real</em> robot cannot fit through</li>
                             <li>Collision risk increases near walls</li>
@@ -486,8 +486,8 @@
                         </ul>
                     </div>
                     <div class="col-item" style="padding: 8px;">
-                        <h3 style="margin-top: 0; margin-bottom: 6px; color: var(--warning); font-size: 0.8em;">robot_radius too large</h3>
-                        <ul style="font-size: 0.67em; margin-top: 0;">
+                        <h3 style="margin-top: 0; margin-bottom: 5px; color: var(--warning); font-size: 0.76em;">robot_radius too large</h3>
+                        <ul style="font-size: 0.64em; margin-top: 0;">
                             <li>Planner thinks the robot is larger than it is</li>
                             <li>Avoids passages the robot could actually navigate</li>
                             <li>May fail to find any path in tight environments</li>
@@ -495,8 +495,8 @@
                         </ul>
                     </div>
                 </div>
-                <div class="box box-info" style="margin-top: 5px; padding: 5px 12px; font-size: 0.71em;">
-                    <strong>Both parameters matter together:</strong> <code>robot_radius</code> sets the inscribed zone (robot center would collide); <code>inflation_radius</code> sets how far beyond that the planner still prefers to stay away.
+                <div class="box box-info" style="margin-top: 4px; padding: 5px 10px; font-size: 0.67em;">
+                    <strong>Together:</strong> <code>robot_radius</code> sets the inscribed collision zone; <code>inflation_radius</code> adds extra clearance.
                 </div>
             </section>
 
