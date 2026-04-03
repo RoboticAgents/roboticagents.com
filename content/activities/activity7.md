@@ -6,7 +6,7 @@ weight = 7
 
 This activity is hosted on GitHub Classroom.
 
-**Due Date: April 1st by 11:00 AM**
+**Due Date: April 3rd by 11:00 AM**
 
 [Accept the assignment on GitHub Classroom](https://classroom.github.com/a/P82Xnnei)
 
