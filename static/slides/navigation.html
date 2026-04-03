@@ -65,12 +65,12 @@
         
         .reveal .box {
             background: var(--light);
-            padding: 15px;
+            padding: 10px 15px;
             border-radius: 8px;
             border-left: 4px solid var(--primary);
-            margin: 15px auto;
+            margin: 8px auto;
             max-width: 90%;
-            font-size: 0.9em;
+            font-size: 0.85em;
         }
         
         .reveal .box-success {
@@ -105,7 +105,7 @@
         
         .reveal table {
             font-size: 0.7em;
-            margin: 15px auto;
+            margin: 8px auto;
         }
         
         .reveal th {
@@ -175,14 +175,14 @@
         }
 
         .reveal pre {
-            margin: 15px auto;
+            margin: 8px auto;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .reveal pre code {
-            padding: 20px;
-            font-size: 0.65em;
-            line-height: 1.4;
+            padding: 15px;
+            font-size: 0.6em;
+            line-height: 1.35;
         }
 
         .reveal .flow-diagram {
@@ -190,7 +190,7 @@
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin: 30px 0;
+            margin: 15px 0;
             font-size: 0.85em;
         }
 
@@ -207,6 +207,10 @@
             font-size: 1.5em;
             color: var(--primary);
         }
+
+        .reveal .slides section {
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
@@ -215,7 +219,7 @@
             
             <!-- Title Slide -->
             <section>
-                <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:760px;text-align:center;">
+                <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:660px;text-align:center;">
                     <h1 style="font-size:2.8em;">Navigation &amp; Path Planning</h1>
                     <p class="subtitle" style="font-size:1.5em;">Week 11 &bull; CMPSC 304 Robotic Agents</p>
                     <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>&rarr;</strong> to advance</p>
@@ -289,166 +293,155 @@
             <!-- AMCL particle count -->
             <section>
                 <h2>AMCL: How Many Particles?</h2>
-                <div class="box" style="margin-top: 5px; font-size: 0.85em;">
-                    AMCL adapts its particle count between a <strong>minimum</strong> (when confident) and a <strong>maximum</strong> (when uncertain). More particles = more hypotheses tracked = more computation.
+                <div class="box" style="margin-top: 5px; font-size: 0.82em;">
+                    AMCL adapts its particle count between a <strong>minimum</strong> (confident) and <strong>maximum</strong> (uncertain). More particles = more hypotheses = more computation.
                 </div>
-                <div class="two-col" style="margin-top: 8px; gap: 8px;">
-                    <div class="col-item" style="padding: 9px;">
+                <div class="two-col" style="margin-top: 6px; gap: 8px;">
+                    <div class="col-item" style="padding: 8px;">
                         <h3 style="margin-top: 0; color: var(--success);">Few particles (confident)</h3>
-                        <ul style="font-size: 0.72em;">
-                            <li>Particles are clustered tightly in one spot</li>
-                            <li>Robot has been moving through a <strong>distinctive area</strong> with clear landmarks</li>
-                            <li>Lidar scans match the expected map well</li>
-                            <li>Only a small "neighborhood" of poses needs to be tracked</li>
+                        <ul style="font-size: 0.68em;">
+                            <li>Clustered tightly in one spot</li>
+                            <li><strong>Distinctive area</strong> with clear landmarks</li>
+                            <li>Lidar scans match expected map well</li>
                         </ul>
                     </div>
-                    <div class="col-item" style="padding: 9px;">
+                    <div class="col-item" style="padding: 8px;">
                         <h3 style="margin-top: 0; color: var(--danger);">Many particles (uncertain)</h3>
-                        <ul style="font-size: 0.72em;">
-                            <li>Particles are spread over a large area</li>
-                            <li>Several locations on the map look <strong>similar</strong> to the robot's scans</li>
-                            <li>e.g., a long featureless corridor — many poses produce the same scan</li>
-                            <li>e.g., just after startup — robot hasn't ruled anything out yet</li>
+                        <ul style="font-size: 0.68em;">
+                            <li>Spread over a large area</li>
+                            <li>Multiple map locations look <strong>similar</strong></li>
+                            <li>e.g., long featureless corridor or just after startup</li>
                         </ul>
                     </div>
                 </div>
-                <div class="box box-warning" style="margin-top: 6px; padding: 6px 14px; font-size: 0.78em;">
-                    <strong>Rule of thumb:</strong> The harder it is to distinguish the robot's current location from other map locations using the lidar, the more particles AMCL needs.
+                <div class="box box-warning" style="margin-top: 6px; padding: 6px 14px; font-size: 0.75em;">
+                    <strong>Rule of thumb:</strong> The harder it is to distinguish the robot's current location from other map locations using lidar, the more particles AMCL needs.
                 </div>
             </section>
 
             <!-- Initial Pose Estimate -->
             <section>
                 <h2>Setting the Initial Pose</h2>
-                <div class="box box-warning" style="margin-top: 15px; font-size: 0.85em;">
+                <div class="box box-warning" style="font-size: 0.82em;">
                     <strong>Why you must set the initial pose:</strong> AMCL doesn't know where the robot starts. You give it a hint by clicking in RViz.
                 </div>
-                <ol style="font-size: 0.8em; margin-top: 15px;">
+                <ol style="font-size: 0.78em; margin-top: 8px;">
                     <li>Click the <strong>"2D Pose Estimate"</strong> button in the RViz toolbar</li>
                     <li>Click on the map where the robot is</li>
                     <li>Drag to set the direction the robot is facing</li>
                     <li>The particle cloud should jump to that location and then converge</li>
                 </ol>
-                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
-                    <strong>What if you get it wrong?</strong> AMCL may still converge to the correct position as the robot moves and gets more scan data — but it takes longer. Set it as accurately as you can.
+                <div class="box box-success" style="padding: 8px 15px; font-size: 0.78em;">
+                    <strong>What if you get it wrong?</strong> AMCL may still converge as the robot moves and gets more scan data — but it takes longer.
                 </div>
             </section>
 
             <!-- Costmaps -->
             <section>
                 <h2>Costmaps: The Planner's View</h2>
-                <div class="box" style="margin-top: 6px; font-size: 0.85em;">
+                <div class="box" style="font-size: 0.82em;">
                     A <strong>costmap</strong> is a grid where each cell has a <em>cost</em> — how expensive it is for the robot to be there.
                 </div>
-                <table style="margin-top: 8px;">
+                <table>
                     <thead><tr><th>Cost</th><th>Meaning</th><th>Visual</th></tr></thead>
                     <tbody>
                         <tr><td>0</td><td>Free space — safe to traverse</td><td>No color</td></tr>
-                        <tr><td>1–252</td><td>Increasing cost (near obstacles)</td><td>Blue &rarr; red gradient</td></tr>
+                        <tr><td>1–252</td><td>Increasing cost (near obstacles)</td><td>Blue &rarr; red</td></tr>
                         <tr><td>253</td><td>Inscribed — robot center would hit obstacle</td><td>Cyan ring</td></tr>
                         <tr><td>254</td><td>Lethal — occupied cell</td><td>Purple/pink</td></tr>
                         <tr><td>255</td><td>Unknown</td><td>No data</td></tr>
                     </tbody>
                 </table>
-                <div class="box box-info" style="margin-top: 6px; padding: 8px 15px; font-size: 0.8em;">
-                    <strong>Inflation layer:</strong> Obstacles are "inflated" — expanded outward by <code>inflation_radius</code>. Cells inside that buffer get a non-zero cost; the closer to an obstacle, the higher the cost. The planner treats the robot as a point and avoids high-cost cells.
+                <div class="box box-info" style="padding: 8px 15px; font-size: 0.75em;">
+                    <strong>Inflation layer:</strong> Obstacles are expanded outward by <code>inflation_radius</code>. The closer to an obstacle, the higher the cost. The planner treats the robot as a point and avoids high-cost cells.
                 </div>
             </section>
 
             <!-- Inflation: worked example -->
             <section>
                 <h2>Inflation: A Worked Example</h2>
-                <div class="box" style="margin-top: 8px; font-size: 0.82em;">
-                    Config: <code>resolution: 0.05 m/cell</code> &nbsp;|&nbsp; <code>inflation_radius: 0.15 m</code><br>
-                    Buffer width: 0.15 &divide; 0.05 = <strong>3 cells</strong>
+                <div class="box" style="font-size: 0.78em;">
+                    Config: <code>resolution: 0.05 m/cell</code> &nbsp;|&nbsp; <code>inflation_radius: 0.15 m</code> &nbsp;→&nbsp; buffer = <strong>3 cells</strong>
                 </div>
-                <p style="font-size: 0.75em; margin: 4px 0 2px 0;">Start with a 6&times;6 map — one wall on the left:</p>
-                <div class="two-col" style="margin-top: 2px; gap: 8px;">
-                    <div class="col-item" style="padding: 10px;">
-                        <h3 style="margin-top: 0; font-size: 0.8em;">Raw map (<code>#</code> = wall)</h3>
-                        <pre style="margin: 0; box-shadow: none; font-size: 0.95em;"><code style="padding: 8px; font-size: 0.8em;">  0 1 2 3 4 5
+                <div class="two-col" style="margin-top: 4px; gap: 8px;">
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; font-size: 0.78em;">Raw map (<code>#</code> = wall)</h3>
+                        <pre style="margin: 0; box-shadow: none;"><code style="padding: 6px; font-size: 0.78em;">  0 1 2 3 4 5
 0 # . . . . .
 1 # . . . . .
 2 # . . . . .
-3 # . . . . .
-4 # . . . . .
-5 # . . . . .</code></pre>
+3 # . . . . .</code></pre>
                     </div>
-                    <div class="col-item" style="padding: 10px;">
-                        <h3 style="margin-top: 0; font-size: 0.8em;">After inflation (<code>I</code> = inflated)</h3>
-                        <pre style="margin: 0; box-shadow: none; font-size: 0.95em;"><code style="padding: 8px; font-size: 0.8em;">  0 1 2 3 4 5
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; font-size: 0.78em;">After inflation (<code>I</code> = inflated)</h3>
+                        <pre style="margin: 0; box-shadow: none;"><code style="padding: 6px; font-size: 0.78em;">  0 1 2 3 4 5
 0 # I I I . .
 1 # I I I . .
 2 # I I I . .
-3 # I I I . .
-4 # I I I . .
-5 # I I I . .</code></pre>
-                        <p style="font-size: 0.7em; margin: 4px 0 0 0;">Cols 1–3 are within 3 cells of col 0. Cols 4–5 are safe (cost 0).</p>
+3 # I I I . .</code></pre>
                     </div>
                 </div>
-                <div class="box box-success" style="margin-top: 6px; padding: 6px 14px; font-size: 0.78em;">
-                    <strong>Key rule:</strong> Measure the straight-line distance in cells from each free cell to the nearest <code>#</code>. If that distance &le; buffer width, the cell is inflated (<code>I</code>). Diagonal neighbors are &radic;2 &asymp; 1.4 cells away.
+                <div class="box box-success" style="margin-top: 4px; padding: 6px 14px; font-size: 0.75em;">
+                    <strong>Key rule:</strong> Measure straight-line distance (in cells) from each free cell to the nearest <code>#</code>. If distance &le; buffer width, the cell is inflated. Diagonal neighbors are &radic;2 &asymp; 1.4 cells away.
                 </div>
             </section>
 
             <!-- How the planner uses cost -->
             <section>
                 <h2>How the Planner Uses Cost</h2>
-                <div class="box" style="margin-top: 5px; font-size: 0.85em;">
-                    The global planner finds the <strong>minimum-total-cost path</strong> from start to goal — it adds up the cost of every cell the path passes through and picks the route with the lowest sum.
+                <div class="box" style="font-size: 0.82em;">
+                    The global planner finds the <strong>minimum-total-cost path</strong> from start to goal.
                 </div>
-                <div class="two-col" style="margin-top: 6px; gap: 8px;">
-                    <div class="col-item" style="padding: 10px;">
-                        <h3 style="margin-top: 0;">Two routes, same length</h3>
-                        <pre style="margin: 4px 0; box-shadow: none;"><code style="padding: 8px; font-size: 0.75em;">  0 1 2 3 4 5
-0 . . . . . G   ← goal
+                <div class="two-col" style="margin-top: 4px; gap: 8px;">
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; font-size: 0.78em;">Two routes, same length</h3>
+                        <pre style="margin: 2px 0; box-shadow: none;"><code style="padding: 6px; font-size: 0.72em;">  0 1 2 3 4 5
+0 . . . . . G
 1 . I I . . .
 2 . I # . . .
 3 . I # . . .
 4 . . . . . .
-5 S . . . . .   ← start</code></pre>
+5 S . . . . .</code></pre>
                     </div>
-                    <div class="col-item" style="padding: 10px;">
-                        <h3 style="margin-top: 0;">Which path wins?</h3>
-                        <ul style="font-size: 0.72em;">
-                            <li><strong>Route A</strong> (hugs the left, passes through <code>I</code> cells): high cost — close to the obstacle</li>
-                            <li><strong>Route B</strong> (swings right, stays in cost-0 cells): low cost — far from all walls</li>
-                            <li>The planner picks <strong>Route B</strong> — same travel distance, much lower total cost</li>
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; font-size: 0.78em;">Which path wins?</h3>
+                        <ul style="font-size: 0.68em;">
+                            <li><strong>Route A</strong> (left, through <code>I</code> cells): high cost</li>
+                            <li><strong>Route B</strong> (right, cost-0 cells): low cost</li>
+                            <li>Planner picks <strong>Route B</strong></li>
                         </ul>
-                        <div class="box box-info" style="margin-top: 8px; padding: 8px; font-size: 0.75em;">
-                            This is why the path in RViz sometimes looks like it curves away from walls even when a straight line would work geometrically.
-                        </div>
                     </div>
+                </div>
+                <div class="box box-info" style="margin-top: 4px; padding: 6px 14px; font-size: 0.75em;">
+                    This is why paths in RViz sometimes curve away from walls even when a straight line would work geometrically.
                 </div>
             </section>
 
             <!-- Global vs Local Costmap -->
             <section>
                 <h2>Global vs. Local Costmap</h2>
-                <div class="two-col" style="margin-top: 15px;">
-                    <div class="col-item" style="padding: 12px;">
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 10px;">
                         <h3 style="margin-top: 0;">Global Costmap</h3>
-                        <ul style="font-size: 0.7em;">
+                        <ul style="font-size: 0.68em;">
                             <li>Covers the <strong>entire map</strong></li>
                             <li>Based on the static map you saved</li>
                             <li>Updated slowly (mostly static)</li>
                             <li>Used for <strong>long-range planning</strong></li>
-                            <li>Finds the overall route</li>
                         </ul>
                     </div>
-                    <div class="col-item" style="padding: 12px;">
+                    <div class="col-item" style="padding: 10px;">
                         <h3 style="margin-top: 0;">Local Costmap</h3>
-                        <ul style="font-size: 0.7em;">
+                        <ul style="font-size: 0.68em;">
                             <li>Small area <strong>around the robot</strong></li>
                             <li>Updated in <strong>real-time</strong> with lidar</li>
                             <li>Includes <strong>dynamic obstacles</strong></li>
                             <li>Used for <strong>immediate decisions</strong></li>
-                            <li>Adjusts the path on the fly</li>
                         </ul>
                     </div>
                 </div>
-                <div class="box" style="margin-top: 15px; padding: 10px 15px; font-size: 0.85em;">
-                    <strong>Why two costmaps?</strong> The global costmap gives the "big picture" route. The local costmap handles the messy reality of moment-to-moment driving.
+                <div class="box" style="padding: 8px 15px; font-size: 0.82em;">
+                    <strong>Why two costmaps?</strong> The global costmap gives the big-picture route. The local costmap handles moment-to-moment driving.
                 </div>
             </section>
 
@@ -472,84 +465,81 @@
             <!-- robot_radius and costmap safety -->
             <section>
                 <h2>robot_radius: Matching Config to Hardware</h2>
-                <div class="box" style="margin-top: 5px; font-size: 0.85em;">
-                    The costmap uses <code>robot_radius</code> to determine how close the robot center can get to a wall. If the config doesn't match the real robot, planning goes wrong.
+                <div class="box" style="font-size: 0.82em;">
+                    <code>robot_radius</code> tells the costmap how close the robot center can get to a wall. Wrong value → bad plans.
                 </div>
-                <div class="two-col" style="margin-top: 8px; gap: 8px;">
-                    <div class="col-item" style="padding: 9px;">
-                        <h3 style="margin-top: 0; color: var(--danger);">robot_radius too small</h3>
-                        <ul style="font-size: 0.72em;">
-                            <li>Planner thinks the robot is smaller than it is</li>
-                            <li>Plans paths through gaps the <em>real</em> robot won't fit through</li>
-                            <li>Robot collides with walls it "should have" avoided</li>
-                            <li>Common mistake when reusing a config on a different platform</li>
+                <div class="two-col" style="margin-top: 6px; gap: 8px;">
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; color: var(--danger); font-size: 0.78em;">Too small</h3>
+                        <ul style="font-size: 0.68em;">
+                            <li>Plans paths through gaps robot won't fit</li>
+                            <li>Robot collides with walls</li>
+                            <li>Common when reusing config on different platform</li>
                         </ul>
                     </div>
-                    <div class="col-item" style="padding: 9px;">
-                        <h3 style="margin-top: 0; color: var(--warning);">robot_radius too large</h3>
-                        <ul style="font-size: 0.72em;">
-                            <li>Planner thinks the robot is larger than it is</li>
-                            <li>Avoids passages the robot could actually navigate</li>
-                            <li>May fail to find any path in tight environments</li>
-                            <li>Conservative — but may fail unnecessarily</li>
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; color: var(--warning); font-size: 0.78em;">Too large</h3>
+                        <ul style="font-size: 0.68em;">
+                            <li>Avoids passages robot could navigate</li>
+                            <li>May fail to find any path in tight spaces</li>
+                            <li>Conservative — may fail unnecessarily</li>
                         </ul>
                     </div>
                 </div>
-                <div class="box box-info" style="margin-top: 6px; padding: 6px 14px; font-size: 0.78em;">
-                    <strong>Both parameters matter together:</strong> <code>robot_radius</code> sets the inscribed zone (robot center would collide); <code>inflation_radius</code> sets how far beyond that the planner still prefers to stay away.
+                <div class="box box-info" style="margin-top: 4px; padding: 6px 14px; font-size: 0.75em;">
+                    <strong>Both matter together:</strong> <code>robot_radius</code> = inscribed zone; <code>inflation_radius</code> = how far beyond that the planner prefers to stay away.
                 </div>
             </section>
 
             <!-- Goal tolerance -->
             <section>
                 <h2>Reaching the Goal: Tolerance</h2>
-                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
-                    The planner's <code>tolerance</code> parameter defines how close the robot must get to the goal before Nav2 declares navigation <strong>succeeded</strong>.
+                <div class="box" style="font-size: 0.82em;">
+                    <code>tolerance</code> = how close robot must get before Nav2 declares <strong>succeeded</strong>.
                 </div>
-                <ul style="margin-top: 15px;">
-                    <li><strong>Large tolerance</strong> (e.g. 1.0 m): Robot "arrives" while still far from the target. Fast and reliable, but imprecise — can cause the robot to stop in wrong places on a patrol route.</li>
-                    <li><strong>Small tolerance</strong> (e.g. 0.02 m): Robot must get very close to the exact coordinate. Real-world odometry drift makes tight tolerances hard to satisfy — the robot may oscillate or time out.</li>
-                    <li><strong>Match to the task:</strong> General navigation → 0.3–0.5 m is fine. Precise positioning (docking, inspection) → smaller, but expect more failures.</li>
+                <ul style="font-size: 0.78em; margin-top: 8px;">
+                    <li><strong>Large</strong> (1.0 m): Fast arrival, imprecise — may stop in wrong places</li>
+                    <li><strong>Small</strong> (0.02 m): Very precise, but odometry drift → oscillation or timeout</li>
+                    <li><strong>Rule of thumb:</strong> General nav → 0.3–0.5 m. Precise positioning → smaller, expect more failures</li>
                 </ul>
-                <div class="box box-warning" style="margin-top: 10px; padding: 8px 14px; font-size: 0.8em;">
-                    <strong>Recovery behaviors</strong> are triggered when the robot can't reach the goal — including when a tight tolerance can't be satisfied. Your code must handle goal failure gracefully.
+                <div class="box box-warning" style="margin-top: 8px; padding: 6px 14px; font-size: 0.75em;">
+                    <strong>Recovery behaviors</strong> trigger when goal can't be reached (including tight tolerance). Your code must handle goal failure gracefully.
                 </div>
             </section>
 
             <!-- Local Planner -->
             <section>
                 <h2>Path Following: Local Planner</h2>
-                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                <div class="box" style="font-size: 0.82em;">
                     The <strong>local planner</strong> (controller) generates velocity commands to follow the global path while reacting to real-time sensor data.
                 </div>
-                <ul style="margin-top: 15px;">
+                <ul style="font-size: 0.78em; margin-top: 8px;">
                     <li>Nav2 uses <strong>DWB</strong> (Dynamic Window Based) controller by default</li>
-                    <li>Simulates many possible velocity commands forward in time</li>
-                    <li>Scores each trajectory: does it follow the path? avoid obstacles? reach the goal?</li>
+                    <li>Simulates many velocity commands forward in time, scores each trajectory</li>
                     <li>Picks the <strong>best-scoring trajectory</strong> and sends velocity commands</li>
                 </ul>
-                <div class="flow-diagram" style="margin-top: 15px;">
-                    <div class="flow-box" style="background: var(--info); font-size: 0.8em; min-width: 90px;">Global<br>Path</div>
+                <div class="flow-diagram" style="margin-top: 10px;">
+                    <div class="flow-box" style="background: var(--info); font-size: 0.75em; min-width: 80px;">Global<br>Path</div>
                     <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-box" style="background: var(--warning); color: var(--dark); font-size: 0.8em; min-width: 90px;">Local<br>Planner</div>
+                    <div class="flow-box" style="background: var(--warning); color: var(--dark); font-size: 0.75em; min-width: 80px;">Local<br>Planner</div>
                     <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-box" style="background: var(--success); font-size: 0.8em; min-width: 90px;">/cmd_vel<br>Commands</div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.75em; min-width: 80px;">/cmd_vel</div>
                     <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-box" style="background: var(--primary); font-size: 0.8em; min-width: 90px;">Robot<br>Moves</div>
+                    <div class="flow-box" style="background: var(--primary); font-size: 0.75em; min-width: 80px;">Robot<br>Moves</div>
                 </div>
             </section>
 
             <!-- Nav2 Architecture -->
             <section>
                 <h2>Nav2: The Full Picture</h2>
-                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
-                    <strong>Nav2</strong> (Navigation 2) is the ROS2 navigation framework that combines all these components.
+                <div class="box" style="font-size: 0.82em;">
+                    <strong>Nav2</strong> = the ROS2 navigation framework combining all components.
                 </div>
-                <table style="margin-top: 15px; font-size: 0.82em;">
-                    <thead><tr><th>Component</th><th>Role</th><th>ROS2 Node</th></tr></thead>
+                <table style="font-size: 0.72em;">
+                    <thead><tr><th>Component</th><th>Role</th><th>Node</th></tr></thead>
                     <tbody>
-                        <tr><td><strong>Map Server</strong></td><td>Loads and serves the static map</td><td><code>map_server</code></td></tr>
-                        <tr><td><strong>AMCL</strong></td><td>Localizes robot on the map</td><td><code>amcl</code></td></tr>
+                        <tr><td><strong>Map Server</strong></td><td>Loads/serves static map</td><td><code>map_server</code></td></tr>
+                        <tr><td><strong>AMCL</strong></td><td>Localizes robot on map</td><td><code>amcl</code></td></tr>
                         <tr><td><strong>Global Costmap</strong></td><td>Full-map cost grid</td><td><code>global_costmap</code></td></tr>
                         <tr><td><strong>Local Costmap</strong></td><td>Real-time local cost grid</td><td><code>local_costmap</code></td></tr>
                         <tr><td><strong>Planner Server</strong></td><td>Global path planning</td><td><code>planner_server</code></td></tr>
@@ -562,53 +552,49 @@
             <!-- Activity 7 Parameter Cheat Sheet -->
             <section>
                 <h2>Activity 7: Parameter Cheat Sheet</h2>
-                <div class="box" style="margin-top: 5px; font-size: 0.82em;">
-                    Use these meanings for Q5&ndash;Q8 in Activity 7. Focus on <em>what changes behavior</em>, not memorizing every default.
+                <div class="box" style="font-size: 0.78em;">
+                    For Q5–Q8 — focus on <em>what changes behavior</em>, not memorizing defaults.
                 </div>
-                <table style="margin-top: 7px; font-size: 0.68em;">
-                    <thead><tr><th>Parameter</th><th>What It Controls</th><th>If Increased</th></tr></thead>
+                <table style="font-size: 0.6em;">
+                    <thead><tr><th>Parameter</th><th>Controls</th><th>If Increased</th></tr></thead>
                     <tbody>
-                        <tr><td><code>min_particles</code> / <code>max_particles</code></td><td>AMCL confidence vs compute cost</td><td>More robustness in uncertainty, slower compute</td></tr>
-                        <tr><td><code>odom_alpha1</code>, <code>odom_alpha2</code></td><td>Assumed odometry noise in rotation/translation coupling</td><td>AMCL trusts odometry less, spreads belief more</td></tr>
-                        <tr><td><code>pf_err</code></td><td>Target localization error for particle filter</td><td>Looser target (can run fewer particles)</td></tr>
-                        <tr><td><code>use_astar</code></td><td>Planner search strategy (A* vs Dijkstra)</td><td>Usually same path quality, often faster planning</td></tr>
-                        <tr><td><code>tolerance</code></td><td>How close counts as goal reached</td><td>Easier goal completion, less positional precision</td></tr>
-                        <tr><td><code>desired_linear_vel</code></td><td>Forward speed cap</td><td>Faster travel, may reduce control margin</td></tr>
-                        <tr><td><code>lookahead_dist</code></td><td>How far ahead controller tracks path</td><td>Smoother but can cut corners/overshoot tight turns</td></tr>
-                        <tr><td><code>max_angular_vel</code></td><td>Turn-rate cap</td><td>Quicker turning, higher risk of oscillation</td></tr>
+                        <tr><td><code>min/max_particles</code></td><td>AMCL confidence vs compute</td><td>More robust, slower</td></tr>
+                        <tr><td><code>odom_alpha1/2</code></td><td>Assumed odom noise</td><td>AMCL trusts odom less</td></tr>
+                        <tr><td><code>pf_err</code></td><td>Target localization error</td><td>Fewer particles needed</td></tr>
+                        <tr><td><code>use_astar</code></td><td>A* vs Dijkstra</td><td>Often faster planning</td></tr>
+                        <tr><td><code>tolerance</code></td><td>Goal reached distance</td><td>Easier completion, less precise</td></tr>
+                        <tr><td><code>desired_linear_vel</code></td><td>Speed cap</td><td>Faster, less control margin</td></tr>
+                        <tr><td><code>lookahead_dist</code></td><td>Controller look-ahead</td><td>Smoother, may overshoot turns</td></tr>
+                        <tr><td><code>max_angular_vel</code></td><td>Turn-rate cap</td><td>Quicker turns, oscillation risk</td></tr>
                     </tbody>
                 </table>
-                <div class="box box-info" style="margin-top: 6px; padding: 6px 12px; font-size: 0.74em;">
-                    <strong>Rule of thumb:</strong> Tune speed, lookahead, and tolerance together for the robot platform (TB3 vs TB4).
+                <div class="box box-info" style="margin-top: 4px; padding: 6px 12px; font-size: 0.72em;">
+                    <strong>Rule of thumb:</strong> Tune speed, lookahead, and tolerance together for the robot platform.
                 </div>
             </section>
 
             <!-- Sending Goals -->
             <section>
                 <h2>Sending Navigation Goals</h2>
-                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
-                    You can send goals two ways:
-                </div>
-                <div class="two-col" style="margin-top: 15px;">
-                    <div class="col-item" style="padding: 12px;">
-                        <h3 style="margin-top: 0;">RViz (Manual)</h3>
-                        <ol style="font-size: 0.7em;">
+                <div class="box" style="font-size: 0.82em;">Two ways to send goals:</div>
+                <div class="two-col" style="margin-top: 8px;">
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; font-size: 0.78em;">RViz (Manual)</h3>
+                        <ol style="font-size: 0.68em;">
                             <li>Click <strong>"Nav2 Goal"</strong> button</li>
-                            <li>Click where you want to go</li>
-                            <li>Drag to set orientation</li>
+                            <li>Click destination, drag to set heading</li>
                             <li>Robot plans and drives</li>
                         </ol>
-                        <p style="font-size: 0.7em; margin-top: 5px;"><em>Great for testing and exploration</em></p>
+                        <p style="font-size: 0.68em; margin-top: 3px;"><em>Great for testing</em></p>
                     </div>
-                    <div class="col-item" style="padding: 12px;">
-                        <h3 style="margin-top: 0;">Code (Programmatic)</h3>
-                        <ul style="font-size: 0.7em;">
+                    <div class="col-item" style="padding: 8px;">
+                        <h3 style="margin-top: 0; font-size: 0.78em;">Code (Programmatic)</h3>
+                        <ul style="font-size: 0.68em;">
                             <li>Use <code>NavigateToPose</code> action</li>
                             <li>Send goals from a Python node</li>
                             <li>Chain multiple waypoints</li>
-                            <li>React to results automatically</li>
                         </ul>
-                        <p style="font-size: 0.7em; margin-top: 5px;"><em>Required for P4 Part 3</em></p>
+                        <p style="font-size: 0.68em; margin-top: 3px;"><em>Required for P4 Part 3</em></p>
                     </div>
                 </div>
             </section>
@@ -616,55 +602,51 @@
             <!-- Recovery Behaviors -->
             <section>
                 <h2>What Happens When Things Go Wrong?</h2>
-                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                <div class="box" style="font-size: 0.82em;">
                     Nav2 has built-in <strong>recovery behaviors</strong> for when the robot gets stuck.
                 </div>
-                <ul style="margin-top: 15px;">
-                    <li><strong>Clear costmap:</strong> Reset the costmap to remove ghost obstacles from old sensor data</li>
-                    <li><strong>Spin:</strong> Rotate in place to get new sensor readings</li>
-                    <li><strong>Back up:</strong> Drive backwards to recover from a tight space</li>
-                    <li><strong>Wait:</strong> Pause and hope a dynamic obstacle moves</li>
+                <ul style="font-size: 0.78em; margin-top: 8px;">
+                    <li><strong>Clear costmap:</strong> Remove ghost obstacles from old sensor data</li>
+                    <li><strong>Spin:</strong> Rotate in place for new sensor readings</li>
+                    <li><strong>Back up:</strong> Drive backwards from tight space</li>
+                    <li><strong>Wait:</strong> Pause for a dynamic obstacle to move</li>
                 </ul>
-                <div class="box box-warning" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
-                    <strong>If all recovery behaviors fail:</strong> Nav2 aborts the goal and reports failure. Your code needs to handle this — goals don't always succeed! This is very common with physical robots.
+                <div class="box box-warning" style="margin-top: 8px; padding: 6px 15px; font-size: 0.75em;">
+                    <strong>If all fail:</strong> Nav2 aborts the goal. Your code must handle goal failure — this is common with physical robots.
                 </div>
             </section>
 
             <!-- Launching Nav2 -->
             <section>
                 <h2>Using Nav2 with TurtleBot3</h2>
-                <pre style="margin: 15px auto;"><code># Terminal 1: Launch Gazebo
-ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
-
-# Terminal 2: Launch Nav2 with your map
-ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=$HOME/map.yaml</code></pre>
-                <ol style="font-size: 0.8em; margin-top: 15px;">
-                    <li>Wait for Nav2 to fully start (watch terminal for "Creating bond timer")</li>
+                <pre style="margin: 8px auto;"><code style="font-size: 0.58em;">ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py   # Terminal 1
+ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=$HOME/map.yaml  # Terminal 2</code></pre>
+                <ol style="font-size: 0.75em; margin-top: 8px;">
+                    <li>Wait for Nav2 to start ("Creating bond timer" in terminal)</li>
                     <li>Set initial pose with "2D Pose Estimate" in RViz</li>
                     <li>Send a goal with "Nav2 Goal" in RViz</li>
-                    <li>Watch the robot plan and navigate!</li>
                 </ol>
-                <div class="box box-info" style="margin-top: 10px; padding: 10px 15px; font-size: 0.8em;">
-                    <strong>Important:</strong> You must use the map you built in the SLAM exercise. Nav2 needs a pre-built map — it does not build one itself.
+                <div class="box box-info" style="margin-top: 8px; padding: 6px 15px; font-size: 0.75em;">
+                    <strong>Important:</strong> Use the map you built in the SLAM exercise. Nav2 needs a pre-built map.
                 </div>
             </section>
 
             <!-- Summary -->
             <section>
                 <h2>Summary</h2>
-                <table style="margin-top: 15px;">
+                <table style="font-size: 0.78em;">
                     <thead><tr><th>Concept</th><th>What It Does</th></tr></thead>
                     <tbody>
                         <tr><td><strong>AMCL</strong></td><td>Particle filter — localizes robot on a known map</td></tr>
                         <tr><td><strong>Costmap</strong></td><td>Grid with obstacle costs + inflation for safe planning</td></tr>
-                        <tr><td><strong>Global Planner</strong></td><td>Finds optimal path on the full map (Dijkstra/A*)</td></tr>
+                        <tr><td><strong>Global Planner</strong></td><td>Optimal path on full map (Dijkstra/A*)</td></tr>
                         <tr><td><strong>Local Planner</strong></td><td>Follows path reactively, avoids dynamic obstacles</td></tr>
-                        <tr><td><strong>Nav2</strong></td><td>Framework that combines all navigation components</td></tr>
-                        <tr><td><strong>Recovery</strong></td><td>Built-in behaviors for when the robot gets stuck</td></tr>
+                        <tr><td><strong>Nav2</strong></td><td>Framework combining all navigation components</td></tr>
+                        <tr><td><strong>Recovery</strong></td><td>Built-in behaviors when robot gets stuck</td></tr>
                     </tbody>
                 </table>
-                <div class="box" style="margin-top: 15px; text-align: center; font-size: 0.95em;">
-                    <strong>Next: <a href="/activities/activity7">Activity 7</a> — analyze costmap inflation and Nav2 parameters (no simulation required)</strong>
+                <div class="box" style="text-align: center; font-size: 0.88em;">
+                    <strong>Next: <a href="/activities/activity7">Activity 7</a> — analyze costmap inflation and Nav2 parameters</strong>
                 </div>
             </section>
 
@@ -683,7 +665,7 @@ ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=$HOME/map.yaml</co
             slideNumber: 'c/t',
             showSlideNumber: 'all',
             width: 960,
-            height: 800,
+            height: 700,
             margin: 0.04,
             minScale: 0.2,
             maxScale: 2.0
