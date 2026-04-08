@@ -14,4 +14,4 @@ weight = 4
 - [Activity 6: SLAM Mapping Exploration](/activities/activity6) - Due March 30th by 11:00 AM
 - [Activity 7: Navigation Under the Hood](/activities/activity7) - Due April 3rd by 11:00 AM
 - [Activity 8: Writing Your First ROS2 Node](https://classroom.github.com/a/3pXu3zFy) - Due April 8th by 11:00 AM
-<!-- - [Activity 9: Sim-to-Real Preparation](/activities/activity9) - Due April 7th by 11:50 AM -->
+- [Activity 9: ROS2 Services and Subscriber Nodes](https://classroom.github.com/a/kZ5emY6L) - Due April 14th by 11:00 AM
