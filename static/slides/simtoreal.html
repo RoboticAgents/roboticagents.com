@@ -202,7 +202,7 @@
             <section>
                 <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:600px;text-align:center;">
                     <h1 style="font-size:2.8em;">Simulation to Reality</h1>
-                    <p class="subtitle" style="font-size:1.5em;">Week 12 &bull; CMPSC 304 Robotic Agents</p>
+                    <p class="subtitle" style="font-size:1.5em;">Week 14 &bull; CMPSC 304 Robotic Agents</p>
                     <p class="small-text" style="margin-top: 40px;">Press <strong>Space</strong> or <strong>&rarr;</strong> to advance</p>
                 </div>
             </section>
@@ -220,7 +220,7 @@
                     <div class="flow-box" style="background: var(--primary); font-size: 0.75em;">Today<br><span style="font-size:0.7em;font-weight:400;">Real robots</span></div>
                 </div>
                 <div class="box" style="font-size: 0.8em;">
-                    Everything you've built works in simulation. What changes on a <strong>physical TurtleBot 4</strong>?
+                    Everything you have built works in simulation. What changes on a <strong>physical TurtleBot 4</strong>?
                 </div>
             </section>
 
@@ -257,7 +257,7 @@
             <!-- TurtleBot 4 Hardware -->
             <section>
                 <h2>TurtleBot 4: Hardware</h2>
-                <table style="margin-top: 8px;">
+                <table style="margin-top: 8px; font-size: 0.6em;">
                     <thead><tr><th>Component</th><th>Spec</th><th>Notes</th></tr></thead>
                     <tbody>
                         <tr><td><strong>Base</strong></td><td>iRobot Create 3</td><td>Diff. drive, bump/cliff/IMU, auto-docking</td></tr>
@@ -350,7 +350,7 @@ ros2 action send_goal /dock \
             <!-- Sensors -->
             <section>
                 <h2>Sensors</h2>
-                <table style="margin-top: 8px;">
+                <table style="margin-top: 8px; font-size: 0.6em;">
                     <thead><tr><th>Sensor</th><th>Topic</th><th>Details</th></tr></thead>
                     <tbody>
                         <tr><td><strong>RPLIDAR A1</strong></td><td><code>/scan</code></td><td>360&deg;, 0.15&ndash;12 m, ~8 Hz. Stops when docked.</td></tr>
@@ -416,20 +416,18 @@ ros2 action send_goal /dock \
                 <h2>Networking &amp; Navigation</h2>
                 <div class="two-col" style="margin-top: 10px;">
                     <div class="col-item" style="padding: 10px;">
-                        <h3 style="margin-top: 0;">Setup (both devices)</h3>
-                        <pre style="margin: 0;"><code style="font-size: 0.6em;">export ROS_DOMAIN_ID=0
-export RMW_IMPLEMENTATION=rmw_fastrtps_cpp</code></pre>
+                        <h3 style="margin-top: 0;">Network Setup</h3>
                         <ul style="font-size: 0.65em; margin-top: 8px;">
-                            <li>Same <code>ROS_DOMAIN_ID</code> on RPi and laptop</li>
-                            <li>Same Wi-Fi network</li>
-                            <li>FastDDS on both — matches Create 3 firmware</li>
+                            <li>You are on a <strong>dedicated robot Wi-Fi network</strong> — separate from the regular campus network</li>
+                            <li>Plug in the router and connect your laptop to it. The robots connect to it automatically.</li>
+                            <li>The bash setup file on the robot's laptop already sets <code>ROS_DOMAIN_ID</code> and <code>RMW_IMPLEMENTATION</code> — no need to export them manually</li>
                         </ul>
                     </div>
                     <div class="col-item" style="padding: 10px;">
                         <h3 style="margin-top: 0;">Navigation changes</h3>
                         <ul style="font-size: 0.65em;">
                             <li>Set initial pose precisely — AMCL needs a good starting estimate</li>
-                            <li>Increase costmap inflation radius (robot can't clip through real walls)</li>
+                            <li>Increase costmap inflation radius (robot cannot clip through real walls)</li>
                             <li>Recovery behaviors activate more often</li>
                             <li><strong>Your node code does not change</strong> — only map file and waypoint coordinates</li>
                         </ul>
@@ -476,8 +474,8 @@ export RMW_IMPLEMENTATION=rmw_fastrtps_cpp</code></pre>
                         <tr><td><strong>Docking</strong></td><td>Lidar off + cmd_vel ignored when docked — always undock first</td></tr>
                         <tr><td><strong>Lidar</strong></td><td>~8 Hz, real maps are noisier but SLAM still works</td></tr>
                         <tr><td><strong>Odometry</strong></td><td>Drifts — AMCL corrects using the map</td></tr>
-                        <tr><td><strong>Networking</strong></td><td>Same <code>ROS_DOMAIN_ID</code>, same Wi-Fi, <code>rmw_fastrtps_cpp</code></td></tr>
-                        <tr><td><strong>Your code</strong></td><td>Doesn't change — swap map file and waypoint coordinates only</td></tr>
+                        <tr><td><strong>Networking</strong></td><td>Dedicated robot Wi-Fi (plug in router); bash file handles <code>ROS_DOMAIN_ID</code> and <code>rmw_fastrtps_cpp</code></td></tr>
+                        <tr><td><strong>Your code</strong></td><td>Does not change — swap map file and waypoint coordinates only</td></tr>
                         <tr><td><strong>Safety</strong></td><td>Drive slow, test in sim first, know your emergency stop</td></tr>
                     </tbody>
                 </table>
@@ -520,7 +518,7 @@ export RMW_IMPLEMENTATION=rmw_fastrtps_cpp</code></pre>
             <section>
                 <h2>TurtleBot 4 vs. TurtleBot 3</h2>
                 <div class="box" style="margin-top: 10px; font-size: 0.8em;">
-                    Course documentation and online tutorials often reference <strong>TurtleBot3</strong>. We use <strong>TurtleBot 4</strong> — here's what's different.
+                    Course documentation and online tutorials often reference <strong>TurtleBot3</strong>. We use <strong>TurtleBot 4</strong> — here is what is different.
                 </div>
                 <table style="margin-top: 10px;">
                     <thead><tr><th>Feature</th><th>TurtleBot 3 Burger</th><th>TurtleBot 4</th></tr></thead>
@@ -542,7 +540,7 @@ export RMW_IMPLEMENTATION=rmw_fastrtps_cpp</code></pre>
             <!-- TurtleBot 4 Hardware -->
             <section>
                 <h2>TurtleBot 4: The Hardware We Use</h2>
-                <table style="margin-top: 10px;">
+                <table style="margin-top: 10px; font-size: 0.6em;">
                     <thead><tr><th>Component</th><th>Specification</th><th>Notes</th></tr></thead>
                     <tbody>
                         <tr><td><strong>Mobile base</strong></td><td>iRobot Create 3</td><td>Differential drive, bump/cliff sensors, IMU, docking</td></tr>
@@ -683,7 +681,7 @@ ros2 topic hz /scan
             <!-- Other Sensors -->
             <section>
                 <h2>Other Sensors on the Create 3 Base</h2>
-                <table style="margin-top: 10px;">
+                <table style="margin-top: 10px; font-size: 0.6em;">
                     <thead><tr><th>Sensor</th><th>Topic</th><th>What It Detects</th></tr></thead>
                     <tbody>
                         <tr><td><strong>IMU</strong></td><td><code>/imu</code></td><td>Linear acceleration + angular velocity. Helps fuse odometry.</td></tr>
@@ -703,7 +701,7 @@ ros2 topic hz /scan
             <section>
                 <h2>Docking: The Biggest "Gotcha"</h2>
                 <div class="box box-warning" style="margin-top: 15px; font-size: 0.85em;">
-                    The Create 3 base manages docking autonomously. This affects your ROS2 session in ways that aren't obvious.
+                    The Create 3 base manages docking autonomously. This affects your ROS2 session in ways that are not obvious.
                 </div>
                 <ul style="margin-top: 15px;">
                     <li><strong>Docked = lidar off:</strong> <code>/scan</code> stops publishing. SLAM and RViz show nothing.</li>
@@ -769,7 +767,7 @@ ros2 topic hz /scan
             <section>
                 <h2>Odometry: Drift and Slip</h2>
                 <div class="box" style="margin-top: 15px; font-size: 0.85em;">
-                    <strong>Odometry</strong> estimates position from wheel rotations. In simulation it's nearly perfect. In reality, it <strong>drifts</strong>.
+                    <strong>Odometry</strong> estimates position from wheel rotations. In simulation it is nearly perfect. In reality, it <strong>drifts</strong>.
                 </div>
                 <ul style="margin-top: 15px;">
                     <li><strong>Wheel slip:</strong> Smooth floors or fast turns cause wheels to lose traction</li>
@@ -786,20 +784,15 @@ ros2 topic hz /scan
             <section>
                 <h2>Networking with Physical Robots</h2>
                 <div class="box" style="margin-top: 15px; font-size: 0.85em;">
-                    In Docker, everything runs in one container. With a real TurtleBot 4, your laptop and the robot communicate over <strong>Wi-Fi</strong>.
+                    In Docker, everything runs in one container. With a real TurtleBot 4, your laptop and the robot communicate over <strong>Wi-Fi</strong> &mdash; on a dedicated network set up specifically for the robots.
                 </div>
-                <pre><code># On the TurtleBot 4 (Raspberry Pi):
-export ROS_DOMAIN_ID=30
-
-# On your laptop (same network):
-export ROS_DOMAIN_ID=30</code></pre>
                 <ul style="margin-top: 15px;">
-                    <li><code>ROS_DOMAIN_ID</code> — isolates ROS2 traffic. Each team gets a unique ID.</li>
-                    <li>Both devices must be on the <strong>same Wi-Fi network</strong></li>
-                    <li><code>RMW_IMPLEMENTATION</code> — must match on both devices; we use <code>rmw_fastrtps_cpp</code> (FastDDS firmware on Create 3)</li>
+                    <li><strong>Dedicated robot Wi-Fi:</strong> Plug in the router and connect your laptop to it. The robots connect to it automatically. Do not use the regular campus network.</li>
+                    <li><strong><code>ROS_DOMAIN_ID</code></strong> partitions ROS2 traffic so that multiple robots or groups do not interfere with each other. Only nodes sharing the same domain ID can see each other. The bash setup file on the robot's laptop already configures this &mdash; you do not need to export it manually.</li>
+                    <li><strong><code>RMW_IMPLEMENTATION</code></strong> is also set by the bash file. We use <code>rmw_fastrtps_cpp</code> (FastDDS) to match the firmware of the Create 3 base.</li>
                 </ul>
                 <div class="box box-warning" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
-                    <strong>Latency matters:</strong> Wi-Fi adds 5-50ms delay. RViz on your laptop may lag slightly behind the real robot.
+                    <strong>Latency matters:</strong> Wi-Fi adds 5&ndash;50 ms delay. RViz on your laptop may lag slightly behind the real robot.
                 </div>
             </section>
 
@@ -827,7 +820,7 @@ export ROS_DOMAIN_ID=30</code></pre>
                 <h2>Navigation: What Changes?</h2>
                 <ul style="margin-top: 15px;">
                     <li><strong>Initial pose matters more:</strong> Set it precisely — AMCL needs a good starting estimate on a real robot</li>
-                    <li><strong>Costmap inflation:</strong> You may need to increase the inflation radius to keep the robot farther from real walls (it can't clip through them!)</li>
+                    <li><strong>Costmap inflation:</strong> You may need to increase the inflation radius to keep the robot farther from real walls (it cannot clip through them)</li>
                     <li><strong>Recovery behaviors activate more often:</strong> The robot may need to spin or back up when it encounters unexpected obstacles</li>
                     <li><strong>Goal tolerance:</strong> On a real robot, reaching within 10-15 cm of the goal is typically acceptable</li>
                 </ul>
@@ -902,7 +895,7 @@ export ROS_DOMAIN_ID=30</code></pre>
                         <tr><td><strong>Sim-to-real gap</strong></td><td>Real sensors are noisy, surfaces cause drift, network adds latency</td></tr>
                         <tr><td><strong>Lidar differences</strong></td><td>Reflective surfaces, noise, and irregular objects affect scan quality</td></tr>
                         <tr><td><strong>Odometry drift</strong></td><td>AMCL corrects accumulated errors using the map</td></tr>
-                        <tr><td><strong>Networking</strong></td><td>Same <code>ROS_DOMAIN_ID</code>, same Wi-Fi, FastDDS (<code>rmw_fastrtps_cpp</code>)</td></tr>
+                        <tr><td><strong>Networking</strong></td><td>Dedicated robot Wi-Fi (plug in router); bash file handles <code>ROS_DOMAIN_ID</code> and <code>rmw_fastrtps_cpp</code></td></tr>
                         <tr><td><strong>Your code</strong></td><td>Stays the same — only map and coordinates change</td></tr>
                         <tr><td><strong>Safety</strong></td><td>Test in sim first, drive slow, always be ready to stop</td></tr>
                     </tbody>
