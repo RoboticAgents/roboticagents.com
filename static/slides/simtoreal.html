@@ -200,29 +200,291 @@
             
             <!-- Title Slide -->
             <section>
-                <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:760px;text-align:center;">
+                <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:600px;text-align:center;">
                     <h1 style="font-size:2.8em;">Simulation to Reality</h1>
                     <p class="subtitle" style="font-size:1.5em;">Week 12 &bull; CMPSC 304 Robotic Agents</p>
-                    <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>&rarr;</strong> to advance</p>
+                    <p class="small-text" style="margin-top: 40px;">Press <strong>Space</strong> or <strong>&rarr;</strong> to advance</p>
                 </div>
             </section>
 
             <!-- Where We Are -->
             <section>
                 <h2>The Full Path</h2>
-                <div class="flow-diagram">
-                    <div class="flow-box" style="background: var(--success); font-size: 0.8em;">SLAM<br><span style="font-size:0.7em; font-weight:400;">Build maps</span></div>
+                <div class="flow-diagram" style="margin: 20px 0;">
+                    <div class="flow-box" style="background: var(--success); font-size: 0.75em;">SLAM<br><span style="font-size:0.7em;font-weight:400;">Build maps</span></div>
                     <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-box" style="background: var(--success); font-size: 0.8em;">Nav2<br><span style="font-size:0.7em; font-weight:400;">Click goals</span></div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.75em;">Nav2<br><span style="font-size:0.7em;font-weight:400;">Click goals</span></div>
                     <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-box" style="background: var(--success); font-size: 0.8em;">Nodes<br><span style="font-size:0.7em; font-weight:400;">Code goals</span></div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.75em;">Nodes<br><span style="font-size:0.7em;font-weight:400;">Code goals</span></div>
                     <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-box" style="background: var(--primary); font-size: 0.8em;">Today<br><span style="font-size:0.7em; font-weight:400;">Real robots</span></div>
+                    <div class="flow-box" style="background: var(--primary); font-size: 0.75em;">Today<br><span style="font-size:0.7em;font-weight:400;">Real robots</span></div>
                 </div>
-                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
-                    <strong>Everything you've built works in simulation.</strong> Today we address the question: what changes when you move to a <em>physical</em> TurtleBot3?
+                <div class="box" style="font-size: 0.8em;">
+                    Everything you've built works in simulation. What changes on a <strong>physical TurtleBot 4</strong>?
                 </div>
             </section>
+
+            <!-- Sim-to-Real Gap -->
+            <section>
+                <h2>The Sim-to-Real Gap</h2>
+                <div class="two-col" style="margin-top: 15px;">
+                    <div class="col-item" style="padding: 10px;">
+                        <h3 style="margin-top: 0;">Simulation</h3>
+                        <ul style="font-size: 0.68em;">
+                            <li>Perfect physics, no friction variance</li>
+                            <li>Perfect sensors, no noise</li>
+                            <li>Instant communication</li>
+                            <li>Unlimited battery</li>
+                            <li>No physical damage possible</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 10px;">
+                        <h3 style="margin-top: 0;">Reality</h3>
+                        <ul style="font-size: 0.68em;">
+                            <li>Uneven surfaces, wheel slip</li>
+                            <li>Sensor noise, reflections, dead zones</li>
+                            <li>Wi-Fi latency (5&ndash;50 ms)</li>
+                            <li>Battery drains, voltage drops</li>
+                            <li>Collisions cause real damage</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-warning" style="margin-top: 12px; padding: 8px 12px; font-size: 0.75em;">
+                    Online tutorials reference <strong>TurtleBot3</strong> — we use <strong>TurtleBot 4</strong>. Use <code>turtlebot4_*</code> packages, not <code>turtlebot3_*</code>.
+                </div>
+            </section>
+
+            <!-- TurtleBot 4 Hardware -->
+            <section>
+                <h2>TurtleBot 4: Hardware</h2>
+                <table style="margin-top: 8px;">
+                    <thead><tr><th>Component</th><th>Spec</th><th>Notes</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Base</strong></td><td>iRobot Create 3</td><td>Diff. drive, bump/cliff/IMU, auto-docking</td></tr>
+                        <tr><td><strong>Compute</strong></td><td>Raspberry Pi 4 (4 GB)</td><td>ROS2 Jazzy, Ubuntu 24.04</td></tr>
+                        <tr><td><strong>Lidar</strong></td><td>RPLIDAR A1, 360&deg;, ~8 Hz</td><td>USB &rarr; <code>/dev/ttyUSB0</code>, publishes <code>/scan</code></td></tr>
+                        <tr><td><strong>Camera</strong></td><td>OAK-D Pro (Luxonis)</td><td><span class="highlight">Standard only</span> — Lite has no camera</td></tr>
+                        <tr><td><strong>Display</strong></td><td>1.3&Prime; OLED + 4 buttons</td><td><span class="highlight">Standard only</span> — Lite has no display</td></tr>
+                        <tr><td><strong>Battery</strong></td><td>Create 3 Li-ion</td><td>~2.5 hrs, auto-charges on dock</td></tr>
+                        <tr><td><strong>Max speed</strong></td><td>0.31 m/s</td><td>Use 0.10&ndash;0.15 m/s for mapping</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-info" style="margin-top: 8px; padding: 6px 12px; font-size: 0.7em;">
+                    We have <strong>2 TurtleBot 4</strong> (camera + display) and <strong>2 TurtleBot 4 Lite</strong> (no camera, no display). Both work identically for lidar SLAM.
+                </div>
+            </section>
+
+            <!-- Ring Lights + Docking -->
+            <section>
+                <h2>Ring Lights &amp; Docking</h2>
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 10px;">
+                        <h3 style="margin-top: 0;">LED Ring Colors</h3>
+                        <table style="font-size: 0.62em; margin: 0;">
+                            <tbody>
+                                <tr><td><strong style="color:#fff;background:#4caf50;padding:1px 5px;border-radius:3px;">green</strong></td><td>Ready, battery &gt;50%</td></tr>
+                                <tr><td><strong style="color:#fff;background:#ff9800;padding:1px 5px;border-radius:3px;">orange</strong></td><td>Battery 20&ndash;50%</td></tr>
+                                <tr><td><strong style="color:#fff;background:#f44336;padding:1px 5px;border-radius:3px;">red solid</strong></td><td>Battery &lt;20% — charge soon</td></tr>
+                                <tr><td><strong style="color:#fff;background:#2196f3;padding:1px 5px;border-radius:3px;">blue pulse</strong></td><td>Docked &amp; charging</td></tr>
+                                <tr><td><strong style="color:#333;background:#e0e0e0;padding:1px 5px;border-radius:3px;">white solid</strong></td><td>Fully charged on dock</td></tr>
+                                <tr><td><strong style="color:#fff;background:#f44336;padding:1px 5px;border-radius:3px;">red flash</strong></td><td>Error / hazard (cliff, picked up)</td></tr>
+                                <tr><td><strong style="color:#fff;background:#5a4ba4;padding:1px 5px;border-radius:3px;">white spin</strong></td><td>Booting / running action</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-item" style="padding: 10px; border-left: 3px solid var(--warning);">
+                        <h3 style="margin-top: 0;">Docking Gotchas</h3>
+                        <ul style="font-size: 0.68em;">
+                            <li><strong>Docked = lidar off</strong><br><code>/scan</code> stops → SLAM/RViz show nothing</li>
+                            <li><strong>Docked = no movement</strong><br><code>/cmd_vel</code> silently ignored</li>
+                            <li><strong>Auto-dock</strong> can trigger mid-session if robot wanders near dock</li>
+                            <li>After undocking, wait ~5 sec for lidar to spin up</li>
+                        </ul>
+                        <div style="font-size: 0.65em; margin-top: 8px; color: var(--danger); font-weight: 600;">
+                            0 Hz on <code>ros2 topic hz /scan</code>? Check dock status first.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Display & Buttons (Standard only) -->
+            <section>
+                <h2>Display &amp; Buttons <span style="font-size:0.55em;color:var(--danger);">TurtleBot 4 Standard only</span></h2>
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 10px;">
+                        <h3 style="margin-top: 0;">Button Controls</h3>
+                        <ul style="font-size: 0.67em;">
+                            <li><strong>Buttons 3 &amp; 4:</strong> Scroll up / down through menu items</li>
+                            <li><strong>Button 1:</strong> Select (confirm highlighted action)</li>
+                            <li><strong>Button 2:</strong> Back (return to previous screen)</li>
+                        </ul>
+                        <h3 style="margin-top: 10px;">Actions Menu</h3>
+                        <ul style="font-size: 0.67em;">
+                            <li><strong>Undock</strong> — robot backs away from dock</li>
+                            <li><strong>Dock / Dock Servo</strong> — robot aligns &amp; docks</li>
+                            <li><strong>Wall Follow</strong> — bump + IR wall following</li>
+                            <li><strong>EStop</strong> — immediate motor stop</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 10px;">
+                        <h3 style="margin-top: 0;">Other Menu Items</h3>
+                        <ul style="font-size: 0.67em;">
+                            <li><strong>IP Address</strong> — current Wi-Fi IP</li>
+                            <li><strong>Battery</strong> — charge %</li>
+                            <li><strong>RPLIDAR</strong> — start/stop lidar motor</li>
+                            <li><strong>OAK-D</strong> — start/stop camera</li>
+                        </ul>
+                        <h3 style="margin-top: 10px;">Terminal alternatives (all robots)</h3>
+                        <pre style="margin: 0; font-size: 0.55em; line-height: 1.5;"><code>ros2 action send_goal /undock \
+  irobot_create_msgs/action/Undock "{}"
+
+ros2 action send_goal /dock \
+  irobot_create_msgs/action/DockServo "{}"</code></pre>
+                    </div>
+                </div>
+                <div class="box" style="margin-top: 8px; padding: 6px 12px; font-size: 0.68em;">
+                    <strong>Lite:</strong> No display — use the terminal commands above or reboot to restart the lidar.
+                </div>
+            </section>
+
+            <!-- Sensors -->
+            <section>
+                <h2>Sensors</h2>
+                <table style="margin-top: 8px;">
+                    <thead><tr><th>Sensor</th><th>Topic</th><th>Details</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>RPLIDAR A1</strong></td><td><code>/scan</code></td><td>360&deg;, 0.15&ndash;12 m, ~8 Hz. Stops when docked.</td></tr>
+                        <tr><td><strong>OAK-D RGB</strong> <span class="highlight" style="font-size:0.75em;">std</span></td><td><code>/color/image</code></td><td>1080p. Not used for SLAM — available for future work.</td></tr>
+                        <tr><td><strong>OAK-D Depth</strong> <span class="highlight" style="font-size:0.75em;">std</span></td><td><code>/stereo/depth</code></td><td>Stereo IR point cloud. Intel Myriad X on-chip AI.</td></tr>
+                        <tr><td><strong>IMU</strong></td><td><code>/imu</code></td><td>Create 3 6-axis. Fused with wheel odometry.</td></tr>
+                        <tr><td><strong>Wheel encoders</strong></td><td><code>/odom</code></td><td>Position from rotations. Drifts — corrected by AMCL.</td></tr>
+                        <tr><td><strong>Bump / Cliff</strong></td><td><code>/hazard_detection</code></td><td>Stops robot on contact or drop. Cliff false-positives on dark floors.</td></tr>
+                        <tr><td><strong>IR dock</strong></td><td><code>/dock_status</code></td><td>Detects dock beacon for autonomous docking.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- P4 Mapping Workflow -->
+            <section>
+                <h2>P4 Part 4: Mapping on the Real Robot</h2>
+                <ol style="font-size: 0.72em; margin-top: 8px; line-height: 1.7;">
+                    <li><strong>Undock</strong> — wait ~5 sec for lidar to spin up</li>
+                    <li><strong>Launch SLAM</strong> (laptop): <code>ros2 launch turtlebot4_navigation slam.launch.py</code></li>
+                    <li><strong>Launch RViz</strong> (laptop): <code>ros2 launch turtlebot4_viz view_navigation.launch.py</code></li>
+                    <li><strong>Teleop</strong>: <code>ros2 run teleop_twist_keyboard teleop_twist_keyboard</code><br>
+                        <span style="color:#888; font-size:0.85em;">No <code>stamped:=true</code> — Create 3 uses plain Twist messages</span></li>
+                    <li><strong>Drive slowly</strong> at 0.10&ndash;0.15 m/s, cover all areas, revisit start for loop closure</li>
+                    <li><strong>Save map</strong>: <code>ros2 run nav2_map_server map_saver_cli -f ~/real_map --ros-args -p save_map_timeout:=10.0</code></li>
+                    <li><strong>Copy to repo</strong>: <code>cp ~/real_map.pgm ~/real_map.yaml &lt;repo&gt;/maps/</code></li>
+                </ol>
+                <div class="box box-warning" style="padding: 6px 12px; font-size: 0.7em; margin-top: 8px;">
+                    Move the dock away from the mapping area — auto-dock will terminate your session.
+                </div>
+            </section>
+
+            <!-- Lidar Sim vs Real -->
+            <section>
+                <h2>Lidar &amp; Odometry: Sim vs. Real</h2>
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 10px;">
+                        <h3 style="margin-top: 0;">Lidar differences</h3>
+                        <ul style="font-size: 0.68em;">
+                            <li>Real scans have noise (&plusmn; a few cm)</li>
+                            <li>Glass, dark surfaces may not reflect</li>
+                            <li>Crosstalk near other robots</li>
+                            <li>Irregular objects (chair legs, cables)</li>
+                            <li>Maps look noisier — walls appear thicker</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 10px;">
+                        <h3 style="margin-top: 0;">Odometry drift</h3>
+                        <ul style="font-size: 0.68em;">
+                            <li>Wheel slip on smooth floors or fast turns</li>
+                            <li>Errors accumulate — 20+ cm off after 10 m</li>
+                            <li><strong>AMCL corrects this</strong> by matching lidar scans to the map</li>
+                            <li>Pure odometry navigation fails quickly on real hardware</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-info" style="margin-top: 10px; padding: 7px 12px; font-size: 0.7em;">
+                    Map when the space is <strong>empty</strong>, drive <strong>slowly and consistently</strong>, and revisit your start for good loop closure.
+                </div>
+            </section>
+
+            <!-- Networking -->
+            <section>
+                <h2>Networking &amp; Navigation</h2>
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 10px;">
+                        <h3 style="margin-top: 0;">Setup (both devices)</h3>
+                        <pre style="margin: 0;"><code style="font-size: 0.6em;">export ROS_DOMAIN_ID=0
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp</code></pre>
+                        <ul style="font-size: 0.65em; margin-top: 8px;">
+                            <li>Same <code>ROS_DOMAIN_ID</code> on RPi and laptop</li>
+                            <li>Same Wi-Fi network</li>
+                            <li>FastDDS on both — matches Create 3 firmware</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 10px;">
+                        <h3 style="margin-top: 0;">Navigation changes</h3>
+                        <ul style="font-size: 0.65em;">
+                            <li>Set initial pose precisely — AMCL needs a good starting estimate</li>
+                            <li>Increase costmap inflation radius (robot can't clip through real walls)</li>
+                            <li>Recovery behaviors activate more often</li>
+                            <li><strong>Your node code does not change</strong> — only map file and waypoint coordinates</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box box-warning" style="margin-top: 10px; padding: 7px 12px; font-size: 0.7em;">
+                    Diagnose: <code>ros2 topic hz /scan</code> on both devices. 0 Hz on laptop but OK on RPi → DDS interface binding issue.
+                </div>
+            </section>
+
+            <!-- Safety -->
+            <section>
+                <h2>Safety</h2>
+                <div class="two-col" style="margin-top: 12px;">
+                    <div class="col-item" style="padding: 10px; border-left: 4px solid var(--danger);">
+                        <h3 style="margin-top: 0; color: var(--danger);">Rules</h3>
+                        <ul style="font-size: 0.68em;">
+                            <li>Always have someone ready to pick up the robot</li>
+                            <li>Never run untested code at full speed</li>
+                            <li>Test waypoints in sim before running on real hardware</li>
+                            <li>Keep the floor clear of cables and trip hazards</li>
+                            <li>Low battery = unpredictable behavior</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 10px; border-left: 4px solid var(--success);">
+                        <h3 style="margin-top: 0; color: var(--success);">Emergency Stop</h3>
+                        <ul style="font-size: 0.68em;">
+                            <li><strong>Pick up the robot</strong> (wheels free-spin, wheel-drop sensor stops motors)</li>
+                            <li><strong>Publish zero velocity:</strong><br><code style="font-size:0.85em;">ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist "{}"</code></li>
+                            <li><strong>Standard:</strong> Display menu &rarr; EStop</li>
+                            <li><strong>Lite:</strong> SSH &rarr; publish zero velocity above</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section>
+                <h2>Summary</h2>
+                <table style="margin-top: 12px;">
+                    <thead><tr><th>Topic</th><th>Key Takeaway</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Sim-to-real gap</strong></td><td>Noisy sensors, wheel slip, Wi-Fi latency</td></tr>
+                        <tr><td><strong>Docking</strong></td><td>Lidar off + cmd_vel ignored when docked — always undock first</td></tr>
+                        <tr><td><strong>Lidar</strong></td><td>~8 Hz, real maps are noisier but SLAM still works</td></tr>
+                        <tr><td><strong>Odometry</strong></td><td>Drifts — AMCL corrects using the map</td></tr>
+                        <tr><td><strong>Networking</strong></td><td>Same <code>ROS_DOMAIN_ID</code>, same Wi-Fi, <code>rmw_fastrtps_cpp</code></td></tr>
+                        <tr><td><strong>Your code</strong></td><td>Doesn't change — swap map file and waypoint coordinates only</td></tr>
+                        <tr><td><strong>Safety</strong></td><td>Drive slow, test in sim first, know your emergency stop</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </div>
+    </div>
 
             <!-- The Sim-to-Real Gap -->
             <section>
@@ -254,21 +516,223 @@
                 </div>
             </section>
 
-            <!-- TurtleBot3 Hardware -->
+            <!-- TurtleBot4 vs TurtleBot3 comparison -->
             <section>
-                <h2>TurtleBot3 Burger: The Hardware</h2>
-                <table style="margin-top: 15px;">
-                    <thead><tr><th>Component</th><th>Specification</th><th>Relevance</th></tr></thead>
+                <h2>TurtleBot 4 vs. TurtleBot 3</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.8em;">
+                    Course documentation and online tutorials often reference <strong>TurtleBot3</strong>. We use <strong>TurtleBot 4</strong> — here's what's different.
+                </div>
+                <table style="margin-top: 10px;">
+                    <thead><tr><th>Feature</th><th>TurtleBot 3 Burger</th><th>TurtleBot 4</th></tr></thead>
                     <tbody>
-                        <tr><td><strong>Compute</strong></td><td>Raspberry Pi 4</td><td>Runs ROS2, limited CPU compared to your laptop</td></tr>
-                        <tr><td><strong>Microcontroller</strong></td><td>OpenCR (ARM Cortex-M7)</td><td>Motor control, IMU, power — like your Arduino</td></tr>
-                        <tr><td><strong>Lidar</strong></td><td>LDS-02 (360&deg;, 5Hz)</td><td>Same sensor model as in Gazebo</td></tr>
-                        <tr><td><strong>Motors</strong></td><td>2&times; Dynamixel XL430</td><td>Differential drive, encoder feedback</td></tr>
-                        <tr><td><strong>IMU</strong></td><td>MPU9250 (9-axis)</td><td>Helps with odometry on real surfaces</td></tr>
-                        <tr><td><strong>Battery</strong></td><td>LiPo 11.1V, 1800mAh</td><td>~2.5 hours runtime</td></tr>
-                        <tr><td><strong>Max speed</strong></td><td>0.22 m/s</td><td>Same limit in Gazebo and reality</td></tr>
+                        <tr><td><strong>Base</strong></td><td>Custom waffle plate</td><td>iRobot Create 3</td></tr>
+                        <tr><td><strong>Microcontroller</strong></td><td>OpenCR (ARM Cortex-M7)</td><td>Create 3 onboard MCU</td></tr>
+                        <tr><td><strong>Lidar</strong></td><td>LDS-02 (5 Hz)</td><td>RPLIDAR A1 (~8 Hz)</td></tr>
+                        <tr><td><strong>Camera</strong></td><td>None (Burger)</td><td>OAK-D Pro (standard) / None (Lite)</td></tr>
+                        <tr><td><strong>Max speed</strong></td><td>0.22 m/s</td><td>0.31 m/s</td></tr>
+                        <tr><td><strong>Docking</strong></td><td>Manual</td><td>Autonomous (IR beacon)</td></tr>
+                        <tr><td><strong>Launch package</strong></td><td><code>turtlebot3_*</code></td><td><code>turtlebot4_*</code></td></tr>
                     </tbody>
                 </table>
+                <div class="box box-warning" style="padding: 8px 15px; font-size: 0.75em; margin-top: 10px;">
+                    Many online guides say <code>turtlebot3_cartographer</code> or <code>turtlebot3_navigation2</code>. On TurtleBot 4, use <code>turtlebot4_navigation</code> instead.
+                </div>
+            </section>
+
+            <!-- TurtleBot 4 Hardware -->
+            <section>
+                <h2>TurtleBot 4: The Hardware We Use</h2>
+                <table style="margin-top: 10px;">
+                    <thead><tr><th>Component</th><th>Specification</th><th>Notes</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Mobile base</strong></td><td>iRobot Create 3</td><td>Differential drive, bump/cliff sensors, IMU, docking</td></tr>
+                        <tr><td><strong>Compute</strong></td><td>Raspberry Pi 4 (4GB)</td><td>Runs ROS2 Jazzy on Ubuntu 24.04</td></tr>
+                        <tr><td><strong>Lidar</strong></td><td>RPLIDAR A1 (360&deg;, ~8Hz)</td><td>USB serial, publishes <code>/scan</code></td></tr>
+                        <tr><td><strong>Camera</strong></td><td>OAK-D Pro (Luxonis)</td><td><span class="highlight">Standard only</span> — Lite has no camera</td></tr>
+                        <tr><td><strong>Battery</strong></td><td>Create 3 Li-ion</td><td>~2.5 hrs, charges on dock automatically</td></tr>
+                        <tr><td><strong>Display</strong></td><td>1.3" OLED + 4 buttons</td><td><span class="highlight">Standard only</span> — Lite has no display or buttons</td></tr>
+                        <tr><td><strong>Max speed</strong></td><td>0.31 m/s linear</td><td>Use 0.10&ndash;0.15 m/s for mapping</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-info" style="margin-top: 10px; padding: 8px 15px; font-size: 0.75em;">
+                    We have <strong>2 TurtleBot 4</strong> (with camera) and <strong>2 TurtleBot 4 Lite</strong> (no camera) — both work identically for lidar-based SLAM.
+                </div>
+            </section>
+
+            <!-- Ring Lights -->
+            <section>
+                <h2>Ring Light Indicators</h2>
+                <div class="box" style="margin-top: 10px; font-size: 0.8em;">
+                    The Create 3 base has an <strong>LED ring</strong> that communicates robot state at a glance.
+                </div>
+                <table style="margin-top: 10px;">
+                    <thead><tr><th>Light Pattern</th><th>Meaning</th></tr></thead>
+                    <tbody>
+                        <tr><td>Solid <strong style="color:#fff; background:#4caf50; padding:1px 6px; border-radius:3px;">green</strong></td><td>Ready, battery &gt; 50%</td></tr>
+                        <tr><td>Solid <strong style="color:#fff; background:#ff9800; padding:1px 6px; border-radius:3px;">orange/yellow</strong></td><td>Battery 20&ndash;50%, still usable</td></tr>
+                        <tr><td>Solid/pulsing <strong style="color:#fff; background:#f44336; padding:1px 6px; border-radius:3px;">red</strong></td><td>Battery &lt; 20% — charge soon</td></tr>
+                        <tr><td>Rotating <strong style="color:#fff; background:#5a4ba4; padding:1px 6px; border-radius:3px;">white/blue</strong></td><td>Booting up or running action</td></tr>
+                        <tr><td>Pulsing <strong style="color:#fff; background:#2196f3; padding:1px 6px; border-radius:3px;">blue</strong></td><td>Docked and charging</td></tr>
+                        <tr><td>Solid <strong style="color:#333; background:#e0e0e0; padding:1px 6px; border-radius:3px;">white</strong></td><td>Fully charged on dock</td></tr>
+                        <tr><td>Flashing <strong style="color:#fff; background:#f44336; padding:1px 6px; border-radius:3px;">red</strong></td><td>Error / hazard detected (picked up, cliff, stuck)</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-warning" style="margin-top: 10px; padding: 8px 15px; font-size: 0.75em;">
+                    <strong>Important:</strong> When docked (blue pulsing), the lidar motor is <em>off</em> and <code>/cmd_vel</code> is ignored. Always undock before mapping or driving.
+                </div>
+            </section>
+
+            <!-- Display and Menu -->
+            <section>
+                <h2>Display &amp; Button Navigation <span style="font-size:0.6em; color: var(--danger);">(TurtleBot 4 Standard only)</span></h2>
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">4 Buttons</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li><strong>Button 1 (top-left):</strong> Scroll up / back</li>
+                            <li><strong>Button 2 (top-right):</strong> Scroll down / next</li>
+                            <li><strong>Button 3 (bottom-left):</strong> Select / confirm</li>
+                            <li><strong>Button 4 (bottom-right):</strong> Home / cancel</li>
+                        </ul>
+                        <p style="font-size: 0.65em; color: #666; margin-top: 10px;">Button layout may vary by firmware version — check the display label.</p>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Menu Options</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li><strong>Dock / Undock</strong> — sends the robot to or from the dock</li>
+                            <li><strong>EStop</strong> — immediate motor stop</li>
+                            <li><strong>Scroll: IP address</strong> — shows current WiFi IP</li>
+                            <li><strong>Scroll: Battery</strong> — charge percentage</li>
+                            <li><strong>Scroll: RPLIDAR</strong> — start/stop lidar motor</li>
+                            <li><strong>Scroll: OAK-D</strong> — start/stop camera</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box" style="margin-top: 10px; padding: 8px 15px; font-size: 0.75em;">
+                    <strong>Quick tip (standard only):</strong> If the lidar has stopped, navigate to <em>RPLIDAR &rarr; Start</em> in the menu instead of rebooting.<br>
+                    <strong>On the Lite:</strong> Restart the lidar via <code>ros2 service call /start_motor std_srvs/srv/Empty</code> or reboot the robot.
+                </div>
+            </section>
+
+            <!-- RPLIDAR A1 -->
+            <section>
+                <h2>RPLIDAR A1: How It Works</h2>
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">Hardware</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li>Spinning laser (360&deg; coverage)</li>
+                            <li>Range: 0.15m &ndash; 12m</li>
+                            <li>Angular resolution: ~1&deg;</li>
+                            <li>Scan rate: ~7.9 Hz (7&ndash;8 scans/second)</li>
+                            <li>Connects via USB &rarr; <code>/dev/ttyUSB0</code></li>
+                            <li>Driver: <code>rplidar_composition</code> node</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">ROS2 Topics</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li><code>/scan</code> — <code>sensor_msgs/LaserScan</code></li>
+                            <li>Published by the RPi, visible to laptop over WiFi</li>
+                            <li>Cartographer and SLAM Toolbox both subscribe to <code>/scan</code></li>
+                            <li>RViz shows it as red dots around the robot</li>
+                        </ul>
+                        <pre style="font-size: 0.6em; margin-top: 10px;"><code># Verify lidar is running:
+ros2 topic hz /scan
+# Healthy: ~7.9 Hz</code></pre>
+                    </div>
+                </div>
+                <div class="box box-warning" style="padding: 8px 15px; font-size: 0.75em; margin-top: 10px;">
+                    Lidar motor <strong>stops automatically when docked</strong>. If <code>ros2 topic hz /scan</code> shows 0 Hz, check dock status first.
+                </div>
+            </section>
+
+            <!-- OAK-D Pro Camera -->
+            <section>
+                <h2>OAK-D Pro Camera <span style="font-size:0.6em; color: var(--danger);">(TurtleBot 4 Standard only)</span></h2>
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">What It Does</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li><strong>RGB camera:</strong> 1080p color image</li>
+                            <li><strong>Stereo depth:</strong> 3D point cloud from two IR cameras</li>
+                            <li><strong>On-chip AI:</strong> Intel Myriad X VPU for object detection</li>
+                            <li><strong>IMU:</strong> 6-axis inertial measurement</li>
+                            <li>Connected via USB 3.0 SuperSpeed</li>
+                        </ul>
+                    </div>
+                    <div class="col-item" style="padding: 12px;">
+                        <h3 style="margin-top: 0;">ROS2 Topics</h3>
+                        <ul style="font-size: 0.7em;">
+                            <li><code>/color/preview/image</code> — RGB preview</li>
+                            <li><code>/color/image</code> — full res RGB</li>
+                            <li><code>/stereo/depth</code> — depth image</li>
+                            <li><code>/stereo/points</code> — 3D point cloud</li>
+                            <li><code>/imu</code> — camera IMU data</li>
+                        </ul>
+                        <pre style="font-size: 0.6em; margin-top: 10px;"><code># View camera in RViz:
+# Add Image display, topic:
+# /color/preview/image</code></pre>
+                    </div>
+                </div>
+                <div class="box box-info" style="padding: 8px 15px; font-size: 0.75em; margin-top: 10px;">
+                    <strong>For P4:</strong> The camera is <em>not used for SLAM</em> — we use lidar. The camera is available for future projects (visual detection, depth-based obstacle avoidance).
+                </div>
+            </section>
+
+            <!-- Other Sensors -->
+            <section>
+                <h2>Other Sensors on the Create 3 Base</h2>
+                <table style="margin-top: 10px;">
+                    <thead><tr><th>Sensor</th><th>Topic</th><th>What It Detects</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>IMU</strong></td><td><code>/imu</code></td><td>Linear acceleration + angular velocity. Helps fuse odometry.</td></tr>
+                        <tr><td><strong>Wheel encoders</strong></td><td><code>/odom</code></td><td>Position estimate from wheel rotations. Drifts over time.</td></tr>
+                        <tr><td><strong>Bump sensors</strong></td><td><code>/hazard_detection</code></td><td>Front/side contact — robot stops and backs up automatically.</td></tr>
+                        <tr><td><strong>Cliff sensors</strong></td><td><code>/hazard_detection</code></td><td>Downward IR — stops at stair edges, raised thresholds.</td></tr>
+                        <tr><td><strong>IR dock sensors</strong></td><td><code>/dock_status</code></td><td>Detects dock IR beacon for autonomous docking.</td></tr>
+                        <tr><td><strong>Wheel drop</strong></td><td><code>/hazard_detection</code></td><td>Detects if robot is picked up — stops motors immediately.</td></tr>
+                    </tbody>
+                </table>
+                <div class="box box-warning" style="padding: 8px 15px; font-size: 0.75em; margin-top: 10px;">
+                    <strong>Cliff sensors can trigger false positives</strong> on dark floor tiles or highly reflective surfaces — the robot may refuse to drive over them.
+                </div>
+            </section>
+
+            <!-- Docking Behavior -->
+            <section>
+                <h2>Docking: The Biggest "Gotcha"</h2>
+                <div class="box box-warning" style="margin-top: 15px; font-size: 0.85em;">
+                    The Create 3 base manages docking autonomously. This affects your ROS2 session in ways that aren't obvious.
+                </div>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Docked = lidar off:</strong> <code>/scan</code> stops publishing. SLAM and RViz show nothing.</li>
+                    <li><strong>Docked = no movement:</strong> <code>/cmd_vel</code> commands are silently ignored.</li>
+                    <li><strong>Auto-dock:</strong> If the robot wanders near the dock, IR sensors may trigger autonomous docking mid-session.</li>
+                    <li><strong>After undocking:</strong> Wait 3&ndash;5 seconds for the lidar motor to spin up before starting SLAM.</li>
+                    <li><strong>Between sessions:</strong> If teleop stops working after a break, check if the robot re-docked.</li>
+                </ul>
+                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                    <strong>Diagnosis:</strong> <code>ros2 topic hz /scan</code> showing 0 Hz almost always means the robot is docked. Undock first, then retry.
+                </div>
+            </section>
+
+            <!-- Part 4 Mapping Workflow -->
+            <section>
+                <h2>P4 Part 4: Mapping Workflow</h2>
+                <ol style="font-size: 0.78em; margin-top: 10px; line-height: 1.8;">
+                    <li><strong>Undock the robot</strong> — wait for lidar to spin up (~5 sec)</li>
+                    <li><strong>On the RPi (SSH)</strong> or laptop: <code>ros2 launch turtlebot4_navigation slam.launch.py</code></li>
+                    <li><strong>On the laptop:</strong> <code>ros2 launch turtlebot4_viz view_navigation.launch.py</code></li>
+                    <li><strong>In another terminal:</strong> <code>ros2 run teleop_twist_keyboard teleop_twist_keyboard</code><br>
+                        <span style="color:#666; font-size:0.85em;">(no <code>--ros-args -p stamped:=true</code> — Create 3 uses plain Twist)</span></li>
+                    <li><strong>Drive slowly</strong> (0.1&ndash;0.15 m/s) through the entire space, revisit start for loop closure</li>
+                    <li><strong>Save the map:</strong> <code>ros2 run nav2_map_server map_saver_cli -f ~/real_map --ros-args -p save_map_timeout:=10.0</code></li>
+                    <li><strong>Copy to repo:</strong> <code>cp ~/real_map.pgm ~/real_map.yaml &lt;your-repo&gt;/maps/</code></li>
+                </ol>
+                <div class="box box-warning" style="padding: 8px 15px; font-size: 0.75em; margin-top: 5px;">
+                    Keep the dock out of the mapping area, or move the robot away from it — auto-dock will kill your session.
+                </div>
             </section>
 
             <!-- Sensor Differences -->
@@ -286,7 +750,7 @@
                         </ul>
                     </div>
                     <div class="col-item" style="padding: 12px;">
-                        <h3 style="margin-top: 0;">Real LDS-02</h3>
+                        <h3 style="margin-top: 0;">Real RPLIDAR A1</h3>
                         <ul style="font-size: 0.7em;">
                             <li>Noise in every scan (&plusmn; a few cm)</li>
                             <li>Glass, mirrors, dark objects may not reflect</li>
@@ -322,9 +786,9 @@
             <section>
                 <h2>Networking with Physical Robots</h2>
                 <div class="box" style="margin-top: 15px; font-size: 0.85em;">
-                    In Docker, everything runs in one container. With a real TurtleBot3, your laptop and the robot communicate over <strong>Wi-Fi</strong>.
+                    In Docker, everything runs in one container. With a real TurtleBot 4, your laptop and the robot communicate over <strong>Wi-Fi</strong>.
                 </div>
-                <pre><code># On the TurtleBot3 (Raspberry Pi):
+                <pre><code># On the TurtleBot 4 (Raspberry Pi):
 export ROS_DOMAIN_ID=30
 
 # On your laptop (same network):
@@ -332,7 +796,7 @@ export ROS_DOMAIN_ID=30</code></pre>
                 <ul style="margin-top: 15px;">
                     <li><code>ROS_DOMAIN_ID</code> — isolates ROS2 traffic. Each team gets a unique ID.</li>
                     <li>Both devices must be on the <strong>same Wi-Fi network</strong></li>
-                    <li><code>RMW_IMPLEMENTATION</code> — use <code>rmw_cyclonedds_cpp</code> for best Wi-Fi performance</li>
+                    <li><code>RMW_IMPLEMENTATION</code> — must match on both devices; we use <code>rmw_fastrtps_cpp</code> (FastDDS firmware on Create 3)</li>
                 </ul>
                 <div class="box box-warning" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
                     <strong>Latency matters:</strong> Wi-Fi adds 5-50ms delay. RViz on your laptop may lag slightly behind the real robot.
@@ -391,7 +855,8 @@ export ROS_DOMAIN_ID=30</code></pre>
                         <ul style="font-size: 0.7em;">
                             <li>Pick up the robot (wheels will free-spin)</li>
                             <li>Or publish a zero velocity:<br><code style="font-size: 0.9em;">ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist "{}"</code></li>
-                            <li>Press the power button on the OpenCR board</li>
+                            <li><strong>Standard:</strong> Use the display menu &rarr; <em>EStop</em></li>
+                            <li><strong>Lite:</strong> SSH in and run <code>ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist "{}"</code></li>
                         </ul>
                     </div>
                 </div>
@@ -437,7 +902,7 @@ export ROS_DOMAIN_ID=30</code></pre>
                         <tr><td><strong>Sim-to-real gap</strong></td><td>Real sensors are noisy, surfaces cause drift, network adds latency</td></tr>
                         <tr><td><strong>Lidar differences</strong></td><td>Reflective surfaces, noise, and irregular objects affect scan quality</td></tr>
                         <tr><td><strong>Odometry drift</strong></td><td>AMCL corrects accumulated errors using the map</td></tr>
-                        <tr><td><strong>Networking</strong></td><td>Same <code>ROS_DOMAIN_ID</code>, same Wi-Fi, CycloneDDS</td></tr>
+                        <tr><td><strong>Networking</strong></td><td>Same <code>ROS_DOMAIN_ID</code>, same Wi-Fi, FastDDS (<code>rmw_fastrtps_cpp</code>)</td></tr>
                         <tr><td><strong>Your code</strong></td><td>Stays the same — only map and coordinates change</td></tr>
                         <tr><td><strong>Safety</strong></td><td>Test in sim first, drive slow, always be ready to stop</td></tr>
                     </tbody>
