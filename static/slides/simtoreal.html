@@ -413,30 +413,30 @@ ros2 action send_goal /dock \
             <!-- Networking -->
             <section>
                 <h2>Networking: Wi-Fi Setup</h2>
-                <div class="box" style="margin-top: 8px; padding: 8px 14px; font-size: 0.75em;">
+                <div class="box" style="margin-top: 6px; padding: 6px 12px; font-size: 0.68em;">
                     In Docker everything runs on one computer. With a physical robot, your <strong>laptop and the robot are two separate computers</strong> that need to talk to each other over Wi-Fi.
                 </div>
-                <ul style="font-size: 0.72em; margin-top: 10px; line-height: 1.7;">
-                    <li><strong>Dedicated robot Wi-Fi:</strong> Plug in the router and connect your laptop to it. The robots connect to it automatically. Do not use the campus network — the robots are not on it.</li>
-                    <li><strong><code>ROS_DOMAIN_ID</code> — what is it?</strong> Think of it like a channel number on a walkie-talkie. ROS2 nodes on the same channel (same ID) can hear each other; nodes on different channels cannot. This prevents two groups' robots from interfering with each other. The robot's laptop bash file already sets this — you do not need to do anything.</li>
-                    <li><strong><code>RMW_IMPLEMENTATION</code> — what is it?</strong> RMW stands for ROS Middleware — it is the layer that actually sends messages over the network. We use FastDDS (<code>rmw_fastrtps_cpp</code>) because the Create 3 base firmware requires it. Again, the bash file handles this automatically.</li>
+                <ul style="font-size: 0.65em; margin-top: 8px; line-height: 1.55;">
+                    <li><strong>Dedicated robot Wi-Fi:</strong> Plug in the router and connect your laptop to it. The robots connect to it automatically. Do not use the campus network &mdash; the robots are not on it.</li>
+                    <li style="margin-top: 6px;"><strong><code>ROS_DOMAIN_ID</code> &mdash; what is it?</strong> Think of it like a channel number on a walkie-talkie. ROS2 nodes on the same channel (same ID) can hear each other; nodes on different channels cannot. This prevents two groups' robots from interfering with each other. The robot's laptop bash file already sets this &mdash; you do not need to do anything.</li>
+                    <li style="margin-top: 6px;"><strong><code>RMW_IMPLEMENTATION</code> &mdash; what is it?</strong> RMW stands for ROS Middleware &mdash; it is the layer that actually sends messages over the network. We use FastDDS (<code>rmw_fastrtps_cpp</code>) because the Create 3 base firmware requires it. The bash file handles this automatically.</li>
                 </ul>
-                <div class="box box-info" style="margin-top: 10px; padding: 7px 12px; font-size: 0.7em;">
-                    <strong>Latency:</strong> Wi-Fi adds 5&ndash;50 ms delay. RViz on your laptop may lag slightly behind the real robot — this is normal.
+                <div class="box box-info" style="margin-top: 8px; padding: 5px 12px; font-size: 0.65em;">
+                    <strong>Latency:</strong> Wi-Fi adds 5&ndash;50 ms delay. RViz on your laptop may lag slightly behind the real robot &mdash; this is normal.
                 </div>
             </section>
 
             <!-- Navigation changes -->
             <section>
                 <h2>Navigation Changes on Real Robot</h2>
-                <ul style="font-size: 0.78em; margin-top: 15px; line-height: 1.8;">
-                    <li><strong>Set initial pose precisely</strong> — AMCL needs a good starting estimate to localize correctly on the real map</li>
-                    <li><strong>Increase costmap inflation radius</strong> — the robot cannot clip through real walls, so keeping extra clearance matters more</li>
-                    <li><strong>Recovery behaviors activate more often</strong> — sensor noise and unexpected obstacles trigger replanning more than in simulation</li>
-                    <li><strong>Your node code does not change</strong> — only the map file and waypoint coordinates need to be updated</li>
+                <ul style="font-size: 0.72em; margin-top: 12px; line-height: 1.65;">
+                    <li><strong>Set initial pose precisely</strong> &mdash; AMCL needs a good starting estimate to localize correctly on the real map</li>
+                    <li><strong>Increase costmap inflation radius</strong> &mdash; the robot cannot clip through real walls, so keeping extra clearance matters more</li>
+                    <li><strong>Recovery behaviors activate more often</strong> &mdash; sensor noise and unexpected obstacles trigger replanning more than in simulation</li>
+                    <li><strong>Your node code does not change</strong> &mdash; only the map file and waypoint coordinates need to be updated</li>
                 </ul>
-                <div class="box box-warning" style="margin-top: 15px; padding: 7px 12px; font-size: 0.72em;">
-                    <strong>Diagnose connectivity:</strong> Run <code>ros2 topic hz /scan</code> on your laptop. 0 Hz on the laptop but OK on the robot → check that both are on the robot Wi-Fi network.
+                <div class="box box-warning" style="margin-top: 12px; padding: 6px 12px; font-size: 0.68em;">
+                    <strong>Diagnose connectivity:</strong> Run <code>ros2 topic hz /scan</code> on your laptop. 0 Hz on the laptop but OK on the robot &rarr; check that both are on the robot Wi-Fi network.
                 </div>
             </section>
 
