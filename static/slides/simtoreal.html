@@ -371,8 +371,7 @@ ros2 action send_goal /dock \
                     <li><strong>Undock</strong> — wait ~5 sec for lidar to spin up</li>
                     <li><strong>Launch SLAM</strong> (laptop): <code>ros2 launch turtlebot4_navigation slam.launch.py</code></li>
                     <li><strong>Launch RViz</strong> (laptop): <code>ros2 launch turtlebot4_viz view_navigation.launch.py</code></li>
-                    <li><strong>Teleop</strong>: <code>ros2 run teleop_twist_keyboard teleop_twist_keyboard</code><br>
-                        <span style="color:#888; font-size:0.85em;">No <code>stamped:=true</code> — Create 3 uses plain Twist messages</span></li>
+                    <li><strong>Teleop</strong>: <code>ros2 run teleop_twist_keyboard teleop_twist_keyboard</code></li>
                     <li><strong>Drive slowly</strong> at 0.10&ndash;0.15 m/s, cover all areas, revisit start for loop closure</li>
                     <li><strong>Save map</strong>: <code>ros2 run nav2_map_server map_saver_cli -f ~/real_map --ros-args -p save_map_timeout:=10.0</code></li>
                     <li><strong>Copy to repo</strong>: <code>cp ~/real_map.pgm ~/real_map.yaml &lt;repo&gt;/maps/</code></li>
@@ -413,28 +412,31 @@ ros2 action send_goal /dock \
 
             <!-- Networking -->
             <section>
-                <h2>Networking &amp; Navigation</h2>
-                <div class="two-col" style="margin-top: 10px;">
-                    <div class="col-item" style="padding: 10px;">
-                        <h3 style="margin-top: 0;">Network Setup</h3>
-                        <ul style="font-size: 0.65em; margin-top: 8px;">
-                            <li>You are on a <strong>dedicated robot Wi-Fi network</strong> — separate from the regular campus network</li>
-                            <li>Plug in the router and connect your laptop to it. The robots connect to it automatically.</li>
-                            <li>The bash setup file on the robot's laptop already sets <code>ROS_DOMAIN_ID</code> and <code>RMW_IMPLEMENTATION</code> — no need to export them manually</li>
-                        </ul>
-                    </div>
-                    <div class="col-item" style="padding: 10px;">
-                        <h3 style="margin-top: 0;">Navigation changes</h3>
-                        <ul style="font-size: 0.65em;">
-                            <li>Set initial pose precisely — AMCL needs a good starting estimate</li>
-                            <li>Increase costmap inflation radius (robot cannot clip through real walls)</li>
-                            <li>Recovery behaviors activate more often</li>
-                            <li><strong>Your node code does not change</strong> — only map file and waypoint coordinates</li>
-                        </ul>
-                    </div>
+                <h2>Networking: Wi-Fi Setup</h2>
+                <div class="box" style="margin-top: 8px; padding: 8px 14px; font-size: 0.75em;">
+                    In Docker everything runs on one computer. With a physical robot, your <strong>laptop and the robot are two separate computers</strong> that need to talk to each other over Wi-Fi.
                 </div>
-                <div class="box box-warning" style="margin-top: 10px; padding: 7px 12px; font-size: 0.7em;">
-                    Diagnose: <code>ros2 topic hz /scan</code> on both devices. 0 Hz on laptop but OK on RPi → DDS interface binding issue.
+                <ul style="font-size: 0.72em; margin-top: 10px; line-height: 1.7;">
+                    <li><strong>Dedicated robot Wi-Fi:</strong> Plug in the router and connect your laptop to it. The robots connect to it automatically. Do not use the campus network — the robots are not on it.</li>
+                    <li><strong><code>ROS_DOMAIN_ID</code> — what is it?</strong> Think of it like a channel number on a walkie-talkie. ROS2 nodes on the same channel (same ID) can hear each other; nodes on different channels cannot. This prevents two groups' robots from interfering with each other. The robot's laptop bash file already sets this — you do not need to do anything.</li>
+                    <li><strong><code>RMW_IMPLEMENTATION</code> — what is it?</strong> RMW stands for ROS Middleware — it is the layer that actually sends messages over the network. We use FastDDS (<code>rmw_fastrtps_cpp</code>) because the Create 3 base firmware requires it. Again, the bash file handles this automatically.</li>
+                </ul>
+                <div class="box box-info" style="margin-top: 10px; padding: 7px 12px; font-size: 0.7em;">
+                    <strong>Latency:</strong> Wi-Fi adds 5&ndash;50 ms delay. RViz on your laptop may lag slightly behind the real robot — this is normal.
+                </div>
+            </section>
+
+            <!-- Navigation changes -->
+            <section>
+                <h2>Navigation Changes on Real Robot</h2>
+                <ul style="font-size: 0.78em; margin-top: 15px; line-height: 1.8;">
+                    <li><strong>Set initial pose precisely</strong> — AMCL needs a good starting estimate to localize correctly on the real map</li>
+                    <li><strong>Increase costmap inflation radius</strong> — the robot cannot clip through real walls, so keeping extra clearance matters more</li>
+                    <li><strong>Recovery behaviors activate more often</strong> — sensor noise and unexpected obstacles trigger replanning more than in simulation</li>
+                    <li><strong>Your node code does not change</strong> — only the map file and waypoint coordinates need to be updated</li>
+                </ul>
+                <div class="box box-warning" style="margin-top: 15px; padding: 7px 12px; font-size: 0.72em;">
+                    <strong>Diagnose connectivity:</strong> Run <code>ros2 topic hz /scan</code> on your laptop. 0 Hz on the laptop but OK on the robot → check that both are on the robot Wi-Fi network.
                 </div>
             </section>
 
@@ -722,8 +724,7 @@ ros2 topic hz /scan
                     <li><strong>Undock the robot</strong> — wait for lidar to spin up (~5 sec)</li>
                     <li><strong>On the RPi (SSH)</strong> or laptop: <code>ros2 launch turtlebot4_navigation slam.launch.py</code></li>
                     <li><strong>On the laptop:</strong> <code>ros2 launch turtlebot4_viz view_navigation.launch.py</code></li>
-                    <li><strong>In another terminal:</strong> <code>ros2 run teleop_twist_keyboard teleop_twist_keyboard</code><br>
-                        <span style="color:#666; font-size:0.85em;">(no <code>--ros-args -p stamped:=true</code> — Create 3 uses plain Twist)</span></li>
+                    <li><strong>In another terminal:</strong> <code>ros2 run teleop_twist_keyboard teleop_twist_keyboard</code></li>
                     <li><strong>Drive slowly</strong> (0.1&ndash;0.15 m/s) through the entire space, revisit start for loop closure</li>
                     <li><strong>Save the map:</strong> <code>ros2 run nav2_map_server map_saver_cli -f ~/real_map --ros-args -p save_map_timeout:=10.0</code></li>
                     <li><strong>Copy to repo:</strong> <code>cp ~/real_map.pgm ~/real_map.yaml &lt;your-repo&gt;/maps/</code></li>
