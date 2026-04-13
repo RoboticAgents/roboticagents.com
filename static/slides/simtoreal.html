@@ -906,6 +906,51 @@ ros2 topic hz /scan
                 </div>
             </section>
 
+            <!-- Course Arc -->
+            <section>
+                <h2>The Full Course Arc</h2>
+                <p style="font-size: 0.7em; color: #666; margin: 6px 0 12px 0; text-align: center;">Everything we did this semester, in order</p>
+                <table style="margin-top: 0; font-size: 0.62em;">
+                    <thead><tr><th>Week(s)</th><th>Topic</th><th>Big Idea</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td>Locomotion &amp; Actuators</td><td>How robots move — wheels, legs, motors, degrees of freedom</td></tr>
+                        <tr><td>2</td><td>Motors &amp; Arduino</td><td>Turning electrical signals into motion; PWM, H-bridges, microcontrollers</td></tr>
+                        <tr><td>3–4</td><td>Sensors</td><td>How robots perceive the world — IR, ultrasonic, encoders, lidar, cameras</td></tr>
+                        <tr><td>5</td><td>PLC Training System</td><td>Industrial control logic — ladder diagrams, relays, timers, I/O</td></tr>
+                        <tr><td>7</td><td>Collaborative Robots</td><td>Safety-rated robots working alongside humans — teach pendants, motion types</td></tr>
+                        <tr><td>10</td><td>Introduction to ROS2</td><td>Nodes, topics, publishers, subscribers — the OS for robots</td></tr>
+                        <tr><td>11</td><td>SLAM &amp; Mapping</td><td>Building a map while localizing — occupancy grids, Cartographer</td></tr>
+                        <tr><td>11–12</td><td>Navigation &amp; Path Planning</td><td>Nav2, costmaps, AMCL, global and local planners</td></tr>
+                        <tr><td>12</td><td>Writing ROS2 Nodes</td><td>Python nodes, action clients, sending goals programmatically</td></tr>
+                        <tr><td>14</td><td>Simulation to Reality</td><td>Transferring everything above to a physical TurtleBot 4</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Closing -->
+            <section>
+                <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:580px;text-align:center;">
+                    <h2 style="font-size:1.8em; margin-bottom: 0.2em;">How It All Fits Together</h2>
+                    <p style="font-size: 0.8em; color: #555; max-width: 680px; line-height: 1.6; margin: 10px auto 20px;">
+                        You started by understanding how robots <strong>move</strong> (locomotion, motors) and how they <strong>sense</strong> the world (sensors, lidar). You then learned how to <strong>control</strong> systems both industrially (PLCs) and collaboratively (cobots). In the second half you connected all of that to <strong>ROS2</strong> — a real robotics software framework — building maps, planning paths, writing autonomous navigation nodes, and finally running everything on a <strong>physical robot</strong>.
+                    </p>
+                    <div style="display:flex; gap: 18px; justify-content:center; flex-wrap:wrap; font-size: 0.72em; margin-top: 10px;">
+                        <div class="flow-box" style="background: var(--primary);">Move</div>
+                        <div class="flow-arrow" style="line-height:2.5;">&rarr;</div>
+                        <div class="flow-box" style="background: var(--info);">Sense</div>
+                        <div class="flow-arrow" style="line-height:2.5;">&rarr;</div>
+                        <div class="flow-box" style="background: var(--secondary);">Control</div>
+                        <div class="flow-arrow" style="line-height:2.5;">&rarr;</div>
+                        <div class="flow-box" style="background: var(--success);">Map &amp; Navigate</div>
+                        <div class="flow-arrow" style="line-height:2.5;">&rarr;</div>
+                        <div class="flow-box" style="background: var(--danger);">Real Robot</div>
+                    </div>
+                    <div class="box box-success" style="margin-top: 30px; padding: 12px 24px; font-size: 0.82em; max-width: 600px;">
+                        <strong>Project 4 is the capstone of that journey.</strong><br>Everything you built in simulation now runs on real hardware.
+                    </div>
+                </div>
+            </section>
+
         </div>
     </div>
 
