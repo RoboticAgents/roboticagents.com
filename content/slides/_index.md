@@ -15,5 +15,6 @@ weight = 5
 - [Week 11: SLAM & Mapping](/slides/slam.html)
 - [Weeks 11–12: Navigation & Path Planning](/slides/navigation.html)
 - [Week 12: Writing ROS2 Nodes](/slides/ros2nodes.html)
+- [Week 14: Simulation to Reality](/slides/simtoreal.html)
 - [Exam 1 Review](/slides/exam1review.html)
 - [Exam 2 Review](/slides/exam2review.html)
