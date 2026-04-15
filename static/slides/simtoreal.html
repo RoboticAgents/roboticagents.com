@@ -462,7 +462,7 @@ ros2 topic hz /scan
             <!-- Part 4 Mapping Workflow -->
             <section>
                 <h2>P4 Part 4: Mapping Workflow</h2>
-                <ol style="font-size: 0.78em; margin-top: 10px; line-height: 1.8;">
+                <ol style="font-size: 0.76em; margin-top: 8px; line-height: 1.55;">
                     <li><strong>Undock the robot</strong> — wait for lidar to spin up (~5 sec)</li>
                     <li><strong>On the RPi (SSH)</strong> or laptop: <code>ros2 launch turtlebot4_navigation slam.launch.py</code></li>
                     <li><strong>On the laptop:</strong> <code>ros2 launch turtlebot4_viz view_navigation.launch.py</code></li>
@@ -471,7 +471,7 @@ ros2 topic hz /scan
                     <li><strong>Save the map:</strong> <code>ros2 run nav2_map_server map_saver_cli -f ~/real_map --ros-args -p save_map_timeout:=10.0</code></li>
                     <li><strong>Copy to repo:</strong> <code>cp ~/real_map.pgm ~/real_map.yaml &lt;your-repo&gt;/maps/</code></li>
                 </ol>
-                <div class="box box-warning" style="padding: 8px 15px; font-size: 0.75em; margin-top: 5px;">
+                <div class="box box-warning" style="padding: 6px 12px; font-size: 0.75em; margin-top: 4px;">
                     Keep the dock out of the mapping area, or move the robot away from it — auto-dock will kill your session.
                 </div>
             </section>
