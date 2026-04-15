@@ -234,7 +234,7 @@
             
             <!-- Title Slide -->
             <section>
-                <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:760px;text-align:center;">
+                <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:660px;text-align:center;">
                     <h1 style="font-size:2.8em;">SLAM &amp; Mapping</h1>
                     <p class="subtitle" style="font-size:1.5em;">Week 11 &bull; CMPSC 304 Robotic Agents</p>
                     <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>&rarr;</strong> to advance</p>
@@ -283,10 +283,10 @@
             <!-- SLAM Definition -->
             <section>
                 <h2>SLAM: Simultaneous Localization and Mapping</h2>
-                <div class="box" style="margin-top: 15px; font-size: 0.9em;">
+                <div class="box" style="margin-top: 10px; font-size: 0.9em;">
                     <strong>SLAM</strong> solves both problems at once: build the map <em>and</em> track position simultaneously.
                 </div>
-                <div class="flow-diagram" style="flex-wrap: wrap; margin-top: 25px;">
+                <div class="flow-diagram" style="flex-wrap: wrap; margin-top: 15px;">
                     <div class="flow-box" style="background: var(--info); font-size: 0.85em; min-width: 120px;">Sensor Data<br><span style="font-size:0.7em; font-weight:400;">(lidar scans)</span></div>
                     <div class="flow-arrow">&rarr;</div>
                     <div class="flow-box" style="background: var(--primary); font-size: 0.85em; min-width: 120px;">SLAM<br><span style="font-size:0.7em; font-weight:400;">Algorithm</span></div>
@@ -433,15 +433,15 @@
             <!-- Probabilistic Update -->
             <section>
                 <h2>How Cells Get Updated</h2>
-                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                <div class="box" style="margin-top: 8px; font-size: 0.85em;">
                     Each cell starts at <strong>0.5</strong> (unknown). As the robot scans, cells are updated using <strong>Bayes' rule</strong>.
                 </div>
-                <ul style="margin-top: 15px;">
+                <ul style="margin-top: 10px;">
                     <li>Lidar beam <strong>hits an obstacle</strong> &rarr; cell at that distance gets <span class="highlight">more occupied</span> (probability increases toward 1.0)</li>
                     <li>Lidar beam <strong>passes through</strong> &rarr; cells along the beam path get <span class="checkmark">more free</span> (probability decreases toward 0.0)</li>
                     <li>Multiple observations of the same cell &rarr; <strong>probability converges</strong> to the true state</li>
                 </ul>
-                <div class="box box-info" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                <div class="box box-info" style="margin-top: 10px; padding: 8px 15px; font-size: 0.8em;">
                     <strong>Log-odds trick:</strong> Instead of multiplying small probabilities (numerical issues), SLAM implementations use log-odds: <code>l = log(p / (1-p))</code>. Additions in log-odds space = multiplications in probability space.
                 </div>
                 <aside class="notes">
@@ -549,18 +549,18 @@
             <!-- Cartographer -->
             <section>
                 <h2>Google Cartographer</h2>
-                <div class="box" style="margin-top: 10px; font-size: 0.85em;">
+                <div class="box" style="margin-top: 8px; font-size: 0.85em;">
                     <strong>Cartographer</strong> is the SLAM algorithm installed in our Docker environment.
                 </div>
-                <ul style="margin-top: 15px;">
+                <ul style="margin-top: 10px;">
                     <li>Developed by Google, open-sourced in 2016</li>
                     <li>Uses a <strong>submap</strong> approach: builds small local maps, then optimizes their alignment</li>
                     <li>Handles loop closure through <strong>pose graph optimization</strong></li>
                     <li>Works with 2D lidar (our TurtleBot3) or 3D lidar</li>
                 </ul>
-                <pre style="margin: 15px auto;"><code># Launch Cartographer with TurtleBot3
+                <pre style="margin: 10px auto;"><code># Launch Cartographer with TurtleBot3
 ros2 launch turtlebot3_cartographer cartographer.launch.py</code></pre>
-                <div class="box box-info" style="margin-top: 10px; padding: 10px 15px; font-size: 0.8em;">
+                <div class="box box-info" style="margin-top: 8px; padding: 8px 15px; font-size: 0.8em;">
                     <strong>What you'll see in RViz:</strong> The map builds in real-time as you drive. Gray = unknown, white = free, black = obstacles. The robot's position is tracked by a small arrow.
                 </div>
             </section>
