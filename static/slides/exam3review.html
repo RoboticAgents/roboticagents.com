@@ -688,15 +688,14 @@
             <!-- MC 12 Answer -->
             <section>
                 <h3>Answer: &#x1F7E2; Green &mdash; Open-loop ignores sensors; closed-loop uses feedback</h3>
-                <div class="box answer-box" style="font-size: 0.85em;">
-                    <ul style="margin: 6px 0;">
-                        <li><strong>Open-loop:</strong> Send commands blindly (e.g., &ldquo;drive forward 2 s, then turn&rdquo;). Drift accumulates.</li>
+                <div class="box answer-box" style="font-size: 0.78em; padding: 14px;">
+                    <ul style="margin: 4px 0;">
+                        <li><strong>Open-loop:</strong> Send commands blindly (e.g., &ldquo;drive forward 2 s, turn&rdquo;). Drift accumulates.</li>
                         <li><strong>Closed-loop:</strong> Read sensor data (pose, lidar) and adjust each callback.</li>
                     </ul>
-                    <p><strong>Activity 8:</strong> <code>drive_pattern.py</code> = open-loop (timer-based, ignores pose).</p>
-                    <p><strong>Activity 9:</strong> <code>wall_avoider.py</code> = closed-loop (subscriber reads pose, reacts).</p>
-                    <p><strong>Nav2</strong> = closed-loop: AMCL updates position from lidar; local planner adjusts in real time.</p>
-                    <p style="margin-top: 6px;"><strong>Covered in:</strong> <a href="/slides/ros2nodes.html">Writing ROS2 Nodes</a> slides (publisher+timer vs subscriber patterns) + Activities 8 &amp; 9.</p>
+                    <p style="margin: 4px 0;"><strong>Activity 8:</strong> <code>drive_pattern.py</code> = open-loop (timer-based, ignores pose). <strong>Activity 9:</strong> <code>wall_avoider.py</code> = closed-loop (subscriber reads pose, reacts).</p>
+                    <p style="margin: 4px 0;"><strong>Nav2</strong> = closed-loop: AMCL updates position from lidar; local planner adjusts in real time.</p>
+                    <p style="margin: 4px 0;"><strong>Covered in:</strong> <a href="/slides/ros2nodes.html">Writing ROS2 Nodes</a> slides (publisher+timer vs subscriber patterns) + Activities 8 &amp; 9.</p>
                 </div>
             </section>
 
