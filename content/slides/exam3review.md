@@ -2,6 +2,7 @@
 title = "Exam 3 Review"
 description = "Review for Exam 3 covering ROS2 and autonomy concepts"
 weight = 13
+draft = true
 +++
 
 This content is available as an HTML slide deck at [/slides/exam3review.html](/slides/exam3review.html).

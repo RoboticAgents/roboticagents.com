@@ -18,4 +18,4 @@ weight = 5
 - [Week 14: Simulation to Reality](/slides/simtoreal.html)
 - [Exam 1 Review](/slides/exam1review.html)
 - [Exam 2 Review](/slides/exam2review.html)
-- [Exam 3 Review](/slides/exam3review.html)
+<!-- - [Exam 3 Review](/slides/exam3review.html) -->
