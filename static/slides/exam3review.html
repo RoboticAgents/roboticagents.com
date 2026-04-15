@@ -472,28 +472,17 @@
             <!-- MC 5 Answer -->
             <section>
                 <h3>Answer: &#x1F7E2; Green &mdash; Services = request/response; Topics = one-way pub/sub</h3>
-                <div class="box answer-box">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.88em;">
-                        <div>
-                            <strong>Topics:</strong>
-                            <ul>
-                                <li>Continuous data streams</li>
-                                <li>Fire and forget</li>
-                                <li>Many-to-many</li>
-                                <li>E.g., <code>/cmd_vel</code>, <code>/scan</code></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>Services:</strong>
-                            <ul>
-                                <li>One-shot request &rarr; response</li>
-                                <li>Client waits for result</li>
-                                <li>One-to-one per call</li>
-                                <li>E.g., <code>/spawn</code>, <code>/set_pen</code></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <p style="margin-top: 10px;"><strong>Activity 9:</strong> Service definitions use <code>---</code> to separate request fields from response fields.</p>
+                <div class="box answer-box" style="font-size: 0.85em;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead><tr><th style="text-align:left; padding: 4px 10px;">Topics</th><th style="text-align:left; padding: 4px 10px;">Services</th></tr></thead>
+                        <tbody>
+                            <tr><td style="padding: 3px 10px;">Continuous data streams</td><td style="padding: 3px 10px;">One-shot request &rarr; response</td></tr>
+                            <tr><td style="padding: 3px 10px;">Fire and forget</td><td style="padding: 3px 10px;">Client waits for result</td></tr>
+                            <tr><td style="padding: 3px 10px;">Many-to-many</td><td style="padding: 3px 10px;">One-to-one per call</td></tr>
+                            <tr><td style="padding: 3px 10px;">E.g., <code>/cmd_vel</code>, <code>/scan</code></td><td style="padding: 3px 10px;">E.g., <code>/spawn</code>, <code>/set_pen</code></td></tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 8px;"><strong>Activity 9:</strong> Service definitions use <code>---</code> to separate request fields from response fields.</p>
                 </div>
             </section>
 
@@ -514,14 +503,14 @@
             <!-- MC 6 Answer -->
             <section>
                 <h3>Answer: &#x1F7E2; Green &mdash; <code>linear.x</code> + <code>angular.z</code></h3>
-                <div class="box answer-box">
-                    <p>The <strong>Twist</strong> message has two sub-fields: <code>linear</code> (x,y,z) and <code>angular</code> (x,y,z).</p>
-                    <ul>
+                <div class="box answer-box" style="font-size: 0.88em;">
+                    <p><strong>Twist</strong> has sub-fields: <code>linear</code> (x,y,z) and <code>angular</code> (x,y,z).</p>
+                    <ul style="margin: 6px 0;">
                         <li><code>linear.x</code> &mdash; forward/backward speed (m/s)</li>
-                        <li><code>linear.y</code> &mdash; lateral (sideways) speed &mdash; always 0 for differential-drive robots (they can&rsquo;t strafe)</li>
+                        <li><code>linear.y</code> &mdash; lateral (sideways) speed &mdash; always 0 for differential-drive robots</li>
                         <li><code>angular.z</code> &mdash; rotation rate (rad/s), positive = turn left</li>
                     </ul>
-                    <p><strong>Activity 8:</strong> <code>drive_pattern.py</code> publishes <code>Twist</code> to <code>/turtle1/cmd_vel</code>. <strong>TurtleBot3</strong> uses <code>TwistStamped</code> (adds a header with timestamp).</p>
+                    <p><strong>Activity 8:</strong> <code>drive_pattern.py</code> publishes <code>Twist</code> to <code>/turtle1/cmd_vel</code>. TurtleBot3 uses <code>TwistStamped</code> (adds a timestamp header).</p>
                 </div>
             </section>
 
@@ -699,14 +688,15 @@
             <!-- MC 12 Answer -->
             <section>
                 <h3>Answer: &#x1F7E2; Green &mdash; Open-loop ignores sensors; closed-loop uses feedback</h3>
-                <div class="box answer-box">
-                    <ul>
-                        <li><strong>Open-loop:</strong> Send commands blindly (e.g., &ldquo;drive forward 2 seconds, then turn&rdquo;). Drift accumulates &mdash; the turtle&rsquo;s square was never perfect.</li>
-                        <li><strong>Closed-loop:</strong> Read sensor data (e.g., pose, lidar) and adjust. The wall avoider checks <code>msg.x</code> / <code>msg.y</code> every callback.</li>
+                <div class="box answer-box" style="font-size: 0.85em;">
+                    <ul style="margin: 6px 0;">
+                        <li><strong>Open-loop:</strong> Send commands blindly (e.g., &ldquo;drive forward 2 s, then turn&rdquo;). Drift accumulates.</li>
+                        <li><strong>Closed-loop:</strong> Read sensor data (pose, lidar) and adjust each callback.</li>
                     </ul>
                     <p><strong>Activity 8:</strong> <code>drive_pattern.py</code> = open-loop (timer-based, ignores pose).</p>
                     <p><strong>Activity 9:</strong> <code>wall_avoider.py</code> = closed-loop (subscriber reads pose, reacts).</p>
-                    <p><strong>Nav2</strong> is closed-loop: AMCL continuously updates the robot&rsquo;s position from lidar; the local planner adjusts in real time.</p>
+                    <p><strong>Nav2</strong> = closed-loop: AMCL updates position from lidar; local planner adjusts in real time.</p>
+                    <p style="margin-top: 6px;"><strong>Covered in:</strong> <a href="/slides/ros2nodes.html">Writing ROS2 Nodes</a> slides (publisher+timer vs subscriber patterns) + Activities 8 &amp; 9.</p>
                 </div>
             </section>
 
@@ -824,9 +814,9 @@ Subscription count: 3</code></pre>
             <!-- Scenario 3 Answer -->
             <section>
                 <h3>Answer: Inflation Zone</h3>
-                <div class="box answer-box" style="font-size: 0.78em;">
-                    <p>With a 4-cell buffer and only 6 free cells across, <strong>every</strong> interior cell is within 4 cells of a <code>#</code> &mdash; all become <code>I</code>:</p>
-                    <table class="grid-table" style="margin: 10px auto;">
+                <div class="box answer-box" style="font-size: 0.72em; padding: 14px;">
+                    <p style="margin: 4px 0;">Every interior cell is &le; 4 cells from a <code>#</code>, so all become <code>I</code>:</p>
+                    <table class="grid-table" style="margin: 6px auto;">
                         <tr>
                             <td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td>
                         </tr>
@@ -852,11 +842,10 @@ Subscription count: 3</code></pre>
                             <td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td>
                         </tr>
                     </table>
-                    <ul style="margin-top: 8px;">
-                        <li><strong>#</strong> = wall/obstacle (lethal cost 254)</li>
-                        <li><strong>I</strong> = within inflation buffer &mdash; non-zero cost, cells closer to <code>#</code> have higher cost</li>
-                        <li>The planner picks the <strong>minimum-cost path</strong> &mdash; it prefers cells far from walls</li>
-                        <li><strong>Key insight:</strong> In a small space, the entire interior can be inflated &mdash; the planner still finds a path, but every cell has a cost</li>
+                    <ul style="margin: 6px 0 0 0;">
+                        <li><strong>#</strong> = wall (lethal, cost 254) &bull; <strong>I</strong> = inflated (non-zero cost; closer to <code>#</code> = higher cost)</li>
+                        <li>Planner picks the <strong>minimum-cost path</strong> &mdash; prefers cells far from walls</li>
+                        <li>In a small space the entire interior can be inflated &mdash; planner still navigates, but every cell has a cost</li>
                     </ul>
                 </div>
             </section>
@@ -938,31 +927,7 @@ ros2 topic list           # See all active topics
 ros2 topic echo /scan     # View live messages on a topic
 ros2 topic hz /scan       # Check publish rate
 ros2 topic info /cmd_vel  # See type + publisher/subscriber counts
-ros2 service list         # See all available services
-ros2 interface show &lt;type&gt; # See message/service field definitions
-
-# Save a SLAM map
-ros2 run nav2_map_server map_saver_cli -f ~/map
-
-# Build and run a package
-cd ~/ros2_ws &amp;&amp; colcon build --packages-select my_pkg
-source install/setup.bash
-ros2 run my_pkg my_node</code></pre>
-                </div>
-            </section>
-
-            <!-- Good Luck -->
-            <section>
-                <h1>Good Luck on Exam 3! &#x1F680;</h1>
-                <div class="box box-success" style="margin-top: 40px;">
-                    <strong>Exam Tips:</strong>
-                    <ul>
-                        <li>Know the <strong>distinction</strong> between SLAM (builds map) and AMCL (uses map)</li>
-                        <li>Understand <strong>topics vs. services vs. actions</strong> and when to use each</li>
-                        <li>Be able to trace the <strong>Nav2 pipeline</strong>: Goal &rarr; AMCL &rarr; Costmaps &rarr; Planner &rarr; Controller &rarr; /cmd_vel</li>
-                        <li>Know the <strong>sim-to-real differences</strong> and why they matter</li>
-                        <li>Practice the <strong>costmap inflation calculation</strong>: cells = inflation_radius / resolution</li>
-                    </ul>
+ros2 service list         # See all available services</code></pre>
                 </div>
             </section>
 
