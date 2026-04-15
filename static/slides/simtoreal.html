@@ -51,11 +51,11 @@
         
         .reveal ul {
             font-size: 0.8em;
-            line-height: 1.5;
+            line-height: 1.35;
         }
         
         .reveal li {
-            margin: 0.25em 0;
+            margin: 0.12em 0;
         }
         
         .reveal .highlight {
@@ -65,10 +65,10 @@
         
         .reveal .box {
             background: var(--light);
-            padding: 15px;
+            padding: 8px 14px;
             border-radius: 8px;
             border-left: 4px solid var(--primary);
-            margin: 15px auto;
+            margin: 8px auto;
             max-width: 90%;
             font-size: 0.9em;
         }
@@ -88,16 +88,20 @@
         .reveal .two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 14px;
             align-items: start;
         }
         
         .reveal .col-item {
             background: var(--light);
-            padding: 15px;
+            padding: 10px;
             border-radius: 8px;
         }
         
+        .reveal .slides section {
+            font-size: 0.87em;
+        }
+
         .reveal .small-text {
             font-size: 0.7em;
             color: #666;
@@ -105,17 +109,17 @@
         
         .reveal table {
             font-size: 0.7em;
-            margin: 15px auto;
+            margin: 10px auto;
         }
         
         .reveal th {
             background: var(--primary);
             color: white;
-            padding: 8px;
+            padding: 5px 8px;
         }
         
         .reveal td {
-            padding: 8px;
+            padding: 5px 8px;
             border-bottom: 1px solid #ddd;
         }
         
@@ -151,7 +155,7 @@
         }
 
         .reveal pre {
-            margin: 15px auto;
+            margin: 8px auto;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
@@ -165,18 +169,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            margin: 30px 0;
+            gap: 10px;
+            margin: 15px 0;
             font-size: 0.85em;
         }
 
         .reveal .flow-box {
-            padding: 15px 20px;
+            padding: 10px 16px;
             border-radius: 10px;
             font-weight: 600;
             color: white;
             text-align: center;
-            min-width: 100px;
+            min-width: 90px;
         }
 
         .reveal .flow-arrow {
@@ -227,11 +231,11 @@
             <!-- The Sim-to-Real Gap -->
             <section>
                 <h2>The Sim-to-Real Gap</h2>
-                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                <div class="box" style="margin-top: 10px; font-size: 0.8em;">
                     <strong>Definition:</strong> The difference in behavior between a robot operating in simulation vs. the real world. Also known as the <em>reality gap</em>.
                 </div>
-                <div class="two-col" style="margin-top: 15px;">
-                    <div class="col-item" style="padding: 12px;">
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item">
                         <h3 style="margin-top: 0;">Simulation</h3>
                         <ul style="font-size: 0.7em;">
                             <li>Perfect physics (no friction variance)</li>
@@ -241,7 +245,7 @@
                             <li>No physical damage possible</li>
                         </ul>
                     </div>
-                    <div class="col-item" style="padding: 12px;">
+                    <div class="col-item">
                         <h3 style="margin-top: 0;">Reality</h3>
                         <ul style="font-size: 0.7em;">
                             <li>Uneven surfaces, wheel slip</li>
@@ -324,7 +328,7 @@
             <section>
                 <h2>Display &amp; Button Navigation <span style="font-size:0.6em; color: var(--danger);">(TurtleBot 4 Standard only)</span></h2>
                 <div class="two-col" style="margin-top: 10px;">
-                    <div class="col-item" style="padding: 12px;">
+                    <div class="col-item">
                         <h3 style="margin-top: 0;">4 Buttons</h3>
                         <ul style="font-size: 0.7em;">
                             <li><strong>Button 1 (top-left):</strong> Scroll up / back</li>
@@ -334,7 +338,7 @@
                         </ul>
                         <p style="font-size: 0.65em; color: #666; margin-top: 10px;">Button layout may vary by firmware version — check the display label.</p>
                     </div>
-                    <div class="col-item" style="padding: 12px;">
+                    <div class="col-item">
                         <h3 style="margin-top: 0;">Menu Options</h3>
                         <ul style="font-size: 0.7em;">
                             <li><strong>Dock / Undock</strong> — sends the robot to or from the dock</li>
@@ -356,7 +360,7 @@
             <section>
                 <h2>RPLIDAR A1: How It Works</h2>
                 <div class="two-col" style="margin-top: 10px;">
-                    <div class="col-item" style="padding: 12px;">
+                    <div class="col-item">
                         <h3 style="margin-top: 0;">Hardware</h3>
                         <ul style="font-size: 0.7em;">
                             <li>Spinning laser (360&deg; coverage)</li>
@@ -367,7 +371,7 @@
                             <li>Driver: <code>rplidar_composition</code> node</li>
                         </ul>
                     </div>
-                    <div class="col-item" style="padding: 12px;">
+                    <div class="col-item">
                         <h3 style="margin-top: 0;">ROS2 Topics</h3>
                         <ul style="font-size: 0.7em;">
                             <li><code>/scan</code> — <code>sensor_msgs/LaserScan</code></li>
@@ -389,7 +393,7 @@ ros2 topic hz /scan
             <section>
                 <h2>OAK-D Pro Camera <span style="font-size:0.6em; color: var(--danger);">(TurtleBot 4 Standard only)</span></h2>
                 <div class="two-col" style="margin-top: 10px;">
-                    <div class="col-item" style="padding: 12px;">
+                    <div class="col-item">
                         <h3 style="margin-top: 0;">What It Does</h3>
                         <ul style="font-size: 0.7em;">
                             <li><strong>RGB camera:</strong> 1080p color image</li>
@@ -399,7 +403,7 @@ ros2 topic hz /scan
                             <li>Connected via USB 3.0 SuperSpeed</li>
                         </ul>
                     </div>
-                    <div class="col-item" style="padding: 12px;">
+                    <div class="col-item">
                         <h3 style="margin-top: 0;">ROS2 Topics</h3>
                         <ul style="font-size: 0.7em;">
                             <li><code>/color/preview/image</code> — RGB preview</li>
@@ -440,17 +444,17 @@ ros2 topic hz /scan
             <!-- Docking Behavior -->
             <section>
                 <h2>Docking: The Biggest "Gotcha"</h2>
-                <div class="box box-warning" style="margin-top: 15px; font-size: 0.85em;">
+                <div class="box box-warning" style="margin-top: 10px; font-size: 0.8em;">
                     The Create 3 base manages docking autonomously. This affects your ROS2 session in ways that are not obvious.
                 </div>
-                <ul style="margin-top: 15px;">
+                <ul style="margin-top: 10px;">
                     <li><strong>Docked = lidar off:</strong> <code>/scan</code> stops publishing. SLAM and RViz show nothing.</li>
                     <li><strong>Docked = no movement:</strong> <code>/cmd_vel</code> commands are silently ignored.</li>
                     <li><strong>Auto-dock:</strong> If the robot wanders near the dock, IR sensors may trigger autonomous docking mid-session.</li>
                     <li><strong>After undocking:</strong> Wait 3&ndash;5 seconds for the lidar motor to spin up before starting SLAM.</li>
                     <li><strong>Between sessions:</strong> If teleop stops working after a break, check if the robot re-docked.</li>
                 </ul>
-                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                <div class="box box-success" style="margin-top: 10px; padding: 8px 14px; font-size: 0.75em;">
                     <strong>Diagnosis:</strong> <code>ros2 topic hz /scan</code> showing 0 Hz almost always means the robot is docked. Undock first, then retry.
                 </div>
             </section>
@@ -475,8 +479,8 @@ ros2 topic hz /scan
             <!-- Sensor Differences -->
             <section>
                 <h2>Lidar: Simulation vs. Reality</h2>
-                <div class="two-col" style="margin-top: 15px;">
-                    <div class="col-item" style="padding: 12px;">
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 10px;">
                         <h3 style="margin-top: 0;">Gazebo Lidar</h3>
                         <ul style="font-size: 0.7em;">
                             <li>Clean, consistent readings</li>
@@ -486,7 +490,7 @@ ros2 topic hz /scan
                             <li>Updates at exactly the configured rate</li>
                         </ul>
                     </div>
-                    <div class="col-item" style="padding: 12px;">
+                    <div class="col-item" style="padding: 10px;">
                         <h3 style="margin-top: 0;">Real RPLIDAR A1</h3>
                         <ul style="font-size: 0.7em;">
                             <li>Noise in every scan (&plusmn; a few cm)</li>
@@ -497,7 +501,7 @@ ros2 topic hz /scan
                         </ul>
                     </div>
                 </div>
-                <div class="box box-warning" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                <div class="box box-warning" style="margin-top: 10px; padding: 8px 14px; font-size: 0.75em;">
                     <strong>Impact on mapping:</strong> Real maps will have more noise. Walls may appear thicker or slightly uneven. This is normal — your navigation should still work.
                 </div>
             </section>
@@ -505,16 +509,16 @@ ros2 topic hz /scan
             <!-- Odometry Differences -->
             <section>
                 <h2>Odometry: Drift and Slip</h2>
-                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                <div class="box" style="margin-top: 10px; font-size: 0.8em;">
                     <strong>Odometry</strong> estimates position from wheel rotations. In simulation it is nearly perfect. In reality, it <strong>drifts</strong>.
                 </div>
-                <ul style="margin-top: 15px;">
+                <ul style="margin-top: 10px;">
                     <li><strong>Wheel slip:</strong> Smooth floors or fast turns cause wheels to lose traction</li>
                     <li><strong>Carpet vs. tile:</strong> Different surfaces change wheel dynamics</li>
                     <li><strong>Accumulated error:</strong> Small errors compound — after driving 10m, position may be off by 20+ cm</li>
                     <li><strong>Why AMCL matters:</strong> The particle filter localizer <em>corrects</em> odometry drift by matching lidar scans to the map</li>
                 </ul>
-                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                <div class="box box-success" style="margin-top: 10px; padding: 8px 14px; font-size: 0.75em;">
                     <strong>Key insight:</strong> This is exactly why we use SLAM and AMCL. Pure odometry navigation would fail on a real robot within minutes. The map-based approach you learned is the solution.
                 </div>
             </section>
@@ -522,15 +526,15 @@ ros2 topic hz /scan
             <!-- Network Setup -->
             <section>
                 <h2>Networking with Physical Robots</h2>
-                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                <div class="box" style="margin-top: 10px; font-size: 0.8em;">
                     In Docker, everything runs in one container. With a real TurtleBot 4, your laptop and the robot communicate over <strong>Wi-Fi</strong> &mdash; on a dedicated network set up specifically for the robots.
                 </div>
-                <ul style="margin-top: 15px;">
+                <ul style="margin-top: 10px;">
                     <li><strong>Dedicated robot Wi-Fi:</strong> Plug in the router and connect your laptop to it. The robots connect to it automatically. Do not use the regular campus network.</li>
                     <li><strong><code>ROS_DOMAIN_ID</code></strong> partitions ROS2 traffic so that multiple robots or groups do not interfere with each other. Only nodes sharing the same domain ID can see each other. The bash setup file on the robot's laptop already configures this &mdash; you do not need to export it manually.</li>
                     <li><strong><code>RMW_IMPLEMENTATION</code></strong> is also set by the bash file. We use <code>rmw_fastrtps_cpp</code> (FastDDS) to match the firmware of the Create 3 base.</li>
                 </ul>
-                <div class="box box-warning" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                <div class="box box-warning" style="margin-top: 10px; padding: 8px 14px; font-size: 0.75em;">
                     <strong>Latency matters:</strong> Wi-Fi adds 5&ndash;50 ms delay. RViz on your laptop may lag slightly behind the real robot.
                 </div>
             </section>
@@ -538,7 +542,7 @@ ros2 topic hz /scan
             <!-- Practical Mapping Differences -->
             <section>
                 <h2>Mapping: Sim vs. Real</h2>
-                <table style="margin-top: 15px;">
+                <table style="margin-top: 10px;">
                     <thead><tr><th>Aspect</th><th>Simulation</th><th>Physical</th></tr></thead>
                     <tbody>
                         <tr><td><strong>Environment</strong></td><td>Gazebo world (fixed walls)</td><td>Lab/classroom (furniture, people)</td></tr>
@@ -549,7 +553,7 @@ ros2 topic hz /scan
                         <tr><td><strong>Time to map</strong></td><td>2-3 minutes</td><td>5-10 minutes for a room</td></tr>
                     </tbody>
                 </table>
-                <div class="box box-info" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
+                <div class="box box-info" style="margin-top: 10px; padding: 8px 14px; font-size: 0.75em;">
                     <strong>Tip:</strong> Map when the space is empty, at a slow consistent speed, and make sure to revisit your starting area for good loop closure.
                 </div>
             </section>
@@ -557,13 +561,13 @@ ros2 topic hz /scan
             <!-- Navigation Differences -->
             <section>
                 <h2>Navigation: What Changes?</h2>
-                <ul style="margin-top: 15px;">
+                <ul style="margin-top: 10px;">
                     <li><strong>Initial pose matters more:</strong> Set it precisely — AMCL needs a good starting estimate on a real robot</li>
                     <li><strong>Costmap inflation:</strong> You may need to increase the inflation radius to keep the robot farther from real walls (it cannot clip through them)</li>
                     <li><strong>Recovery behaviors activate more often:</strong> The robot may need to spin or back up when it encounters unexpected obstacles</li>
                     <li><strong>Goal tolerance:</strong> On a real robot, reaching within 10-15 cm of the goal is typically acceptable</li>
                 </ul>
-                <div class="box" style="margin-top: 15px; font-size: 0.85em;">
+                <div class="box" style="margin-top: 10px; font-size: 0.8em;">
                     <strong>Your navigation node code does NOT change.</strong> The same <code>NavigateToPose</code> action works identically — you just need new coordinates for the real environment.
                 </div>
             </section>
@@ -571,8 +575,8 @@ ros2 topic hz /scan
             <!-- Safety -->
             <section>
                 <h2>Safety with Physical Robots</h2>
-                <div class="two-col" style="margin-top: 15px;">
-                    <div class="col-item" style="padding: 12px; border-left: 4px solid var(--danger);">
+                <div class="two-col" style="margin-top: 10px;">
+                    <div class="col-item" style="padding: 10px; border-left: 4px solid var(--danger);">
                         <h3 style="margin-top: 0; color: var(--danger);">Rules</h3>
                         <ul style="font-size: 0.7em;">
                             <li><strong>Always</strong> have a team member ready to pick up the robot</li>
@@ -582,7 +586,7 @@ ros2 topic hz /scan
                             <li>Low battery = unpredictable behavior</li>
                         </ul>
                     </div>
-                    <div class="col-item" style="padding: 12px; border-left: 4px solid var(--success);">
+                    <div class="col-item" style="padding: 10px; border-left: 4px solid var(--success);">
                         <h3 style="margin-top: 0; color: var(--success);">Emergency Stop</h3>
                         <ul style="font-size: 0.7em;">
                             <li>Pick up the robot (wheels will free-spin)</li>
@@ -598,20 +602,20 @@ ros2 topic hz /scan
             <section>
                 <h2>Recommended Workflow for P4 Part 4</h2>
                 <div class="flow-diagram" style="flex-wrap: wrap;">
-                    <div class="flow-box" style="background: var(--primary); font-size: 0.7em;">1. Map the<br>real space</div>
+                    <div class="flow-box" style="background: var(--primary); font-size: 0.7em;">1. Undock<br>&amp; set up</div>
                     <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-box" style="background: var(--info); font-size: 0.7em;">2. Save map<br>to robot</div>
+                    <div class="flow-box" style="background: var(--info); font-size: 0.7em;">2. Launch<br>SLAM</div>
                     <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-box" style="background: var(--secondary); font-size: 0.7em;">3. Launch Nav2<br>with real map</div>
+                    <div class="flow-box" style="background: var(--secondary); font-size: 0.7em;">3. Teleop<br>&amp; map</div>
                     <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-box" style="background: var(--success); font-size: 0.7em;">4. Test goals<br>in RViz</div>
+                    <div class="flow-box" style="background: var(--success); font-size: 0.7em;">4. Save map<br>files</div>
                     <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-box" style="background: var(--warning); font-size: 0.7em; color: var(--dark);">5. Update node<br>coordinates</div>
+                    <div class="flow-box" style="background: var(--warning); font-size: 0.7em; color: var(--dark);">5. Copy to<br>repo</div>
                     <div class="flow-arrow">&rarr;</div>
-                    <div class="flow-box" style="background: var(--danger); font-size: 0.7em;">6. Run node<br>on real robot</div>
+                    <div class="flow-box" style="background: var(--danger); font-size: 0.7em;">6. Document<br>observations</div>
                 </div>
-                <div class="box box-success" style="margin-top: 15px; padding: 10px 15px; font-size: 0.8em;">
-                    <strong>Key principle:</strong> Get everything working in simulation first. Transfer to the real robot means only swapping the map file and updating waypoint coordinates.
+                <div class="box box-success" style="margin-top: 10px; padding: 8px 14px; font-size: 0.75em;">
+                    <strong>Part 4 is mapping only.</strong> Drive slow (0.1&ndash;0.15 m/s), revisit your starting area for loop closure, and compare your real map to simulation in your reflection.
                 </div>
             </section>
 
@@ -628,7 +632,7 @@ ros2 topic hz /scan
             <!-- Summary -->
             <section>
                 <h2>Summary</h2>
-                <table style="margin-top: 15px;">
+                <table style="margin-top: 10px;">
                     <thead><tr><th>Topic</th><th>Key Takeaway</th></tr></thead>
                     <tbody>
                         <tr><td><strong>Sim-to-real gap</strong></td><td>Real sensors are noisy, surfaces cause drift, network adds latency</td></tr>
@@ -639,8 +643,8 @@ ros2 topic hz /scan
                         <tr><td><strong>Safety</strong></td><td>Test in sim first, drive slow, always be ready to stop</td></tr>
                     </tbody>
                 </table>
-                <div class="box" style="margin-top: 15px; text-align: center; font-size: 1em;">
-                    <strong>Prepare for the real robot! &rarr; <a href="/activities/activity9">Activity 9</a></strong>
+                <div class="box" style="margin-top: 10px; text-align: center; font-size: 1em;">
+                    <strong>Now apply this to real hardware &rarr; P4 Part 4: Physical TurtleBot 4 Mapping</strong>
                 </div>
             </section>
 
@@ -683,8 +687,8 @@ ros2 topic hz /scan
                         <div class="flow-arrow" style="line-height:2.5;">&rarr;</div>
                         <div class="flow-box" style="background: var(--danger);">Real Robot</div>
                     </div>
-                    <div class="box box-success" style="margin-top: 30px; padding: 12px 24px; font-size: 0.82em; max-width: 600px;">
-                        <strong>Project 4 is the capstone of that journey.</strong><br>Everything you built in simulation now runs on real hardware.
+                    <div class="box box-success" style="margin-top: 20px; padding: 10px 20px; font-size: 0.78em; max-width: 600px;">
+                        <strong>Project 4 brings that journey to the real world</strong> &mdash; mapping a physical space with a TurtleBot 4.
                     </div>
                 </div>
             </section>
