@@ -351,10 +351,10 @@
                 <div class="box">
                     <strong>In ROS2, what is a "node"?</strong>
                     <div style="margin-top: 20px; font-size: 0.9em;">
-                        <p>&#x1F534; <strong>Red:</strong> A physical sensor attached to the robot</p>
+                        <p>&#x1F534; <strong>Red:</strong> A physical sensor or actuator that is wired directly to the robot&rsquo;s onboard computer</p>
                         <p>&#x1F7E2; <strong>Green:</strong> A single process that performs one job and communicates through topics, services, or actions</p>
-                        <p>&#x26AB; <strong>Black:</strong> A configuration file that launches the robot</p>
-                        <p>&#x1F7E0; <strong>Orange:</strong> A map cell in an occupancy grid</p>
+                        <p>&#x26AB; <strong>Black:</strong> A YAML configuration file that defines all of the robot&rsquo;s launch parameters</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> A single cell inside an occupancy grid map that stores a probability value</p>
                     </div>
                 </div>
             </section>
@@ -518,8 +518,8 @@
                     <p>The <strong>Twist</strong> message has two sub-fields: <code>linear</code> (x,y,z) and <code>angular</code> (x,y,z).</p>
                     <ul>
                         <li><code>linear.x</code> &mdash; forward/backward speed (m/s)</li>
+                        <li><code>linear.y</code> &mdash; lateral (sideways) speed &mdash; always 0 for differential-drive robots (they can&rsquo;t strafe)</li>
                         <li><code>angular.z</code> &mdash; rotation rate (rad/s), positive = turn left</li>
-                        <li>For a differential-drive ground robot, the other fields are 0</li>
                     </ul>
                     <p><strong>Activity 8:</strong> <code>drive_pattern.py</code> publishes <code>Twist</code> to <code>/turtle1/cmd_vel</code>. <strong>TurtleBot3</strong> uses <code>TwistStamped</code> (adds a header with timestamp).</p>
                 </div>
@@ -654,11 +654,11 @@
                 </div>
             </section>
 
-            <!-- MC 11: Publisher+Timer pattern -->
+            <!-- MC 11: rclpy.spin -->
             <section>
                 <h2>Multiple Choice 11</h2>
                 <div class="box">
-                    <strong>In the publisher+timer pattern from Activity 8, what does <code>rclpy.spin(node)</code> do?</strong>
+                    <strong>In a ROS2 Python node, what does <code>rclpy.spin(node)</code> do?</strong>
                     <div style="margin-top: 20px; font-size: 0.9em;">
                         <p>&#x1F534; <strong>Red:</strong> Rotates the robot in a circle</p>
                         <p>&#x1F7E2; <strong>Green:</strong> Runs the event loop, processing timer callbacks and incoming messages</p>
@@ -682,33 +682,31 @@
                 </div>
             </section>
 
-            <!-- MC 12: Sim-to-real gap -->
+            <!-- MC 12: Open-loop vs closed-loop -->
             <section>
                 <h2>Multiple Choice 12</h2>
                 <div class="box">
-                    <strong>Which of the following is NOT a sim-to-real challenge when deploying a ROS2 navigation system on a physical TurtleBot 4?</strong>
+                    <strong>What is the key difference between <em>open-loop</em> and <em>closed-loop</em> control for a robot?</strong>
                     <div style="margin-top: 20px; font-size: 0.9em;">
-                        <p>&#x1F534; <strong>Red:</strong> Odometry drift from wheel slip on smooth floors</p>
-                        <p>&#x1F7E2; <strong>Green:</strong> Sensor noise from the RPLIDAR A1 on reflective surfaces</p>
-                        <p>&#x26AB; <strong>Black:</strong> Using the same <code>NavigateToPose</code> action interface on either platform</p>
-                        <p>&#x1F7E0; <strong>Orange:</strong> Network latency over Wi-Fi between robot and laptop</p>
+                        <p>&#x1F534; <strong>Red:</strong> Open-loop uses Wi-Fi; closed-loop uses Bluetooth</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> Open-loop executes commands without reading sensors; closed-loop adjusts behavior based on sensor feedback</p>
+                        <p>&#x26AB; <strong>Black:</strong> Open-loop runs on a timer; closed-loop runs on a subscriber</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> Open-loop is for simulation only; closed-loop is for physical robots</p>
                     </div>
                 </div>
             </section>
 
             <!-- MC 12 Answer -->
             <section>
-                <h3>Answer: &#x26AB; Black &mdash; Same action interface is NOT a challenge</h3>
+                <h3>Answer: &#x1F7E2; Green &mdash; Open-loop ignores sensors; closed-loop uses feedback</h3>
                 <div class="box answer-box">
-                    <p>The <strong>ROS2 API is the same</strong> in simulation and on the real robot &mdash; that&rsquo;s the whole point!</p>
-                    <p><strong>Real sim-to-real challenges:</strong></p>
                     <ul>
-                        <li><strong>Odometry drift:</strong> Real wheels slip; sim encoders are perfect</li>
-                        <li><strong>Sensor noise:</strong> RPLIDAR A1 has &plusmn; cm variation; glass/mirrors cause gaps</li>
-                        <li><strong>Network latency:</strong> Wi-Fi adds 5&ndash;50 ms delay; Docker has none</li>
-                        <li><strong>Auto-docking:</strong> Robot near dock &rarr; IR triggers docking unexpectedly</li>
-                        <li><strong>Battery:</strong> ~2.5 hours; sim runs forever</li>
+                        <li><strong>Open-loop:</strong> Send commands blindly (e.g., &ldquo;drive forward 2 seconds, then turn&rdquo;). Drift accumulates &mdash; the turtle&rsquo;s square was never perfect.</li>
+                        <li><strong>Closed-loop:</strong> Read sensor data (e.g., pose, lidar) and adjust. The wall avoider checks <code>msg.x</code> / <code>msg.y</code> every callback.</li>
                     </ul>
+                    <p><strong>Activity 8:</strong> <code>drive_pattern.py</code> = open-loop (timer-based, ignores pose).</p>
+                    <p><strong>Activity 9:</strong> <code>wall_avoider.py</code> = closed-loop (subscriber reads pose, reacts).</p>
+                    <p><strong>Nav2</strong> is closed-loop: AMCL continuously updates the robot&rsquo;s position from lidar; the local planner adjusts in real time.</p>
                 </div>
             </section>
 
@@ -790,73 +788,75 @@ Subscription count: 3</code></pre>
 
             <!-- Scenario 3: Costmap grid drawing -->
             <section>
-                <h2>Scenario 3: Draw the Costmap</h2>
-                <div class="box" style="font-size: 0.82em;">
-                    <strong>Given this 8&times;8 grid with walls (W), <code>robot_radius = 1 cell</code>, and <code>inflation_radius = 2 cells</code>, mark all inscribed (I) and inflated (&#x2606;) cells.</strong>
-                    <table class="grid-table" style="margin: 15px auto;">
+                <h2>Scenario 3: Mark the Inflation Zone</h2>
+                <div class="box" style="font-size: 0.78em; padding: 18px;">
+                    <strong>Given this 8&times;8 grid (<code>#</code> = wall, <code>.</code> = free), with <code>inflation_radius = 4 cells</code> and <code>resolution = 0.05</code> m/cell, mark every free cell that falls within the inflation buffer as <code>I</code>. Leave cells outside the buffer as <code>.</code></strong>
+                    <table class="grid-table" style="margin: 12px auto;">
                         <tr>
-                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                            <td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                            <td class="wall">#</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="wall">W</td><td class="wall">W</td><td class="free"></td><td class="free"></td><td class="free"></td>
+                            <td class="wall">#</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="wall">W</td><td class="wall">W</td><td class="free"></td><td class="free"></td><td class="free"></td>
+                            <td class="wall">#</td><td class="free">.</td><td class="free">.</td><td class="wall">#</td><td class="wall">#</td><td class="free">.</td><td class="free">.</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                            <td class="wall">#</td><td class="free">.</td><td class="free">.</td><td class="wall">#</td><td class="wall">#</td><td class="free">.</td><td class="free">.</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                            <td class="wall">#</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                            <td class="wall">#</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="free">.</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                            <td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td>
                         </tr>
                     </table>
-                    <p style="font-size: 0.85em;">Hint: Inscribed cells are within <code>robot_radius</code> of a wall. Inflated cells are within <code>inflation_radius</code> but outside inscribed zone.</p>
+                    <p>Same approach as Activity 7: check each <code>.</code> cell&rsquo;s distance to the nearest <code>#</code>. If &le; 4 cells, mark it <code>I</code>.</p>
                 </div>
             </section>
 
             <!-- Scenario 3 Answer -->
             <section>
-                <h3>Answer: Costmap Inflation</h3>
-                <div class="box answer-box" style="font-size: 0.82em;">
+                <h3>Answer: Inflation Zone</h3>
+                <div class="box answer-box" style="font-size: 0.78em;">
+                    <p>With a 4-cell buffer and only 6 free cells across, <strong>every</strong> interior cell is within 4 cells of a <code>#</code> &mdash; all become <code>I</code>:</p>
                     <table class="grid-table" style="margin: 10px auto;">
                         <tr>
-                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                            <td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                            <td class="wall">#</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inscribed">I</td><td class="wall">W</td><td class="wall">W</td><td class="inscribed">I</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                            <td class="wall">#</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inscribed">I</td><td class="wall">W</td><td class="wall">W</td><td class="inscribed">I</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                            <td class="wall">#</td><td class="inflated">I</td><td class="inflated">I</td><td class="wall">#</td><td class="wall">#</td><td class="inflated">I</td><td class="inflated">I</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                            <td class="wall">#</td><td class="inflated">I</td><td class="inflated">I</td><td class="wall">#</td><td class="wall">#</td><td class="inflated">I</td><td class="inflated">I</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                            <td class="wall">#</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                            <td class="wall">#</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="inflated">I</td><td class="wall">#</td>
                         </tr>
                         <tr>
-                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                            <td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td><td class="wall">#</td>
                         </tr>
                     </table>
-                    <ul style="font-size: 0.85em; margin-top: 10px;">
-                        <li><strong class="wall" style="padding: 2px 6px; border-radius: 3px;">W</strong> = Lethal (cost 254) &mdash; actual wall</li>
-                        <li><strong class="inscribed" style="padding: 2px 6px; border-radius: 3px;">I</strong> = Inscribed (cost 253) &mdash; within 1 cell of wall &mdash; robot center here = guaranteed collision</li>
-                        <li><strong class="inflated" style="padding: 2px 6px; border-radius: 3px;">&#x2606;</strong> = Inflated (decreasing cost) &mdash; within 2 cells of wall &mdash; planner prefers to avoid</li>
+                    <ul style="margin-top: 8px;">
+                        <li><strong>#</strong> = wall/obstacle (lethal cost 254)</li>
+                        <li><strong>I</strong> = within inflation buffer &mdash; non-zero cost, cells closer to <code>#</code> have higher cost</li>
+                        <li>The planner picks the <strong>minimum-cost path</strong> &mdash; it prefers cells far from walls</li>
+                        <li><strong>Key insight:</strong> In a small space, the entire interior can be inflated &mdash; the planner still finds a path, but every cell has a cost</li>
                     </ul>
                 </div>
             </section>
