@@ -266,9 +266,9 @@
             <!-- Coverage -->
             <section>
                 <h2>What's Covered on Exam 3?</h2>
-                <div class="box">
+                <div class="box" style="padding: 18px;">
                     <p style="margin: 0 0 4px 0;"><strong>Topics:</strong> Weeks 10 through 14</p>
-                    <ul style="margin-top: 6px;">
+                    <ul style="margin-top: 6px; font-size: 0.82em; line-height: 1.4;">
                         <li>ROS2 fundamentals: nodes, topics, messages, pub/sub, services</li>
                         <li>SLAM &amp; mapping: lidar, occupancy grids, scan matching, loop closure</li>
                         <li>Navigation: AMCL localization, costmaps, inflation, path planning, Nav2</li>
@@ -362,11 +362,11 @@
             <!-- MC 1 Answer -->
             <section>
                 <h3>Answer: &#x1F7E2; Green &mdash; A single process that performs one job</h3>
-                <div class="box answer-box">
+                <div class="box answer-box" style="font-size: 0.85em;">
                     <p>A <strong>node</strong> is an independent process in the ROS2 computation graph.</p>
-                    <ul>
-                        <li>Each node does <strong>one job</strong> (e.g., lidar driver, path planner, motor controller)</li>
-                        <li>Nodes communicate through <strong>topics</strong> (pub/sub), <strong>services</strong> (request/reply), and <strong>actions</strong> (long-running goals)</li>
+                    <ul style="line-height: 1.4;">
+                        <li>Each node does <strong>one job</strong> (e.g., lidar driver, path planner)</li>
+                        <li>Nodes communicate via <strong>topics</strong>, <strong>services</strong>, and <strong>actions</strong></li>
                         <li>A robot system is a <strong>graph of connected nodes</strong></li>
                     </ul>
                     <p><strong>Command:</strong> <code>ros2 node list</code> shows all running nodes.</p>
@@ -559,11 +559,11 @@
                 <h2>Multiple Choice 8</h2>
                 <div class="box">
                     <strong>What is the difference between the global costmap and the local costmap in Nav2?</strong>
-                    <div style="margin-top: 20px; font-size: 0.9em;">
-                        <p>&#x1F534; <strong>Red:</strong> The global costmap is for simulation; the local costmap is for real robots</p>
-                        <p>&#x1F7E2; <strong>Green:</strong> The global costmap covers the entire map for long-range planning; the local costmap covers a small area around the robot for obstacle avoidance</p>
-                        <p>&#x26AB; <strong>Black:</strong> The global costmap uses lidar; the local costmap uses the camera</p>
-                        <p>&#x1F7E0; <strong>Orange:</strong> There is no difference &mdash; they are the same costmap at different zoom levels</p>
+                    <div style="margin-top: 20px; font-size: 0.82em;">
+                        <p>&#x1F534; <strong>Red:</strong> Global is for simulation; local is for real robots</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> Global covers the entire map for path planning; local covers a small area around the robot for obstacle avoidance</p>
+                        <p>&#x26AB; <strong>Black:</strong> Global uses lidar; local uses the camera</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> No difference &mdash; same costmap at different zoom levels</p>
                     </div>
                 </div>
             </section>
@@ -572,10 +572,10 @@
             <section>
                 <h3>Answer: &#x1F7E2; Green &mdash; Global = full map; Local = around robot</h3>
                 <div class="box answer-box">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.88em;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.82em;">
                         <div>
                             <strong>Global Costmap:</strong>
-                            <ul>
+                            <ul style="line-height: 1.4;">
                                 <li>Covers the <strong>entire map</strong></li>
                                 <li>Based on the saved static map</li>
                                 <li>Used for <strong>long-range path planning</strong></li>
@@ -583,7 +583,7 @@
                         </div>
                         <div>
                             <strong>Local Costmap:</strong>
-                            <ul>
+                            <ul style="line-height: 1.4;">
                                 <li>Small area <strong>around the robot</strong></li>
                                 <li>Updated in <strong>real-time</strong> with live lidar</li>
                                 <li>Used for <strong>immediate obstacle avoidance</strong></li>
@@ -739,24 +739,24 @@
             <section>
                 <h3>Correct Order</h3>
                 <div class="box answer-box">
-                    <ol style="font-size: 0.88em;">
-                        <li><strong>Goal pose is received by Nav2</strong> (user clicks in RViz or action client sends it)</li>
-                        <li><strong>AMCL localizes robot on the map</strong> (determines current position via particle filter)</li>
-                        <li><strong>Global planner finds a path on the global costmap</strong> (full-map shortest path)</li>
-                        <li><strong>Local planner follows path using the local costmap</strong> (real-time obstacle avoidance)</li>
-                        <li><strong>Local planner sends <code>Twist</code> to <code>/cmd_vel</code></strong> (velocity commands drive the motors)</li>
+                    <ol style="font-size: 0.82em; line-height: 1.4;">
+                        <li><strong>Goal pose received by Nav2</strong> (RViz click or action client)</li>
+                        <li><strong>AMCL localizes robot on the map</strong> (particle filter)</li>
+                        <li><strong>Global planner finds path on global costmap</strong></li>
+                        <li><strong>Local planner follows path using local costmap</strong></li>
+                        <li><strong>Local planner sends <code>Twist</code> to <code>/cmd_vel</code></strong></li>
                         <li><strong>Robot reaches the goal</strong> (within <code>xy_goal_tolerance</code>)</li>
                     </ol>
-                    <p style="margin-top: 10px;"><strong>Nav2 pipeline:</strong> Goal &rarr; AMCL &rarr; Global Planner &rarr; Local Planner &rarr; /cmd_vel &rarr; Done</p>
+                    <p style="margin-top: 8px; font-size: 0.88em;"><strong>Nav2 pipeline:</strong> Goal &rarr; AMCL &rarr; Global Planner &rarr; Local Planner &rarr; /cmd_vel &rarr; Done</p>
                 </div>
             </section>
 
             <!-- Scenario 2: Interpret ROS2 command output -->
             <section>
                 <h2>Scenario 2: Interpret the Output</h2>
-                <div class="box" style="font-size: 0.82em;">
-                    <strong>A student runs the following commands and gets this output. Answer the questions below.</strong>
-                    <pre style="margin-top: 12px;"><code>$ ros2 topic info /cmd_vel
+                <div class="box" style="font-size: 0.75em; padding: 18px;">
+                    <strong>A student runs these commands. Answer the questions below.</strong>
+                    <pre style="margin-top: 8px; margin-bottom: 8px; padding: 8px;"><code>$ ros2 topic info /cmd_vel
 Type: geometry_msgs/msg/Twist
 Publisher count: 2
 Subscription count: 1
@@ -765,10 +765,10 @@ $ ros2 topic info /scan
 Type: sensor_msgs/msg/LaserScan
 Publisher count: 1
 Subscription count: 3</code></pre>
-                    <div style="margin-top: 15px;">
-                        <p><strong>a)</strong> How many nodes are publishing velocity commands?</p>
-                        <p><strong>b)</strong> How many nodes are consuming the lidar data?</p>
-                        <p><strong>c)</strong> Is this a problem that two nodes are publishing to <code>/cmd_vel</code>? Why or why not?</p>
+                    <div style="margin-top: 8px;">
+                        <p style="margin: 4px 0;"><strong>a)</strong> How many nodes are publishing velocity commands?</p>
+                        <p style="margin: 4px 0;"><strong>b)</strong> How many nodes are consuming the lidar data?</p>
+                        <p style="margin: 4px 0;"><strong>c)</strong> Is it a problem that two nodes publish to <code>/cmd_vel</code>? Why?</p>
                     </div>
                 </div>
             </section>
