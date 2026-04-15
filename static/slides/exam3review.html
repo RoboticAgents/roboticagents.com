@@ -195,6 +195,51 @@
         .reveal .small {
             font-size: 0.78em;
         }
+
+        .reveal .grid-table td {
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            font-size: 0.7em;
+            font-weight: bold;
+            border: 1px solid #999;
+            padding: 2px;
+        }
+
+        .reveal .grid-table {
+            border-collapse: collapse;
+            margin: 10px auto;
+        }
+
+        .reveal .grid-table .wall {
+            background: #333;
+            color: #fff;
+        }
+
+        .reveal .grid-table .inscribed {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .reveal .grid-table .inflated {
+            background: #f39c12;
+            color: #fff;
+        }
+
+        .reveal .grid-table .free {
+            background: #fff;
+        }
+
+        .reveal .order-item {
+            background: var(--light);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 8px 16px;
+            margin: 6px;
+            display: inline-block;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -209,11 +254,10 @@
                     <strong>Topics:</strong> ROS2 &amp; Autonomy Concepts<br><br>
                     <strong>Format:</strong> Paper exam, closed everything<br>
                     <strong>Duration:</strong> 50 minutes<br>
-                    <strong>Questions:</strong> 15 total
+                    <strong>Questions:</strong> 10 total &mdash; 10 points
                     <ul style="margin-top: 10px;">
-                        <li>5 multiple-choice</li>
-                        <li>5 short answer</li>
-                        <li>5 scenario-based</li>
+                        <li>8 multiple-choice (1 point each)</li>
+                        <li>2 scenario-based (1 point each)</li>
                     </ul>
                 </div>
                 <p class="small-text" style="margin-top: 60px;">Press <strong>Space</strong> or <strong>&rarr;</strong> to advance</p>
@@ -225,10 +269,10 @@
                 <div class="box">
                     <p style="margin: 0 0 4px 0;"><strong>Topics:</strong> Weeks 10 through 14</p>
                     <ul style="margin-top: 6px;">
-                        <li>ROS2 fundamentals: nodes, topics, messages, pub/sub</li>
+                        <li>ROS2 fundamentals: nodes, topics, messages, pub/sub, services</li>
                         <li>SLAM &amp; mapping: lidar, occupancy grids, scan matching, loop closure</li>
-                        <li>Navigation: AMCL localization, costmaps, path planning, Nav2</li>
-                        <li>Writing ROS2 nodes: publishers, timers, actions, NavigateToPose</li>
+                        <li>Navigation: AMCL localization, costmaps, inflation, path planning, Nav2</li>
+                        <li>Writing ROS2 nodes: publishers, timers, subscribers, actions, NavigateToPose</li>
                         <li>Simulation to reality: sim-to-real gap, TurtleBot 4 hardware, odometry drift</li>
                     </ul>
                 </div>
@@ -280,7 +324,7 @@
                     <ul style="margin-top: 12px; margin-bottom: 0;">
                         <li><strong>Multiple Choice:</strong> Raise the correct colored paper &#x1F534; &#x1F7E2; &#x26AB; &#x1F7E0;</li>
                         <li style="margin-left: 30px;">First person with correct color gets to answer!</li>
-                        <li style="margin-top: 8px;"><strong>Short Answer &amp; Scenarios:</strong> Raise your hand &#x270B;</li>
+                        <li style="margin-top: 8px;"><strong>Scenarios:</strong> Raise your hand &#x270B;</li>
                         <li style="margin-left: 30px;">First hand up gets to answer!</li>
                     </ul>
                 </div>
@@ -301,14 +345,14 @@
                 <p style="margin-top: 30px; font-size: 1.5em;">&#x1F534; &#x1F7E2; &#x26AB; &#x1F7E0;</p>
             </section>
 
-            <!-- MC 1 -->
+            <!-- MC 1: ROS2 nodes -->
             <section>
-                <h2>Multiple Choice Practice 1</h2>
+                <h2>Multiple Choice 1</h2>
                 <div class="box">
                     <strong>In ROS2, what is a "node"?</strong>
                     <div style="margin-top: 20px; font-size: 0.9em;">
                         <p>&#x1F534; <strong>Red:</strong> A physical sensor attached to the robot</p>
-                        <p>&#x1F7E2; <strong>Green:</strong> A single process that performs one job and communicates through topics</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> A single process that performs one job and communicates through topics, services, or actions</p>
                         <p>&#x26AB; <strong>Black:</strong> A configuration file that launches the robot</p>
                         <p>&#x1F7E0; <strong>Orange:</strong> A map cell in an occupancy grid</p>
                     </div>
@@ -317,29 +361,28 @@
 
             <!-- MC 1 Answer -->
             <section>
-                <h3>Answer: &#x1F7E2; Green &mdash; A single process that performs one job and communicates through topics</h3>
+                <h3>Answer: &#x1F7E2; Green &mdash; A single process that performs one job</h3>
                 <div class="box answer-box">
                     <p>A <strong>node</strong> is an independent process in the ROS2 computation graph.</p>
                     <ul>
                         <li>Each node does <strong>one job</strong> (e.g., lidar driver, path planner, motor controller)</li>
-                        <li>Nodes communicate through <strong>topics</strong> (pub/sub), <strong>services</strong>, and <strong>actions</strong></li>
-                        <li>Nodes can be started, stopped, or replaced independently</li>
+                        <li>Nodes communicate through <strong>topics</strong> (pub/sub), <strong>services</strong> (request/reply), and <strong>actions</strong> (long-running goals)</li>
                         <li>A robot system is a <strong>graph of connected nodes</strong></li>
                     </ul>
                     <p><strong>Command:</strong> <code>ros2 node list</code> shows all running nodes.</p>
                 </div>
             </section>
 
-            <!-- MC 2 -->
+            <!-- MC 2: Pub/Sub decoupling -->
             <section>
-                <h2>Multiple Choice Practice 2</h2>
+                <h2>Multiple Choice 2</h2>
                 <div class="box">
                     <strong>In the ROS2 publish/subscribe pattern, which statement is TRUE?</strong>
                     <div style="margin-top: 20px; font-size: 0.9em;">
                         <p>&#x1F534; <strong>Red:</strong> Publishers must know the identity of all subscribers</p>
-                        <p>&#x1F7E2; <strong>Green:</strong> Subscribers send acknowledgments back to publishers after each message</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> Each topic can only have one publisher and one subscriber</p>
                         <p>&#x26AB; <strong>Black:</strong> Publishers and subscribers are decoupled &mdash; neither knows who the other is</p>
-                        <p>&#x1F7E0; <strong>Orange:</strong> Each topic can only have one publisher and one subscriber</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> Subscribers send acknowledgments back to publishers after each message</p>
                     </div>
                 </div>
             </section>
@@ -348,102 +391,193 @@
             <section>
                 <h3>Answer: &#x26AB; Black &mdash; Publishers and subscribers are decoupled</h3>
                 <div class="box answer-box">
-                    <p><strong>Publish/subscribe</strong> is a messaging pattern where nodes communicate through named topics without direct connections.</p>
                     <ul>
-                        <li><strong>Modularity:</strong> Swap a real lidar for a simulated one &mdash; subscribers don't change</li>
-                        <li><strong>Scalability:</strong> Add a new node that listens to <code>/scan</code> without modifying existing code</li>
-                        <li><strong>Testing:</strong> Record and replay topic data for debugging</li>
+                        <li><strong>Modularity:</strong> Swap a real lidar for a simulated one &mdash; subscribers don&rsquo;t change</li>
                         <li><strong>Multiple</strong> publishers and subscribers can share the same topic</li>
+                        <li><strong>Contrast with Arduino:</strong> Sensor &amp; motor code tightly coupled in one file. ROS2 separates them.</li>
                     </ul>
-                    <p><strong>Contrast with Arduino:</strong> Sensor code and motor code were tightly coupled in one file. ROS2 separates them into independent nodes connected by topics.</p>
+                    <p><strong>Activity 5&ndash;6:</strong> Lidar publishes to <code>/scan</code>; Cartographer subscribes to build the map.</p>
                 </div>
             </section>
 
-            <!-- MC 3 -->
+            <!-- MC 3: Occupancy grid values -->
             <section>
-                <h2>Multiple Choice Practice 3</h2>
+                <h2>Multiple Choice 3</h2>
                 <div class="box">
                     <strong>In a ROS2 occupancy grid map, what does a cell value of 0 represent?</strong>
                     <div style="margin-top: 20px; font-size: 0.9em;">
                         <p>&#x1F534; <strong>Red:</strong> An obstacle (wall)</p>
                         <p>&#x1F7E2; <strong>Green:</strong> Unknown / unexplored space</p>
                         <p>&#x26AB; <strong>Black:</strong> Free space &mdash; safe to traverse</p>
-                        <p>&#x1F7E0; <strong>Orange:</strong> The robot's current position</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> The robot&rsquo;s current position</p>
                     </div>
                 </div>
             </section>
 
             <!-- MC 3 Answer -->
             <section>
-                <h3>Answer: &#x26AB; Black &mdash; Free space &mdash; safe to traverse</h3>
+                <h3>Answer: &#x26AB; Black &mdash; Free space</h3>
                 <div class="box answer-box">
-                    <p>An <strong>occupancy grid</strong> divides the world into cells, each storing a probability of being occupied.</p>
                     <ul>
-                        <li><strong>0 (white):</strong> Free space &mdash; the lidar confirmed nothing is there</li>
-                        <li><strong>100 / 1.0 (black):</strong> Occupied &mdash; wall or obstacle detected</li>
-                        <li><strong>&minus;1 or gray (?):</strong> Unknown &mdash; the robot hasn't observed this area yet</li>
+                        <li><strong>0 (white in .pgm):</strong> Free space</li>
+                        <li><strong>100 (black in .pgm):</strong> Occupied &mdash; wall or obstacle</li>
+                        <li><strong>&minus;1 (grey in .pgm):</strong> Unknown / unexplored</li>
                     </ul>
-                    <p><strong>In costmaps:</strong> 0 = free, 1&ndash;252 = increasing cost, 253 = inscribed, 254 = lethal, 255 = unknown</p>
-                    <p>The map is saved as a <code>.pgm</code> image file with a companion <code>.yaml</code> file specifying resolution and origin.</p>
+                    <p><strong>Activity 6:</strong> The <code>.yaml</code> file specifies <code>free_thresh</code> and <code>occupied_thresh</code> to convert pixel values. <code>resolution</code> gives meters-per-pixel.</p>
                 </div>
             </section>
 
-            <!-- MC 4 -->
+            <!-- MC 4: AMCL vs SLAM -->
             <section>
-                <h2>Multiple Choice Practice 4</h2>
+                <h2>Multiple Choice 4</h2>
                 <div class="box">
                     <strong>What does AMCL (Adaptive Monte Carlo Localization) do?</strong>
                     <div style="margin-top: 20px; font-size: 0.9em;">
                         <p>&#x1F534; <strong>Red:</strong> Builds a map of the environment from lidar scans</p>
                         <p>&#x1F7E2; <strong>Green:</strong> Plans the shortest path from start to goal</p>
-                        <p>&#x26AB; <strong>Black:</strong> Estimates the robot's position on a known map using a particle filter</p>
-                        <p>&#x1F7E0; <strong>Orange:</strong> Controls the robot's wheel motors directly</p>
+                        <p>&#x26AB; <strong>Black:</strong> Estimates the robot&rsquo;s position on a known map using a particle filter</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> Controls the robot&rsquo;s wheel motors directly</p>
                     </div>
                 </div>
             </section>
 
             <!-- MC 4 Answer -->
             <section>
-                <h3>Answer: &#x26AB; Black &mdash; Estimates the robot's position on a known map using a particle filter</h3>
+                <h3>Answer: &#x26AB; Black &mdash; Estimates position on a known map via particles</h3>
                 <div class="box answer-box">
-                    <p><strong>AMCL</strong> answers the question: <strong>"Where am I on this map?"</strong></p>
+                    <p><strong>AMCL</strong> answers: <strong>&ldquo;Where am I on this map?&rdquo;</strong></p>
                     <ul>
-                        <li>Spreads many <strong>particles</strong> (guesses) across possible robot positions</li>
-                        <li>Each particle is a possible (x, y, &theta;) pose</li>
-                        <li>Compares each particle's expected lidar scan to the <strong>actual</strong> scan</li>
-                        <li>Good matches <strong>survive</strong>; poor matches are removed</li>
-                        <li>Over time, the particle cloud <strong>converges</strong> to the true pose</li>
+                        <li>Spreads <strong>particles</strong> (pose guesses) across possible positions</li>
+                        <li>Compares each particle&rsquo;s expected lidar scan to the <strong>actual</strong> scan</li>
+                        <li>Good matches survive; poor matches removed &mdash; cloud <strong>converges</strong></li>
                     </ul>
-                    <p><strong>In RViz:</strong> Green arrows start spread out, then tighten around the real position.</p>
                     <p><strong>Key distinction:</strong> SLAM <em>builds</em> the map. AMCL <em>uses</em> an existing map to localize.</p>
                 </div>
             </section>
 
-            <!-- MC 5 -->
+            <!-- MC 5: Services vs Topics -->
             <section>
-                <h2>Multiple Choice Practice 5</h2>
+                <h2>Multiple Choice 5</h2>
                 <div class="box">
-                    <strong>What is the difference between the global costmap and the local costmap in Nav2?</strong>
+                    <strong>How do ROS2 <em>services</em> differ from <em>topics</em>?</strong>
                     <div style="margin-top: 20px; font-size: 0.9em;">
-                        <p>&#x1F534; <strong>Red:</strong> The global costmap is for simulation; the local costmap is for real robots</p>
-                        <p>&#x1F7E2; <strong>Green:</strong> The global costmap covers the entire map for long-range planning; the local costmap covers a small area around the robot for real-time obstacle avoidance</p>
-                        <p>&#x26AB; <strong>Black:</strong> The global costmap uses lidar; the local costmap uses the camera</p>
-                        <p>&#x1F7E0; <strong>Orange:</strong> There is no difference &mdash; they are the same costmap viewed at different zoom levels</p>
+                        <p>&#x1F534; <strong>Red:</strong> Services are faster than topics</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> Services use a request/response pattern; topics use one-way publish/subscribe</p>
+                        <p>&#x26AB; <strong>Black:</strong> Topics can only carry sensor data; services carry commands</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> There is no difference &mdash; they are two names for the same thing</p>
                     </div>
                 </div>
             </section>
 
             <!-- MC 5 Answer -->
             <section>
-                <h3>Answer: &#x1F7E2; Green &mdash; Global = full map for planning; Local = around robot for obstacle avoidance</h3>
+                <h3>Answer: &#x1F7E2; Green &mdash; Services = request/response; Topics = one-way pub/sub</h3>
                 <div class="box answer-box">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.88em;">
+                        <div>
+                            <strong>Topics:</strong>
+                            <ul>
+                                <li>Continuous data streams</li>
+                                <li>Fire and forget</li>
+                                <li>Many-to-many</li>
+                                <li>E.g., <code>/cmd_vel</code>, <code>/scan</code></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <strong>Services:</strong>
+                            <ul>
+                                <li>One-shot request &rarr; response</li>
+                                <li>Client waits for result</li>
+                                <li>One-to-one per call</li>
+                                <li>E.g., <code>/spawn</code>, <code>/set_pen</code></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p style="margin-top: 10px;"><strong>Activity 9:</strong> Service definitions use <code>---</code> to separate request fields from response fields.</p>
+                </div>
+            </section>
+
+            <!-- MC 6: Twist message -->
+            <section>
+                <h2>Multiple Choice 6</h2>
+                <div class="box">
+                    <strong>Which fields of a <code>Twist</code> message control a ground robot&rsquo;s forward speed and turning?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>&#x1F534; <strong>Red:</strong> <code>linear.z</code> (forward) and <code>angular.x</code> (turn)</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> <code>linear.x</code> (forward) and <code>angular.z</code> (turn)</p>
+                        <p>&#x26AB; <strong>Black:</strong> <code>linear.y</code> (forward) and <code>angular.y</code> (turn)</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> <code>position.x</code> (forward) and <code>orientation.z</code> (turn)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 6 Answer -->
+            <section>
+                <h3>Answer: &#x1F7E2; Green &mdash; <code>linear.x</code> + <code>angular.z</code></h3>
+                <div class="box answer-box">
+                    <p>The <strong>Twist</strong> message has two sub-fields: <code>linear</code> (x,y,z) and <code>angular</code> (x,y,z).</p>
+                    <ul>
+                        <li><code>linear.x</code> &mdash; forward/backward speed (m/s)</li>
+                        <li><code>angular.z</code> &mdash; rotation rate (rad/s), positive = turn left</li>
+                        <li>For a differential-drive ground robot, the other fields are 0</li>
+                    </ul>
+                    <p><strong>Activity 8:</strong> <code>drive_pattern.py</code> publishes <code>Twist</code> to <code>/turtle1/cmd_vel</code>. <strong>TurtleBot3</strong> uses <code>TwistStamped</code> (adds a header with timestamp).</p>
+                </div>
+            </section>
+
+            <!-- MC 7: Costmap inflation calculation -->
+            <section>
+                <h2>Multiple Choice 7</h2>
+                <div class="box">
+                    <strong>A costmap has <code>resolution: 0.05</code> m/cell and <code>inflation_radius: 0.20</code> m. How many cells outward from a wall does inflation extend?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>&#x1F534; <strong>Red:</strong> 2 cells</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> 20 cells</p>
+                        <p>&#x26AB; <strong>Black:</strong> 4 cells</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> 5 cells</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 7 Answer -->
+            <section>
+                <h3>Answer: &#x26AB; Black &mdash; 4 cells</h3>
+                <div class="box answer-box">
+                    <p><strong>Calculation:</strong> <code>inflation_radius / resolution = 0.20 / 0.05 = 4 cells</code></p>
+                    <ul>
+                        <li>The wall cell itself is <strong>lethal</strong> (cost 254)</li>
+                        <li>Cells within <code>robot_radius</code> &rarr; <strong>inscribed</strong> (cost 253)</li>
+                        <li>Remaining cells up to 4 away &rarr; <strong>decreasing cost</strong></li>
+                        <li>Beyond 4 cells &rarr; <strong>free</strong> (cost 0)</li>
+                    </ul>
+                    <p><strong>Activity 7:</strong> 14&times;14 costmap grid exercise used exactly these values.</p>
+                </div>
+            </section>
+
+            <!-- MC 8: Global vs Local costmap -->
+            <section>
+                <h2>Multiple Choice 8</h2>
+                <div class="box">
+                    <strong>What is the difference between the global costmap and the local costmap in Nav2?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>&#x1F534; <strong>Red:</strong> The global costmap is for simulation; the local costmap is for real robots</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> The global costmap covers the entire map for long-range planning; the local costmap covers a small area around the robot for obstacle avoidance</p>
+                        <p>&#x26AB; <strong>Black:</strong> The global costmap uses lidar; the local costmap uses the camera</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> There is no difference &mdash; they are the same costmap at different zoom levels</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 8 Answer -->
+            <section>
+                <h3>Answer: &#x1F7E2; Green &mdash; Global = full map; Local = around robot</h3>
+                <div class="box answer-box">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.88em;">
                         <div>
                             <strong>Global Costmap:</strong>
                             <ul>
                                 <li>Covers the <strong>entire map</strong></li>
-                                <li>Based on the static map you saved</li>
-                                <li>Updated slowly (mostly static)</li>
+                                <li>Based on the saved static map</li>
                                 <li>Used for <strong>long-range path planning</strong></li>
                             </ul>
                         </div>
@@ -452,163 +586,129 @@
                             <ul>
                                 <li>Small area <strong>around the robot</strong></li>
                                 <li>Updated in <strong>real-time</strong> with live lidar</li>
-                                <li>Includes <strong>dynamic obstacles</strong></li>
-                                <li>Used for <strong>immediate driving decisions</strong></li>
+                                <li>Used for <strong>immediate obstacle avoidance</strong></li>
                             </ul>
                         </div>
                     </div>
-                    <p style="margin-top: 15px;"><strong>Why two?</strong> Global gives the big-picture route. Local handles moment-to-moment driving and unexpected obstacles.</p>
                 </div>
             </section>
 
-            <!-- SECTION: Short Answer -->
+            <!-- MC 9: Topics vs Actions -->
             <section>
-                <h1 style="font-size: 2.5em;">SHORT ANSWER<br>QUESTIONS</h1>
-                <p style="margin-top: 30px; font-size: 1.2em;">&#x270B; First hand up gets to answer!</p>
-            </section>
-
-            <!-- SA 1 -->
-            <section>
-                <h2>Short Answer Practice 1</h2>
+                <h2>Multiple Choice 9</h2>
                 <div class="box">
-                    <strong>Explain what SLAM stands for, describe the "chicken-and-egg" problem it solves, and name the key inputs and outputs of a SLAM algorithm.</strong>
-                </div>
-                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
-            </section>
-
-            <!-- SA 1 Answer -->
-            <section>
-                <h3>Sample Answer</h3>
-                <div class="box answer-box small">
-                    <p><strong>SLAM = Simultaneous Localization And Mapping</strong></p>
-                    <p><strong>The chicken-and-egg problem:</strong></p>
-                    <ul>
-                        <li>To build a map, you need to know <strong>where you are</strong> (to place each scan correctly)</li>
-                        <li>To know where you are, you need <strong>a map</strong> (to match your sensor data against)</li>
-                        <li>SLAM solves both problems <strong>at the same time</strong></li>
-                    </ul>
-                    <p><strong>Inputs:</strong> Sensor data (lidar scans) + Odometry (wheel encoders)</p>
-                    <p><strong>Outputs:</strong> A map (occupancy grid) + the robot's estimated trajectory</p>
-                    <p><strong>Key techniques:</strong> Scan matching (aligning consecutive scans), loop closure (recognizing a previously visited area to correct accumulated drift).</p>
-                </div>
-            </section>
-
-            <!-- SA 2 -->
-            <section>
-                <h2>Short Answer Practice 2</h2>
-                <div class="box">
-                    <strong>Explain how costmap inflation works and why the path planner sometimes produces a path that curves away from walls even when a straight line would geometrically work.</strong>
-                </div>
-                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
-            </section>
-
-            <!-- SA 2 Answer -->
-            <section>
-                <h3>Sample Answer</h3>
-                <div class="box answer-box small">
-                    <p><strong>Costmap inflation</strong> expands obstacles outward by an <code>inflation_radius</code>.</p>
-                    <ol>
-                        <li>Cells on a wall &rarr; <strong>lethal</strong> (cost 254)</li>
-                        <li>Cells within <code>robot_radius</code> of wall &rarr; <strong>inscribed</strong> (cost 253)</li>
-                        <li>Cells within <code>inflation_radius</code> &rarr; <strong>decreasing cost</strong> (closer = higher)</li>
-                        <li>Free space beyond inflation &rarr; <strong>cost 0</strong></li>
-                    </ol>
-                    <p><strong>Why paths curve:</strong></p>
-                    <ul>
-                        <li>The global planner finds the <strong>minimum-total-cost path</strong></li>
-                        <li>A straight line near a wall passes through high-cost (inflated) cells</li>
-                        <li>A curved path through cost-0 cells has a <strong>lower total cost</strong></li>
-                        <li>The planner prefers the lower-cost route even if it's slightly longer</li>
-                    </ul>
-                    <p><strong>Effect:</strong> The robot stays safely in the middle of corridors.</p>
-                </div>
-            </section>
-
-            <!-- SA 3 -->
-            <section>
-                <h2>Short Answer Practice 3</h2>
-                <div class="box">
-                    <strong>Compare topics and actions in ROS2. When would you use each, and what does an action provide that a topic does not?</strong>
-                </div>
-                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
-            </section>
-
-            <!-- SA 3 Answer -->
-            <section>
-                <h3>Sample Answer</h3>
-                <div class="box answer-box small">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div>
-                            <strong>Topics (Pub/Sub):</strong>
-                            <ul style="font-size: 0.9em;">
-                                <li>One-way data streams</li>
-                                <li>Fire and forget &mdash; no response</li>
-                                <li>Best for <strong>continuous data</strong></li>
-                                <li>Example: <code>Twist</code> to <code>/cmd_vel</code></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>Actions (Goal/Feedback/Result):</strong>
-                            <ul style="font-size: 0.9em;">
-                                <li>For <strong>long-running tasks</strong></li>
-                                <li>Client sends goal; server reports progress</li>
-                                <li>Can be <strong>cancelled</strong> mid-execution</li>
-                                <li>Example: <code>NavigateToPose</code></li>
-                            </ul>
-                        </div>
+                    <strong>Why would you use a ROS2 <em>action</em> (e.g., <code>NavigateToPose</code>) instead of publishing to a topic?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>&#x1F534; <strong>Red:</strong> Actions are faster than topics</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> Actions provide feedback during execution, a result on completion, and can be cancelled</p>
+                        <p>&#x26AB; <strong>Black:</strong> Actions can carry larger messages than topics</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> Actions are required for any message that includes position data</p>
                     </div>
-                    <p style="margin-top: 12px;"><strong>What actions add:</strong> (1) Feedback during execution, (2) Result on completion, (3) Goal accept/reject</p>
-                    <p><strong>Course connection:</strong> Activity 8 = topics (direct velocity). P4 Part 3 = actions (waypoint nav).</p>
                 </div>
             </section>
 
-            <!-- SA 4 -->
+            <!-- MC 9 Answer -->
             <section>
-                <h2>Short Answer Practice 4</h2>
+                <h3>Answer: &#x1F7E2; Green &mdash; Feedback, result, and cancellation</h3>
+                <div class="box answer-box">
+                    <p><strong>Actions</strong> are for <strong>long-running goals</strong> (e.g., navigate to a point).</p>
+                    <ul>
+                        <li><strong>Goal:</strong> Client sends a goal to the action server</li>
+                        <li><strong>Feedback:</strong> Server reports progress (e.g., current position)</li>
+                        <li><strong>Result:</strong> Final outcome when the task completes</li>
+                        <li><strong>Cancellable:</strong> Client can abort mid-execution</li>
+                    </ul>
+                    <p><strong>P4 Part 3:</strong> The waypoint node sends goals via <code>NavigateToPose</code> action, using <code>send_goal_async()</code> and a <code>result_callback</code> to chain waypoints.</p>
+                </div>
+            </section>
+
+            <!-- MC 10: Map file format -->
+            <section>
+                <h2>Multiple Choice 10</h2>
                 <div class="box">
-                    <strong>Describe how to write a ROS2 Python node that publishes velocity commands to make a robot drive forward. Include the key components: node class, publisher, timer, and the message type.</strong>
-                </div>
-                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
-            </section>
-
-            <!-- SA 4 Answer -->
-            <section>
-                <h3>Sample Answer</h3>
-                <div class="box answer-box small">
-                    <p><strong>Key components:</strong></p>
-                    <ol style="font-size: 0.88em;">
-                        <li><strong>Import</strong> <code>rclpy</code>, <code>Node</code>, and <code>Twist</code> (from <code>geometry_msgs.msg</code>)</li>
-                        <li><strong>Create a class</strong> extending <code>Node</code></li>
-                        <li>In <code>__init__</code>: call <code>super().__init__('name')</code>, create a <strong>publisher</strong> on <code>/cmd_vel</code> with type <code>Twist</code>, create a <strong>timer</strong> (e.g. 0.1s) that calls a callback</li>
-                        <li>In the <strong>callback</strong>: create <code>Twist()</code>, set <code>msg.linear.x = 0.2</code>, publish it</li>
-                        <li>In <code>main()</code>: <code>rclpy.init()</code> &rarr; create node &rarr; <code>rclpy.spin(node)</code> &rarr; <code>rclpy.shutdown()</code></li>
-                    </ol>
-                    <p><code>spin()</code> is the event loop &mdash; like Arduino's <code>loop()</code>, it processes timer callbacks.</p>
-                    <p>The <strong>Twist message</strong> has <code>linear</code> (x,y,z) and <code>angular</code> (x,y,z). For a ground robot: <code>linear.x</code> = forward speed, <code>angular.z</code> = turn rate.</p>
+                    <strong>When you save a SLAM map with <code>map_saver_cli</code>, what two files are created?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>&#x1F534; <strong>Red:</strong> <code>map.png</code> (color image) and <code>map.json</code> (waypoints)</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> <code>map.pgm</code> (grayscale image) and <code>map.yaml</code> (metadata: resolution, origin, thresholds)</p>
+                        <p>&#x26AB; <strong>Black:</strong> <code>map.bag</code> (rosbag) and <code>map.urdf</code> (robot model)</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> <code>map.csv</code> (grid values) and <code>map.xml</code> (configuration)</p>
+                    </div>
                 </div>
             </section>
 
-            <!-- SA 5 -->
+            <!-- MC 10 Answer -->
             <section>
-                <h2>Short Answer Practice 5</h2>
+                <h3>Answer: &#x1F7E2; Green &mdash; <code>.pgm</code> image + <code>.yaml</code> metadata</h3>
+                <div class="box answer-box">
+                    <ul>
+                        <li><code>.pgm</code> &mdash; Grayscale image; white=free, black=occupied, grey=unknown</li>
+                        <li><code>.yaml</code> &mdash; Metadata including:
+                            <ul>
+                                <li><code>resolution</code>: meters per pixel (e.g., 0.05)</li>
+                                <li><code>origin</code>: [x, y, yaw] of the bottom-left corner</li>
+                                <li><code>free_thresh</code> / <code>occupied_thresh</code>: probability cutoffs</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Activity 6:</strong> Real-world map dimensions = pixel count &times; resolution.</p>
+                </div>
+            </section>
+
+            <!-- MC 11: Publisher+Timer pattern -->
+            <section>
+                <h2>Multiple Choice 11</h2>
                 <div class="box">
-                    <strong>What is the sim-to-real gap? Give three specific examples of differences between a simulated robot and a physical TurtleBot 4.</strong>
+                    <strong>In the publisher+timer pattern from Activity 8, what does <code>rclpy.spin(node)</code> do?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>&#x1F534; <strong>Red:</strong> Rotates the robot in a circle</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> Runs the event loop, processing timer callbacks and incoming messages</p>
+                        <p>&#x26AB; <strong>Black:</strong> Sends a single message and exits</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> Compiles the ROS2 package before running</p>
+                    </div>
                 </div>
-                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
             </section>
 
-            <!-- SA 5 Answer -->
+            <!-- MC 11 Answer -->
             <section>
-                <h3>Sample Answer</h3>
-                <div class="box answer-box small">
-                    <p><strong>The sim-to-real gap</strong> = the difference in behavior between simulation and the real world.</p>
-                    <p><strong>Three examples:</strong></p>
-                    <ol>
-                        <li><strong>Sensor noise:</strong> Sim lidar is clean. Real RPLIDAR A1 has &plusmn; a few cm noise; glass/mirrors may not reflect; dark objects may absorb the laser.</li>
-                        <li><strong>Odometry drift:</strong> Sim encoders give near-perfect position. Real wheels slip on smooth floors &mdash; after 10m, position may be off 20+ cm. This is why AMCL is essential.</li>
-                        <li><strong>Network latency:</strong> In Docker, instant communication. Real TurtleBot communicates over Wi-Fi with 5&ndash;50 ms delay. RViz may lag behind the real robot.</li>
-                    </ol>
-                    <p><strong>Other valid:</strong> battery drainage, auto-docking, dynamic obstacles (people), cliff sensor false positives on dark floors.</p>
+                <h3>Answer: &#x1F7E2; Green &mdash; Runs the event loop</h3>
+                <div class="box answer-box">
+                    <p><code>rclpy.spin(node)</code> is the <strong>event loop</strong> &mdash; like Arduino&rsquo;s <code>loop()</code>.</p>
+                    <ul>
+                        <li>Blocks and repeatedly calls registered callbacks (timers, subscribers)</li>
+                        <li>Without <code>spin()</code>, the node exits immediately</li>
+                        <li>The <strong>node lifecycle</strong>: <code>rclpy.init()</code> &rarr; create node &rarr; <code>rclpy.spin()</code> &rarr; <code>rclpy.shutdown()</code></li>
+                    </ul>
+                    <p><strong>Activity 9:</strong> <code>wall_avoider.py</code> uses <code>create_subscription()</code> instead of a timer &mdash; both work with <code>spin()</code>.</p>
+                </div>
+            </section>
+
+            <!-- MC 12: Sim-to-real gap -->
+            <section>
+                <h2>Multiple Choice 12</h2>
+                <div class="box">
+                    <strong>Which of the following is NOT a sim-to-real challenge when deploying a ROS2 navigation system on a physical TurtleBot 4?</strong>
+                    <div style="margin-top: 20px; font-size: 0.9em;">
+                        <p>&#x1F534; <strong>Red:</strong> Odometry drift from wheel slip on smooth floors</p>
+                        <p>&#x1F7E2; <strong>Green:</strong> Sensor noise from the RPLIDAR A1 on reflective surfaces</p>
+                        <p>&#x26AB; <strong>Black:</strong> Using the same <code>NavigateToPose</code> action interface on either platform</p>
+                        <p>&#x1F7E0; <strong>Orange:</strong> Network latency over Wi-Fi between robot and laptop</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MC 12 Answer -->
+            <section>
+                <h3>Answer: &#x26AB; Black &mdash; Same action interface is NOT a challenge</h3>
+                <div class="box answer-box">
+                    <p>The <strong>ROS2 API is the same</strong> in simulation and on the real robot &mdash; that&rsquo;s the whole point!</p>
+                    <p><strong>Real sim-to-real challenges:</strong></p>
+                    <ul>
+                        <li><strong>Odometry drift:</strong> Real wheels slip; sim encoders are perfect</li>
+                        <li><strong>Sensor noise:</strong> RPLIDAR A1 has &plusmn; cm variation; glass/mirrors cause gaps</li>
+                        <li><strong>Network latency:</strong> Wi-Fi adds 5&ndash;50 ms delay; Docker has none</li>
+                        <li><strong>Auto-docking:</strong> Robot near dock &rarr; IR triggers docking unexpectedly</li>
+                        <li><strong>Battery:</strong> ~2.5 hours; sim runs forever</li>
+                    </ul>
                 </div>
             </section>
 
@@ -618,181 +718,213 @@
                 <p style="margin-top: 30px; font-size: 1.2em;">&#x270B; First hand up gets to answer!</p>
             </section>
 
-            <!-- Scenario 1 -->
+            <!-- Scenario 1: Put steps in order (Nav2 pipeline) -->
             <section>
-                <h2>Scenario Practice 1</h2>
+                <h2>Scenario 1: Put in Order</h2>
                 <div class="box">
-                    <strong>Your Nav2 robot keeps triggering recovery behaviors (spinning, backing up) near a narrow doorway instead of navigating through it. What could be wrong, and how would you fix it?</strong>
+                    <strong>A robot receives a navigation goal in Nav2. Put these steps in the correct order (1&ndash;6):</strong>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <span class="order-item">Local planner sends <code>Twist</code> to <code>/cmd_vel</code></span>
+                        <span class="order-item">AMCL localizes robot on the map</span>
+                        <span class="order-item">Global planner finds a path on the global costmap</span>
+                        <span class="order-item">Goal pose is received by Nav2</span>
+                        <span class="order-item">Local planner follows path using the local costmap</span>
+                        <span class="order-item">Robot reaches the goal</span>
+                    </div>
                 </div>
-                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
+                <p class="small-text" style="margin-top: 20px;"><em>Write the numbers 1&ndash;6 next to each step</em></p>
             </section>
 
             <!-- Scenario 1 Answer -->
             <section>
-                <h3>Sample Answer</h3>
-                <div class="box answer-box small">
-                    <p><strong>Likely problem:</strong> The <code>inflation_radius</code> is too large, causing inflated costmap to fill the doorway. The planner finds no path.</p>
-                    <p><strong>Diagnosis:</strong></p>
-                    <ul>
-                        <li>Visualize the costmap in RViz &mdash; check if the doorway is fully blocked by inflation</li>
-                        <li>Check if <code>robot_radius</code> is set correctly</li>
-                        <li>Look for the global path &mdash; if no green line appears, the doorway is blocked</li>
-                    </ul>
-                    <p><strong>Fixes:</strong></p>
-                    <ol>
-                        <li>Reduce <code>inflation_radius</code> so the buffer fits the opening</li>
-                        <li>Check <code>robot_radius</code> &mdash; too large = inscribed zone blocks passage</li>
-                        <li>Reduce <code>cost_scaling_factor</code> for faster inflation decay</li>
+                <h3>Correct Order</h3>
+                <div class="box answer-box">
+                    <ol style="font-size: 0.88em;">
+                        <li><strong>Goal pose is received by Nav2</strong> (user clicks in RViz or action client sends it)</li>
+                        <li><strong>AMCL localizes robot on the map</strong> (determines current position via particle filter)</li>
+                        <li><strong>Global planner finds a path on the global costmap</strong> (full-map shortest path)</li>
+                        <li><strong>Local planner follows path using the local costmap</strong> (real-time obstacle avoidance)</li>
+                        <li><strong>Local planner sends <code>Twist</code> to <code>/cmd_vel</code></strong> (velocity commands drive the motors)</li>
+                        <li><strong>Robot reaches the goal</strong> (within <code>xy_goal_tolerance</code>)</li>
                     </ol>
-                    <p><strong>Key principle:</strong> <code>robot_radius</code> + <code>inflation_radius</code> together determine the minimum passable corridor width.</p>
+                    <p style="margin-top: 10px;"><strong>Nav2 pipeline:</strong> Goal &rarr; AMCL &rarr; Global Planner &rarr; Local Planner &rarr; /cmd_vel &rarr; Done</p>
                 </div>
             </section>
 
-            <!-- Scenario 2 -->
+            <!-- Scenario 2: Interpret ROS2 command output -->
             <section>
-                <h2>Scenario Practice 2</h2>
-                <div class="box">
-                    <strong>You need to write a ROS2 node that navigates a TurtleBot to three waypoints in sequence: (1.0, 0.0), (2.0, 1.0), and (0.0, 0.0). Describe the node structure and how you handle the transition from one waypoint to the next.</strong>
+                <h2>Scenario 2: Interpret the Output</h2>
+                <div class="box" style="font-size: 0.82em;">
+                    <strong>A student runs the following commands and gets this output. Answer the questions below.</strong>
+                    <pre style="margin-top: 12px;"><code>$ ros2 topic info /cmd_vel
+Type: geometry_msgs/msg/Twist
+Publisher count: 2
+Subscription count: 1
+
+$ ros2 topic info /scan
+Type: sensor_msgs/msg/LaserScan
+Publisher count: 1
+Subscription count: 3</code></pre>
+                    <div style="margin-top: 15px;">
+                        <p><strong>a)</strong> How many nodes are publishing velocity commands?</p>
+                        <p><strong>b)</strong> How many nodes are consuming the lidar data?</p>
+                        <p><strong>c)</strong> Is this a problem that two nodes are publishing to <code>/cmd_vel</code>? Why or why not?</p>
+                    </div>
                 </div>
-                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
             </section>
 
             <!-- Scenario 2 Answer -->
             <section>
-                <h3>Sample Answer</h3>
+                <h3>Answer</h3>
                 <div class="box answer-box small">
-                    <p><strong>Structure:</strong></p>
-                    <ol style="font-size: 0.88em;">
-                        <li>Create an <code>ActionClient</code> for <code>NavigateToPose</code></li>
-                        <li>Store waypoints as a list, track <code>self.current = 0</code></li>
-                        <li>Call <code>wait_for_server()</code> to ensure Nav2 is ready</li>
-                        <li>Create <code>PoseStamped</code> with <code>frame_id='map'</code> and waypoint coords</li>
-                        <li>Send goal with <code>send_goal_async(goal)</code></li>
-                    </ol>
-                    <p><strong>Transition pattern:</strong></p>
-                    <ul style="font-size: 0.88em;">
-                        <li><code>goal_response_callback</code>: check accepted, then <code>get_result_async()</code></li>
-                        <li><code>result_callback</code>: increment index, call <code>send_next_goal()</code> if more remain</li>
-                        <li>When all done, log "Route complete!"</li>
+                    <p><strong>a)</strong> <strong>2</strong> nodes are publishing velocity commands to <code>/cmd_vel</code>.</p>
+                    <p><strong>b)</strong> <strong>3</strong> nodes are consuming (subscribing to) the lidar data on <code>/scan</code>.</p>
+                    <p><strong>c)</strong> Yes, it can be a problem! Two publishers on <code>/cmd_vel</code> means both are sending competing velocity commands to the robot. The robot will execute <strong>whichever message arrives last</strong>, causing jerky or unpredictable behavior.</p>
+                    <ul>
+                        <li><strong>Example:</strong> Teleop + a navigation node both publishing &mdash; robot fights itself</li>
+                        <li><strong>Fix:</strong> Stop one publisher (e.g., close the teleop terminal before running Nav2)</li>
+                        <li><strong>/scan having 3 subscribers is fine</strong> &mdash; topics support many subscribers with no conflict</li>
                     </ul>
-                    <p><strong>Critical:</strong> Set <code>frame_id='map'</code> (not <code>base_link</code>). Set initial pose in RViz first. Handle rejection. Orientation uses quaternions.</p>
                 </div>
             </section>
 
-            <!-- Scenario 3 -->
+            <!-- Scenario 3: Costmap grid drawing -->
             <section>
-                <h2>Scenario Practice 3</h2>
-                <div class="box">
-                    <strong>A student's simulation map has clean, sharp walls. Their real-world TurtleBot 4 map has thick, noisy walls with gaps. What causes these differences, and how can they improve the real-world map?</strong>
+                <h2>Scenario 3: Draw the Costmap</h2>
+                <div class="box" style="font-size: 0.82em;">
+                    <strong>Given this 8&times;8 grid with walls (W), <code>robot_radius = 1 cell</code>, and <code>inflation_radius = 2 cells</code>, mark all inscribed (I) and inflated (&#x2606;) cells.</strong>
+                    <table class="grid-table" style="margin: 15px auto;">
+                        <tr>
+                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="wall">W</td><td class="wall">W</td><td class="free"></td><td class="free"></td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="wall">W</td><td class="wall">W</td><td class="free"></td><td class="free"></td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                        </tr>
+                    </table>
+                    <p style="font-size: 0.85em;">Hint: Inscribed cells are within <code>robot_radius</code> of a wall. Inflated cells are within <code>inflation_radius</code> but outside inscribed zone.</p>
                 </div>
-                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
             </section>
 
             <!-- Scenario 3 Answer -->
             <section>
-                <h3>Sample Answer</h3>
-                <div class="box answer-box small">
-                    <p><strong>Causes:</strong></p>
-                    <ol style="font-size: 0.88em;">
-                        <li><strong>Sensor noise:</strong> RPLIDAR A1 has &plusmn; cm variation &rarr; walls look thicker</li>
-                        <li><strong>Reflective/absorbing surfaces:</strong> Glass, whiteboards, dark furniture create gaps</li>
-                        <li><strong>Odometry drift:</strong> Wheel slip causes scan misalignment &rarr; blurred walls</li>
-                        <li><strong>Dynamic obstacles:</strong> People walking through leave ghost traces</li>
-                        <li><strong>Irregular objects:</strong> Chair legs, cables &ne; clean sim walls</li>
-                    </ol>
-                    <p><strong>Improvements:</strong></p>
-                    <ul style="font-size: 0.88em;">
-                        <li>Drive slowly (0.1&ndash;0.15 m/s) for better scan alignment</li>
-                        <li>Revisit starting area for <strong>loop closure</strong></li>
-                        <li>Map when space is empty; keep dock away from mapping area</li>
-                        <li>Use consistent, steady movements &mdash; avoid fast turns</li>
+                <h3>Answer: Costmap Inflation</h3>
+                <div class="box answer-box" style="font-size: 0.82em;">
+                    <table class="grid-table" style="margin: 10px auto;">
+                        <tr>
+                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inscribed">I</td><td class="wall">W</td><td class="wall">W</td><td class="inscribed">I</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inscribed">I</td><td class="wall">W</td><td class="wall">W</td><td class="inscribed">I</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inscribed">I</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="inflated">&#x2606;</td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                        </tr>
+                        <tr>
+                            <td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td><td class="free"></td>
+                        </tr>
+                    </table>
+                    <ul style="font-size: 0.85em; margin-top: 10px;">
+                        <li><strong class="wall" style="padding: 2px 6px; border-radius: 3px;">W</strong> = Lethal (cost 254) &mdash; actual wall</li>
+                        <li><strong class="inscribed" style="padding: 2px 6px; border-radius: 3px;">I</strong> = Inscribed (cost 253) &mdash; within 1 cell of wall &mdash; robot center here = guaranteed collision</li>
+                        <li><strong class="inflated" style="padding: 2px 6px; border-radius: 3px;">&#x2606;</strong> = Inflated (decreasing cost) &mdash; within 2 cells of wall &mdash; planner prefers to avoid</li>
                     </ul>
                 </div>
             </section>
 
-            <!-- Scenario 4 -->
+            <!-- Scenario 4: Match the concept -->
             <section>
-                <h2>Scenario Practice 4</h2>
-                <div class="box">
-                    <strong>Your robot navigates well in an open room but oscillates wildly in a long, featureless corridor. Give one localization cause and one local planner cause, and how to fix each.</strong>
+                <h2>Scenario 4: Match the ROS2 Command to Its Output</h2>
+                <div class="box" style="font-size: 0.82em;">
+                    <strong>Match each command (1&ndash;5) with the description of what it shows (A&ndash;E):</strong>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                        <div>
+                            <strong>Commands:</strong>
+                            <ol>
+                                <li><code>ros2 node list</code></li>
+                                <li><code>ros2 topic echo /scan</code></li>
+                                <li><code>ros2 topic hz /turtle1/pose</code></li>
+                                <li><code>ros2 service list</code></li>
+                                <li><code>ros2 topic info /cmd_vel</code></li>
+                            </ol>
+                        </div>
+                        <div>
+                            <strong>Outputs:</strong>
+                            <p style="margin: 4px 0;"><strong>A.</strong> Shows publisher/subscriber counts and message type for a topic</p>
+                            <p style="margin: 4px 0;"><strong>B.</strong> Prints live laser distance measurements as they arrive</p>
+                            <p style="margin: 4px 0;"><strong>C.</strong> Lists all available request/response endpoints</p>
+                            <p style="margin: 4px 0;"><strong>D.</strong> Shows all running processes in the ROS2 graph</p>
+                            <p style="margin: 4px 0;"><strong>E.</strong> Reports the publish rate (~62 Hz) of a topic</p>
+                        </div>
+                    </div>
                 </div>
-                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
             </section>
 
             <!-- Scenario 4 Answer -->
             <section>
-                <h3>Sample Answer</h3>
-                <div class="box answer-box small">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div>
-                            <strong>Localization (AMCL):</strong>
-                            <ul style="font-size: 0.85em;">
-                                <li>Featureless corridor &rarr; every position looks the same</li>
-                                <li>Particles spread out &mdash; robot is uncertain of its position</li>
-                                <li><strong>Fix:</strong> Increase <code>max_particles</code>; reduce <code>odom_alpha</code> if odometry is unreliable</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>Local planner (DWB):</strong>
-                            <ul style="font-size: 0.85em;">
-                                <li><code>lookahead_dist</code> too large &rarr; overshoots corrections</li>
-                                <li><code>max_angular_vel</code> too high &rarr; aggressive turns</li>
-                                <li><strong>Fix:</strong> Reduce <code>lookahead_dist</code> and <code>max_angular_vel</code>; lower <code>desired_linear_vel</code></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <p style="margin-top: 12px;"><strong>Key insight:</strong> Featureless environments are hardest for both localization (no landmarks) and control (no nearby constraints). Tune for the worst case.</p>
-                </div>
-            </section>
-
-            <!-- Scenario 5 -->
-            <section>
-                <h2>Scenario Practice 5</h2>
-                <div class="box">
-                    <strong>Your team has a working waypoint node in Gazebo simulation. You need to deploy it on a physical TurtleBot 4. List the key deployment steps, and identify three things that could go wrong that wouldn't happen in simulation.</strong>
-                </div>
-                <p class="small-text" style="margin-top: 30px;"><em>First hand up gets to answer!</em></p>
-            </section>
-
-            <!-- Scenario 5 Answer -->
-            <section>
-                <h3>Sample Answer</h3>
-                <div class="box answer-box small">
-                    <p><strong>Deployment steps:</strong></p>
-                    <ol style="font-size: 0.85em;">
-                        <li>Build a real-world map (undock, SLAM, drive slowly, save map)</li>
-                        <li>Update waypoint coordinates for the real environment (use RViz hover)</li>
-                        <li>Transfer, <code>colcon build</code>, source workspace</li>
-                        <li>Set initial pose precisely in RViz</li>
-                        <li>Test one waypoint first before full route</li>
-                    </ol>
-                    <p><strong>Three real-world failures:</strong></p>
-                    <ol style="font-size: 0.85em;">
-                        <li><strong>Auto-docking:</strong> Robot wanders near dock &rarr; IR triggers docking &rarr; lidar stops, <code>/cmd_vel</code> ignored. Fix: keep dock away.</li>
-                        <li><strong>Odometry drift at goal:</strong> Robot oscillates near waypoint &mdash; can't reach tight tolerance. Fix: increase tolerance to 0.3&ndash;0.5 m.</li>
-                        <li><strong>Network latency:</strong> Wi-Fi delay causes timing issues with callbacks. Fix: always wait for result before sending next goal. Use <code>ROS_DOMAIN_ID</code> to avoid cross-talk.</li>
-                    </ol>
+                <h3>Answer</h3>
+                <div class="box answer-box">
+                    <table style="font-size: 0.88em;">
+                        <thead><tr><th>Command</th><th>Match</th><th>What It Does</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>ros2 node list</code></td><td><strong>D</strong></td><td>Lists all running nodes (processes)</td></tr>
+                            <tr><td><code>ros2 topic echo /scan</code></td><td><strong>B</strong></td><td>Prints live messages from the lidar topic</td></tr>
+                            <tr><td><code>ros2 topic hz /turtle1/pose</code></td><td><strong>E</strong></td><td>Measures publish rate (~62 Hz for turtlesim pose)</td></tr>
+                            <tr><td><code>ros2 service list</code></td><td><strong>C</strong></td><td>Lists available services (e.g., <code>/spawn</code>, <code>/set_pen</code>)</td></tr>
+                            <tr><td><code>ros2 topic info /cmd_vel</code></td><td><strong>A</strong></td><td>Shows type, publisher count, subscriber count</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 10px; font-size: 0.85em;"><strong>Key:</strong> <code>echo</code> = see data, <code>hz</code> = see rate, <code>info</code> = see metadata, <code>list</code> = see everything.</p>
                 </div>
             </section>
 
             <!-- Key Concepts Summary -->
             <section>
                 <h2>Key Concepts to Remember</h2>
-                <table style="font-size: 0.75em;">
+                <table style="font-size: 0.72em;">
                     <thead><tr><th>Concept</th><th>What It Does</th><th>Key Detail</th></tr></thead>
                     <tbody>
                         <tr><td><strong>Node</strong></td><td>Independent process in ROS2 graph</td><td>One job per node</td></tr>
-                        <tr><td><strong>Topic</strong></td><td>Named channel for pub/sub messaging</td><td>Decoupled communication</td></tr>
-                        <tr><td><strong>Twist message</strong></td><td>Velocity command</td><td><code>linear.x</code> + <code>angular.z</code></td></tr>
+                        <tr><td><strong>Topic</strong></td><td>Named channel for pub/sub messaging</td><td>Decoupled, many-to-many</td></tr>
+                        <tr><td><strong>Service</strong></td><td>Request/response communication</td><td>One-shot, <code>---</code> separator in definition</td></tr>
+                        <tr><td><strong>Action</strong></td><td>Long-running goal with feedback</td><td>Goal &rarr; feedback &rarr; result; cancellable</td></tr>
+                        <tr><td><strong>Twist</strong></td><td>Velocity command</td><td><code>linear.x</code> + <code>angular.z</code></td></tr>
                         <tr><td><strong>SLAM</strong></td><td>Build map + track position simultaneously</td><td>Inputs: lidar + odometry</td></tr>
-                        <tr><td><strong>Occupancy grid</strong></td><td>Grid map with cell probabilities</td><td>0=free, 100=occupied, &minus;1=unknown</td></tr>
-                        <tr><td><strong>AMCL</strong></td><td>Localize on a known map</td><td>Particle filter, converges over time</td></tr>
+                        <tr><td><strong>Occupancy grid</strong></td><td>Grid map: 0=free, 100=occupied, &minus;1=unknown</td><td><code>.pgm</code> + <code>.yaml</code> files</td></tr>
+                        <tr><td><strong>AMCL</strong></td><td>Localize on a known map</td><td>Particle filter converges over time</td></tr>
                         <tr><td><strong>Costmap</strong></td><td>Cost grid for path planning</td><td>Global (full map) + Local (around robot)</td></tr>
-                        <tr><td><strong>Inflation</strong></td><td>Expand obstacles for safety</td><td><code>robot_radius</code> + <code>inflation_radius</code></td></tr>
-                        <tr><td><strong>Nav2</strong></td><td>Full navigation stack</td><td>AMCL + costmaps + planner + controller</td></tr>
-                        <tr><td><strong>Action</strong></td><td>Long-running goal with feedback</td><td>Goal &rarr; feedback &rarr; result</td></tr>
-                        <tr><td><strong>NavigateToPose</strong></td><td>Send nav goals programmatically</td><td><code>frame_id='map'</code>, quaternion orientation</td></tr>
-                        <tr><td><strong>Sim-to-real gap</strong></td><td>Behavior difference sim vs. reality</td><td>Noise, drift, latency, battery</td></tr>
+                        <tr><td><strong>Inflation</strong></td><td>Expand obstacles for safety</td><td>cells = <code>inflation_radius / resolution</code></td></tr>
+                        <tr><td><strong>Nav2 pipeline</strong></td><td>Full navigation stack</td><td>Goal &rarr; AMCL &rarr; Planner &rarr; Controller &rarr; /cmd_vel</td></tr>
+                        <tr><td><strong>Sim-to-real gap</strong></td><td>Behavior difference sim vs. reality</td><td>Noise, drift, latency, docking, battery</td></tr>
                     </tbody>
                 </table>
             </section>
@@ -803,12 +935,17 @@
                 <div class="box" style="font-size: 0.82em;">
                     <pre style="border: none; margin: 0; padding: 0; background: transparent;"><code style="background: transparent; font-size: 0.9em;">ros2 node list            # See all running nodes
 ros2 topic list           # See all active topics
-ros2 topic echo /scan     # View messages on a topic
+ros2 topic echo /scan     # View live messages on a topic
 ros2 topic hz /scan       # Check publish rate
-ros2 topic info /cmd_vel  # See publishers/subscribers
+ros2 topic info /cmd_vel  # See type + publisher/subscriber counts
+ros2 service list         # See all available services
+ros2 interface show &lt;type&gt; # See message/service field definitions
+
+# Save a SLAM map
+ros2 run nav2_map_server map_saver_cli -f ~/map
 
 # Build and run a package
-cd ~/ros2_ws && colcon build --packages-select my_pkg
+cd ~/ros2_ws &amp;&amp; colcon build --packages-select my_pkg
 source install/setup.bash
 ros2 run my_pkg my_node</code></pre>
                 </div>
@@ -821,10 +958,10 @@ ros2 run my_pkg my_node</code></pre>
                     <strong>Exam Tips:</strong>
                     <ul>
                         <li>Know the <strong>distinction</strong> between SLAM (builds map) and AMCL (uses map)</li>
-                        <li>Understand <strong>topics vs. actions</strong> and when to use each</li>
-                        <li>Be able to describe the <strong>Nav2 pipeline</strong>: map &rarr; AMCL &rarr; costmaps &rarr; global planner &rarr; local planner &rarr; /cmd_vel</li>
+                        <li>Understand <strong>topics vs. services vs. actions</strong> and when to use each</li>
+                        <li>Be able to trace the <strong>Nav2 pipeline</strong>: Goal &rarr; AMCL &rarr; Costmaps &rarr; Planner &rarr; Controller &rarr; /cmd_vel</li>
                         <li>Know the <strong>sim-to-real differences</strong> and why they matter</li>
-                        <li>Practice explaining concepts in your own words</li>
+                        <li>Practice the <strong>costmap inflation calculation</strong>: cells = inflation_radius / resolution</li>
                     </ul>
                 </div>
             </section>
