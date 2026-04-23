@@ -15,3 +15,4 @@ weight = 4
 - [Activity 7: Navigation Under the Hood](/activities/activity7) - Due April 3rd by 11:00 AM
 - [Activity 8: Writing Your First ROS2 Node](https://classroom.github.com/a/3pXu3zFy) - Due April 8th by 11:00 AM
 - [Activity 9: ROS2 Services and Subscriber Nodes](https://classroom.github.com/a/kZ5emY6L) - Due April 14th by 11:00 AM
+- [Activity 10: Course Surveys](/activities/activity10) - Due April 24th by 11:00 AM
